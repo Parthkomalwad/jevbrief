@@ -10,7 +10,7 @@
     "Example home",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e07e005",
@@ -18,7 +18,7 @@
     "New",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "ece5ed7",
@@ -26,7 +26,7 @@
     "Women",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "eaee3eb",
@@ -34,7 +34,7 @@
     "Men",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e4c9fd1",
@@ -42,7 +42,7 @@
     "Kids",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "edfcc07",
@@ -50,7 +50,7 @@
     "Home",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "ef391f7",
@@ -58,7 +58,7 @@
     "Sale",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e1e9955",
@@ -66,7 +66,7 @@
     "Brands",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e64301e",
@@ -74,7 +74,7 @@
     "Deals",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "effc165",
@@ -202,7 +202,7 @@
     "Search Example",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e726783",
@@ -210,7 +210,7 @@
     "Open menu",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "efedcb5",
@@ -226,7 +226,7 @@
     "Help",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "edee168",
@@ -234,7 +234,7 @@
     "My account",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e17fe79",
@@ -258,7 +258,7 @@
     "Shoes",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "eba7fd1",
@@ -266,7 +266,7 @@
     "Trail Runner 2",
     0.5,
     false,
-    "not_interactive"
+    "web.not_interactive"
    ],
    [
     "e28c05e",
@@ -274,7 +274,7 @@
     "4.6 stars (1,203 reviews)",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e84aa34",
@@ -282,7 +282,7 @@
     "Size",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e1e6306",
@@ -290,7 +290,7 @@
     "Quantity",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e40a812",
@@ -330,7 +330,7 @@
     "Size guide",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e6db1be",
@@ -346,7 +346,7 @@
     "Free shipping over $50",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "eba5ab0",
@@ -354,7 +354,7 @@
     "You may also like",
     0.5,
     false,
-    "not_interactive"
+    "web.not_interactive"
    ],
    [
     "e2a3638",
@@ -554,7 +554,7 @@
     "Company",
     0.5,
     false,
-    "not_interactive"
+    "web.not_interactive"
    ],
    [
     "ea3d647",
@@ -793,7 +793,7 @@
     "New",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "ece5ed7",
@@ -801,7 +801,7 @@
     "Women",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "eaee3eb",
@@ -809,7 +809,7 @@
     "Men",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e4c9fd1",
@@ -817,7 +817,7 @@
     "Kids",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "edfcc07",
@@ -825,7 +825,7 @@
     "Home",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "ef391f7",
@@ -833,7 +833,7 @@
     "Sale",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e1e9955",
@@ -841,7 +841,7 @@
     "Brands",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e64301e",
@@ -849,7 +849,7 @@
     "Deals",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "effc165",
@@ -985,7 +985,7 @@
     "Open menu",
     0.8,
     true,
-    "near_goal_input"
+    "web.near_goal_input"
    ],
    [
     "efedcb5",
@@ -1001,7 +1001,7 @@
     "Help",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "edee168",
@@ -1017,7 +1017,7 @@
     "Welcome back",
     0.5,
     false,
-    "not_interactive"
+    "web.not_interactive"
    ],
    [
     "ea704d7",
@@ -1025,7 +1025,7 @@
     "Email address",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "edf6871",
@@ -1033,7 +1033,7 @@
     "Password",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "ee4fa62",
@@ -1041,7 +1041,7 @@
     "Keep me signed in",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "eb6e945",
@@ -1049,7 +1049,7 @@
     "Forgot your password?",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e1f524f",
@@ -1057,7 +1057,7 @@
     "Sign in",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e2c609f",
@@ -1065,7 +1065,7 @@
     "Continue with Google",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e4316b3",
@@ -1073,7 +1073,7 @@
     "Continue with Apple",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "edaa833",
@@ -1081,7 +1081,7 @@
     "New here?",
     0.5,
     false,
-    "not_interactive"
+    "web.not_interactive"
    ],
    [
     "ebcf90a",
@@ -1097,7 +1097,7 @@
     "Company",
     0.5,
     false,
-    "not_interactive"
+    "web.not_interactive"
    ],
    [
     "ea3d647",
@@ -1328,7 +1328,7 @@
     "Example home",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e07e005",
@@ -1336,7 +1336,7 @@
     "New",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "ece5ed7",
@@ -1344,7 +1344,7 @@
     "Women",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "eaee3eb",
@@ -1352,7 +1352,7 @@
     "Men",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e4c9fd1",
@@ -1360,7 +1360,7 @@
     "Kids",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "edfcc07",
@@ -1368,7 +1368,7 @@
     "Home",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "ef391f7",
@@ -1376,7 +1376,7 @@
     "Sale",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e1e9955",
@@ -1384,7 +1384,7 @@
     "Brands",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e64301e",
@@ -1392,7 +1392,7 @@
     "Deals",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "effc165",
@@ -1520,7 +1520,7 @@
     "Search Example",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e726783",
@@ -1528,7 +1528,7 @@
     "Open menu",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "efedcb5",
@@ -1544,7 +1544,7 @@
     "Help",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "edee168",
@@ -1552,7 +1552,7 @@
     "My account",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e7478e4",
@@ -1560,7 +1560,7 @@
     "Shopping cart (2 items)",
     0.5,
     false,
-    "not_interactive"
+    "web.not_interactive"
    ],
    [
     "e4fafd8",
@@ -1568,7 +1568,7 @@
     "Trail Runner 2",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "ef3ff95",
@@ -1576,7 +1576,7 @@
     "q1",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e6efe13",
@@ -1584,7 +1584,7 @@
     "Remove",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e31ff6e",
@@ -1592,7 +1592,7 @@
     "Save for later",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e974e37",
@@ -1600,7 +1600,7 @@
     "Wool socks",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e2633ae",
@@ -1608,7 +1608,7 @@
     "q2",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e162b75",
@@ -1632,7 +1632,7 @@
     "Promo code",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "ee51815",
@@ -1640,7 +1640,7 @@
     "Apply",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e5812b4",
@@ -1656,7 +1656,7 @@
     "Check out with PayPal",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "ec73af0",
@@ -1664,7 +1664,7 @@
     "Continue shopping",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "eba5ab0",
@@ -1672,7 +1672,7 @@
     "You may also like",
     0.5,
     false,
-    "not_interactive"
+    "web.not_interactive"
    ],
    [
     "e2ed995",
@@ -1680,7 +1680,7 @@
     "Deal item 1",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "ecc7c20",
@@ -1688,7 +1688,7 @@
     "Add to cart",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e10bbae",
@@ -1696,7 +1696,7 @@
     "Save deal item 1",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "eda7a18",
@@ -1704,7 +1704,7 @@
     "Deal item 2",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "ed955e8",
@@ -1720,7 +1720,7 @@
     "Save deal item 2",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "ec677fc",
@@ -1728,7 +1728,7 @@
     "Deal item 3",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e42b61e",
@@ -1744,7 +1744,7 @@
     "Save deal item 3",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e9a0818",
@@ -1752,7 +1752,7 @@
     "Deal item 4",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e554992",
@@ -1768,7 +1768,7 @@
     "Save deal item 4",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "ebef82b",
@@ -1776,7 +1776,7 @@
     "Deal item 5",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "ed2e768",
@@ -1792,7 +1792,7 @@
     "Save deal item 5",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e64db84",
@@ -1800,7 +1800,7 @@
     "Deal item 6",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e70c492",
@@ -1816,7 +1816,7 @@
     "Save deal item 6",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "ed0f766",
@@ -1824,7 +1824,7 @@
     "Company",
     0.5,
     false,
-    "not_interactive"
+    "web.not_interactive"
    ],
    [
     "ea3d647",
@@ -2055,7 +2055,7 @@
     "Widget home",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e97a953",
@@ -2063,7 +2063,7 @@
     "Docs",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "ecc9543",
@@ -2071,7 +2071,7 @@
     "Guides",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "eac7038",
@@ -2079,7 +2079,7 @@
     "API",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "ed4cc0e",
@@ -2087,7 +2087,7 @@
     "Blog",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e7d12fc",
@@ -2095,7 +2095,7 @@
     "Community",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "ee1baef",
@@ -2103,7 +2103,7 @@
     "Pricing",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "effc165",
@@ -2231,7 +2231,7 @@
     "Search Widget",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e726783",
@@ -2239,7 +2239,7 @@
     "Open menu",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "efedcb5",
@@ -2255,7 +2255,7 @@
     "Help",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "edee168",
@@ -2263,7 +2263,7 @@
     "My account",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e1dfa27",
@@ -2271,7 +2271,7 @@
     "Widget SDK documentation",
     0.5,
     false,
-    "not_interactive"
+    "web.not_interactive"
    ],
    [
     "ee3775a",
@@ -2279,7 +2279,7 @@
     "Search docs",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e84976e",
@@ -2287,7 +2287,7 @@
     "Introduction",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "eb34d70",
@@ -2295,7 +2295,7 @@
     "Quickstart",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e2c950e",
@@ -2303,7 +2303,7 @@
     "Installation",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e66dc99",
@@ -2311,7 +2311,7 @@
     "Configuration",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e067cf8",
@@ -2319,7 +2319,7 @@
     "API reference",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e0f30a4",
@@ -2327,7 +2327,7 @@
     "CLI",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e3bddb5",
@@ -2335,7 +2335,7 @@
     "FAQ",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e829e8b",
@@ -2343,7 +2343,7 @@
     "Changelog",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e5d81b7",
@@ -2351,7 +2351,7 @@
     "Migration guide",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e5e1f72",
@@ -2359,7 +2359,7 @@
     "Contributing",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e1f1246",
@@ -2367,7 +2367,7 @@
     "Copy",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e324e1d",
@@ -2375,7 +2375,7 @@
     "Toggle theme",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "ea91c52",
@@ -2383,7 +2383,7 @@
     "GitHub",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "ed0f766",
@@ -2391,7 +2391,7 @@
     "Company",
     0.5,
     false,
-    "not_interactive"
+    "web.not_interactive"
    ],
    [
     "ea3d647",
@@ -2622,7 +2622,7 @@
     "Accounts home",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e07e005",
@@ -2630,7 +2630,7 @@
     "New",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "ece5ed7",
@@ -2638,7 +2638,7 @@
     "Women",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "eaee3eb",
@@ -2646,7 +2646,7 @@
     "Men",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e4c9fd1",
@@ -2654,7 +2654,7 @@
     "Kids",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "edfcc07",
@@ -2662,7 +2662,7 @@
     "Home",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "ef391f7",
@@ -2670,7 +2670,7 @@
     "Sale",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e1e9955",
@@ -2678,7 +2678,7 @@
     "Brands",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e64301e",
@@ -2686,7 +2686,7 @@
     "Deals",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "effc165",
@@ -2814,7 +2814,7 @@
     "Search Accounts",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e726783",
@@ -2822,7 +2822,7 @@
     "Open menu",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "efedcb5",
@@ -2838,7 +2838,7 @@
     "Help",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "edee168",
@@ -2846,7 +2846,7 @@
     "My account",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "ee304d6",
@@ -2854,7 +2854,7 @@
     "Settings",
     0.5,
     false,
-    "not_interactive"
+    "web.not_interactive"
    ],
    [
     "ebc1f6c",
@@ -2862,7 +2862,7 @@
     "Profile",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e968a43",
@@ -2870,7 +2870,7 @@
     "Notifications",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e5e943e",
@@ -2878,7 +2878,7 @@
     "Billing",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e63e2f1",
@@ -2886,7 +2886,7 @@
     "Security",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e44de66",
@@ -2894,7 +2894,7 @@
     "Profile",
     0.5,
     false,
-    "not_interactive"
+    "web.not_interactive"
    ],
    [
     "e551155",
@@ -2902,7 +2902,7 @@
     "Display name",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e4eb1a1",
@@ -2910,7 +2910,7 @@
     "Save changes",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e43fc29",
@@ -2918,7 +2918,7 @@
     "Security",
     0.5,
     false,
-    "not_interactive"
+    "web.not_interactive"
    ],
    [
     "eb225ab",
@@ -2934,7 +2934,7 @@
     "Set up two-factor authentication",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "eafea1b",
@@ -2942,7 +2942,7 @@
     "Sign out of all devices",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e81058d",
@@ -2950,7 +2950,7 @@
     "Danger zone",
     0.5,
     false,
-    "not_interactive"
+    "web.not_interactive"
    ],
    [
     "efbcc09",
@@ -2958,7 +2958,7 @@
     "Delete account",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "ed0f766",
@@ -2966,7 +2966,7 @@
     "Company",
     0.5,
     false,
-    "not_interactive"
+    "web.not_interactive"
    ],
    [
     "ea3d647",
@@ -3197,7 +3197,7 @@
     "Daily home",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "ed35975",
@@ -3205,7 +3205,7 @@
     "World",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e36d2d9",
@@ -3213,7 +3213,7 @@
     "Politics",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "ec3e040",
@@ -3221,7 +3221,7 @@
     "Business",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "ed51a64",
@@ -3229,7 +3229,7 @@
     "Tech",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e9ffc95",
@@ -3237,7 +3237,7 @@
     "Science",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e1f1b1a",
@@ -3245,7 +3245,7 @@
     "Sports",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e93fb4e",
@@ -3253,7 +3253,7 @@
     "Opinion",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e372d08",
@@ -3261,7 +3261,7 @@
     "Video",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "effc165",
@@ -3389,7 +3389,7 @@
     "Search Daily",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e726783",
@@ -3397,7 +3397,7 @@
     "Open menu",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "efedcb5",
@@ -3413,7 +3413,7 @@
     "Help",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "edee168",
@@ -3421,7 +3421,7 @@
     "My account",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "ea10881",
@@ -3429,7 +3429,7 @@
     "City council approves new park",
     0.5,
     false,
-    "not_interactive"
+    "web.not_interactive"
    ],
    [
     "ebdb0aa",
@@ -3437,7 +3437,7 @@
     "Share",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "ebe077b",
@@ -3445,7 +3445,7 @@
     "Save",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e950f23",
@@ -3453,7 +3453,7 @@
     "Listen",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "eecfdd1",
@@ -3461,7 +3461,7 @@
     "City",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e54452d",
@@ -3469,7 +3469,7 @@
     "Parks",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e9e1f5c",
@@ -3477,7 +3477,7 @@
     "Most read",
     0.5,
     false,
-    "not_interactive"
+    "web.not_interactive"
    ],
    [
     "ea672c0",
@@ -3485,7 +3485,7 @@
     "Top story number 1",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e8c6032",
@@ -3493,7 +3493,7 @@
     "Top story number 2",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "ee95c04",
@@ -3501,7 +3501,7 @@
     "Top story number 3",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e8b795b",
@@ -3509,7 +3509,7 @@
     "Top story number 4",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e6ec812",
@@ -3517,7 +3517,7 @@
     "Top story number 5",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e835f69",
@@ -3525,7 +3525,7 @@
     "Top story number 6",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "eda82ee",
@@ -3533,7 +3533,7 @@
     "Top story number 7",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "ee8f425",
@@ -3541,7 +3541,7 @@
     "Top story number 8",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "ee07af3",
@@ -3549,7 +3549,7 @@
     "Top story number 9",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e152163",
@@ -3557,7 +3557,7 @@
     "Top story number 10",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "ed0f766",
@@ -3565,7 +3565,7 @@
     "Company",
     0.5,
     false,
-    "not_interactive"
+    "web.not_interactive"
    ],
    [
     "ea3d647",
@@ -3741,7 +3741,7 @@
     "Get the morning briefing",
     0.5,
     false,
-    "not_interactive"
+    "web.not_interactive"
    ],
    [
     "ec1460d",
@@ -3757,7 +3757,7 @@
     "Sign up",
     0.45,
     true,
-    "near_goal_input"
+    "web.near_goal_input"
    ],
    [
     "e4d1608",
@@ -3820,7 +3820,7 @@
     "Skyway home",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e989f04",
@@ -3836,7 +3836,7 @@
     "Hotels",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "ed70115",
@@ -3844,7 +3844,7 @@
     "Cars",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e064940",
@@ -3852,7 +3852,7 @@
     "Packages",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e2eebeb",
@@ -3860,7 +3860,7 @@
     "Deals",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "eb42e91",
@@ -3868,7 +3868,7 @@
     "Trips",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "effc165",
@@ -3996,7 +3996,7 @@
     "Search Skyway",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e726783",
@@ -4004,7 +4004,7 @@
     "Open menu",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "efedcb5",
@@ -4020,7 +4020,7 @@
     "Help",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "edee168",
@@ -4028,7 +4028,7 @@
     "My account",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e1450d0",
@@ -4036,7 +4036,7 @@
     "Where to next?",
     0.5,
     false,
-    "not_interactive"
+    "web.not_interactive"
    ],
    [
     "e0741a1",
@@ -4044,7 +4044,7 @@
     "Round trip",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "eb56451",
@@ -4052,7 +4052,7 @@
     "One way",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e08cb25",
@@ -4060,7 +4060,7 @@
     "Multi-city",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e2fc870",
@@ -4068,7 +4068,7 @@
     "From",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "ec6ce5d",
@@ -4076,7 +4076,7 @@
     "To",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "efc5840",
@@ -4084,7 +4084,7 @@
     "Depart",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "ebbd1df",
@@ -4092,7 +4092,7 @@
     "Return",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e7f061a",
@@ -4100,7 +4100,7 @@
     "cabin",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "eb56c3f",
@@ -4116,7 +4116,7 @@
     "Popular destinations",
     0.5,
     false,
-    "not_interactive"
+    "web.not_interactive"
    ],
    [
     "e7e7083",
@@ -4172,7 +4172,7 @@
     "Explore deals",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "ed0f766",
@@ -4180,7 +4180,7 @@
     "Company",
     0.5,
     false,
-    "not_interactive"
+    "web.not_interactive"
    ],
    [
     "ea3d647",
@@ -4411,7 +4411,7 @@
     "Example home",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e07e005",
@@ -4419,7 +4419,7 @@
     "New",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "ece5ed7",
@@ -4427,7 +4427,7 @@
     "Women",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "eaee3eb",
@@ -4435,7 +4435,7 @@
     "Men",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e4c9fd1",
@@ -4443,7 +4443,7 @@
     "Kids",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "edfcc07",
@@ -4451,7 +4451,7 @@
     "Home",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "ef391f7",
@@ -4459,7 +4459,7 @@
     "Sale",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e1e9955",
@@ -4467,7 +4467,7 @@
     "Brands",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e64301e",
@@ -4475,7 +4475,7 @@
     "Deals",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "effc165",
@@ -4603,7 +4603,7 @@
     "Search Example",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e726783",
@@ -4611,7 +4611,7 @@
     "Open menu",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "efedcb5",
@@ -4627,7 +4627,7 @@
     "Help",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "edee168",
@@ -4635,7 +4635,7 @@
     "My account",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e4724e2",
@@ -4651,7 +4651,7 @@
     "sort",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e2de787",
@@ -4659,7 +4659,7 @@
     "Filter",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "eba5ab0",
@@ -4667,7 +4667,7 @@
     "You may also like",
     0.5,
     false,
-    "not_interactive"
+    "web.not_interactive"
    ],
    [
     "eafbe8f",
@@ -4683,7 +4683,7 @@
     "Add to cart",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e2e4b8e",
@@ -4963,7 +4963,7 @@
     "1",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e31cb27",
@@ -4971,7 +4971,7 @@
     "2",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e5584ca",
@@ -4979,7 +4979,7 @@
     "3",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e5ce161",
@@ -4987,7 +4987,7 @@
     "13",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e5d0a7e",
@@ -5003,7 +5003,7 @@
     "Company",
     0.5,
     false,
-    "not_interactive"
+    "web.not_interactive"
    ],
    [
     "ea3d647",
@@ -5234,7 +5234,7 @@
     "Example home",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e07e005",
@@ -5242,7 +5242,7 @@
     "New",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "ece5ed7",
@@ -5250,7 +5250,7 @@
     "Women",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "eaee3eb",
@@ -5258,7 +5258,7 @@
     "Men",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e4c9fd1",
@@ -5266,7 +5266,7 @@
     "Kids",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "edfcc07",
@@ -5274,7 +5274,7 @@
     "Home",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "ef391f7",
@@ -5282,7 +5282,7 @@
     "Sale",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e1e9955",
@@ -5290,7 +5290,7 @@
     "Brands",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e64301e",
@@ -5298,7 +5298,7 @@
     "Deals",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "effc165",
@@ -5426,7 +5426,7 @@
     "Search Example",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e726783",
@@ -5434,7 +5434,7 @@
     "Open menu",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "efedcb5",
@@ -5450,7 +5450,7 @@
     "Help",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "edee168",
@@ -5458,7 +5458,7 @@
     "My account",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "ec13d4b",
@@ -5466,7 +5466,7 @@
     "Spring collection is here",
     0.5,
     false,
-    "not_interactive"
+    "web.not_interactive"
    ],
    [
     "e4d5aa5",
@@ -5474,7 +5474,7 @@
     "Shop new arrivals",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "ea4dfb8",
@@ -5482,7 +5482,7 @@
     "Shop the sale",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "eba5ab0",
@@ -5490,7 +5490,7 @@
     "You may also like",
     0.5,
     false,
-    "not_interactive"
+    "web.not_interactive"
    ],
    [
     "e779f0c",
@@ -5498,7 +5498,7 @@
     "Spring item 1",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e72d1f5",
@@ -5506,7 +5506,7 @@
     "Quick add",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e6dbe67",
@@ -5514,7 +5514,7 @@
     "Save spring item 1",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e433547",
@@ -5522,7 +5522,7 @@
     "Spring item 2",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "efa0d2f",
@@ -5538,7 +5538,7 @@
     "Save spring item 2",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "ec0e747",
@@ -5546,7 +5546,7 @@
     "Spring item 3",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e97c7d4",
@@ -5562,7 +5562,7 @@
     "Save spring item 3",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "ea9bbb8",
@@ -5570,7 +5570,7 @@
     "Spring item 4",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e06ee7b",
@@ -5586,7 +5586,7 @@
     "Save spring item 4",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e077128",
@@ -5594,7 +5594,7 @@
     "Spring item 5",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "edf4fdd",
@@ -5610,7 +5610,7 @@
     "Save spring item 5",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e5923e9",
@@ -5618,7 +5618,7 @@
     "Spring item 6",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "ec07135",
@@ -5634,7 +5634,7 @@
     "Save spring item 6",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e8939a7",
@@ -5642,7 +5642,7 @@
     "Spring item 7",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e4bdac1",
@@ -5658,7 +5658,7 @@
     "Save spring item 7",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "edf5797",
@@ -5666,7 +5666,7 @@
     "Spring item 8",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e87b2ca",
@@ -5682,7 +5682,7 @@
     "Save spring item 8",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "ed0f766",
@@ -5690,7 +5690,7 @@
     "Company",
     0.5,
     false,
-    "not_interactive"
+    "web.not_interactive"
    ],
    [
     "ea3d647",
@@ -5882,7 +5882,7 @@
     "We value your privacy",
     0.5,
     false,
-    "not_interactive"
+    "web.not_interactive"
    ],
    [
     "eac6043",
@@ -5898,7 +5898,7 @@
     "Reject non-essential",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "ebe1b6e",
@@ -5906,7 +5906,7 @@
     "Customize",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ]
   ]
  },
@@ -5921,7 +5921,7 @@
     "Help home",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e07e005",
@@ -5929,7 +5929,7 @@
     "New",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "ece5ed7",
@@ -5937,7 +5937,7 @@
     "Women",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "eaee3eb",
@@ -5945,7 +5945,7 @@
     "Men",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e4c9fd1",
@@ -5953,7 +5953,7 @@
     "Kids",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "edfcc07",
@@ -5961,7 +5961,7 @@
     "Home",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "ef391f7",
@@ -5969,7 +5969,7 @@
     "Sale",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e1e9955",
@@ -5977,7 +5977,7 @@
     "Brands",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e64301e",
@@ -5985,7 +5985,7 @@
     "Deals",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "effc165",
@@ -6113,7 +6113,7 @@
     "Search Help",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e726783",
@@ -6121,7 +6121,7 @@
     "Open menu",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "efedcb5",
@@ -6137,7 +6137,7 @@
     "Help",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "edee168",
@@ -6145,7 +6145,7 @@
     "My account",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e4b2bda",
@@ -6153,7 +6153,7 @@
     "How can we help?",
     0.5,
     false,
-    "not_interactive"
+    "web.not_interactive"
    ],
    [
     "eec9f4a",
@@ -6161,7 +6161,7 @@
     "Search help articles",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "eb8eac3",
@@ -6169,7 +6169,7 @@
     "Track my order",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "eebc5b7",
@@ -6177,7 +6177,7 @@
     "Returns and refunds",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e89655e",
@@ -6185,7 +6185,7 @@
     "Payment methods",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e6e66db",
@@ -6193,7 +6193,7 @@
     "Shipping times",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e7bbc82",
@@ -6201,7 +6201,7 @@
     "Change my order",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e4216be",
@@ -6209,7 +6209,7 @@
     "Gift cards",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e20f774",
@@ -6217,7 +6217,7 @@
     "Account issues",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e914468",
@@ -6225,7 +6225,7 @@
     "Product care",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e2c4a42",
@@ -6233,7 +6233,7 @@
     "Still need help?",
     0.5,
     false,
-    "not_interactive"
+    "web.not_interactive"
    ],
    [
     "e061ae6",
@@ -6241,7 +6241,7 @@
     "Chat with us",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e4725cf",
@@ -6249,7 +6249,7 @@
     "Email us",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "ed0f766",
@@ -6257,7 +6257,7 @@
     "Company",
     0.5,
     false,
-    "not_interactive"
+    "web.not_interactive"
    ],
    [
     "ea3d647",
@@ -6488,15 +6488,15 @@
     "Example home",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e07e005",
     "link",
     "New",
     0.6,
-    false,
-    "budget"
+    true,
+    "web.in_viewport"
    ],
    [
     "ece5ed7",
@@ -6687,8 +6687,8 @@
     "button",
     "Open menu",
     0.6,
-    true,
-    "in_viewport"
+    false,
+    "budget"
    ],
    [
     "efedcb5",
@@ -6744,7 +6744,7 @@
     "Trail Runner 2",
     0.5,
     false,
-    "not_interactive"
+    "web.not_interactive"
    ],
    [
     "e28c05e",
@@ -6832,7 +6832,7 @@
     "You may also like",
     0.5,
     false,
-    "not_interactive"
+    "web.not_interactive"
    ],
    [
     "e2a3638",
@@ -7032,7 +7032,7 @@
     "Company",
     0.5,
     false,
-    "not_interactive"
+    "web.not_interactive"
    ],
    [
     "ea3d647",
@@ -7263,7 +7263,7 @@
     "Home",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e146905",
@@ -7271,7 +7271,7 @@
     "Men",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e219173",
@@ -7279,7 +7279,7 @@
     "Women",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e0d3769",
@@ -7287,7 +7287,7 @@
     "Sale",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e5faced",
@@ -7295,7 +7295,7 @@
     "Search products",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "ec756d9",
@@ -7319,7 +7319,7 @@
     "Sign in",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "eba7fd1",
@@ -7327,7 +7327,7 @@
     "Trail Runner 2",
     0.5,
     false,
-    "not_interactive"
+    "web.not_interactive"
    ],
    [
     "e3be834",
@@ -7335,7 +7335,7 @@
     "Reviews",
     0.5,
     false,
-    "not_interactive"
+    "web.not_interactive"
    ],
    [
     "e84aa34",
@@ -7343,7 +7343,7 @@
     "Size",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e40a812",
@@ -7391,7 +7391,7 @@
     "Share",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "ea3256c",
@@ -7399,7 +7399,7 @@
     "Size guide",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "ee5134c",
@@ -7478,7 +7478,7 @@
     "Home",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e146905",
@@ -7486,7 +7486,7 @@
     "Men",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e219173",
@@ -7494,7 +7494,7 @@
     "Women",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e0d3769",
@@ -7502,7 +7502,7 @@
     "Sale",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e6c24f2",
@@ -7510,7 +7510,7 @@
     "Search the shop",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "ee17c4b",
@@ -7518,7 +7518,7 @@
     "Account",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "ee55829",
@@ -7526,7 +7526,7 @@
     "Trail Runner 2",
     0.5,
     false,
-    "not_interactive"
+    "web.not_interactive"
    ],
    [
     "e77ba25",
@@ -7534,7 +7534,7 @@
     "Size",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "eb9cc0d",
@@ -7542,7 +7542,7 @@
     "Add to cart",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e83c2a8",
@@ -7550,7 +7550,7 @@
     "Add to wishlist",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e871cd1",
@@ -7566,7 +7566,7 @@
     "Size guide",
     0.6,
     true,
-    "in_viewport"
+    "web.in_viewport"
    ],
    [
     "e1e7ef2",
