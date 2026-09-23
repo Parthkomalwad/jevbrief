@@ -390,7 +390,7 @@ function renderDetail() {
   $("t-kept")?.addEventListener("change", (e) => $("shot").classList.toggle("hide-kept", !e.target.checked));
   $("t-dropped")?.addEventListener("change", (e) => { showDropped = e.target.checked; $("shot").classList.toggle("hide-dropped", !showDropped); });
   $("tl-dropped")?.addEventListener("change", (e) => { showDropped = e.target.checked; $("tl").classList.toggle("hide-dropped", !showDropped); });
-  $("replay").addEventListener("click", play);
+  $("replay").addEventListener("click", () => play());
   $("skip").addEventListener("click", () => play(true));
   play(matchMedia("(prefers-reduced-motion: reduce)").matches);
 }
