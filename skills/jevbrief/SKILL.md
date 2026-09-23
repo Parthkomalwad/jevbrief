@@ -1,6 +1,6 @@
 ---
 name: jevbrief
-description: Add jevbrief to a project so an agent asks TypeSafe's Jev a clear question about a filtered state (a web page, JSON data, and other sources through adapters), with a trace of what was kept, dropped, and why. Use when building an agent that decides from a web page or structured data, when a model is sent too much state, or when someone asks why an agent chose the wrong thing.
+description: Add jevbrief to a project so an agent asks TypeSafe's Jev a clear question about a filtered state (a web page, JSON data, OpenTelemetry logs, and other sources through adapters), with a trace of what was kept, dropped, and why. Use when building an agent that decides from a web page or structured data, when a model is sent too much state, or when someone asks why an agent chose the wrong thing.
 ---
 
 # Use jevbrief in a project
@@ -11,6 +11,7 @@ jevbrief turns a source into small, relevant state for Jev. An **adapter** reads
 |---|---|---|---|
 | Web pages (Playwright) | `web` | `pip install "jevbrief[web]"` then `playwright install chromium` | Which element to click next |
 | JSON / JSON Lines with a config | `json` | `pip install jevbrief` | Which item fits, or which fixed action to take |
+| OpenTelemetry logs (OTLP JSON) | `otel` | `pip install jevbrief` | Which log group explains an incident |
 
 Run `jevbrief adapters` to list what is installed. Other sources need a new adapter (see ADAPTERS.md in the repo).
 
@@ -23,6 +24,7 @@ Set `TYPESAFE_API_KEY` in the environment or in a `.env` file where the CLI runs
 ```bash
 jevbrief inspect <url-or-file> --goal "<goal>"                                         # web
 jevbrief inspect data.json --adapter json --config map.toml --goal "<goal>"            # json
+jevbrief inspect logs.json --adapter otel --goal "<what users see failing>"            # otel
 jevbrief ask ... --view                                                                # one real decision + replay
 ```
 

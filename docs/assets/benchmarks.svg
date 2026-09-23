@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 300" width="960" height="300" font-family="Consolas, 'Cascadia Mono', ui-monospace, monospace">
+  <title>Benchmarks: median input tokens and accuracy, raw state versus jevbrief. Web 5,400 vs 2,344 tokens, both 100% accurate. JSON 3,848 vs 2,002 tokens, 89% vs 100%. OpenTelemetry logs 29,678 vs 1,070 tokens, 83% vs 100%.</title>
+  <style>
+    .bg { fill: #ffffff; }
+    .t { fill: #111; font-size: 14px; font-weight: 700; }
+    .m { fill: #555; font-size: 12px; }
+    .raw { fill: #b9b9b9; }
+    .jb { fill: #ff3fd2; }
+    .v { fill: #111; font-size: 12px; }
+    .acc { font-size: 12px; font-weight: 700; fill: #0f7a3d; }
+    .accbad { font-size: 12px; font-weight: 700; fill: #c0262d; }
+    .grid { stroke: #ddd; stroke-width: 1; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #0e0e10; } .t, .v { fill: #ececec; } .m { fill: #9a9aa0; }
+      .raw { fill: #4a4a52; } .grid { stroke: #2c2c31; } .acc { fill: #5fd18e; } .accbad { fill: #ff7a73; }
+    }
+    .grow { transform-box: fill-box; transform-origin: left; animation: grow 7s infinite cubic-bezier(.2,.8,.2,1); }
+    .d2 { animation-delay: .3s; } .d3 { animation-delay: .6s; }
+    @keyframes grow { 0% { transform: scaleX(0); } 20%, 90% { transform: scaleX(1); } 100% { transform: scaleX(0); } }
+  </style>
+  <rect class="bg" width="960" height="300"/>
+  <text class="t" x="20" y="28">Median input tokens per decision (bars to scale)</text>
+  <text class="m" x="20" y="46">same Jev (jev-1.13.0), same question, 3 runs per task · grey = raw state · pink = jevbrief</text>
+  <line class="grid" x1="170" y1="60" x2="170" y2="270"/>
+
+  <!-- scale: 30,000 tokens = 620 px -->
+  <text class="t" x="20" y="92">web</text><text class="m" x="20" y="108">10 pages</text>
+  <rect class="raw grow" x="170" y="76" width="112" height="16"/><text class="v" x="290" y="89">5,400 · <tspan class="acc">100%</tspan></text>
+  <rect class="jb grow" x="170" y="96" width="48" height="16"/><text class="v" x="226" y="109">2,344 · <tspan class="acc">100%</tspan> · −57%</text>
+
+  <text class="t" x="20" y="162">json</text><text class="m" x="20" y="178">9 queries</text>
+  <rect class="raw grow d2" x="170" y="146" width="80" height="16"/><text class="v" x="258" y="159">3,848 · <tspan class="accbad">89%</tspan></text>
+  <rect class="jb grow d2" x="170" y="166" width="41" height="16"/><text class="v" x="219" y="179">2,002 · <tspan class="acc">100%</tspan> · −48%</text>
+
+  <text class="t" x="20" y="232">otel logs</text><text class="m" x="20" y="248">6 incidents</text>
+  <rect class="raw grow d3" x="170" y="216" width="613" height="16"/><text class="v" x="791" y="229">29,678 · <tspan class="accbad">83%</tspan></text>
+  <rect class="jb grow d3" x="170" y="236" width="22" height="16"/><text class="v" x="200" y="249">1,070 · <tspan class="acc">100%</tspan> · −96%</text>
+
+  <text class="m" x="20" y="290">Synthetic data built to look like real sources. See bench/*/results.md for tasks and caveats.</text>
+</svg>
