@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Trail Runner 2 - Example Shop</title>
+<style>body{font-family:sans-serif;margin:0} header,footer{padding:12px;background:#eee} main{padding:16px} .tall{height:3200px} .hide{display:none}</style>
+</head>
+<body>
+<header>
+  <a href="/">Home</a> <a href="/men">Men</a> <a href="/women">Women</a> <a href="/sale">Sale</a>
+  <input type="search" placeholder="Search products">
+  <a href="/cart" aria-label="Cart (0 items)"><svg width="16" height="16"></svg></a>
+  <button><svg width="16" height="16"></svg></button>
+  <a href="/account">Sign in</a>
+</header>
+<main>
+  <h1>Trail Runner 2</h1>
+  <h2>Reviews</h2>
+  <p>$129.00</p>
+  <label for="size">Size</label>
+  <select id="size" name="size"><option>8</option><option>9</option><option>10</option></select>
+  <button id="add" onclick="document.getElementById('msg').textContent='Added to cart'">Add to cart</button>
+  <button disabled>Buy with one click</button>
+  <button class="hide">Add to cart</button>
+  <button>Add to wishlist</button>
+  <a href="/cart">View cart</a>
+  <p id="msg"></p>
+  <div role="button" onclick="">Share</div>
+  <a href="/size-guide">Size guide</a>
+  <a href="/size-guide">Size guide</a>
+  <div class="tall"></div>
+</main>
+<footer>
+  <a href="/about">About us</a> <a href="/careers">Careers</a> <a href="/press">Press</a>
+  <a href="/privacy">Privacy policy</a> <a href="/terms">Terms of service</a>
+  <input type="email" placeholder="Email for newsletter"> <button>Subscribe</button>
+</footer>
+</body>
+</html>
