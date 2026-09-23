@@ -12,6 +12,14 @@
 - Before every commit, run `git status` and confirm `.env` and `traces/` are not staged.
 - Before every publish, list the built package contents and confirm no `.env`, keys, or traces are included.
 
+## Architecture rules
+
+- The core (`jevbrief/*.py`) never imports an adapter. `import jevbrief` must not load `jevbrief.adapters.*` (tested).
+- Adapters live in `jevbrief/adapters/<name>/` and use only the core's public API. Their reason codes are `<name>.<code>`.
+- Adapter dependencies are optional extras in `pyproject.toml`, imported lazily with `need(extra, module)`.
+- Every adapter passes `jevbrief.testing.check_adapter` and has one test per reason code.
+- `tests/test_web_snapshot.py` locks the web output. Regenerate `tests/snapshots/web.json` only for an intended rule change.
+
 ## Project
 
 - Build spec: `docs/jevbrief-spec.md`. Setup runbook: `docs/jevbrief-setup-runbook.md`.

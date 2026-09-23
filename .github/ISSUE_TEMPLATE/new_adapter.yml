@@ -1,0 +1,52 @@
+name: New adapter proposal (I want to build one)
+description: Plan an adapter you want to contribute. A maintainer reviews the design before you write code.
+title: "[New adapter] "
+labels: ["new-adapter"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Read [ADAPTERS.md](https://github.com/parthkomalwad/jevbrief/blob/main/ADAPTERS.md) first. It has a template you can copy and the definition of done.
+  - type: input
+    id: name
+    attributes:
+      label: Adapter name
+      description: Short, lowercase. Reason codes will be `<name>.<code>`.
+      placeholder: "android"
+    validations:
+      required: true
+  - type: textarea
+    id: facts
+    attributes:
+      label: Facts
+      description: What becomes a fact, its `kind`, its `label`, and which `attrs` are sent to Jev. How are numbers and dates turned into words?
+    validations:
+      required: true
+  - type: textarea
+    id: rules
+    attributes:
+      label: Rules and reason codes
+      description: What gets dropped, and why. One line per reason code.
+      placeholder: |
+        android.offscreen: the view is outside the screen bounds
+        android.decorative: layout containers with no text or click handler
+    validations:
+      required: true
+  - type: textarea
+    id: questions
+    attributes:
+      label: Question pack
+      description: The Jev question(s). Are the options facts or a fixed set of actions?
+    validations:
+      required: true
+  - type: textarea
+    id: deps
+    attributes:
+      label: Dependencies
+      description: Any packages needed? They will go in an optional extra, `pip install "jevbrief[<name>]"`.
+      placeholder: "None, standard library only"
+  - type: textarea
+    id: bench
+    attributes:
+      label: Benchmark idea
+      description: How will you compare the raw state with the jevbrief state? What data will you use?

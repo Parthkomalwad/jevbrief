@@ -119,6 +119,39 @@ tr.hl td { background: rgba(255, 230, 0, .35) !important; }
 .noshot { color: var(--muted); font-size: 12px; padding: 18px 0; line-height: 1.5; }
 .top-grid.one { grid-template-columns: 1fr; }
 .top-grid .prob { grid-template-columns: minmax(0, 1fr) minmax(60px, 40%) 52px; }
+
+/* Replay: an animated walk through one decision */
+.story .steps { list-style: none; margin: 0 0 12px; padding: 0; counter-reset: st; }
+.story .steps li { counter-increment: st; display: flex; gap: 10px; align-items: baseline; padding: 4px 0;
+  opacity: .18; transform: translateY(4px); transition: opacity .45s, transform .45s; }
+.story .steps li::before { content: counter(st); flex: none; width: 20px; height: 20px; display: grid; place-items: center;
+  background: var(--bar-bg); color: var(--bar-text); font-size: 11px; }
+.story .steps li.on { opacity: 1; transform: none; }
+.story .steps li.on:last-child::before { background: var(--accent); }
+.story .steps b { font-weight: 700; }
+.chips { display: flex; flex-wrap: wrap; gap: 4px; max-height: 220px; overflow: hidden; padding: 2px; }
+.chip { font-size: 11px; padding: 1px 6px; border: 1px solid var(--line); background: var(--bg); white-space: nowrap;
+  max-width: 190px; overflow: hidden; text-overflow: ellipsis; opacity: 0; transform: scale(.85);
+  transition: opacity .35s, transform .35s, background .35s, border-color .35s, color .35s; }
+.story.s1 .chip { opacity: 1; transform: none; }
+.story.s2 .chip.dropped { opacity: .22; text-decoration: line-through; transform: translateY(3px) scale(.95); }
+.story.s3 .chip.kept { border-color: rgba(40, 120, 255, .9); box-shadow: inset 0 0 0 1px rgba(40, 120, 255, .9); }
+.story.s4 .chip.pick { background: var(--accent); border-color: var(--accent); color: #fff; transform: scale(1.06); transform-origin: left center; z-index: 2; }
+.buckets { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0 0; min-height: 22px; }
+.bucket { font-size: 11px; padding: 1px 7px; background: var(--bad-soft); color: var(--bad); border: 1px solid currentColor;
+  opacity: 0; transform: translateY(-6px); transition: opacity .4s, transform .4s; }
+.story.s2 .bucket { opacity: 1; transform: none; }
+.meaning { margin-top: 12px; padding: 10px 12px; border-left: 4px solid var(--accent); background: var(--bg);
+  opacity: 0; transition: opacity .6s; line-height: 1.5; }
+.story.s4 .meaning { opacity: 1; }
+.story .controls { display: flex; gap: 8px; align-items: center; margin-bottom: 10px; }
+.story button { font: 12px var(--mono); padding: 3px 10px; border: 2px solid var(--line); background: var(--bg); color: var(--text); cursor: pointer; }
+.story button:hover { background: var(--accent-soft); }
+.prob .fill { transition: width .9s cubic-bezier(.2, .8, .2, 1); }
+.bx { transition: opacity .4s, outline-color .4s; }
+@media (prefers-reduced-motion: reduce) {
+  .story .steps li, .chip, .bucket, .meaning, .prob .fill, .bx { transition: none !important; }
+}
 @media (max-width: 1100px) { .top-grid { grid-template-columns: 1fr; } }
 @media (max-width: 760px) {
   .app { grid-template-columns: 1fr; height: auto; }
@@ -215,7 +248,7 @@ function renderDetail() {
   const shown = probs.slice(0, 8), rest = probs.slice(8).reduce((s, [, p]) => s + p, 0);
   const probHtml = shown.length ? shown.map(([id, p], k) => `
     <div class="prob ${k === 0 ? "top" : ""}"><div class="name" title="${esc(labelOf(r, id))}">${esc(labelOf(r, id))}</div>
-    <div class="track"><div class="fill" style="width:${(p * 100).toFixed(1)}%"></div></div><div class="p">${(p * 100).toFixed(1)}%</div></div>`).join("")
+    <div class="track"><div class="fill" data-w="${(p * 100).toFixed(1)}%" style="width:0"></div></div><div class="p">${(p * 100).toFixed(1)}%</div></div>`).join("")
     + (probs.length > 8 ? `<div class="why">${probs.length - 8} more options share ${(rest * 100).toFixed(1)}%</div>` : "")
     : `<div class="why">No probabilities recorded${r.outcome === "reused" ? " (answer reused from an earlier tick)" : ""}.</div>`;
 
@@ -248,14 +281,45 @@ function renderDetail() {
       <span>Hover a box or a table row to match them.</span></div>`
     : "";
 
+
+  const reasonCounts = Object.entries(groups).map(([c, fs]) => [c, fs.length]).sort((a, b) => b[1] - a[1]);
+  const pick = r.facts.find((f) => f.id === j.choice);
+  const second = probs[1] && probs[1][1] >= 0.01 ? `${labelOf(r, probs[1][0])} (${(probs[1][1] * 100).toFixed(0)}%)` : "";
+  const shownFacts = r.facts.slice(0, 160);
+  const chips = shownFacts.map((f, i) => `<span class="chip ${f.id === j.choice ? "pick kept" : f.kept ? "kept" : "dropped"}" data-id="${esc(f.id)}"
+      title="${esc((f.label || "(no label)") + " · " + (f.kept ? "sent to Jev" : "dropped: " + f.reason))}" style="transition-delay:${Math.min(i * 6, 900)}ms">${esc(f.label || "(no label)")}</span>`).join("")
+    + (r.facts.length > shownFacts.length ? `<span class="chip kept" style="opacity:1">+${r.facts.length - shownFacts.length} more</span>` : "");
+  const buckets = reasonCounts.map(([c, n]) => `<span class="bucket" title="${esc(whyOf(r, c))}">${esc(c)} &times;${n}</span>`).join("");
+  const sure = j.confidence == null ? "" : j.confidence >= 0.8 ? "very sure" : j.confidence >= 0.5 ? "fairly sure" : "not sure";
+  const top = reasonCounts.slice(0, 2).map(([c, n]) => `${n} ${whyOf(r, c).replace(/^Kept: /, "").toLowerCase() || c}`).join(", and ");
+  const answerLine = r.outcome === "error" ? `The call to Jev <b>failed</b>, so the agent took no action.`
+    : r.outcome === "reused" ? `The facts had not changed since decision ${r.fingerprint?.reused_tick}, so Jev's earlier answer <b>${esc(labelOf(r, j.choice))}</b> was reused with no new call.`
+    : `Jev answered <b>${esc(labelOf(r, j.choice))}</b> with confidence <b>${fmt(j.confidence)}</b>${second ? `. Next best: ${esc(second)}` : ""}.`;
+  const meaning = r.outcome === "error" ? "Nothing was decided. Check the error above, then run it again."
+    : r.outcome === "low_confidence" || !pick && j.choice === "none"
+      ? `Jev was ${sure || "unsure"} and did not find a clear answer for "${esc(r.goal)}", so the agent should not act. Check "What Jev was not told" in case the right fact was dropped.`
+      : `For "${esc(r.goal)}", Jev is ${sure} the answer is <b>${esc(labelOf(r, j.choice))}</b>. jevbrief sent ${kept.length} of ${r.facts.length} facts${top ? `; the rest were left out mainly because of ${esc(top)}` : ""}.`;
+  const storyHtml = `<div class="card story" id="story"><div class="bar">Replay &#9642; what happened in this decision</div>
+    <div class="controls"><button id="replay" type="button">&#9654; Replay</button><button id="skip" type="button">Skip to the end</button></div>
+    <ol class="steps">
+      <li><span>jevbrief read <b>${r.source?.raw_facts ?? r.facts.length} facts</b> from ${esc(where(r)) || "the source"}.</span></li>
+      <li><span>It dropped <b>${dropped.length}</b>, each with a reason${cut ? `, including ${cut} cut only for the token budget` : ""}.</span></li>
+      <li><span>It sent <b>${kept.length}</b> to Jev${r.budget?.used_tokens ? `, about ${r.budget.used_tokens} tokens` : ""}, asking: "${esc(j.question || "")}" for the goal "${esc(r.goal)}".</span></li>
+      <li><span>${answerLine}</span></li>
+    </ol>
+    <div class="chips">${chips}</div>
+    <div class="buckets">${buckets}</div>
+    <div class="meaning"><b>What this means:</b> ${meaning}</div></div>`;
   $("detail").innerHTML = `
     <details class="help" ${helpSeen ? "" : "open"} id="help"><summary>How to read this page</summary><ol>
+      <li><b>Replay:</b> an animated walk through the decision: every fact read, what was dropped and why, what was sent to Jev, and Jev's answer. Press Replay to watch it again.</li>
       <li><b>Left list:</b> one row per decision. The colored strip is Jev's confidence: green 0.8 and up, amber 0.5 to 0.8, red below 0.5 or an error.</li>
       <li><b>Jev picked:</b> the element Jev chose for the goal, and how sure it was. Below 0.5 your agent takes no action.</li>
       <li><b>What Jev saw</b> (sources with an image, such as web pages): the source when the decision was made. Pink is Jev's pick, blue boxes were sent to Jev, and dark dashed boxes were dropped.</li>
       <li><b>What Jev was told / not told:</b> every fact from the source. Dropped ones are grouped by reason, so you can check that nothing important was filtered out.</li>
       <li>Use the arrow keys to move between decisions. Run <code>jevbrief ask ... --view</code> to open this page after each run.</li>
     </ol></details>
+    ${storyHtml}
     <div class="top-grid ${pg ? "" : "one"}">
       ${pg ? `<div class="card"><div class="bar">What Jev saw &#9642; ${esc(where(r))}</div>${shotHtml}</div>` : ""}
       <div>
@@ -285,7 +349,31 @@ function renderDetail() {
   });
   $("t-kept")?.addEventListener("change", (e) => $("shot").classList.toggle("hide-kept", !e.target.checked));
   $("t-dropped")?.addEventListener("change", (e) => { showDropped = e.target.checked; $("shot").classList.toggle("hide-dropped", !showDropped); });
+  $("replay").addEventListener("click", play);
+  $("skip").addEventListener("click", () => play(true));
+  play(matchMedia("(prefers-reduced-motion: reduce)").matches);
 }
+
+let timers = [];
+function play(instant = false) {
+  timers.forEach(clearTimeout);
+  timers = [];
+  const story = $("story"), steps = [...story.querySelectorAll(".steps li")];
+  const shot = $("shot"), bars = [...document.querySelectorAll(".prob .fill")];
+  const setStep = (n) => {
+    story.className = "card story " + Array.from({ length: n }, (_, k) => `s${k + 1}`).join(" ");
+    steps.forEach((li, k) => li.classList.toggle("on", k < n));
+    if (shot) {
+      shot.classList.toggle("hide-kept", n < 3);
+      shot.querySelectorAll(".bx.chosen").forEach((b) => (b.style.opacity = n >= 4 ? 1 : 0));
+    }
+    bars.forEach((b) => (b.style.width = n >= 4 ? b.dataset.w : "0"));
+  };
+  if (instant) return setStep(4);
+  setStep(0);
+  [80, 1500, 3000, 4300].forEach((ms, k) => timers.push(setTimeout(() => setStep(k + 1), ms)));
+}
+
 
 function highlight(id, on) {
   document.querySelectorAll(`[data-id="${CSS.escape(id)}"]`).forEach((el) => el.classList.toggle("hl", on));

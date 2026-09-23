@@ -41,3 +41,6 @@ include = ["jevbrief", "tests", "README.md", "LICENSE", "pyproject.toml"]
 
 [tool.hatch.build.targets.wheel]
 packages = ["jevbrief"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

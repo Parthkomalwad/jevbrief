@@ -1,0 +1,25 @@
+name: Bug or wrong decision
+description: Something broke, or Jev picked the wrong thing.
+labels: ["bug"]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened, and what did you expect?
+    validations:
+      required: true
+  - type: input
+    id: command
+    attributes:
+      label: Command or code
+      placeholder: 'jevbrief ask https://example.com --goal "log in"'
+  - type: textarea
+    id: trace
+    attributes:
+      label: Trace
+      description: Attach the .jsonl trace (and its .assets folder), or the HTML file from `jevbrief view --no-open`. Remove anything private first.
+  - type: input
+    id: version
+    attributes:
+      label: Versions
+      placeholder: "jevbrief 0.1.0, Python 3.12, Windows 11"

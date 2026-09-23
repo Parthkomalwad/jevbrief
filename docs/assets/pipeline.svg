@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 400" width="960" height="400" font-family="Consolas, 'Cascadia Mono', ui-monospace, monospace">
-  <title>How jevbrief works: page elements are filtered with reason codes, the rest is sent to Jev, and Jev picks one.</title>
+  <title>How jevbrief works: facts from any source are filtered with reason codes, the rest is sent to Jev, and Jev picks one.</title>
   <style>
     .bg { fill: #ffffff; }
     .panel { fill: #dedede; stroke: #111; stroke-width: 2; }
@@ -73,13 +73,13 @@
   <!-- 1. Page -->
   <rect class="panel" x="20" y="20" width="200" height="300"/>
   <rect class="bar" x="20" y="20" width="200" height="26"/>
-  <text class="bartxt" x="30" y="38">1 &#9642; web page</text>
-  <text class="muted" x="30" y="338">96 elements found</text>
+  <text class="bartxt" x="30" y="38">1 &#9642; any source</text>
+  <text class="muted" x="30" y="338">web page, JSON, game, logs</text><text class="muted" x="30" y="354">36 facts found</text>
 
   <!-- 2. Salience -->
   <rect class="panel" x="260" y="20" width="200" height="300"/>
   <rect class="bar" x="260" y="20" width="200" height="26"/>
-  <text class="bartxt" x="270" y="38">2 &#9642; salience + budget</text>
+  <text class="bartxt" x="270" y="38">2 &#9642; rules + budget</text>
 
   <!-- 3. Jev -->
   <rect class="panel" x="600" y="20" width="200" height="300"/>
@@ -93,29 +93,29 @@
   <rect class="bar" x="830" y="20" width="110" height="26"/>
   <text class="bartxt" x="840" y="38">4 &#9642; trace</text>
   <g class="answer">
-    <text class="pinktxt" x="842" y="80" font-size="13">next_click</text>
+    <text class="pinktxt" x="842" y="80" font-size="13">choose_item</text>
     <text class="big" x="842" y="112">0.99</text>
     <text class="muted" x="842" y="132">confidence</text>
-    <text class="muted" x="842" y="164">kept: 28</text>
-    <text class="muted" x="842" y="182">dropped: 68</text>
-    <text class="muted" x="842" y="200">7 reasons</text>
+    <text class="muted" x="842" y="164">kept: 17</text>
+    <text class="muted" x="842" y="182">dropped: 19</text>
+    <text class="muted" x="842" y="200">4 reasons</text>
     <text class="muted" x="842" y="232">.jsonl</text>
     <text class="muted" x="842" y="250">+ viewer</text>
   </g>
 
   <!-- chips: dropped turn into their reason code, kept ones go on to Jev -->
-  <g class="chip drop d1"><rect x="34" y="58" width="172" height="24"/><text class="lbl" x="42" y="75">link: Careers</text><text class="tag" x="42" y="75">&#10005; low_score</text></g>
-  <g class="chip drop d2"><rect x="34" y="92" width="172" height="24"/><text class="lbl" x="42" y="109">button: (no label)</text><text class="tag" x="42" y="109">&#10005; unlabeled</text></g>
-  <g class="chip drop d3"><rect x="34" y="160" width="172" height="24"/><text class="lbl" x="42" y="177">button: Buy now</text><text class="tag" x="42" y="177">&#10005; disabled</text></g>
-  <g class="chip drop d4"><rect x="34" y="228" width="172" height="24"/><text class="lbl" x="42" y="245">link: Size guide</text><text class="tag" x="42" y="245">&#10005; duplicate</text></g>
-  <g class="chip drop d5"><rect x="34" y="262" width="172" height="24"/><text class="lbl" x="42" y="279">button: Add to cart</text><text class="tag" x="42" y="279">&#10005; hidden</text></g>
-  <g class="chip keep d2"><rect x="34" y="126" width="172" height="24"/><text x="42" y="143">link: Home</text></g>
-  <g class="chip keep d4"><rect x="34" y="194" width="172" height="24"/><text x="42" y="211">button: Wishlist</text></g>
-  <g class="chip pick d1"><rect x="34" y="291" width="172" height="24"/><text x="42" y="308">button: Add to cart</text></g>
+  <g class="chip drop d1"><rect x="34" y="58" width="172" height="24"/><text class="lbl" x="42" y="75">ticket: Old refund</text><text class="tag" x="42" y="75">&#10005; json.closed</text></g>
+  <g class="chip drop d2"><rect x="34" y="92" width="172" height="24"/><text class="lbl" x="42" y="109">ticket: (no subject)</text><text class="tag" x="42" y="109">&#10005; unlabeled</text></g>
+  <g class="chip drop d3"><rect x="34" y="160" width="172" height="24"/><text class="lbl" x="42" y="177">ticket: Free money!!!</text><text class="tag" x="42" y="177">&#10005; json.spam</text></g>
+  <g class="chip drop d4"><rect x="34" y="228" width="172" height="24"/><text class="lbl" x="42" y="245">ticket: Login loop</text><text class="tag" x="42" y="245">&#10005; duplicate</text></g>
+  <g class="chip drop d5"><rect x="34" y="262" width="172" height="24"/><text class="lbl" x="42" y="279">ticket: CSV broken</text><text class="tag" x="42" y="279">&#10005; json.stale</text></g>
+  <g class="chip keep d2"><rect x="34" y="126" width="172" height="24"/><text x="42" y="143">ticket: Invite team</text></g>
+  <g class="chip keep d4"><rect x="34" y="194" width="172" height="24"/><text x="42" y="211">ticket: Billing email</text></g>
+  <g class="chip pick d1"><rect x="34" y="291" width="172" height="24"/><text x="42" y="308">ticket: Charged twice</text></g>
 
   <!-- counters -->
-  <text class="muted counter1" x="400" y="362">goal: "add this item to the cart"</text>
-  <text class="muted counter2" x="400" y="362">96 elements  &#8594;  28 sent to Jev  &#8594;  1 pick, every drop explained</text>
-  <text class="pinktxt answer" x="600" y="345" font-size="15">Jev picked: button "Add to cart"</text>
+  <text class="muted counter1" x="400" y="362">goal: "a customer was billed twice"</text>
+  <text class="muted counter2" x="400" y="362">36 facts  &#8594;  17 sent to Jev  &#8594;  1 pick, every drop explained</text>
+  <text class="pinktxt answer" x="600" y="345" font-size="15">Jev picked: "Charged two times"</text>
   <text class="muted" x="20" y="388">jevbrief: what Jev was told, what it wasn't told, and why</text>
 </svg>

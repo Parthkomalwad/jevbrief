@@ -14,7 +14,8 @@ from pathlib import Path
 from playwright.async_api import async_playwright
 
 from jevbrief import Brief
-from jevbrief.cli import load_env, to_url
+from jevbrief.adapters.web import to_url
+from jevbrief.cli import load_env
 
 HERE = Path(__file__).resolve().parent
 DEMO = HERE / "demo_shop.html"

@@ -1,0 +1,47 @@
+name: Suggest a source (adapter request)
+description: Tell us a source you want jevbrief to read. No code needed.
+title: "[Adapter request] "
+labels: ["adapter-request"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks! Requests with the most 👍 reactions get built first. Please search [existing requests](https://github.com/parthkomalwad/jevbrief/issues?q=label%3Aadapter-request) and add a 👍 there instead if yours is already listed.
+  - type: input
+    id: source
+    attributes:
+      label: What source?
+      description: The app, format, or system you want jevbrief to read.
+      placeholder: "Android screens (uiautomator XML dumps)"
+    validations:
+      required: true
+  - type: textarea
+    id: decision
+    attributes:
+      label: What should Jev decide?
+      description: The question your agent needs answered, in plain words.
+      placeholder: "Which button should the test agent tap next to finish sign-up?"
+    validations:
+      required: true
+  - type: textarea
+    id: noise
+    attributes:
+      label: What is the noise?
+      description: What does a naive integration send that Jev does not need?
+      placeholder: "Hundreds of layout containers, invisible views, status bar icons"
+  - type: textarea
+    id: sample
+    attributes:
+      label: Sample data
+      description: A small, anonymized example, or a link to the format's docs. Never paste secrets or personal data.
+      render: text
+  - type: dropdown
+    id: build
+    attributes:
+      label: Would you help build it?
+      options:
+        - "No, just suggesting"
+        - "I can test it on real data"
+        - "I want to build it (I'll open a New adapter proposal)"
+    validations:
+      required: true

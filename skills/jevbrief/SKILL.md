@@ -1,108 +1,119 @@
 ---
 name: jevbrief
-description: Add jevbrief to a project so a browser agent asks TypeSafe's Jev which element to click next, with a filtered page state and a trace of what was kept and dropped. Use when building or debugging a Playwright agent, when an agent sends too much page state to a model, or when someone asks why an agent clicked the wrong thing.
+description: Add jevbrief to a project so an agent asks TypeSafe's Jev a clear question about a filtered state (a web page, JSON data, and other sources through adapters), with a trace of what was kept, dropped, and why. Use when building an agent that decides from a web page or structured data, when a model is sent too much state, or when someone asks why an agent chose the wrong thing.
 ---
 
 # Use jevbrief in a project
 
-jevbrief turns a Playwright page into a small list of clickable elements, drops the noise with fixed rules (each drop gets a reason code), asks Jev one question ("which element should be clicked next for this goal?"), and writes a JSONL trace. A local HTML viewer shows the page, Jev's pick, and everything that was dropped.
+jevbrief turns a source into small, relevant state for Jev. An **adapter** reads the source into facts, **rules** drop the noise (every drop gets a reason code), a **budget** keeps it small, a **question pack** asks Jev one clear question, and a **trace** records it. `jevbrief view` replays each decision.
 
-Use it when an agent needs to pick the next element on a web page. Do not use it for reading page content, filling long forms, or anything other than choosing one element to act on.
+| Source | Adapter | Install | Jev answers |
+|---|---|---|---|
+| Web pages (Playwright) | `web` | `pip install "jevbrief[web]"` then `playwright install chromium` | Which element to click next |
+| JSON / JSON Lines with a config | `json` | `pip install jevbrief` | Which item fits, or which fixed action to take |
 
-## 1. Install
+Run `jevbrief adapters` to list what is installed. Other sources need a new adapter (see ADAPTERS.md in the repo).
+
+Set `TYPESAFE_API_KEY` in the environment or in a `.env` file where the CLI runs. Never print, log, or commit it. Put `.env` and `traces/` in `.gitignore`.
+
+## 1. Try it before writing code
+
+`inspect` needs no API key and costs nothing. Run it first and check the right fact is kept.
 
 ```bash
-pip install jevbrief
-playwright install chromium
+jevbrief inspect <url-or-file> --goal "<goal>"                                         # web
+jevbrief inspect data.json --adapter json --config map.toml --goal "<goal>"            # json
+jevbrief ask ... --view                                                                # one real decision + replay
 ```
 
-Set `TYPESAFE_API_KEY` in the environment, or put `TYPESAFE_API_KEY=...` in a `.env` file where the CLI runs. Never print, log, or commit the key. Make sure `.env` and `traces/` are in `.gitignore`.
+## 2. Integrate
 
-## 2. Try it before writing code
+**Any adapter:**
 
-```bash
-jevbrief inspect <url-or-file> --goal "<goal>"        # no API key, no cost: shows kept and dropped elements
-jevbrief ask <url-or-file> --goal "<goal>" --view     # one real decision, then opens the viewer
+```python
+from jevbrief import Briefing, get_adapter
+
+adapter = get_adapter("json")
+adapter.configure("map.toml")
+brief = Briefing(adapter, goal="a customer was billed twice", trace="traces/app.jsonl")
+brief.extract("tickets.json")          # a path, or Python data for json
+decision = brief.decide()
+if decision.fact:                      # options are facts
+    handle(decision.fact.id)
 ```
 
-Run `inspect` first. If the correct element is dropped, fix that (see step 5) before calling Jev.
-
-## 3. Pick the integration pattern
-
-**A. Drop-in agent loop (async Playwright)**
+**Web shortcut (async or sync Playwright):**
 
 ```python
 from jevbrief import Brief
 
 brief = Brief(goal="add this item to the cart", trace="traces/agent.jsonl")
-await brief.from_page(page)
+await brief.from_page(page)            # or brief.from_page_sync(page)
 decision = brief.next_click()
 if decision.fact:
     await page.locator(decision.fact.selector).click()
-else:
-    ...  # decision.outcome is "low_confidence" or "error": take no action, ask a human, or stop
 ```
 
-**B. Sync Playwright**
+**Filter only, your own model call:** `brief.extract(...)` then `brief.state()` returns the filtered JSON.
 
-```python
-brief = Brief(goal="log in to my account", trace="traces/agent.jsonl")
-brief.from_page_sync(page)
-decision = brief.next_click()
-if decision.fact:
-    page.locator(decision.fact.selector).click()
+**Multi-step:** extract again after every action, because the source changed. An unchanged state reuses the last answer (`outcome == "reused"`) with no API call.
+
+## 3. Write a json config (when the data is JSON)
+
+```toml
+items = "tickets"                    # dotted path to the list
+id = "{id}"
+label = "{subject}"
+kind = "ticket"
+send = ["priority", "customer.tier"] # only these fields reach Jev
+now = "2026-09-24T12:00:00Z"         # optional fixed time for repeatable runs
+
+[buckets.updated]                    # turn dates and numbers into words in code
+field = "updated_at"
+age = true
+edges = [1, 7]
+labels = ["today", "this week", "earlier"]
+
+[[rules]]
+name = "closed"                      # reason code json.closed
+description = "The ticket is closed"
+drop_if = { field = "status", equals = "closed" }
+
+[question]
+instructions = "Goal: {goal}\nWhich one ticket in `items` should a support agent open?"
+describe = "{subject} ({priority})"
 ```
 
-**C. Filter only, bring your own model call**
+Operators: `equals`, `not_equals`, `in`, `not_in`, `greater_than`, `less_than`, `matches`, `older_than_days`, `newer_than_days`, `missing`. Add `[question.options]` for a fixed set of actions instead of choosing an item.
 
-Use jevbrief as a noise filter and send the result anywhere.
-
-```python
-brief = Brief(goal="go to checkout", trace=None)
-await brief.from_page(page)
-state = brief.state()          # {"goal", "url", "elements": [{"id", "kind", "label", ...}]}
-dropped = [(f.label, f.reason) for f in brief.facts if not f.kept]
-```
-
-**D. Multi-step goals**
-
-Create one `Brief` per goal and call `from_page` again after every click, because the page changes. If you call `next_click()` twice on an unchanged page, the second call reuses the first answer (`outcome == "reused"`) and makes no API call.
+Follow TypeSafe's guidance: compute numbers, dates, and counts in code (buckets); send only fields the question needs; describe options so they are clearly different.
 
 ## 4. Handle the outcome
 
-| `decision.outcome` | Meaning | What the agent should do |
+| `decision.outcome` | Meaning | Do |
 |---|---|---|
-| `applied` | Jev picked an element with confidence at or above `min_confidence` (default 0.5) | Act on `decision.fact` |
-| `reused` | The kept state did not change, so the last answer was reused | Act on `decision.fact`; if the click had no effect, stop to avoid a loop |
-| `low_confidence` | Below `min_confidence`, or Jev chose "none of these" | Do not act. Retry with a clearer goal, ask a human, or stop |
-| `error` | The API call failed; details in `decision.record.jev["error"]` | Do not act. The SDK already retries rate limits |
+| `applied` | Answer at or above `min_confidence` (default 0.5) | Act on `decision.choice` / `decision.fact` |
+| `reused` | Unchanged state, last answer reused | Act; stop if nothing changes, to avoid loops |
+| `low_confidence` | Below threshold, or Jev chose "none" | Do not act. Clarify the goal, ask a human, or stop |
+| `error` | API failure, in `decision.record.jev["error"]` | Do not act. The SDK already retries rate limits |
 
-Raise `min_confidence` for risky actions (payments, deletes). Tune thresholds on your own pages.
+Raise `min_confidence` for risky actions (payments, deletes).
 
-## 5. Debug a wrong click
+## 5. Debug a wrong answer
 
-1. Open the trace: `jevbrief view` (newest trace) or `jevbrief view path/to/trace.jsonl`.
-2. In "What Jev saw", check whether the correct element was sent to Jev (blue) or dropped (grey, turn on "dropped").
-3. If it was dropped, the reason code tells you why:
+1. `jevbrief view` (newest trace). Watch the replay, then check "What Jev was not told".
+2. If the right fact was dropped, the reason code says why:
    - `budget`: raise `budget_tokens` (default 2000, max 30000) or `max_options` (default 60).
-   - `low_score`: the element is far down the page and shares no words with the goal. Reword the goal or pin it.
-   - `hidden`, `disabled`: the page state is not ready. Wait or scroll before briefing.
-   - `unlabeled`: the element has no text or aria-label. Pin it by ID or fix the page's accessibility.
-   - `duplicate`: another element with the same kind and label was kept instead.
-4. To force-keep elements: `Brief(goal, pins=["e3fa21"])`. IDs are stable across ticks for the same element.
-5. If the element was sent but Jev picked another one, look at "How sure Jev was". A split between two options usually means the goal is ambiguous.
-
-## 6. Settings
-
-`Brief(goal, budget_tokens=2000, max_options=60, trace="trace.jsonl", trace_level="summary", min_confidence=0.5, pins=(), model="jev-1.13.0", screenshot=True)`
-
-- `trace_level`: `off`, `summary` (default), or `full` (also stores the exact state sent to Jev).
-- `screenshot=False` (CLI: `--no-screenshot`) for pages with private content. Traces otherwise include a screenshot of the visible page.
-- Form values are never sent to Jev. Inputs with a value are marked `filled: true`.
+   - `low_score`: it shares no words with the goal and scored low. Reword the goal, or pin it with `pins=["<id>"]`.
+   - `hidden`, `disabled`: not observable or not actionable yet. Wait or change the source's state first.
+   - `unlabeled`: no label. Fix the source, or the json `label` template.
+   - `duplicate`: another fact with the same kind and label was kept.
+   - `<adapter>.<code>`: an adapter or config rule. Its description is in the viewer. Remove it with `adapter.rules().without("<code>")` or edit the config.
+3. If the right fact was sent but Jev chose another, look at "How sure Jev was". A split usually means the goal or the option descriptions are ambiguous.
 
 ## Rules for the agent using this skill
 
-- Check the installed version's API before relying on these examples: `python -c "import jevbrief, inspect; print(inspect.signature(jevbrief.Brief))"`.
-- Never add the API key to code, logs, or traces.
-- Never click when `decision.fact` is `None`.
-- Report results from the trace, not from memory of what the agent intended.
+- Check the installed API before relying on these examples: `python -c "import jevbrief, inspect; print(inspect.signature(jevbrief.Briefing))"`.
+- Never put the API key in code, logs, or traces.
+- Never act when the outcome is `low_confidence` or `error`.
+- Report results from the trace, not from what you intended.
