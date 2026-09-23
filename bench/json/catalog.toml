@@ -1,0 +1,24 @@
+# jevbrief json adapter config: a product catalog.
+# Picks the product that best fits a shopper's request.
+
+items = "products"
+id = "{sku}"
+label = "{name}"
+kind = "{category}"
+send = ["category"]
+required = ["sku", "name", "price"]
+
+[buckets.price_range]
+field = "price"
+edges = [50, 150]
+labels = ["budget", "mid-range", "premium"]
+
+[[rules]]
+name = "out_of_stock"
+description = "Not in stock"
+drop_if = { field = "in_stock", equals = false }
+
+[question]
+instructions = "Shopper request: {goal}\nWhich one product in `items` best fits this request?"
+describe = "{name} ({category}, {price} USD)"
+none = "No product fits this request"

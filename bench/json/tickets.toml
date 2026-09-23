@@ -1,0 +1,44 @@
+# jevbrief json adapter config: a support ticket queue.
+# Picks the one open ticket a support agent should open for a goal.
+
+items = "tickets"                 # the list of facts in the data
+id = "{id}"
+label = "{subject}"
+kind = "ticket"
+send = ["priority", "customer.tier", "tags"]   # fields sent to Jev as-is
+match_fields = ["tags", "body"]   # goal words are also looked for here
+required = ["id", "subject"]
+now = "2026-09-24T12:00:00Z"      # fixed "now" so the benchmark is repeatable; omit to use the real time
+
+# Numbers and dates become named buckets in code. Jev never compares dates.
+[buckets.updated]
+field = "updated_at"
+age = true
+edges = [1, 7]
+labels = ["today", "this week", "earlier"]
+
+[[rules]]
+name = "closed"
+description = "The ticket is closed"
+drop_if = { field = "status", equals = "closed" }
+
+[[rules]]
+name = "spam"
+description = "Marked as spam"
+drop_if = { field = "spam", equals = true }
+
+[[rules]]
+name = "stale"
+description = "Not updated in over 60 days"
+drop_if = { field = "updated_at", older_than_days = 60 }
+
+[[rules]]
+name = "urgent"
+description = "Kept: urgent or high priority"
+boost_if = { field = "priority", in = ["urgent", "high"] }
+boost = 0.1
+
+[question]
+instructions = "Goal: {goal}\nWhich one ticket in `items` should a support agent open for this goal?"
+describe = "{subject} ({priority} priority, {customer.tier} customer)"
+none = "No ticket in the queue matches this goal"

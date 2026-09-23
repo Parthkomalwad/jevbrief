@@ -1,0 +1,65 @@
+[
+  {
+    "adapter": "json",
+    "source": "tickets.json",
+    "config": "tickets.toml",
+    "goal": "a customer was billed twice this month",
+    "expected_choice": "t-100"
+  },
+  {
+    "adapter": "json",
+    "source": "tickets.json",
+    "config": "tickets.toml",
+    "goal": "someone keeps getting sent back to the sign-in page after changing their password",
+    "expected_choice": "t-101"
+  },
+  {
+    "adapter": "json",
+    "source": "tickets.json",
+    "config": "tickets.toml",
+    "goal": "a big customer says the app is down",
+    "expected_choice": "t-102"
+  },
+  {
+    "adapter": "json",
+    "source": "tickets.json",
+    "config": "tickets.toml",
+    "goal": "refund for a damaged order",
+    "expected_choice": "t-103"
+  },
+  {
+    "adapter": "json",
+    "source": "tickets.json",
+    "config": "tickets.toml",
+    "goal": "the spreadsheet export is not working",
+    "expected_choice": "t-104"
+  },
+  {
+    "adapter": "json",
+    "source": "tickets.json",
+    "config": "tickets.toml",
+    "goal": "take away access for someone who left the company",
+    "expected_choice": "t-105"
+  },
+  {
+    "adapter": "json",
+    "source": "catalog.json",
+    "config": "catalog.toml",
+    "goal": "something to keep me dry on a rainy hike",
+    "expected_label": "Trailhead waterproof rain jacket"
+  },
+  {
+    "adapter": "json",
+    "source": "catalog.json",
+    "config": "catalog.toml",
+    "goal": "a light shelter for two people backpacking",
+    "expected_label": "Ultralight 2-person tent"
+  },
+  {
+    "adapter": "json",
+    "source": "catalog.json",
+    "config": "catalog.toml",
+    "goal": "warm socks for long walks",
+    "expected_label": "Merino hiking socks 3-pack"
+  }
+]

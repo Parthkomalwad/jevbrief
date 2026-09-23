@@ -1,0 +1,529 @@
+{
+ "exported_at": "2026-09-24T12:00:00Z",
+ "tickets": [
+  {
+   "id": "t-126",
+   "subject": "Webhook retries documentation",
+   "body": "Webhook retries documentation",
+   "status": "pending",
+   "priority": "high",
+   "customer": {
+    "name": "Customer 126",
+    "tier": "team"
+   },
+   "updated_at": "2026-06-01T09:00:00Z",
+   "tags": [],
+   "spam": false
+  },
+  {
+   "id": "t-122",
+   "subject": "Notification emails too frequent",
+   "body": "Notification emails too frequent",
+   "status": "open",
+   "priority": "low",
+   "customer": {
+    "name": "Customer 122",
+    "tier": "pro"
+   },
+   "updated_at": "2026-09-14T09:00:00Z",
+   "tags": [],
+   "spam": false
+  },
+  {
+   "id": "t-129",
+   "subject": "Slow search in large workspaces",
+   "body": "Slow search in large workspaces",
+   "status": "closed",
+   "priority": "high",
+   "customer": {
+    "name": "Customer 129",
+    "tier": "free"
+   },
+   "updated_at": "2026-06-01T09:00:00Z",
+   "tags": [],
+   "spam": false
+  },
+  {
+   "id": "t-119",
+   "subject": "Integrate with Zapier?",
+   "body": "Integrate with Zapier?",
+   "status": "open",
+   "priority": "normal",
+   "customer": {
+    "name": "Customer 119",
+    "tier": "enterprise"
+   },
+   "updated_at": "2026-09-23T09:00:00Z",
+   "tags": [],
+   "spam": false
+  },
+  {
+   "id": "t-120",
+   "subject": "Delete old projects in bulk",
+   "body": "Delete old projects in bulk",
+   "status": "open",
+   "priority": "normal",
+   "customer": {
+    "name": "Customer 120",
+    "tier": "pro"
+   },
+   "updated_at": "2026-09-24T09:00:00Z",
+   "tags": [],
+   "spam": false
+  },
+  {
+   "id": "t-100",
+   "subject": "Charged two times for September",
+   "body": "Charged two times for September",
+   "status": "open",
+   "priority": "high",
+   "customer": {
+    "name": "Customer 100",
+    "tier": "pro"
+   },
+   "updated_at": "2026-09-22T09:00:00Z",
+   "tags": [
+    "billing"
+   ],
+   "spam": false
+  },
+  {
+   "id": "t-101",
+   "subject": "Login loop after password reset",
+   "body": "Login loop after password reset",
+   "status": "open",
+   "priority": "high",
+   "customer": {
+    "name": "Customer 101",
+    "tier": "pro"
+   },
+   "updated_at": "2026-09-22T09:00:00Z",
+   "tags": [
+    "auth"
+   ],
+   "spam": false
+  },
+  {
+   "id": "t-132",
+   "subject": "Can I pause my subscription?",
+   "body": "Can I pause my subscription?",
+   "status": "open",
+   "priority": "normal",
+   "customer": {
+    "name": "Customer 132",
+    "tier": "enterprise"
+   },
+   "updated_at": "2026-06-01T09:00:00Z",
+   "tags": [],
+   "spam": false
+  },
+  {
+   "id": "t-135",
+   "subject": "Printing a board looks cut off",
+   "body": "Printing a board looks cut off",
+   "status": "pending",
+   "priority": "low",
+   "customer": {
+    "name": "Customer 135",
+    "tier": "enterprise"
+   },
+   "updated_at": "2026-09-21T09:00:00Z",
+   "tags": [],
+   "spam": false
+  },
+  {
+   "id": "t-121",
+   "subject": "Keyboard shortcuts list",
+   "body": "Keyboard shortcuts list",
+   "status": "open",
+   "priority": "normal",
+   "customer": {
+    "name": "Customer 121",
+    "tier": "free"
+   },
+   "updated_at": "2026-09-04T09:00:00Z",
+   "tags": [],
+   "spam": false
+  },
+  {
+   "id": "t-106",
+   "subject": "Charged two times last year",
+   "body": "Charged two times last year",
+   "status": "closed",
+   "priority": "normal",
+   "customer": {
+    "name": "Customer 106",
+    "tier": "pro"
+   },
+   "updated_at": "2026-09-22T09:00:00Z",
+   "tags": [
+    "billing"
+   ],
+   "spam": false
+  },
+  {
+   "id": "t-111",
+   "subject": "Cheap followers for your account",
+   "body": "Cheap followers for your account",
+   "status": "open",
+   "priority": "normal",
+   "customer": {
+    "name": "Customer 111",
+    "tier": "pro"
+   },
+   "updated_at": "2026-09-22T09:00:00Z",
+   "tags": [],
+   "spam": true
+  },
+  {
+   "id": "t-116",
+   "subject": "Invite teammates to workspace",
+   "body": "Invite teammates to workspace",
+   "status": "open",
+   "priority": "high",
+   "customer": {
+    "name": "Customer 116",
+    "tier": "free"
+   },
+   "updated_at": "2026-09-04T09:00:00Z",
+   "tags": [],
+   "spam": false
+  },
+  {
+   "id": "t-118",
+   "subject": "Timezone shows wrong on calendar",
+   "body": "Timezone shows wrong on calendar",
+   "status": "closed",
+   "priority": "low",
+   "customer": {
+    "name": "Customer 118",
+    "tier": "pro"
+   },
+   "updated_at": "2026-09-24T09:00:00Z",
+   "tags": [],
+   "spam": false
+  },
+  {
+   "id": "t-127",
+   "subject": "Mobile app crashes on Android 15",
+   "body": "Mobile app crashes on Android 15",
+   "status": "closed",
+   "priority": "normal",
+   "customer": {
+    "name": "Customer 127",
+    "tier": "free"
+   },
+   "updated_at": "2026-09-24T09:00:00Z",
+   "tags": [],
+   "spam": false
+  },
+  {
+   "id": "t-133",
+   "subject": "SSO with Okta configuration",
+   "body": "SSO with Okta configuration",
+   "status": "open",
+   "priority": "low",
+   "customer": {
+    "name": "Customer 133",
+    "tier": "team"
+   },
+   "updated_at": "2026-06-01T09:00:00Z",
+   "tags": [],
+   "spam": false
+  },
+  {
+   "id": "t-128",
+   "subject": "Custom domain setup help",
+   "body": "Custom domain setup help",
+   "status": "closed",
+   "priority": "normal",
+   "customer": {
+    "name": "Customer 128",
+    "tier": "team"
+   },
+   "updated_at": "2026-09-23T09:00:00Z",
+   "tags": [],
+   "spam": false
+  },
+  {
+   "id": "t-108",
+   "subject": "Dashboard shows 502 errors",
+   "body": "Dashboard shows 502 errors",
+   "status": "closed",
+   "priority": "normal",
+   "customer": {
+    "name": "Customer 108",
+    "tier": "free"
+   },
+   "updated_at": "2026-09-22T09:00:00Z",
+   "tags": [
+    "outage"
+   ],
+   "spam": false
+  },
+  {
+   "id": "t-117",
+   "subject": "Change billing email address",
+   "body": "Change billing email address",
+   "status": "open",
+   "priority": "normal",
+   "customer": {
+    "name": "Customer 117",
+    "tier": "free"
+   },
+   "updated_at": "2026-09-04T09:00:00Z",
+   "tags": [],
+   "spam": false
+  },
+  {
+   "id": "t-130",
+   "subject": "Translate interface to German",
+   "body": "Translate interface to German",
+   "status": "open",
+   "priority": "normal",
+   "customer": {
+    "name": "Customer 130",
+    "tier": "team"
+   },
+   "updated_at": "2026-06-01T09:00:00Z",
+   "tags": [],
+   "spam": false
+  },
+  {
+   "id": "t-114",
+   "subject": "Question about API rate limits",
+   "body": "Question about API rate limits",
+   "status": "open",
+   "priority": "normal",
+   "customer": {
+    "name": "Customer 114",
+    "tier": "free"
+   },
+   "updated_at": "2026-09-24T09:00:00Z",
+   "tags": [],
+   "spam": false
+  },
+  {
+   "id": "t-105",
+   "subject": "Cannot remove a former employee from our account",
+   "body": "Cannot remove a former employee from our account",
+   "status": "open",
+   "priority": "normal",
+   "customer": {
+    "name": "Customer 105",
+    "tier": "team"
+   },
+   "updated_at": "2026-09-22T09:00:00Z",
+   "tags": [
+    "admin"
+   ],
+   "spam": false
+  },
+  {
+   "id": "t-102",
+   "subject": "Dashboard shows 502 errors for everyone",
+   "body": "Dashboard shows 502 errors for everyone",
+   "status": "open",
+   "priority": "urgent",
+   "customer": {
+    "name": "Customer 102",
+    "tier": "enterprise"
+   },
+   "updated_at": "2026-09-22T09:00:00Z",
+   "tags": [
+    "outage"
+   ],
+   "spam": false
+  },
+  {
+   "id": "t-115",
+   "subject": "Where can I find the invoice PDF?",
+   "body": "Where can I find the invoice PDF?",
+   "status": "closed",
+   "priority": "high",
+   "customer": {
+    "name": "Customer 115",
+    "tier": "free"
+   },
+   "updated_at": "2026-09-23T09:00:00Z",
+   "tags": [],
+   "spam": false
+  },
+  {
+   "id": "t-125",
+   "subject": "Two factor code not arriving by SMS",
+   "body": "Two factor code not arriving by SMS",
+   "status": "open",
+   "priority": "normal",
+   "customer": {
+    "name": "Customer 125",
+    "tier": "free"
+   },
+   "updated_at": "2026-09-04T09:00:00Z",
+   "tags": [],
+   "spam": false
+  },
+  {
+   "id": "t-112",
+   "subject": "How do I change my avatar?",
+   "body": "How do I change my avatar?",
+   "status": "pending",
+   "priority": "normal",
+   "customer": {
+    "name": "Customer 112",
+    "tier": "enterprise"
+   },
+   "updated_at": "2026-06-01T09:00:00Z",
+   "tags": [],
+   "spam": false
+  },
+  {
+   "id": "t-134",
+   "subject": "Import from Trello",
+   "body": "Import from Trello",
+   "status": "closed",
+   "priority": "normal",
+   "customer": {
+    "name": "Customer 134",
+    "tier": "enterprise"
+   },
+   "updated_at": "2026-06-01T09:00:00Z",
+   "tags": [],
+   "spam": false
+  },
+  {
+   "id": "t-123",
+   "subject": "How to archive a board",
+   "body": "How to archive a board",
+   "status": "closed",
+   "priority": "normal",
+   "customer": {
+    "name": "Customer 123",
+    "tier": "enterprise"
+   },
+   "updated_at": "2026-09-04T09:00:00Z",
+   "tags": [],
+   "spam": false
+  },
+  {
+   "id": "t-104",
+   "subject": "CSV download gives an empty file",
+   "body": "CSV download gives an empty file",
+   "status": "open",
+   "priority": "normal",
+   "customer": {
+    "name": "Customer 104",
+    "tier": "pro"
+   },
+   "updated_at": "2026-09-22T09:00:00Z",
+   "tags": [
+    "export"
+   ],
+   "spam": false
+  },
+  {
+   "id": "t-109",
+   "subject": "Get your money back fast!!! click here",
+   "body": "Get your money back fast!!! click here",
+   "status": "open",
+   "priority": "normal",
+   "customer": {
+    "name": "Customer 109",
+    "tier": "pro"
+   },
+   "updated_at": "2026-09-22T09:00:00Z",
+   "tags": [],
+   "spam": true
+  },
+  {
+   "id": "t-124",
+   "subject": "Upgrade from Pro to Team plan",
+   "body": "Upgrade from Pro to Team plan",
+   "status": "closed",
+   "priority": "normal",
+   "customer": {
+    "name": "Customer 124",
+    "tier": "team"
+   },
+   "updated_at": "2026-09-23T09:00:00Z",
+   "tags": [],
+   "spam": false
+  },
+  {
+   "id": "t-113",
+   "subject": "Feature request: dark mode for reports",
+   "body": "Feature request: dark mode for reports",
+   "status": "open",
+   "priority": "low",
+   "customer": {
+    "name": "Customer 113",
+    "tier": "free"
+   },
+   "updated_at": "2026-09-21T09:00:00Z",
+   "tags": [],
+   "spam": false
+  },
+  {
+   "id": "t-103",
+   "subject": "Package arrived broken, I want my money back",
+   "body": "Package arrived broken, I want my money back",
+   "status": "open",
+   "priority": "normal",
+   "customer": {
+    "name": "Customer 103",
+    "tier": "pro"
+   },
+   "updated_at": "2026-09-22T09:00:00Z",
+   "tags": [
+    "orders"
+   ],
+   "spam": false
+  },
+  {
+   "id": "t-131",
+   "subject": "Onboarding checklist missing",
+   "body": "Onboarding checklist missing",
+   "status": "pending",
+   "priority": "high",
+   "customer": {
+    "name": "Customer 131",
+    "tier": "enterprise"
+   },
+   "updated_at": "2026-09-24T09:00:00Z",
+   "tags": [],
+   "spam": false
+  },
+  {
+   "id": "t-107",
+   "subject": "Login loop after password reset",
+   "body": "Login loop after password reset",
+   "status": "closed",
+   "priority": "normal",
+   "customer": {
+    "name": "Customer 107",
+    "tier": "pro"
+   },
+   "updated_at": "2026-09-22T09:00:00Z",
+   "tags": [
+    "auth"
+   ],
+   "spam": false
+  },
+  {
+   "id": "t-110",
+   "subject": "CSV download broken",
+   "body": "CSV download broken",
+   "status": "open",
+   "priority": "normal",
+   "customer": {
+    "name": "Customer 110",
+    "tier": "pro"
+   },
+   "updated_at": "2026-06-01T09:00:00Z",
+   "tags": [
+    "export"
+   ],
+   "spam": false
+  }
+ ]
+}

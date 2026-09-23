@@ -1,23 +1,40 @@
-"""The Fact record and the reason codes used when a fact is dropped."""
+"""The Fact record and the registry of reason codes."""
 
 from __future__ import annotations
 
 import hashlib
 from dataclasses import asdict, dataclass, field
 
-KINDS = ("button", "link", "input", "select", "text")
+LABEL_MAX = 80
 
-# Reason codes for dropped facts.
+# Core reason codes for dropped facts. Adapters add their own, namespaced as "<adapter>.<code>".
 HIDDEN = "hidden"
 DISABLED = "disabled"
-NOT_INTERACTIVE = "not_interactive"
 UNLABELED = "unlabeled"
 DUPLICATE = "duplicate"
 LOW_SCORE = "low_score"
 BUDGET = "budget"
-DROP_REASONS = (HIDDEN, DISABLED, NOT_INTERACTIVE, UNLABELED, DUPLICATE, LOW_SCORE, BUDGET)
 
-LABEL_MAX = 80
+# Every reason and keep-rule name that can appear in `Fact.reason`, with a plain description.
+REASONS: dict[str, str] = {
+    HIDDEN: "Not observable right now (for web pages: not visible)",
+    DISABLED: "Exists but cannot be acted on",
+    UNLABELED: "No usable label, so Jev could not tell what it is",
+    DUPLICATE: "Same kind and label as a higher-scored fact",
+    LOW_SCORE: "Scored below the keep threshold",
+    BUDGET: "Would have been kept, cut only to fit the token or option budget",
+    "goal_match": "Kept: the label shares a word with the goal",
+    "base": "Kept: no rule dropped it",
+    "pinned": "Kept: pinned by the caller",
+}
+
+
+def register_reasons(codes: dict[str, str], replace: bool = False) -> None:
+    """Add reason codes. Re-registering a code with a different description is an error unless `replace`."""
+    for code, text in codes.items():
+        if not replace and REASONS.get(code, text) != text:
+            raise ValueError(f"reason code {code!r} is already registered with a different description")
+        REASONS[code] = text
 
 
 @dataclass
@@ -25,16 +42,13 @@ class Fact:
     id: str
     kind: str
     label: str
-    attrs: dict = field(default_factory=dict)
-    visible: bool = True
-    enabled: bool = True
-    in_viewport: bool = False
-    y: int = 0
+    attrs: dict = field(default_factory=dict)  # sent to Jev; values should already be semantic
+    meta: dict = field(default_factory=dict)   # never sent to Jev: locators, positions, raw values
+    visible: bool = True                       # observable right now
+    enabled: bool = True                       # can be acted on
     score: float = 0.0
     kept: bool = True
     reason: str = ""
-    selector: str = field(default="", repr=False)  # internal, used to click the element
-    box: list[int] | None = None  # [x, y, width, height] in viewport pixels, for the viewer
 
     def drop(self, reason: str) -> None:
         self.kept = False
@@ -48,14 +62,23 @@ class Fact:
         if level == "summary":
             return {"id": self.id, "kept": self.kept, "reason": self.reason}
         d = asdict(self)
-        d.pop("selector")
+        d["meta"] = {k: v for k, v in self.meta.items() if k in ("box", "order")}  # small, useful to viewers
         return d
 
+    # Convenience for spatial adapters (web, games).
+    @property
+    def selector(self) -> str:
+        return self.meta.get("selector", "")
 
-def fact_id(tag: str, label: str, path: str) -> str:
-    """Stable ID from tag, label, and DOM path, so an element keeps its ID across ticks."""
-    return "e" + hashlib.sha256(f"{tag}|{label}|{path}".encode()).hexdigest()[:6]
+    @property
+    def box(self) -> list[int] | None:
+        return self.meta.get("box")
 
 
-def clean_label(text: str | None) -> str:
-    return " ".join((text or "").split())[:LABEL_MAX]
+def fact_id(*parts: str) -> str:
+    """Stable ID from identifying parts, so the same thing keeps its ID across ticks."""
+    return "e" + hashlib.sha256("|".join(parts).encode()).hexdigest()[:6]
+
+
+def clean_label(text) -> str:
+    return " ".join(str(text or "").split())[:LABEL_MAX]

@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "jevbrief"
 version = "0.1.0"
-description = "Clean, traceable state briefings for TypeSafe's Jev model."
+description = "Clean, traceable state briefings for TypeSafe's Jev model, from any source: web pages, JSON, and more."
 readme = "README.md"
 requires-python = ">=3.10"
 license = "MIT"
@@ -17,10 +17,17 @@ classifiers = [
   "Operating System :: OS Independent",
   "Topic :: Software Development :: Libraries",
 ]
-dependencies = ["playwright>=1.40", "typesafe-sdk>=0.7"]
+dependencies = ["typesafe-sdk>=0.7"]
 
 [project.optional-dependencies]
-dev = ["pytest>=8"]
+web = ["playwright>=1.40"]
+json = ["tomli>=2; python_version < '3.11'"]
+all = ["jevbrief[web,json]"]
+dev = ["jevbrief[all]", "pytest>=8"]
+
+[project.entry-points."jevbrief.adapters"]
+web = "jevbrief.adapters.web:WebAdapter"
+json = "jevbrief.adapters.json:JsonAdapter"
 
 [project.scripts]
 jevbrief = "jevbrief.cli:main"

@@ -26,3 +26,7 @@ Run on 2026-09-24 with `jev-1.13.0`, 10 synthetic fixtures (`fixtures/`, generat
 - The second run scored raw 100%, jevbrief 90%. The salience filter dropped a newsletter "Sign up" button far down the page. One rule was added after seeing this failure: a button in the same container as a goal-matching input gets +0.20 (`near_goal_input`). Because it was added after seeing the result, treat it as tuned on this set.
 - Input tokens are the real `usage.input_tokens` reported by the API.
 - These are synthetic pages. Results on real sites may differ.
+
+## Re-run after the adapter refactor (2026-09-24)
+
+Same fixtures, same tasks, through the new `web` adapter: raw 100% (30/30), median 5400 input tokens; jevbrief 100% (30/30), median 2344 input tokens. Token counts are identical to the run above, as expected: the refactor does not change the web output (checked by `tests/test_web_snapshot.py`). Latency was higher for both arms on this run (about 2.2 s), which reflects API load at the time, not the refactor.

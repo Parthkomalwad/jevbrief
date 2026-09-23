@@ -21,6 +21,7 @@ def fit(facts: list[Fact], budget_tokens: int = DEFAULT_TOKENS, max_options: int
         base: dict | None = None) -> int:
     """Mark kept facts that do not fit as `budget`. Returns the estimated tokens used.
 
+    Facts are kept by score. Ties go to the lower `meta["order"]` (for web pages, the y position).
     `base` is the rest of the state (goal, url) so its cost counts against the budget.
     """
     if not 0 < budget_tokens <= MAX_TOKENS:
@@ -29,7 +30,7 @@ def fit(facts: list[Fact], budget_tokens: int = DEFAULT_TOKENS, max_options: int
         raise ValueError(f"max_options must be between 1 and {MAX_OPTIONS}")
     used = estimate_tokens(base or {})
     count = 0
-    for f in sorted((f for f in facts if f.kept), key=lambda f: (-f.score, f.y)):
+    for f in sorted((f for f in facts if f.kept), key=lambda f: (-f.score, f.meta.get("order", 0))):
         cost = estimate_tokens(f.state()) + 1
         if count >= max_options or used + cost > budget_tokens:
             f.drop(BUDGET)

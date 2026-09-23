@@ -117,6 +117,7 @@ tr.hl td { background: rgba(255, 230, 0, .35) !important; }
 .help ol { margin: 8px 0 2px; padding-left: 20px; } .help li { margin: 4px 0; }
 .help code, .noshot code { background: var(--panel); padding: 0 4px; }
 .noshot { color: var(--muted); font-size: 12px; padding: 18px 0; line-height: 1.5; }
+.top-grid.one { grid-template-columns: 1fr; }
 .top-grid .prob { grid-template-columns: minmax(0, 1fr) minmax(60px, 40%) 52px; }
 @media (max-width: 1100px) { .top-grid { grid-template-columns: 1fr; } }
 @media (max-width: 760px) {
@@ -142,9 +143,10 @@ tr.hl td { background: rgba(255, 230, 0, .35) !important; }
 <script id="traces" type="application/json">/*__TRACES__*/[]</script>
 <script>
 const WHY = {
-  hidden: "Not visible on the page",
-  disabled: "Element is disabled",
+  hidden: "Not observable right now",
+  disabled: "Exists but cannot be acted on",
   not_interactive: "Plain text with no link to the goal",
+  "web.not_interactive": "Plain text (a heading) with no link to the goal",
   unlabeled: "No usable label, so Jev could not tell what it is",
   duplicate: "Same kind and label as a higher-scored element",
   low_score: "Scored below the keep threshold",
@@ -154,13 +156,18 @@ const KEPT_WHY = {
   goal_match: "matches the goal",
   near_goal_input: "next to a goal field",
   in_viewport: "visible on screen",
+  "web.near_goal_input": "next to a goal field",
+  "web.in_viewport": "visible on screen",
   base: "no drop rule applied",
   pinned: "pinned by you",
   raw: "raw arm, no filtering",
 };
 let showDropped = false, helpSeen = false;
 try { helpSeen = localStorage.getItem("jevbrief-help-seen") === "1"; } catch {}
-const ORDER = ["budget", "low_score", "duplicate", "not_interactive", "unlabeled", "disabled", "hidden"];
+const ORDER = ["budget", "low_score", "duplicate", "not_interactive", "web.not_interactive", "unlabeled", "disabled", "hidden"];
+const whyOf = (r, code) => r.reasons?.[code] || WHY[code] || "";
+const keptWhy = (r, code) => (r.reasons?.[code] || "").replace(/^Kept: /, "") || KEPT_WHY[code] || code;
+const imageOf = (r) => r.image?.src ? { image: r.image.src, width: r.image.width, height: r.image.height } : r.page;
 const records = JSON.parse(document.getElementById("traces").textContent);
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
@@ -175,6 +182,7 @@ const color = (t) => `var(--${t})`;
 const soft = (t) => `var(--${t}-soft)`;
 const fmt = (c) => (c == null ? "–" : c.toFixed(2));
 const page = (url) => { try { const u = new URL(url); return u.protocol === "file:" ? u.pathname.split("/").pop() : u.host + u.pathname; } catch { return url || ""; } };
+const where = (r) => r.source?.url ? page(r.source.url) : (r.source?.name || r.adapter?.name || "");
 const labelOf = (r, id) => id === "none" ? "None of these" : (r.facts.find((f) => f.id === id)?.label || id);
 
 function renderList() {
@@ -183,7 +191,7 @@ function renderList() {
     return `<div class="item ${i === selected ? "sel" : ""}" data-i="${i}" tabindex="0">
       <div class="strip" style="background:${color(t)}"></div>
       <div><div class="goal">${esc(r.goal)}</div>
-      <div class="sub">tick ${r.tick} · ${esc(r.outcome)} · ${esc(page(r.source?.url))}</div></div>
+      <div class="sub">tick ${r.tick} · ${esc(r.outcome)} · ${esc(where(r))}</div></div>
       <div class="conf" style="color:${color(t)}">${fmt(r.jev?.confidence)}</div></div>`;
   }).join("") : `<div class="empty">No decisions match.</div>`;
 }
@@ -213,19 +221,19 @@ function renderDetail() {
 
   const keptRows = kept.sort((a, b) => (b.score ?? 0) - (a.score ?? 0)).map((f) => `
     <tr data-id="${esc(f.id)}" class="${f.id === j.choice ? "chosen" : ""}"><td class="id">${esc(f.id)}</td><td><span class="kind">${esc(f.kind ?? "")}</span></td>
-    <td>${esc(f.label ?? "")}</td><td class="num">${f.score != null ? f.score.toFixed(2) : ""}</td><td class="rule" title="${esc(f.reason)}">${esc(KEPT_WHY[f.reason] || f.reason)}</td></tr>`).join("");
+    <td>${esc(f.label ?? "")}</td><td class="num">${f.score != null ? f.score.toFixed(2) : ""}</td><td class="rule" title="${esc(f.reason)}">${esc(keptWhy(r, f.reason))}</td></tr>`).join("");
 
   const groups = {};
   dropped.forEach((f) => (groups[f.reason] ||= []).push(f));
   const codes = Object.keys(groups).sort((a, b) => (ORDER.indexOf(a) + 1 || 99) - (ORDER.indexOf(b) + 1 || 99));
   const droppedHtml = codes.length ? codes.map((code) => `
     <details class="group" ${code === "budget" ? "open" : ""}><summary><span class="code">${esc(code)}</span>
-    <span class="count">${groups[code].length}</span><span class="why">${esc(WHY[code] || "")}</span></summary>
+    <span class="count">${groups[code].length}</span><span class="why">${esc(whyOf(r, code))}</span></summary>
     <table class="dropped"><tbody>${groups[code].map((f) => `<tr data-id="${esc(f.id)}"><td class="id">${esc(f.id)}</td>
     <td><span class="kind">${esc(f.kind ?? "")}</span></td><td class="lbl">${esc(f.label || "(no label)")}</td></tr>`).join("")}</tbody></table></details>`).join("")
     : `<div class="why">Nothing was dropped.</div>`;
 
-  const pg = r.page;
+  const pg = imageOf(r);
   const boxes = pg ? r.facts.filter((f) => Array.isArray(f.box) && f.box[2] > 0 && f.box[3] > 0 &&
       f.box[1] < pg.height && f.box[1] + f.box[3] > 0 && f.box[0] < pg.width && f.box[0] + f.box[2] > 0)
     .map((f) => {
@@ -233,23 +241,23 @@ function renderDetail() {
       const tip = `${f.label || "(no label)"} · ${f.kept ? "sent to Jev" : "dropped: " + f.reason}`;
       return `<div class="bx ${cls}" data-id="${esc(f.id)}" title="${esc(tip)}" style="left:${x / pg.width * 100}%;top:${y / pg.height * 100}%;width:${w / pg.width * 100}%;height:${h / pg.height * 100}%"></div>`;
     }).join("") : "";
-  const shotHtml = pg ? `<div class="shot ${showDropped ? "" : "hide-dropped"}" id="shot"><img src="${pg.image}" alt="Screenshot of the page Jev was asked about">${boxes}</div>
+  const shotHtml = pg ? `<div class="shot ${showDropped ? "" : "hide-dropped"}" id="shot"><img src="${pg.image}" alt="Snapshot of the source Jev was asked about">${boxes}</div>
     <div class="legend"><span><i class="sw chosen"></i> Jev's pick</span>
       <label><input type="checkbox" id="t-kept" checked> <i class="sw kept"></i> sent to Jev</label>
       <label><input type="checkbox" id="t-dropped" ${showDropped ? "checked" : ""}> <i class="sw dropped"></i> dropped</label>
       <span>Hover a box or a table row to match them.</span></div>`
-    : `<div class="noshot">No screenshot in this trace. Traces written by <code>jevbrief ask</code> or <code>Brief.from_page()</code> include one. Traces built with <code>Brief.load()</code>, like the benchmark, do not.</div>`;
+    : "";
 
   $("detail").innerHTML = `
     <details class="help" ${helpSeen ? "" : "open"} id="help"><summary>How to read this page</summary><ol>
       <li><b>Left list:</b> one row per decision. The colored strip is Jev's confidence: green 0.8 and up, amber 0.5 to 0.8, red below 0.5 or an error.</li>
       <li><b>Jev picked:</b> the element Jev chose for the goal, and how sure it was. Below 0.5 your agent takes no action.</li>
-      <li><b>What Jev saw:</b> the page when the decision was made. Pink is Jev's pick, blue boxes were sent to Jev, and dark dashed boxes were dropped.</li>
-      <li><b>What Jev was told / not told:</b> every element on the page. Dropped ones are grouped by reason, so you can check that nothing important was filtered out.</li>
+      <li><b>What Jev saw</b> (sources with an image, such as web pages): the source when the decision was made. Pink is Jev's pick, blue boxes were sent to Jev, and dark dashed boxes were dropped.</li>
+      <li><b>What Jev was told / not told:</b> every fact from the source. Dropped ones are grouped by reason, so you can check that nothing important was filtered out.</li>
       <li>Use the arrow keys to move between decisions. Run <code>jevbrief ask ... --view</code> to open this page after each run.</li>
     </ol></details>
-    <div class="top-grid">
-      <div class="card"><div class="bar">What Jev saw &#9642; ${esc(page(r.source?.url))}</div>${shotHtml}</div>
+    <div class="top-grid ${pg ? "" : "one"}">
+      ${pg ? `<div class="card"><div class="bar">What Jev saw &#9642; ${esc(where(r))}</div>${shotHtml}</div>` : ""}
       <div>
         <div class="card"><div class="bar">${esc((r.ts || "").replace("T", " ").replace("Z", " UTC"))} &#9642; decision ${r.tick}</div><div class="hero">
           <div class="ring" style="background:${soft(t)};color:${color(t)}">${fmt(j.confidence)}</div>
@@ -259,7 +267,7 @@ function renderDetail() {
           <div class="badges">${badges}</div></div></div>
           ${j.error ? `<div class="err" style="margin-top:10px">${esc(j.error)}</div>` : ""}</div>
         <div class="card stats">
-          <div class="stat"><div class="n">${r.source?.raw_facts ?? r.facts.length}</div><div class="k">elements on the page</div></div>
+          <div class="stat"><div class="n">${r.source?.raw_facts ?? r.facts.length}</div><div class="k">facts found</div></div>
           <div class="stat"><div class="n">${kept.length}</div><div class="k">sent to Jev</div></div>
           <div class="stat"><div class="n">${dropped.length}</div><div class="k">dropped, each with a reason</div></div>
           <div class="stat"><div class="n">${r.budget?.used_tokens ?? "–"}<span class="why"> / ${r.budget?.limit_tokens ?? "–"}</span></div><div class="k">tokens used / budget</div></div>

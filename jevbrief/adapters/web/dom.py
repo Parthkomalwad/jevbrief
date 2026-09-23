@@ -6,7 +6,7 @@ The browser script only collects raw data. All filtering happens in Python
 
 from __future__ import annotations
 
-from .facts import Fact, clean_label, fact_id
+from ...facts import Fact, clean_label, fact_id
 
 SELECTOR = "a,button,input,select,textarea,[role=button],[role=link],[onclick],h1,h2,h3,h4"
 
@@ -91,12 +91,10 @@ def to_fact(raw: dict) -> Fact:
         kind=_kind(raw),
         label=label,
         attrs=attrs,
+        meta={"selector": raw["path"], "box": raw.get("box"), "in_viewport": raw["in_viewport"],
+              "y": raw["y"], "order": raw["y"]},
         visible=raw["visible"],
         enabled=raw["enabled"],
-        in_viewport=raw["in_viewport"],
-        y=raw["y"],
-        box=raw.get("box"),
-        selector=raw["path"],
     )
 
 

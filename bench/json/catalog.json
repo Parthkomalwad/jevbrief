@@ -1,0 +1,132 @@
+{
+ "products": [
+  {
+   "sku": "sku-003",
+   "name": "Summit down parka",
+   "category": "jackets",
+   "price": 349,
+   "in_stock": true,
+   "rating": 3.5
+  },
+  {
+   "sku": "sku-005",
+   "name": "Ultralight 2-person tent",
+   "category": "tents",
+   "price": 289,
+   "in_stock": true,
+   "rating": 3.4
+  },
+  {
+   "sku": "sku-010",
+   "name": "Insulated steel water bottle 1L",
+   "category": "bottles",
+   "price": 35,
+   "in_stock": true,
+   "rating": 4.7
+  },
+  {
+   "sku": "sku-006",
+   "name": "Family cabin tent 6-person",
+   "category": "tents",
+   "price": 419,
+   "in_stock": true,
+   "rating": 4.1
+  },
+  {
+   "sku": "sku-011",
+   "name": "Collapsible silicone bottle",
+   "category": "bottles",
+   "price": 22,
+   "in_stock": true,
+   "rating": 4.8
+  },
+  {
+   "sku": "sku-012",
+   "name": "Trail running shoes",
+   "category": "shoes",
+   "price": 139,
+   "in_stock": true,
+   "rating": 4.3
+  },
+  {
+   "sku": "sku-009",
+   "name": "Cotton crew socks 10-pack",
+   "category": "socks",
+   "price": 18,
+   "in_stock": true,
+   "rating": 3.4
+  },
+  {
+   "sku": "sku-004",
+   "name": "City softshell jacket",
+   "category": "jackets",
+   "price": 99,
+   "in_stock": true,
+   "rating": 3.7
+  },
+  {
+   "sku": "sku-001",
+   "name": "Trailhead waterproof rain jacket",
+   "category": "jackets",
+   "price": 129,
+   "in_stock": true,
+   "rating": 3.2
+  },
+  {
+   "sku": "sku-016",
+   "name": "Camp lantern rechargeable",
+   "category": "lights",
+   "price": 59,
+   "in_stock": false,
+   "rating": 4.8
+  },
+  {
+   "sku": "sku-008",
+   "name": "Merino hiking socks 3-pack",
+   "category": "socks",
+   "price": 32,
+   "in_stock": true,
+   "rating": 3.7
+  },
+  {
+   "sku": "sku-002",
+   "name": "Trailhead waterproof rain jacket XL",
+   "category": "jackets",
+   "price": 129,
+   "in_stock": false,
+   "rating": 4.6
+  },
+  {
+   "sku": "sku-014",
+   "name": "Kids rain boots",
+   "category": "shoes",
+   "price": 39,
+   "in_stock": true,
+   "rating": 4.0
+  },
+  {
+   "sku": "sku-015",
+   "name": "Headlamp 400 lumen",
+   "category": "lights",
+   "price": 45,
+   "in_stock": true,
+   "rating": 4.7
+  },
+  {
+   "sku": "sku-007",
+   "name": "Budget dome tent",
+   "category": "tents",
+   "price": 79,
+   "in_stock": false,
+   "rating": 4.2
+  },
+  {
+   "sku": "sku-013",
+   "name": "Leather hiking boots",
+   "category": "shoes",
+   "price": 219,
+   "in_stock": true,
+   "rating": 4.5
+  }
+ ]
+}

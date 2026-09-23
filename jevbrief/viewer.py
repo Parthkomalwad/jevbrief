@@ -1,8 +1,10 @@
-"""Render a JSONL trace into the single-file HTML viewer."""
+"""Render a JSONL trace into the single-file HTML viewer. Images are embedded, so it works offline."""
 
 from __future__ import annotations
 
+import base64
 import json
+import mimetypes
 import tempfile
 import webbrowser
 from importlib.resources import files
@@ -12,8 +14,15 @@ PLACEHOLDER = "/*__TRACES__*/[]"
 
 
 def render(trace_path: str | Path) -> str:
-    lines = Path(trace_path).read_text(encoding="utf-8").splitlines()
-    records = [json.loads(line) for line in lines if line.strip()]
+    trace_path = Path(trace_path)
+    records = [json.loads(line) for line in trace_path.read_text(encoding="utf-8").splitlines() if line.strip()]
+    for r in records:
+        img = r.get("image")
+        if img and img.get("path"):
+            f = trace_path.parent / img["path"]
+            if f.is_file():
+                mime = mimetypes.guess_type(f.name)[0] or "image/jpeg"
+                img["src"] = f"data:{mime};base64," + base64.b64encode(f.read_bytes()).decode()
     data = json.dumps(records, ensure_ascii=False).replace("</", "<\\/")
     return files("jevbrief").joinpath("viewer.html").read_text(encoding="utf-8").replace(PLACEHOLDER, data)
 
