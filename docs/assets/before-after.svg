@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" width="960" height="360" font-family="Consolas, 'Cascadia Mono', ui-monospace, monospace">
+  <title>Before and after: the raw state is 1,395 log lines and 29,678 tokens; the jevbrief briefing is 5 log groups and 1,070 tokens, and Jev picks the config reload failure.</title>
+  <style>
+    .bg { fill: #ffffff; }
+    .panel { fill: #f4f4f4; stroke: #111; stroke-width: 2; }
+    .bar { fill: #1b1b1b; }
+    .bartxt { fill: #f2f2f2; font-size: 13px; font-weight: 700; }
+    .sub { fill: #bdbdbd; font-size: 12px; }
+    .line { fill: #777; font-size: 11px; }
+    .err { fill: #c0262d; font-size: 11px; }
+    .row { fill: #111; font-size: 12px; }
+    .meta { fill: #666; font-size: 11px; }
+    .chip { fill: #fff; stroke: #111; stroke-width: 1.2; }
+    .pickchip { fill: #ffe0f7; stroke: #ff3fd2; stroke-width: 2.5; }
+    .pick { fill: #ff3fd2; font-size: 12px; font-weight: 700; }
+    .fade { fill: url(#fadeLight); }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #0e0e10; }
+      .panel { fill: #16161a; stroke: #4a4a52; }
+      .bar { fill: #000; }
+      .line { fill: #7a7a82; }
+      .err { fill: #ff7a73; }
+      .row { fill: #ececec; }
+      .meta { fill: #9a9aa0; }
+      .chip { fill: #1f1f24; stroke: #6a6a74; }
+      .pickchip { fill: #3a1633; stroke: #ff5fdc; }
+      .fade { fill: url(#fadeDark); }
+    }
+    .scroll { animation: scroll 14s linear infinite; }
+    @keyframes scroll { from { transform: translateY(0); } to { transform: translateY(-360px); } }
+    .in { opacity: 0; animation: appear 7s infinite; }
+    .i1 { animation-delay: .2s; } .i2 { animation-delay: .5s; } .i3 { animation-delay: .8s; } .i4 { animation-delay: 1.1s; } .i5 { animation-delay: 1.4s; }
+    @keyframes appear { 0% { opacity: 0; transform: translateX(-8px); } 10%, 90% { opacity: 1; transform: none; } 100% { opacity: 0; } }
+    .pickon { animation: pickon 7s infinite; }
+    @keyframes pickon { 0%, 30% { opacity: 0; } 40%, 90% { opacity: 1; } 100% { opacity: 0; } }
+  </style>
+  <defs>
+    <linearGradient id="fadeLight" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f4f4f4" stop-opacity="0"/><stop offset="1" stop-color="#f4f4f4"/></linearGradient>
+    <linearGradient id="fadeDark" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#16161a" stop-opacity="0"/><stop offset="1" stop-color="#16161a"/></linearGradient>
+    <clipPath id="rawclip"><rect x="22" y="58" width="416" height="280"/></clipPath>
+  </defs>
+  <rect class="bg" width="960" height="360"/>
+
+  <!-- before -->
+  <rect class="panel" x="20" y="20" width="420" height="320"/>
+  <rect class="bar" x="20" y="20" width="420" height="30"/>
+  <text class="bartxt" x="32" y="40">BEFORE · raw log lines</text>
+  <text class="sub" x="300" y="40">29,678 tokens</text>
+  <g clip-path="url(#rawclip)">
+    <g class="scroll">
+      <g id="lines">
+        <text class="line" x="32" y="76">14:21:07 INFO  api-gateway GET /healthz 200</text>
+        <text class="line" x="32" y="94">14:21:07 DEBUG payments cache stats hits=951 misses=12</text>
+        <text class="err"  x="32" y="112">14:21:08 ERROR api-gateway no healthy upstream for req 4471</text>
+        <text class="line" x="32" y="130">14:21:08 INFO  checkout GET /healthz 200</text>
+        <text class="err"  x="32" y="148">14:21:08 ERROR api-gateway no healthy upstream for req 8120</text>
+        <text class="line" x="32" y="166">14:21:09 WARN  checkout gateway returned 502 for callback 3391</text>
+        <text class="line" x="32" y="184">14:21:09 INFO  api-gateway /cart completed in 88ms</text>
+        <text class="err"  x="32" y="202">14:21:09 ERROR api-gateway no healthy upstream for req 2045</text>
+        <text class="line" x="32" y="220">14:21:10 INFO  auth GET /healthz 200</text>
+        <text class="line" x="32" y="238">14:21:10 DEBUG inventory cache stats hits=990 misses=4</text>
+        <text class="err"  x="32" y="256">14:21:10 ERROR api-gateway no healthy upstream for req 7718</text>
+        <text class="line" x="32" y="274">14:21:11 INFO  notifications GET /healthz 200</text>
+        <text class="err"  x="32" y="292">14:21:11 ERROR notifications push provider returned 410</text>
+        <text class="line" x="32" y="310">14:21:11 INFO  api-gateway /orders completed in 121ms</text>
+        <text class="err"  x="32" y="328">14:21:12 ERROR api-gateway no healthy upstream for req 9902</text>
+        <text class="line" x="32" y="346">14:21:12 INFO  payments GET /healthz 200</text>
+        <text class="line" x="32" y="364">14:21:12 WARN  checkout gateway returned 502 for callback 1180</text>
+        <text class="err"  x="32" y="382">14:21:13 ERROR api-gateway no healthy upstream for req 6634</text>
+        <text class="line" x="32" y="400">14:21:13 INFO  inventory GET /healthz 200</text>
+        <text class="line" x="32" y="418">14:21:13 DEBUG auth cache stats hits=940 misses=22</text>
+      </g>
+      <use href="#lines" y="360"/>
+    </g>
+  </g>
+  <rect class="fade" x="22" y="280" width="416" height="58"/>
+
+  <!-- arrow -->
+  <path d="M452 180 H508" stroke="#ff3fd2" stroke-width="3" fill="none"/>
+  <path d="M500 172 L512 180 L500 188" stroke="#ff3fd2" stroke-width="3" fill="none"/>
+  <text class="meta" x="452" y="206">jevbrief</text>
+
+  <!-- after -->
+  <rect class="panel" x="520" y="20" width="420" height="320"/>
+  <rect class="bar" x="520" y="20" width="420" height="30"/>
+  <text class="bartxt" x="532" y="40">AFTER · what Jev is told</text>
+  <text class="sub" x="808" y="40">1,070 tokens</text>
+
+  <g class="in i1"><rect class="chip" x="534" y="64" width="392" height="44"/>
+    <text class="row" x="546" y="82">api-gateway: no healthy upstream for request &lt;n&gt;</text>
+    <text class="meta" x="546" y="99">error · very often · after the incident started</text></g>
+  <g class="in i2"><rect class="chip" x="534" y="116" width="392" height="44"/>
+    <text class="row" x="546" y="134">checkout: gateway returned 502 for callback &lt;n&gt;</text>
+    <text class="meta" x="546" y="151">warn · often · after the incident started</text></g>
+  <g class="in i3"><rect class="chip" x="534" y="168" width="392" height="44"/>
+    <rect class="pickchip pickon" x="534" y="168" width="392" height="44"/>
+    <text class="row" x="546" y="186">api-gateway: config reload failed: unknown field</text>
+    <text class="meta" x="546" y="203">error · once · at the incident start</text></g>
+  <g class="in i4"><rect class="chip" x="534" y="220" width="392" height="44"/>
+    <text class="row" x="546" y="238">notifications: push provider returned 410</text>
+    <text class="meta" x="546" y="255">error · often · before the incident</text></g>
+  <g class="in i5"><rect class="chip" x="534" y="272" width="392" height="44"/>
+    <text class="row" x="546" y="290">inventory: slow query on stock_levels took &lt;n&gt;</text>
+    <text class="meta" x="546" y="307">warn · a few times · before the incident</text></g>
+  <text class="pick pickon" x="770" y="332">Jev: likely cause · 0.99</text>
+</svg>
