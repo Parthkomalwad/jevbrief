@@ -9,9 +9,9 @@ Other tools show what Jev decided. jevbrief shows what Jev was told, what it was
 [![PyPI](https://img.shields.io/pypi/v/jevbrief?color=ff3fd2&label=pypi)](https://pypi.org/project/jevbrief)
 [![Python](https://img.shields.io/pypi/pyversions/jevbrief?color=111)](https://pypi.org/project/jevbrief)
 [![License: MIT](https://img.shields.io/badge/license-MIT-111)](https://github.com/parthkomalwad/jevbrief/blob/main/LICENSE)
-[![Adapters](https://img.shields.io/badge/adapters-web%20%C2%B7%20json%20%C2%B7%20otel-ff3fd2)](#adapters)
+[![Adapters](https://img.shields.io/badge/adapters-web%20%C2%B7%20json%20%C2%B7%20otel%20%C2%B7%20nes-ff3fd2)](#adapters)
 
-[Adapters](#adapters) &nbsp;·&nbsp; [Quick start](#quick-start) &nbsp;·&nbsp; [Python](#use-it-in-python) &nbsp;·&nbsp; [Viewer](#see-every-decision) &nbsp;·&nbsp; [How it works](#how-it-works) &nbsp;·&nbsp; [Benchmarks](#benchmarks) &nbsp;·&nbsp; [Build an adapter](#build-your-own-adapter) &nbsp;·&nbsp; [Contributing](#contributing)
+[Adapters](#adapters) &nbsp;·&nbsp; [Quick start](#quick-start) &nbsp;·&nbsp; [Game demo](#watch-jev-play-a-game) &nbsp;·&nbsp; [Python](#use-it-in-python) &nbsp;·&nbsp; [Viewer](#see-every-decision) &nbsp;·&nbsp; [How it works](#how-it-works) &nbsp;·&nbsp; [Benchmarks](#benchmarks) &nbsp;·&nbsp; [Build an adapter](#build-your-own-adapter) &nbsp;·&nbsp; [Contributing](#contributing)
 
 <br>
 
@@ -35,7 +35,7 @@ jevbrief sits between your source and Jev. It keeps what matters, drops the rest
 
 **Adapters**
 
-Read a web page, a JSON file, or OpenTelemetry logs into facts, with numbers and dates already turned into plain words.
+Read a web page, a JSON file, OpenTelemetry logs, or an NES game's memory into facts, with numbers and dates already turned into plain words.
 
 </td>
 <td width="33%" valign="top">
@@ -80,21 +80,21 @@ One JSON line per decision: what was kept, what was dropped and why, and what Je
 
 ## Adapters
 
-![Adapter overview: web pages, JSON data, and OpenTelemetry logs are supported; NES games and Slack and Discord are planned; new sources are open for contribution](https://raw.githubusercontent.com/parthkomalwad/jevbrief/main/docs/assets/adapters.svg)
+![Adapter overview: web pages, JSON data, OpenTelemetry logs, and NES games are supported; Slack and Discord are planned; new sources are open for contribution](https://raw.githubusercontent.com/parthkomalwad/jevbrief/main/docs/assets/adapters.svg)
 
 | Source | Status | Install | Jev answers | Docs |
 |---|---|---|---|---|
 | Web pages (Playwright) | Supported | `pip install "jevbrief[web]"` | Which element to click next | [web](https://github.com/parthkomalwad/jevbrief/blob/main/docs/adapters/web.md) |
 | JSON and JSON Lines, with a config file | Supported | `pip install jevbrief` | Which item fits, or which action to take | [json](https://github.com/parthkomalwad/jevbrief/blob/main/docs/adapters/json.md) |
 | OpenTelemetry logs (OTLP JSON) | Supported | `pip install jevbrief` | Which log group explains an incident | [otel](https://github.com/parthkomalwad/jevbrief/blob/main/docs/adapters/otel.md) |
-| NES games (Super Mario Bros) | Planned for v0.3 | `jevbrief[nes]` | Which move to make next | [roadmap](https://github.com/parthkomalwad/jevbrief/blob/main/docs/roadmap-v0.2.md) |
+| NES games (Nova the Squirrel, a free open-source platformer) | Supported | `pip install "jevbrief[nes]"` | Which move to make next | [nes](https://github.com/parthkomalwad/jevbrief/blob/main/docs/adapters/nes.md) |
 | Slack and Discord exports | Planned for v0.4 | `jevbrief[chat]` | Which message answers a question | [roadmap](https://github.com/parthkomalwad/jevbrief/blob/main/docs/roadmap-v0.2.md) |
 | Your source | Open | | | [Suggest it](https://github.com/parthkomalwad/jevbrief/issues/new?template=adapter_request.yml) or [build it](https://github.com/parthkomalwad/jevbrief/blob/main/ADAPTERS.md) |
 
 ## Quick start
 
 ```bash
-pip install "jevbrief[all]"       # everything; or jevbrief (json and otel), or jevbrief[web]
+pip install "jevbrief[all]"       # everything; or jevbrief (json and otel), jevbrief[web], or jevbrief[nes]
 playwright install chromium       # only for web pages
 ```
 
@@ -128,6 +128,18 @@ A config maps your data to facts: which list to read, which fields to send, whic
 </details>
 
 <details>
+<summary><b>NES games: Jev plays a platformer, live</b></summary>
+<br>
+
+```bash
+python examples/nes_live.py --rom nova.nes --headed
+```
+
+The game's memory becomes facts such as `Owl: ahead, near, above`, Jev picks a move, and the live viewer shows each decision as it happens. Step by step: [Watch Jev play a game](#watch-jev-play-a-game).
+
+</details>
+
+<details>
 <summary><b>Web pages: choose the next click</b></summary>
 <br>
 
@@ -138,6 +150,68 @@ jevbrief ask https://news.ycombinator.com --goal "log in" --view
 </details>
 
 Get an API key at [console.typesafe.ai](https://console.typesafe.ai). Set `TYPESAFE_API_KEY` in your environment, or put `TYPESAFE_API_KEY=...` in a `.env` file where you run the CLI. Run `jevbrief adapters` to list what is installed.
+
+## Watch Jev play a game
+
+![Jev plays level 1-1 of Nova the Squirrel: each frame shows the facts sent to Jev and the move it picked](https://raw.githubusercontent.com/parthkomalwad/jevbrief/main/docs/assets/nes-demo.gif)
+
+Every frame is a real Jev decision. jevbrief reads the game's memory, turns it into a few facts in words (`Wall ahead, low (one block), touching`), and asks Jev for one move, plus whether walking right is dangerous, in the same call. The game is paused while Jev answers.
+
+On level 1-1, the facts got Nova to block 56 in 100 moves at 713 input tokens per call. Raw memory got her to block 8.6 at 2,829 tokens ([results](https://github.com/parthkomalwad/jevbrief/blob/main/bench/nes/results.md)).
+
+### Try it yourself
+
+You need Python 3.10 or newer, a TypeSafe API key, and about five minutes.
+
+**1. Get jevbrief with the example**
+
+```bash
+git clone https://github.com/parthkomalwad/jevbrief && cd jevbrief
+python -m venv .venv && . .venv/bin/activate      # Windows: .venv\Scripts\activate
+pip install -e ".[nes]"
+```
+
+**2. Get the game.** Download `nova.nes` (free) from the author's [v1.0.6a release](https://github.com/NovaSquirrel/NovaTheSquirrel/releases/tag/v1.0.6a). [Nova the Squirrel](https://github.com/NovaSquirrel/NovaTheSquirrel) is an open-source NES platformer by NovaSquirrel: GPL-3.0 code, CC BY-NC-SA 4.0 graphics and levels. jevbrief never ships or downloads ROMs, and commercial games such as Super Mario Bros are not supported.
+
+**3. Add your key.** Put `TYPESAFE_API_KEY=...` in a `.env` file in the `jevbrief` folder. Get one at [console.typesafe.ai](https://console.typesafe.ai).
+
+**4. Play**
+
+```bash
+python examples/nes_live.py --rom path/to/nova.nes --headed
+```
+
+Your browser opens the live viewer at `http://127.0.0.1:8765/`:
+
+- **Bottom right:** the game, as it plays.
+- **Left:** one row per decision, colored by Jev's confidence.
+- **Middle:** what Jev was told, what was dropped and why, the frame with boxes, and how sure Jev was of each move.
+
+The terminal prints one line per decision, such as `jump_right 0.89 -> jump_right x=7.3 health=4`. Replay a run later with `jevbrief view traces/nes.jsonl`.
+
+![The live viewer during a game: decisions on the left, the frame Jev saw with boxes in the middle, and the running game in the corner](https://raw.githubusercontent.com/parthkomalwad/jevbrief/main/docs/assets/viewer-nes-live.png)
+
+<details>
+<summary><b>Options and troubleshooting</b></summary>
+<br>
+
+| Option | Default | What it does |
+|---|---|---|
+| `--decisions` | 150 | How many moves to play |
+| `--headed` | off | Open the viewer in your browser |
+| `--timeout` | 3 | Seconds before a slow Jev call is retried |
+| `--danger` | 0.7 | Wait instead of walking right when Jev's danger answer is at least this |
+| `--port` | 8765 | Port of the live viewer |
+| `--trace` | `traces/nes.jsonl` | Where the trace is written |
+
+- **A few slow decisions at the start:** the first Jev calls after a quiet period can take several seconds. The game waits, so play is not affected, and calls speed up to a few hundred milliseconds.
+- **"jevbrief warns the ROM is not the release":** use `nova.nes` from v1.0.6a; other builds may use a different memory layout.
+- **Port in use:** pass `--port 8770`.
+- **Nova gets stuck:** she often stops at a tall wall around block 56, where the path continues below a thin ledge. Jev is not a game-playing model; the trace shows exactly what it was told at that point.
+
+</details>
+
+**Add another NES game:** [skills/jevbrief-nes-game/SKILL.md](https://github.com/parthkomalwad/jevbrief/blob/main/skills/jevbrief-nes-game/SKILL.md) is a step-by-step guide, for you or a coding agent such as Claude Code, from a legal ROM to a tested adapter. It includes `ram_search.py`, which finds a game's memory addresses by watching which bytes change.
 
 ## Use it in Python
 
@@ -179,7 +253,7 @@ Every decision comes back in the same shape:
 | `low_confidence` | Below `min_confidence`, or Jev chose "none" | Take no action |
 | `error` | The API call failed | Take no action |
 
-Examples: [otel_incident.py](https://github.com/parthkomalwad/jevbrief/blob/main/examples/otel_incident.py) · [json_triage.py](https://github.com/parthkomalwad/jevbrief/blob/main/examples/json_triage.py) · [click_agent.py](https://github.com/parthkomalwad/jevbrief/blob/main/examples/click_agent.py)
+Examples: [nes_live.py](https://github.com/parthkomalwad/jevbrief/blob/main/examples/nes_live.py) · [otel_incident.py](https://github.com/parthkomalwad/jevbrief/blob/main/examples/otel_incident.py) · [json_triage.py](https://github.com/parthkomalwad/jevbrief/blob/main/examples/json_triage.py) · [click_agent.py](https://github.com/parthkomalwad/jevbrief/blob/main/examples/click_agent.py)
 
 ## See every decision
 
@@ -207,6 +281,8 @@ Each adapter chooses the view that fits its source.
 </td>
 </tr>
 </table>
+
+**Live**, for games: `jevbrief view --live traces/nes.jsonl` serves the same viewer on `127.0.0.1`, adds each decision as it is written, and shows the running game in a corner panel. See the [game demo](#watch-jev-play-a-game).
 
 The viewer is a single HTML file with the trace and images embedded. It needs no server and no network, so it can be attached to a bug report.
 
@@ -243,7 +319,7 @@ Core codes are shared by every adapter. Adapter codes are namespaced, so adapter
 | `duplicate` | Same kind and label as a higher-scored fact |
 | `low_score` | Scored below the keep threshold |
 | `budget` | Would have been kept, cut only to fit the token or option budget |
-| `<adapter>.<code>` | Adapter rules such as `web.not_interactive`, `json.closed`, or `otel.healthcheck`, each described in the trace |
+| `<adapter>.<code>` | Adapter rules such as `web.not_interactive`, `json.closed`, `otel.healthcheck`, or `nes.far_ahead`, each described in the trace |
 
 Force-keep facts with `pins=["<fact id>"]`. Fact IDs are stable across decisions.
 
@@ -258,8 +334,9 @@ Force-keep facts with `pins=["<fact id>"]`. Fact IDs are stable across decisions
 | web | 10 pages | 100% (30/30) | 100% (30/30) | 5,400 | **2,344** (−57%) |
 | json | 9 queries | 89% (24/27) | **100% (27/27)** | 3,848 | **2,002** (−48%) |
 | otel | 6 incidents | 83% (15/18) | **100% (18/18)** | 29,678 | **1,070** (−96%) |
+| nes | Nova the Squirrel 1-1, 100 moves | reached x 8.6 | **reached x 56.4** | 2,829 | **713** (−75%) |
 
-Same Jev (`jev-1.13.0`), same question, three runs per task, median input tokens. The raw arm sends what a naive integration would send: every element, every record, or the most recent log lines. The data is synthetic and built to resemble real sources, and some rules were designed while building these sets, so treat the numbers as illustrations rather than general results. Details: [web](https://github.com/parthkomalwad/jevbrief/blob/main/bench/results.md) · [json](https://github.com/parthkomalwad/jevbrief/blob/main/bench/json/results.md) · [otel](https://github.com/parthkomalwad/jevbrief/blob/main/bench/otel/results.md). Reproduce them with `jevbrief bench`.
+Same Jev (`jev-1.13.0`), same question, three runs per task, median input tokens. The raw arm sends what a naive integration would send: every element, every record, or the most recent log lines. The data is synthetic and built to resemble real sources, and some rules were designed while building these sets, so treat the numbers as illustrations rather than general results. For nes, accuracy is how far Nova got in 100 moves (median of 3 runs, level map 256 blocks); neither arm finished the level. Details: [web](https://github.com/parthkomalwad/jevbrief/blob/main/bench/results.md) · [json](https://github.com/parthkomalwad/jevbrief/blob/main/bench/json/results.md) · [otel](https://github.com/parthkomalwad/jevbrief/blob/main/bench/otel/results.md) · [nes](https://github.com/parthkomalwad/jevbrief/blob/main/bench/nes/results.md). Reproduce them with `jevbrief bench`.
 
 ## Build your own adapter
 

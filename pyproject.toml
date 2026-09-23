@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "jevbrief"
-version = "0.1.0"
+version = "0.2.0"
 description = "Clean, traceable state briefings for TypeSafe's Jev model, from any source: web pages, JSON, and more."
 readme = "README.md"
 requires-python = ">=3.10"
@@ -23,13 +23,15 @@ dependencies = ["typesafe-sdk>=0.7"]
 web = ["playwright>=1.40"]
 json = ["tomli>=2; python_version < '3.11'"]
 otel = ["tomli>=2; python_version < '3.11'"]
-all = ["jevbrief[web,json,otel]"]
+nes = ["cynes>=0.1.2"]
+all = ["jevbrief[web,json,otel,nes]"]
 dev = ["jevbrief[all]", "pytest>=8"]
 
 [project.entry-points."jevbrief.adapters"]
 web = "jevbrief.adapters.web:WebAdapter"
 json = "jevbrief.adapters.json:JsonAdapter"
 otel = "jevbrief.adapters.otel:OtelAdapter"
+nes = "jevbrief.adapters.nes:NesAdapter"
 
 [project.scripts]
 jevbrief = "jevbrief.cli:main"
@@ -40,6 +42,8 @@ Issues = "https://github.com/parthkomalwad/jevbrief/issues"
 
 [tool.hatch.build.targets.sdist]
 include = ["jevbrief", "tests", "README.md", "LICENSE", "pyproject.toml"]
+# Recorded NES snapshots contain game level data (CC BY-NC-SA 4.0); they stay in the repo, not the package.
+exclude = ["tests/fixtures/nes", "tests/test_nes.py"]
 
 [tool.hatch.build.targets.wheel]
 packages = ["jevbrief"]

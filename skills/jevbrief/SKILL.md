@@ -1,6 +1,6 @@
 ---
 name: jevbrief
-description: Add jevbrief to a project so an agent asks TypeSafe's Jev a clear question about a filtered state (a web page, JSON data, OpenTelemetry logs, and other sources through adapters), with a trace of what was kept, dropped, and why. Use when building an agent that decides from a web page or structured data, when a model is sent too much state, or when someone asks why an agent chose the wrong thing.
+description: Add jevbrief to a project so an agent asks TypeSafe's Jev a clear question about a filtered state (a web page, JSON data, OpenTelemetry logs, an NES game, and other sources through adapters), with a trace of what was kept, dropped, and why. Use when building an agent that decides from a web page or structured data, when a model is sent too much state, or when someone asks why an agent chose the wrong thing.
 ---
 
 # Use jevbrief in a project
@@ -12,6 +12,7 @@ jevbrief turns a source into small, relevant state for Jev. An **adapter** reads
 | Web pages (Playwright) | `web` | `pip install "jevbrief[web]"` then `playwright install chromium` | Which element to click next |
 | JSON / JSON Lines with a config | `json` | `pip install jevbrief` | Which item fits, or which fixed action to take |
 | OpenTelemetry logs (OTLP JSON) | `otel` | `pip install jevbrief` | Which log group explains an incident |
+| NES games (Nova the Squirrel; the user supplies the free ROM) | `nes` | `pip install "jevbrief[nes]"` | Which move to make next |
 
 Run `jevbrief adapters` to list what is installed. Other sources need a new adapter (see ADAPTERS.md in the repo).
 
@@ -26,6 +27,7 @@ jevbrief inspect <url-or-file> --goal "<goal>"                                  
 jevbrief inspect data.json --adapter json --config map.toml --goal "<goal>"            # json
 jevbrief inspect logs.json --adapter otel --goal "<what users see failing>"            # otel
 jevbrief ask ... --view                                                                # one real decision + replay
+jevbrief view --live traces/nes.jsonl                                                  # watch decisions as they arrive
 ```
 
 ## 2. Integrate
@@ -55,6 +57,8 @@ decision = brief.next_click()
 if decision.fact:
     await page.locator(decision.fact.selector).click()
 ```
+
+**NES game loop:** `python examples/nes_live.py --rom nova.nes --headed`. Never download or link a ROM for the user; point to the free Nova the Squirrel release in `docs/adapters/nes.md`. The emulator is paused while Jev answers, so latency does not affect play.
 
 **Filter only, your own model call:** `brief.extract(...)` then `brief.state()` returns the filtered JSON.
 

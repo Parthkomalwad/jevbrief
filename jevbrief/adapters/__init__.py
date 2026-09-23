@@ -20,7 +20,7 @@ from ..rules import RuleSet
 GROUP = "jevbrief.adapters"
 # Used when jevbrief runs from a source checkout without being installed.
 BUILTIN = {"web": "jevbrief.adapters.web:WebAdapter", "json": "jevbrief.adapters.json:JsonAdapter",
-           "otel": "jevbrief.adapters.otel:OtelAdapter"}
+           "otel": "jevbrief.adapters.otel:OtelAdapter", "nes": "jevbrief.adapters.nes:NesAdapter"}
 
 
 class Adapter:

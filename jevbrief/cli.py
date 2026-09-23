@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import os
 import sys
+import time
 from collections import Counter
 from pathlib import Path
 
@@ -84,9 +85,19 @@ def cmd_ask(a) -> int:
 
 
 def cmd_view(a) -> int:
-    from .viewer import open_viewer
+    from .viewer import open_viewer, serve_live
 
-    trace = a.trace or latest_trace()
+    trace = a.trace or latest_trace() or ("traces/trace.jsonl" if a.live else None)
+    if a.live:
+        server = serve_live(trace, port=a.port, open_browser=not a.no_open)
+        print(f"trace: {trace}")
+        print(f"live viewer: http://127.0.0.1:{server.server_port}/  (Ctrl+C to stop)")
+        try:
+            while True:
+                time.sleep(1)
+        except KeyboardInterrupt:
+            server.shutdown()
+        return 0
     if not trace:
         print('No trace found in traces/. Run `jevbrief ask <source> --goal "..."` first.', file=sys.stderr)
         return 2
@@ -146,6 +157,8 @@ def main(argv: list[str] | None = None) -> int:
     sp = sub.add_parser("view", help="Open a trace file in the HTML viewer (default: the newest in traces/).")
     sp.add_argument("trace", nargs="?", help="Path to a .jsonl trace file (default: newest file in traces/)")
     sp.add_argument("--no-open", action="store_true", help="Write the HTML file but do not open a browser")
+    sp.add_argument("--live", action="store_true", help="Serve the viewer on 127.0.0.1 and show new decisions as they are written")
+    sp.add_argument("--port", type=int, default=8765, help="Port for --live (default 8765)")
     sp.set_defaults(fn=cmd_view)
 
     sp = sub.add_parser("bench", help="Run a benchmark: raw state against jevbrief state.")

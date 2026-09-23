@@ -54,3 +54,33 @@ def test_replay_button_restarts_the_animation(tmp_path):
         page.wait_for_timeout(300)
         assert page.evaluate(steps) == 1  # restarted, not skipped to the end
         browser.close()
+
+
+def test_live_server_serves_page_and_streams_new_decisions(tmp_path):
+    import urllib.request
+
+    from jevbrief.viewer import serve_live
+
+    trace = tmp_path / "t.jsonl"
+    rec = {"tick": 1, "goal": "g", "facts": [], "jev": {}, "outcome": "applied"}
+    trace.write_text(json.dumps(rec) + "\n", encoding="utf-8")
+    server = serve_live(trace, port=0, open_browser=False)
+    base = f"http://127.0.0.1:{server.server_port}"
+    try:
+        page = urllib.request.urlopen(base + "/", timeout=5).read().decode()
+        assert "EventSource" in page and '"tick": 1' in page
+        with urllib.request.urlopen(base + "/events?from=1", timeout=5) as stream:
+            with trace.open("a", encoding="utf-8") as f:
+                f.write(json.dumps({**rec, "tick": 2}) + "\n")
+            line = b""
+            while not line.startswith(b"data: "):
+                line = stream.readline()
+            assert json.loads(line[6:])["tick"] == 2
+    finally:
+        server.shutdown()
+
+
+def test_static_view_has_no_live_code(tmp_path):
+    path = tmp_path / "t.jsonl"
+    path.write_text("{}\n", encoding="utf-8")
+    assert "EventSource" not in render(path)

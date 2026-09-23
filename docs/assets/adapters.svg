@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 400" width="960" height="400" font-family="Consolas, 'Cascadia Mono', ui-monospace, monospace">
-  <title>jevbrief adapters: web pages, JSON data, and OpenTelemetry logs are supported; NES games and Slack and Discord are coming; you can suggest or build your own.</title>
+  <title>jevbrief adapters: web pages, JSON data, OpenTelemetry logs, and NES games are supported; Slack and Discord are coming; you can suggest or build your own.</title>
   <style>
     .bg { fill: #ffffff; }
     .card { fill: #dedede; stroke: #111; stroke-width: 2; }
@@ -64,14 +64,15 @@
     <text class="pick fade f3" x="14" y="160">confidence 0.99 · −96% tokens</text>
   </g>
 
-  <!-- coming -->
+  <!-- row 2 -->
   <g transform="translate(16,208)">
-    <rect class="soon" width="296" height="176"/>
-    <text class="t" x="14" y="28" font-weight="700">NES GAMES</text><text class="tag next" x="232" y="28">v0.3</text>
-    <text class="m" x="14" y="56">Super Mario Bros · jevbrief[nes]</text>
-    <text class="t" x="14" y="92">RAM → "Goomba ahead, close"</text>
-    <text class="t" x="14" y="116">Jev: jump_right</text>
-    <text class="m" x="14" y="156">Platformer question pack</text>
+    <rect class="card" width="296" height="176"/><rect class="bar" width="296" height="30"/>
+    <text class="bartxt" x="12" y="20">NES GAMES</text><text class="tag ok" x="226" y="20">SUPPORTED</text>
+    <text class="m" x="14" y="54">jevbrief[nes] · Nova the Squirrel</text>
+    <text class="big" x="14" y="88">2,829 → 713</text><text class="m" x="190" y="88">tokens sent</text>
+    <rect class="track" x="14" y="100" width="268" height="10"/><rect class="fill grow" x="14" y="100" width="268" height="10"/>
+    <text class="t fade" x="14" y="136">"Wall ahead, low, touching"</text>
+    <text class="pick fade" x="14" y="160">Jev: short_hop · live viewer</text>
   </g>
   <g transform="translate(332,208)">
     <rect class="soon" width="296" height="176"/>

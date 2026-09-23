@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 300" width="960" height="300" font-family="Consolas, 'Cascadia Mono', ui-monospace, monospace">
-  <title>Benchmarks: median input tokens and accuracy, raw state versus jevbrief. Web 5,400 vs 2,344 tokens, both 100% accurate. JSON 3,848 vs 2,002 tokens, 89% vs 100%. OpenTelemetry logs 29,678 vs 1,070 tokens, 83% vs 100%.</title>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 370" width="960" height="370" font-family="Consolas, 'Cascadia Mono', ui-monospace, monospace">
+  <title>Benchmarks: median input tokens and accuracy, raw state versus jevbrief. Web 5,400 vs 2,344 tokens, both 100% accurate. JSON 3,848 vs 2,002 tokens, 89% vs 100%. OpenTelemetry logs 29,678 vs 1,070 tokens, 83% vs 100%. NES game 2,829 vs 713 tokens, reaching block 8.6 vs 56.4.</title>
   <style>
     .bg { fill: #ffffff; }
     .t { fill: #111; font-size: 14px; font-weight: 700; }
@@ -15,13 +15,13 @@
       .raw { fill: #4a4a52; } .grid { stroke: #2c2c31; } .acc { fill: #5fd18e; } .accbad { fill: #ff7a73; }
     }
     .grow { transform-box: fill-box; transform-origin: left; animation: grow 7s infinite cubic-bezier(.2,.8,.2,1); }
-    .d2 { animation-delay: .3s; } .d3 { animation-delay: .6s; }
+    .d2 { animation-delay: .3s; } .d3 { animation-delay: .6s; } .d4 { animation-delay: .9s; }
     @keyframes grow { 0% { transform: scaleX(0); } 20%, 90% { transform: scaleX(1); } 100% { transform: scaleX(0); } }
   </style>
-  <rect class="bg" width="960" height="300"/>
+  <rect class="bg" width="960" height="370"/>
   <text class="t" x="20" y="28">Median input tokens per decision (bars to scale)</text>
   <text class="m" x="20" y="46">same Jev (jev-1.13.0), same question, 3 runs per task · grey = raw state · pink = jevbrief</text>
-  <line class="grid" x1="170" y1="60" x2="170" y2="270"/>
+  <line class="grid" x1="170" y1="60" x2="170" y2="340"/>
 
   <!-- scale: 30,000 tokens = 620 px -->
   <text class="t" x="20" y="92">web</text><text class="m" x="20" y="108">10 pages</text>
@@ -36,5 +36,9 @@
   <rect class="raw grow d3" x="170" y="216" width="613" height="16"/><text class="v" x="791" y="229">29,678 · <tspan class="accbad">83%</tspan></text>
   <rect class="jb grow d3" x="170" y="236" width="22" height="16"/><text class="v" x="200" y="249">1,070 · <tspan class="acc">100%</tspan> · −96%</text>
 
-  <text class="m" x="20" y="290">Synthetic data built to look like real sources. See bench/*/results.md for tasks and caveats.</text>
+  <text class="t" x="20" y="302">nes game</text><text class="m" x="20" y="318">100 moves</text>
+  <rect class="raw grow d4" x="170" y="286" width="58" height="16"/><text class="v" x="236" y="299">2,829 · <tspan class="accbad">reached block 8.6</tspan></text>
+  <rect class="jb grow d4" x="170" y="306" width="15" height="16"/><text class="v" x="193" y="319">713 · <tspan class="acc">reached block 56.4</tspan> · −75%</text>
+
+  <text class="m" x="20" y="360">web, json, otel: synthetic data built to look like real sources. nes: one real level. See bench/*/results.md for caveats.</text>
 </svg>

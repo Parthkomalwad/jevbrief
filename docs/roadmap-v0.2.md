@@ -22,7 +22,7 @@ v0.1.0 has not been published, so the modular design ships **in v0.1.0 itself**.
 | Reason codes | Core codes stay unprefixed (`hidden`, `disabled`, `unlabeled`, `duplicate`, `low_score`, `budget`). Adapter codes are namespaced (`web.not_interactive`, `nes.offscreen`) |
 | Playwright | Optional extra: `pip install "jevbrief[web]"`. The core installs with only the TypeSafe SDK |
 | JSON adapter config | TOML (with `tomli` on Python 3.10 in the `json` extra), JSON also accepted |
-| NES scope | Super Mario Bros World 1-1 only |
+| NES scope | Super Mario Bros World 1-1 only. **Changed 2026-09-24:** shipped with Nova the Squirrel level 1-1 instead, a free open-source game, because a Super Mario Bros ROM cannot be obtained legally for testing and demos. See [docs/adapters/nes.md](adapters/nes.md) and the [NES game skill](../skills/jevbrief-nes-game/SKILL.md) for adding games |
 | Chat | Export files only |
 | Trace images | Saved in a folder next to the trace, embedded by the viewer when it builds the HTML |
 | Compatibility | Nothing is published, so there is no v0.1 API to preserve. The web output (facts, scores, reasons) must stay identical, proven by snapshot tests |
