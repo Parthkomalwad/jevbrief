@@ -6,3 +6,7 @@ jevbrief turns messy sources like web pages into small, clean state for Jev, dro
 **Status:** under active development. v0.1.0 (Python, web page adapter, trace viewer) ships tonight, Wednesday, September 23, 2026.
 
 Community project, not affiliated with TypeSafe AI.
+
+## Packages
+- Python: https://pypi.org/project/jevbrief (placeholder until v0.1.0)
+- npm: https://www.npmjs.com/package/jevbrief (placeholder, TypeScript version planned)
