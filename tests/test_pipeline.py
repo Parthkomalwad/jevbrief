@@ -46,6 +46,15 @@ def test_far_below_viewport_is_low_score():
     assert f.reason == "low_score" and f.score < salience.KEEP_THRESHOLD
 
 
+def test_button_next_to_goal_input_is_boosted():
+    email = F("i", "Your email", kind="input", selector="html>footer>input", in_viewport=False, y=5000)
+    btn = F("b", "Sign up", selector="html>footer>button", in_viewport=False, y=5000)
+    other = F("o", "Careers", kind="link", selector="html>footer>a", in_viewport=False, y=5000)
+    salience.score([email, btn, other], "subscribe to the email newsletter")
+    assert btn.kept and btn.reason == "near_goal_input"
+    assert other.reason == "low_score"
+
+
 def test_pins_force_keep():
     (f,) = salience.score([F("p", visible=False)], GOAL, pins=["p"])
     assert f.kept and f.reason == "pinned"

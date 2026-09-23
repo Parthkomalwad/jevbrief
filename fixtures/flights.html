@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Book flights</title><style>
+body{font-family:system-ui,sans-serif;margin:0;color:#222}
+header,footer{padding:12px 24px;background:#f3f3f3}
+nav a,footer a{margin-right:12px}
+main{padding:24px;max-width:960px}
+.mega{display:none}
+.spacer{height:2600px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.card{border:1px solid #ddd;padding:8px}
+.banner{position:fixed;bottom:0;left:0;right:0;background:#222;color:#fff;padding:12px}
+.sr{position:absolute;width:0;height:0;overflow:hidden}
+</style></head>
+<body>
+<header>
+<a href="/" aria-label="Skyway home"><svg width="80" height="20"></svg></a>
+<nav><a href="/flights">Flights</a><a href="/hotels">Hotels</a><a href="/cars">Cars</a><a href="/packages">Packages</a><a href="/deals">Deals</a><a href="/trips">Trips</a></nav>
+<div class="mega"><a href="/c/1">Category 1</a><a href="/c/2">Category 2</a><a href="/c/3">Category 3</a><a href="/c/4">Category 4</a><a href="/c/5">Category 5</a><a href="/c/6">Category 6</a><a href="/c/7">Category 7</a><a href="/c/8">Category 8</a><a href="/c/9">Category 9</a><a href="/c/10">Category 10</a><a href="/c/11">Category 11</a><a href="/c/12">Category 12</a><a href="/c/13">Category 13</a><a href="/c/14">Category 14</a><a href="/c/15">Category 15</a></div>
+<input type="search" placeholder="Search Skyway">
+<button aria-label="Open menu"><svg width="16" height="16"></svg></button>
+<button><svg width="16" height="16"></svg></button>
+<a href="/help">Help</a> <a href="/account">My account</a>
+</header>
+<main>
+
+<h1>Where to next?</h1>
+<button>Round trip</button><button>One way</button><button>Multi-city</button>
+<label for="f">From</label><input id="f" placeholder="City or airport" value="Mumbai (BOM)">
+<label for="t">To</label><input id="t" placeholder="City or airport" value="Tokyo (HND)">
+<label for="d">Depart</label><input id="d" type="date" value="2026-10-10">
+<label for="r">Return</label><input id="r" type="date" value="2026-10-20">
+<select name="cabin"><option>Economy</option><option>Business</option></select>
+<button>Search flights</button>
+<h2>Popular destinations</h2><a href="/deal/Paris">Flights to Paris</a><a href="/deal/Tokyo">Flights to Tokyo</a><a href="/deal/Dubai">Flights to Dubai</a><a href="/deal/London">Flights to London</a><a href="/deal/Bali">Flights to Bali</a><a href="/deal/New York">Flights to New York</a><button>Explore deals</button>
+</main>
+<div class="spacer"></div>
+<footer><h3>Company</h3><a href="/about-us">About us</a><a href="/careers">Careers</a><a href="/press">Press</a><a href="/investors">Investors</a><a href="/blog">Blog</a><a href="/affiliates">Affiliates</a><a href="/gift-cards">Gift cards</a><a href="/accessibility">Accessibility</a><a href="/privacy-policy">Privacy policy</a><a href="/terms-of-service">Terms of service</a><a href="/cookie-settings">Cookie settings</a><a href="/sitemap">Sitemap</a><a href="/store-locator">Store locator</a><a href="/shipping-info">Shipping info</a><a href="/returns">Returns</a><a href="/help-center">Help center</a><a href="/contact-us">Contact us</a><a href="https://social.example/x"><svg width="16" height="16"></svg></a><a href="https://social.example/fb"><svg width="16" height="16"></svg></a><a href="https://social.example/ig"><svg width="16" height="16"></svg></a><a href="https://social.example/yt"><svg width="16" height="16"></svg></a>
+<select name="region"><option>United States</option><option>India</option></select>
+<a href="/privacy-policy">Privacy policy</a></footer>
+<div class="banner" style="display:none"><h4>We value your privacy</h4>
+<button>Accept all</button><button>Reject non-essential</button><a href="/cookie-settings">Customize</a></div>
+</body></html>

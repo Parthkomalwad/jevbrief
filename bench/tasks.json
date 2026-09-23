@@ -1,0 +1,52 @@
+[
+  {
+    "fixture": "../fixtures/shop_product.html",
+    "goal": "add this item to the cart",
+    "expected_label": "Add to cart"
+  },
+  {
+    "fixture": "../fixtures/login.html",
+    "goal": "log in to my account",
+    "expected_label": "Sign in"
+  },
+  {
+    "fixture": "../fixtures/cart.html",
+    "goal": "go to checkout and pay",
+    "expected_label": "Proceed to checkout"
+  },
+  {
+    "fixture": "../fixtures/docs_home.html",
+    "goal": "find out how to install the package",
+    "expected_label": "Installation"
+  },
+  {
+    "fixture": "../fixtures/settings.html",
+    "goal": "update my password",
+    "expected_label": "Change password"
+  },
+  {
+    "fixture": "../fixtures/news_article.html",
+    "goal": "subscribe to the email newsletter",
+    "expected_label": "Sign up"
+  },
+  {
+    "fixture": "../fixtures/flights.html",
+    "goal": "look for available flights",
+    "expected_label": "Search flights"
+  },
+  {
+    "fixture": "../fixtures/search_results.html",
+    "goal": "go to the next page of results",
+    "expected_label": "Next page"
+  },
+  {
+    "fixture": "../fixtures/cookie_consent.html",
+    "goal": "accept the cookies",
+    "expected_label": "Accept all"
+  },
+  {
+    "fixture": "../fixtures/support.html",
+    "goal": "talk to a customer service agent",
+    "expected_label": "Chat with us"
+  }
+]

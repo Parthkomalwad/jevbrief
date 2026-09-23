@@ -53,6 +53,8 @@ _SCRIPT = """
       name: el.getAttribute('name'),
       href_path: href,
       onclick: el.hasAttribute('onclick'),
+      filled: ['INPUT', 'TEXTAREA'].includes(el.tagName) &&
+        !['submit', 'button', 'reset', 'image', 'checkbox', 'radio'].includes(el.type) && !!el.value,
       label: labelOf(el),
       visible,
       enabled: !el.disabled && el.getAttribute('aria-disabled') !== 'true',
@@ -82,7 +84,7 @@ def _kind(raw: dict) -> str:
 
 def to_fact(raw: dict) -> Fact:
     label = clean_label(raw["label"])
-    attrs = {k: raw[k] for k in ("type", "href_path", "name") if raw.get(k)}
+    attrs = {k: raw[k] for k in ("type", "href_path", "name", "filled") if raw.get(k)}  # never the value itself
     return Fact(
         id=fact_id(raw["tag"], label, raw["path"]),
         kind=_kind(raw),

@@ -9,7 +9,7 @@ NONE = "none"
 
 
 def describe(f: Fact) -> str:
-    extra = ", ".join(f"{k}={v}" for k, v in f.attrs.items() if k in ("type", "href_path"))
+    extra = ", ".join(f"{k}={v}" for k, v in f.attrs.items() if k in ("type", "href_path", "filled"))
     return f"{f.kind}: {f.label}" + (f" ({extra})" if extra else "")
 
 

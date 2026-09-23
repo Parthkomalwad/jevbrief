@@ -9,6 +9,7 @@ from .facts import DISABLED, DUPLICATE, HIDDEN, LOW_SCORE, NOT_INTERACTIVE, UNLA
 
 BASE = 0.5
 GOAL_MATCH = 0.35
+NEAR_GOAL = 0.20
 IN_VIEWPORT = 0.10
 FAR_BELOW = -0.25
 FAR_SCREENS = 3
@@ -22,6 +23,10 @@ STOPWORDS = set(
 
 def _words(text: str) -> set[str]:
     return {w.rstrip("s") or w for w in re.findall(r"[a-z0-9]+", text.lower())}
+
+
+def _parent(f: Fact) -> str:
+    return f.selector.rsplit(">", 1)[0] if f.selector else ""
 
 
 def goal_words(goal: str) -> set[str]:
@@ -62,6 +67,13 @@ def score(facts: list[Fact], goal: str, pins: Iterable[str] = (), viewport_h: in
             f.score += FAR_BELOW
         f.score = round(f.score, 4)
         f.reason = rules[0] if rules else "base"
+
+    # A button next to a goal-matching input (same parent element) is likely its submit button.
+    goal_inputs = {_parent(f) for f in facts if f.kept and f.kind == "input" and f.reason == "goal_match"}
+    for f in facts:
+        if f.kept and f.kind == "button" and f.reason not in ("goal_match", "pinned") and _parent(f) in goal_inputs:
+            f.score = round(f.score + NEAR_GOAL, 4)
+            f.reason = "near_goal_input"
 
     seen: dict[tuple[str, str], Fact] = {}
     for f in sorted((f for f in facts if f.kept), key=lambda f: -f.score):
