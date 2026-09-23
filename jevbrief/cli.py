@@ -83,7 +83,8 @@ def cmd_ask(a) -> int:
         print("TYPESAFE_API_KEY is not set. Add it to your environment or a .env file.", file=sys.stderr)
         return 2
     brief = asyncio.run(brief_page(a.url, a.goal, budget_tokens=a.budget, trace=a.trace,
-                                   min_confidence=a.min_confidence, trace_level=a.trace_level))
+                                   min_confidence=a.min_confidence, trace_level=a.trace_level,
+                                   screenshot=not a.no_screenshot))
     d = brief.next_click()
     conf = f"{d.confidence:.2f}" if d.confidence is not None else "-"
     label = d.fact.label if d.fact else "(no action)"
@@ -92,13 +93,24 @@ def cmd_ask(a) -> int:
         print(f"error: {d.record.jev.get('error') if d.record else 'unknown'}", file=sys.stderr)
     if brief.trace_path and brief.trace_level != "off":
         print(f"trace: {brief.trace_path}")
+        if a.view:
+            from .viewer import open_viewer
+
+            print(f"viewer: {open_viewer(brief.trace_path)}")
+        else:
+            print(f"see it: jevbrief view {brief.trace_path}")
     return 1 if d.outcome == "error" else 0
 
 
 def cmd_view(a) -> int:
     from .viewer import open_viewer
 
-    path = open_viewer(a.trace, open_browser=not a.no_open)
+    trace = a.trace or latest_trace()
+    if not trace:
+        print("No trace found in traces/. Run `jevbrief ask <url> --goal \"...\"` first.", file=sys.stderr)
+        return 2
+    print(f"trace: {trace}")
+    path = open_viewer(trace, open_browser=not a.no_open)
     print(f"viewer: {path}")
     return 0
 
@@ -111,6 +123,11 @@ def cmd_bench(a) -> int:
         return 2
     print(run(a.tasks, repeats=a.repeats, out_dir=a.out))
     return 0
+
+
+def latest_trace(folder: str = "traces") -> str | None:
+    files = sorted(Path(folder).rglob("*.jsonl"), key=lambda p: p.stat().st_mtime) if Path(folder).is_dir() else []
+    return str(files[-1]) if files else None
 
 
 class _NoJev:
@@ -138,10 +155,12 @@ def main(argv: list[str] | None = None) -> int:
     sp.add_argument("--trace", default="traces/trace.jsonl", help="Trace file (default traces/trace.jsonl)")
     sp.add_argument("--trace-level", default="summary", choices=["off", "summary", "full"])
     sp.add_argument("--min-confidence", type=float, default=0.5, help="Below this, take no action (default 0.5)")
+    sp.add_argument("--view", action="store_true", help="Open the trace viewer when done")
+    sp.add_argument("--no-screenshot", action="store_true", help="Do not store a page screenshot in the trace")
     sp.set_defaults(fn=cmd_ask)
 
-    sp = sub.add_parser("view", help="Open a trace file in the HTML viewer.")
-    sp.add_argument("trace", help="Path to a .jsonl trace file")
+    sp = sub.add_parser("view", help="Open a trace file in the HTML viewer (default: the newest in traces/).")
+    sp.add_argument("trace", nargs="?", help="Path to a .jsonl trace file (default: newest file in traces/)")
     sp.add_argument("--no-open", action="store_true", help="Write the HTML file but do not open a browser")
     sp.set_defaults(fn=cmd_view)
 

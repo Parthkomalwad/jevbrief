@@ -23,12 +23,14 @@ class TraceRecord:
     jev: dict
     outcome: str
     state: dict | None = None  # only at trace level "full"
+    page: dict | None = None  # viewport screenshot for the viewer: {"image", "width", "height"}
     ts: str = field(default_factory=lambda: datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"))
 
     def to_dict(self) -> dict:
         d = asdict(self)
-        if d["state"] is None:
-            del d["state"]
+        for key in ("state", "page"):
+            if d[key] is None:
+                del d[key]
         return d
 
 

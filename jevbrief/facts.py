@@ -34,6 +34,7 @@ class Fact:
     kept: bool = True
     reason: str = ""
     selector: str = field(default="", repr=False)  # internal, used to click the element
+    box: list[int] | None = None  # [x, y, width, height] in viewport pixels, for the viewer
 
     def drop(self, reason: str) -> None:
         self.kept = False

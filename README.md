@@ -37,8 +37,7 @@ playwright install chromium
 jevbrief inspect https://example.com --goal "find more information"
 
 # Ask Jev for the next click and write a trace (needs TYPESAFE_API_KEY).
-jevbrief ask https://example.com --goal "find more information"
-jevbrief view traces/trace.jsonl
+jevbrief ask https://example.com --goal "find more information" --view
 ```
 
 Set `TYPESAFE_API_KEY` in your environment, or put `TYPESAFE_API_KEY=...` in a `.env` file in the folder where you run the CLI. Get a key at [console.typesafe.ai](https://console.typesafe.ai).
@@ -90,7 +89,16 @@ Kept elements record the rule that kept them: `goal_match`, `near_goal_input`, `
 
 ## The trace viewer
 
-`jevbrief view trace.jsonl` builds a single HTML file and opens it in your browser. It needs no server and no network. It shows each decision, Jev's choice and confidence, a probability bar for each option, what Jev was told, and what it was not told, grouped by reason code.
+Add `--view` to `jevbrief ask` to open the viewer as soon as the run finishes, or run `jevbrief view` to open the newest trace in `traces/` (pass a path to open a specific file).
+
+The viewer is a single HTML file with the trace embedded in it. jevbrief writes it to your temp folder and opens it in your browser. There is no server, and it needs no network, so you can also send the file to someone else.
+
+For each decision it shows:
+
+- **What Jev saw:** a screenshot of the page with Jev's pick boxed in pink, elements sent to Jev in blue, and dropped elements (optional) in grey. Hover a box or a table row to match them.
+- **Jev picked:** the chosen element, its confidence, and badges for budget cuts, low confidence, or a reused answer.
+- **How sure Jev was:** a probability bar for each option.
+- **What Jev was told / not told:** every element, with dropped ones grouped by reason code.
 
 ![Dropped elements grouped by reason code](https://raw.githubusercontent.com/parthkomalwad/jevbrief/main/docs/assets/viewer-dropped.png)
 
@@ -98,7 +106,7 @@ Kept elements record the rule that kept them: `goal_match`, `near_goal_input`, `
 
 - The API key is read from the environment or `.env` and is never printed, logged, or written to a trace.
 - For form fields, jevbrief sends only `filled: true` when a field has a value. It never sends the value itself.
-- Traces contain page labels and URLs. Treat them like logs.
+- Traces contain page labels, URLs, and a screenshot of the visible page. Treat them like logs. Use `--no-screenshot` (or `Brief(..., screenshot=False)`) for pages with private content.
 
 ## Scope of v0.1
 

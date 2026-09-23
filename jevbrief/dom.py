@@ -60,6 +60,7 @@ _SCRIPT = """
       enabled: !el.disabled && el.getAttribute('aria-disabled') !== 'true',
       in_viewport: visible && r.bottom > 0 && r.top < vh,
       y: Math.round(r.top + window.scrollY),
+      box: visible ? [r.left, r.top, r.width, r.height].map(Math.round) : null,
       path: cssPath(el),
     };
   });
@@ -94,6 +95,7 @@ def to_fact(raw: dict) -> Fact:
         enabled=raw["enabled"],
         in_viewport=raw["in_viewport"],
         y=raw["y"],
+        box=raw.get("box"),
         selector=raw["path"],
     )
 

@@ -96,6 +96,29 @@ details.group[open] summary::before { content: "[-]"; }
 .dropped td.lbl { text-decoration: line-through; text-decoration-color: var(--soft-line); }
 .empty { color: var(--muted); padding: 40px; text-align: center; }
 .err { font-size: 12px; color: var(--bad); white-space: pre-wrap; }
+.top-grid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(300px, 1fr); gap: 0 22px; align-items: start; }
+.shot { position: relative; border: 1px solid var(--line); background: #fff; line-height: 0; }
+.shot img { width: 100%; height: auto; display: block; }
+.bx { position: absolute; transition: opacity .15s; }
+.bx.kept { outline: 2px solid rgba(40, 120, 255, .75); background: rgba(40, 120, 255, .06); }
+.bx.dropped { outline: 1px dashed rgba(120, 120, 120, .9); background: rgba(0, 0, 0, .28); }
+.bx.chosen { outline: 3px solid var(--accent); background: rgba(255, 63, 210, .14); z-index: 3; }
+.bx.chosen::after { content: "Jev's pick"; position: absolute; left: -3px; top: -22px; line-height: 1.4; white-space: nowrap;
+  background: var(--accent); color: #fff; font: 700 11px var(--mono); padding: 2px 6px; }
+.bx.hl { outline: 3px solid #111 !important; background: rgba(255, 230, 0, .35) !important; z-index: 4; opacity: 1 !important; }
+.shot.hide-kept .bx.kept, .shot.hide-dropped .bx.dropped { opacity: 0; pointer-events: none; }
+.legend { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; font-size: 12px; color: var(--muted); padding-top: 10px; }
+.legend label { display: flex; gap: 6px; align-items: center; cursor: pointer; }
+.sw { width: 14px; height: 10px; display: inline-block; }
+.sw.chosen { outline: 3px solid var(--accent); } .sw.kept { outline: 2px solid rgba(40, 120, 255, .75); } .sw.dropped { outline: 1px dashed #888; background: rgba(0,0,0,.28); }
+tr.hl td { background: rgba(255, 230, 0, .35) !important; }
+.help { margin: 0 3px 22px; border: 2px dashed var(--line); background: var(--bg); padding: 10px 14px; }
+.help summary { cursor: pointer; font-weight: 700; }
+.help ol { margin: 8px 0 2px; padding-left: 20px; } .help li { margin: 4px 0; }
+.help code, .noshot code { background: var(--panel); padding: 0 4px; }
+.noshot { color: var(--muted); font-size: 12px; padding: 18px 0; line-height: 1.5; }
+.top-grid .prob { grid-template-columns: minmax(0, 1fr) minmax(60px, 40%) 52px; }
+@media (max-width: 1100px) { .top-grid { grid-template-columns: 1fr; } }
 @media (max-width: 760px) {
   .app { grid-template-columns: 1fr; height: auto; }
   .list { max-height: 40vh; border-right: 0; border-bottom: 2px solid var(--line); }
@@ -127,6 +150,16 @@ const WHY = {
   low_score: "Scored below the keep threshold",
   budget: "Would have been kept, cut only to fit the token or option budget",
 };
+const KEPT_WHY = {
+  goal_match: "matches the goal",
+  near_goal_input: "next to a goal field",
+  in_viewport: "visible on screen",
+  base: "no drop rule applied",
+  pinned: "pinned by you",
+  raw: "raw arm, no filtering",
+};
+let showDropped = false, helpSeen = false;
+try { helpSeen = localStorage.getItem("jevbrief-help-seen") === "1"; } catch {}
 const ORDER = ["budget", "low_score", "duplicate", "not_interactive", "unlabeled", "disabled", "hidden"];
 const records = JSON.parse(document.getElementById("traces").textContent);
 const $ = (id) => document.getElementById(id);
@@ -179,8 +212,8 @@ function renderDetail() {
     : `<div class="why">No probabilities recorded${r.outcome === "reused" ? " (answer reused from an earlier tick)" : ""}.</div>`;
 
   const keptRows = kept.sort((a, b) => (b.score ?? 0) - (a.score ?? 0)).map((f) => `
-    <tr class="${f.id === j.choice ? "chosen" : ""}"><td class="id">${esc(f.id)}</td><td><span class="kind">${esc(f.kind ?? "")}</span></td>
-    <td>${esc(f.label ?? "")}</td><td class="num">${f.score != null ? f.score.toFixed(2) : ""}</td><td class="rule">${esc(f.reason)}</td></tr>`).join("");
+    <tr data-id="${esc(f.id)}" class="${f.id === j.choice ? "chosen" : ""}"><td class="id">${esc(f.id)}</td><td><span class="kind">${esc(f.kind ?? "")}</span></td>
+    <td>${esc(f.label ?? "")}</td><td class="num">${f.score != null ? f.score.toFixed(2) : ""}</td><td class="rule" title="${esc(f.reason)}">${esc(KEPT_WHY[f.reason] || f.reason)}</td></tr>`).join("");
 
   const groups = {};
   dropped.forEach((f) => (groups[f.reason] ||= []).push(f));
@@ -188,30 +221,69 @@ function renderDetail() {
   const droppedHtml = codes.length ? codes.map((code) => `
     <details class="group" ${code === "budget" ? "open" : ""}><summary><span class="code">${esc(code)}</span>
     <span class="count">${groups[code].length}</span><span class="why">${esc(WHY[code] || "")}</span></summary>
-    <table class="dropped"><tbody>${groups[code].map((f) => `<tr><td class="id">${esc(f.id)}</td>
+    <table class="dropped"><tbody>${groups[code].map((f) => `<tr data-id="${esc(f.id)}"><td class="id">${esc(f.id)}</td>
     <td><span class="kind">${esc(f.kind ?? "")}</span></td><td class="lbl">${esc(f.label || "(no label)")}</td></tr>`).join("")}</tbody></table></details>`).join("")
     : `<div class="why">Nothing was dropped.</div>`;
 
+  const pg = r.page;
+  const boxes = pg ? r.facts.filter((f) => Array.isArray(f.box) && f.box[2] > 0 && f.box[3] > 0 &&
+      f.box[1] < pg.height && f.box[1] + f.box[3] > 0 && f.box[0] < pg.width && f.box[0] + f.box[2] > 0)
+    .map((f) => {
+      const [x, y, w, h] = f.box, cls = f.id === j.choice ? "chosen" : f.kept ? "kept" : "dropped";
+      const tip = `${f.label || "(no label)"} · ${f.kept ? "sent to Jev" : "dropped: " + f.reason}`;
+      return `<div class="bx ${cls}" data-id="${esc(f.id)}" title="${esc(tip)}" style="left:${x / pg.width * 100}%;top:${y / pg.height * 100}%;width:${w / pg.width * 100}%;height:${h / pg.height * 100}%"></div>`;
+    }).join("") : "";
+  const shotHtml = pg ? `<div class="shot ${showDropped ? "" : "hide-dropped"}" id="shot"><img src="${pg.image}" alt="Screenshot of the page Jev was asked about">${boxes}</div>
+    <div class="legend"><span><i class="sw chosen"></i> Jev's pick</span>
+      <label><input type="checkbox" id="t-kept" checked> <i class="sw kept"></i> sent to Jev</label>
+      <label><input type="checkbox" id="t-dropped" ${showDropped ? "checked" : ""}> <i class="sw dropped"></i> dropped</label>
+      <span>Hover a box or a table row to match them.</span></div>`
+    : `<div class="noshot">No screenshot in this trace. Traces written by <code>jevbrief ask</code> or <code>Brief.from_page()</code> include one. Traces built with <code>Brief.load()</code>, like the benchmark, do not.</div>`;
+
   $("detail").innerHTML = `
-    <div class="card"><div class="bar">${esc((r.ts || "").replace("T", " ").replace("Z", " UTC"))} &#9642; decision ${r.tick} &#9642; ${esc(r.run_id)}</div><div class="hero">
-      <div class="ring" style="background:${soft(t)};color:${color(t)}">${fmt(j.confidence)}</div>
-      <div style="min-width:0"><div class="label">Jev picked</div>
-      <div class="choice">${esc(j.choice ? labelOf(r, j.choice) : "No answer")}</div>
-      <div class="why">Goal: ${esc(r.goal)} · ${esc(page(r.source?.url))} · tick ${r.tick}</div>
-      <div class="badges">${badges}</div></div></div>
-      ${j.error ? `<div class="err" style="margin-top:10px">${esc(j.error)}</div>` : ""}</div>
-    <div class="card stats">
-      <div class="stat"><div class="n">${r.source?.raw_facts ?? r.facts.length}</div><div class="k">elements found</div></div>
-      <div class="stat"><div class="n">${kept.length}</div><div class="k">sent to Jev</div></div>
-      <div class="stat"><div class="n">${dropped.length}</div><div class="k">dropped with a reason</div></div>
-      <div class="stat"><div class="n">${r.budget?.used_tokens ?? "–"}<span class="why"> / ${r.budget?.limit_tokens ?? "–"}</span></div><div class="k">state tokens (estimate)</div></div>
-      <div class="stat"><div class="n">${j.latency_ms ?? "–"}</div><div class="k">latency, ms</div></div>
+    <details class="help" ${helpSeen ? "" : "open"} id="help"><summary>How to read this page</summary><ol>
+      <li><b>Left list:</b> one row per decision. The colored strip is Jev's confidence: green 0.8 and up, amber 0.5 to 0.8, red below 0.5 or an error.</li>
+      <li><b>Jev picked:</b> the element Jev chose for the goal, and how sure it was. Below 0.5 your agent takes no action.</li>
+      <li><b>What Jev saw:</b> the page when the decision was made. Pink is Jev's pick, blue boxes were sent to Jev, and dark dashed boxes were dropped.</li>
+      <li><b>What Jev was told / not told:</b> every element on the page. Dropped ones are grouped by reason, so you can check that nothing important was filtered out.</li>
+      <li>Use the arrow keys to move between decisions. Run <code>jevbrief ask ... --view</code> to open this page after each run.</li>
+    </ol></details>
+    <div class="top-grid">
+      <div class="card"><div class="bar">What Jev saw &#9642; ${esc(page(r.source?.url))}</div>${shotHtml}</div>
+      <div>
+        <div class="card"><div class="bar">${esc((r.ts || "").replace("T", " ").replace("Z", " UTC"))} &#9642; decision ${r.tick}</div><div class="hero">
+          <div class="ring" style="background:${soft(t)};color:${color(t)}">${fmt(j.confidence)}</div>
+          <div style="min-width:0"><div class="label">Jev picked</div>
+          <div class="choice">${esc(j.choice ? labelOf(r, j.choice) : "No answer")}</div>
+          <div class="why">Goal: ${esc(r.goal)}</div>
+          <div class="badges">${badges}</div></div></div>
+          ${j.error ? `<div class="err" style="margin-top:10px">${esc(j.error)}</div>` : ""}</div>
+        <div class="card stats">
+          <div class="stat"><div class="n">${r.source?.raw_facts ?? r.facts.length}</div><div class="k">elements on the page</div></div>
+          <div class="stat"><div class="n">${kept.length}</div><div class="k">sent to Jev</div></div>
+          <div class="stat"><div class="n">${dropped.length}</div><div class="k">dropped, each with a reason</div></div>
+          <div class="stat"><div class="n">${r.budget?.used_tokens ?? "–"}<span class="why"> / ${r.budget?.limit_tokens ?? "–"}</span></div><div class="k">tokens used / budget</div></div>
+          <div class="stat"><div class="n">${j.latency_ms ?? "–"}</div><div class="k">Jev latency, ms</div></div>
+        </div>
+        <div class="card"><h2>How sure Jev was, per option</h2>${probHtml}</div>
+      </div>
     </div>
-    <div class="card"><h2>Probabilities</h2>${probHtml}</div>
     <div class="card"><h2>What Jev was told (${kept.length})</h2>
-      <table><thead><tr><th>ID</th><th>Kind</th><th>Label</th><th>Score</th><th>Kept by</th></tr></thead><tbody>${keptRows}</tbody></table></div>
+      <table><thead><tr><th>ID</th><th>Kind</th><th>Label</th><th>Score</th><th>Why kept</th></tr></thead><tbody>${keptRows}</tbody></table></div>
     <div class="card"><h2>What Jev was not told (${dropped.length})</h2>${droppedHtml}</div>`;
+
+  $("help").addEventListener("toggle", (e) => {
+    if (!e.target.open) { helpSeen = true; try { localStorage.setItem("jevbrief-help-seen", "1"); } catch {} }
+  });
+  $("t-kept")?.addEventListener("change", (e) => $("shot").classList.toggle("hide-kept", !e.target.checked));
+  $("t-dropped")?.addEventListener("change", (e) => { showDropped = e.target.checked; $("shot").classList.toggle("hide-dropped", !showDropped); });
 }
+
+function highlight(id, on) {
+  document.querySelectorAll(`[data-id="${CSS.escape(id)}"]`).forEach((el) => el.classList.toggle("hl", on));
+}
+$("detail").addEventListener("mouseover", (e) => { const el = e.target.closest("[data-id]"); if (el) highlight(el.dataset.id, true); });
+$("detail").addEventListener("mouseout", (e) => { const el = e.target.closest("[data-id]"); if (el) highlight(el.dataset.id, false); });
 
 function select(i) { selected = i; renderList(); renderDetail(); }
 $("list").addEventListener("click", (e) => { const el = e.target.closest(".item"); if (el) select(+el.dataset.i); });

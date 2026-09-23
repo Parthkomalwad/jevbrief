@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import base64
 import secrets
 from dataclasses import dataclass
 
@@ -24,7 +25,7 @@ class Brief:
     def __init__(self, goal: str, budget_tokens: int = budget.DEFAULT_TOKENS,
                  max_options: int = budget.DEFAULT_OPTIONS, trace: str | None = "trace.jsonl",
                  trace_level: str = "summary", min_confidence: float = 0.5, pins=(),
-                 model: str = DEFAULT_MODEL, jev: Jev | None = None):
+                 model: str = DEFAULT_MODEL, jev: Jev | None = None, screenshot: bool = True):
         if trace_level not in ("off", "summary", "full"):
             raise ValueError("trace_level must be off, summary, or full")
         self.goal = goal
@@ -35,6 +36,8 @@ class Brief:
         self.min_confidence = min_confidence
         self.pins = list(pins)
         self.jev = jev or Jev(model)
+        self.screenshot = screenshot
+        self.page_image: dict | None = None
         self.run_id = "r_" + secrets.token_hex(2)
         self.tick = 0
         self.url = ""
@@ -60,8 +63,12 @@ class Brief:
     async def from_page(self, page) -> list[Fact]:
         """Extract facts from a Playwright page, then filter and budget them."""
         facts = await dom.extract(page)
-        vh = (page.viewport_size or {}).get("height", 800)
-        return self.load(facts, page.url, vh)
+        size = page.viewport_size or {"width": 1280, "height": 800}
+        if self.screenshot and self.trace_level != "off":
+            jpg = await page.screenshot(type="jpeg", quality=55)
+            self.page_image = {"image": "data:image/jpeg;base64," + base64.b64encode(jpg).decode(),
+                               "width": size["width"], "height": size["height"]}
+        return self.load(facts, page.url, size["height"])
 
     def next_click(self) -> Decision:
         """Ask Jev which element to click next. Reuses the last answer if the state is unchanged."""
@@ -108,7 +115,7 @@ class Brief:
         facts = [f.to_dict(level) for f in self.facts]
         if level == "summary":  # labels of kept facts help the viewer; still small
             for d, f in zip(facts, self.facts):
-                d.update(kind=f.kind, label=f.label, score=f.score)
+                d.update(kind=f.kind, label=f.label, score=f.score, box=f.box)
         return trace.TraceRecord(
             run_id=self.run_id,
             tick=self.tick,
@@ -121,4 +128,5 @@ class Brief:
             jev=jev_info,
             outcome=outcome,
             state=self.state() if level == "full" else None,
+            page=self.page_image,
         )
