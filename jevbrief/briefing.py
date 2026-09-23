@@ -134,6 +134,8 @@ class Briefing:
         if level == "summary":  # labels, scores, and boxes help the viewer; still small
             for d, f in zip(facts, self.facts):
                 d.update(kind=f.kind, label=f.label, score=f.score, box=f.box)
+                if "view" in f.meta:  # adapter-provided layout hints for the viewer, such as a timeline span
+                    d["view"] = f.meta["view"]
         image = None
         if self.image is not None:
             w, h = self.image_size or (0, 0)

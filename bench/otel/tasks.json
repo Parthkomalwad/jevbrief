@@ -1,0 +1,38 @@
+[
+  {
+    "adapter": "otel",
+    "source": "checkout_500.json",
+    "goal": "Checkout requests started failing with 500 errors",
+    "expected_contains": "database connection pool exhausted"
+  },
+  {
+    "adapter": "otel",
+    "source": "login_down.json",
+    "goal": "Users cannot log in anymore",
+    "expected_contains": "certificate expired"
+  },
+  {
+    "adapter": "otel",
+    "source": "slow_products.json",
+    "goal": "Product pages are very slow and some time out",
+    "expected_contains": "cache cluster unreachable"
+  },
+  {
+    "adapter": "otel",
+    "source": "no_emails.json",
+    "goal": "Customers say they are not getting order confirmation emails",
+    "expected_contains": "SMTP authentication failed"
+  },
+  {
+    "adapter": "otel",
+    "source": "deploy_502.json",
+    "goal": "Every request returns 502 since the last deploy",
+    "expected_contains": "config reload failed"
+  },
+  {
+    "adapter": "otel",
+    "source": "stock_errors.json",
+    "goal": "Orders fail with an out of stock error even though items are in stock",
+    "expected_contains": "stock sync job crashed"
+  }
+]

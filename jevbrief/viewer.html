@@ -152,6 +152,26 @@ tr.hl td { background: rgba(255, 230, 0, .35) !important; }
 @media (prefers-reduced-motion: reduce) {
   .story .steps li, .chip, .bucket, .meaning, .prob .fill, .bx { transition: none !important; }
 }
+
+/* Timeline renderer: one bar per fact across the source's time window */
+.tl .axis { display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); margin: 0 0 4px 38%; }
+.tl .rows { position: relative; }
+.tl .row { display: grid; grid-template-columns: 38% 1fr; gap: 8px; align-items: center; padding: 3px 0; font-size: 12px;
+  transition: opacity .4s; }
+.tl .row .name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tl .row .lane { position: relative; height: 14px; background: var(--bg); border: 1px solid var(--soft-line); }
+.tl .span { position: absolute; top: 1px; bottom: 1px; min-width: 3px; background: var(--bar); transform-origin: left;
+  transform: scaleX(0); transition: transform .8s cubic-bezier(.2, .8, .2, 1), background .4s; }
+.tl .count { position: absolute; right: 4px; top: -1px; font-size: 10px; color: var(--muted); }
+.tl .marker { position: absolute; top: -18px; bottom: 0; width: 0; border-left: 2px dashed var(--bad); pointer-events: none; }
+.tl .marker span { position: absolute; top: 0; left: 4px; font-size: 10px; color: var(--bad); white-space: nowrap; }
+.tl.s1 .span { transform: scaleX(1); }
+.tl.s2 .row.dropped { opacity: .3; }
+.tl.s3 .row.kept .span { background: rgba(40, 120, 255, .8); }
+.tl.s4 .row.pick .span { background: var(--accent); }
+.tl.s4 .row.pick .name { color: var(--accent); font-weight: 700; }
+.tl.hide-dropped .row.dropped { display: none; }
+@media (prefers-reduced-motion: reduce) { .tl .span, .tl .row { transition: none !important; } }
 @media (max-width: 1100px) { .top-grid { grid-template-columns: 1fr; } }
 @media (max-width: 760px) {
   .app { grid-template-columns: 1fr; height: auto; }
@@ -299,6 +319,25 @@ function renderDetail() {
     : r.outcome === "low_confidence" || !pick && j.choice === "none"
       ? `Jev was ${sure || "unsure"} and did not find a clear answer for "${esc(r.goal)}", so the agent should not act. Check "What Jev was not told" in case the right fact was dropped.`
       : `For "${esc(r.goal)}", Jev is ${sure} the answer is <b>${esc(labelOf(r, j.choice))}</b>. jevbrief sent ${kept.length} of ${r.facts.length} facts${top ? `; the rest were left out mainly because of ${esc(top)}` : ""}.`;
+
+  const isTimeline = r.adapter?.renderer === "timeline" && r.facts.some((f) => f.view);
+  const hhmm = (iso) => (iso || "").slice(11, 16);
+  const tlRows = isTimeline ? [...r.facts].filter((f) => f.view)
+    .sort((a, b) => (b.kept - a.kept) || (a.view.start - b.view.start)).map((f) => {
+      const cls = f.id === j.choice ? "pick kept" : f.kept ? "kept" : "dropped";
+      const left = f.view.start * 100, width = Math.max((f.view.end - f.view.start) * 100, 0.6);
+      return `<div class="row ${cls}" data-id="${esc(f.id)}" title="${esc((f.label || "") + " · " + (f.kept ? "sent to Jev" : "dropped: " + f.reason))}">
+        <div class="name">${esc(f.label || "(no label)")}</div>
+        <div class="lane"><div class="span" style="left:${left}%;width:${width}%"></div><span class="count">${f.view.count ?? ""}</span></div></div>`;
+    }).join("") : "";
+  const marker = isTimeline && r.source?.marker != null
+    ? `<div class="marker" style="left:calc(38% + 8px + (100% - 38% - 8px) * ${r.source.marker})"><span>incident start ${esc(hhmm(r.source.incident_start))}</span></div>` : "";
+  const timelineHtml = isTimeline ? `<div class="card tl ${showDropped ? "" : "hide-dropped"}" id="tl"><div class="bar">Timeline &#9642; ${esc(where(r))}${r.source?.records ? ` &#9642; ${r.source.records} records` : ""}</div>
+    <div class="axis"><span>${esc(hhmm(r.source?.window?.[0]))}</span><span>${esc(hhmm(r.source?.window?.[1]))} UTC</span></div>
+    <div class="rows">${marker}${tlRows}</div>
+    <div class="legend"><span><i class="sw chosen"></i> Jev's pick</span><span><i class="sw kept"></i> sent to Jev</span>
+      <label><input type="checkbox" id="tl-dropped" ${showDropped ? "checked" : ""}> <i class="sw dropped"></i> dropped</label>
+      <span>Each bar spans the first to the last record of a group. The number is how many records it has.</span></div></div>` : "";
   const storyHtml = `<div class="card story" id="story"><div class="bar">Replay &#9642; what happened in this decision</div>
     <div class="controls"><button id="replay" type="button">&#9654; Replay</button><button id="skip" type="button">Skip to the end</button></div>
     <ol class="steps">
@@ -315,13 +354,14 @@ function renderDetail() {
       <li><b>Replay:</b> an animated walk through the decision: every fact read, what was dropped and why, what was sent to Jev, and Jev's answer. Press Replay to watch it again.</li>
       <li><b>Left list:</b> one row per decision. The colored strip is Jev's confidence: green 0.8 and up, amber 0.5 to 0.8, red below 0.5 or an error.</li>
       <li><b>Jev picked:</b> the element Jev chose for the goal, and how sure it was. Below 0.5 your agent takes no action.</li>
+      <li><b>Timeline</b> (log sources): one bar per log group from its first to its last record, with the incident start marked.</li>
       <li><b>What Jev saw</b> (sources with an image, such as web pages): the source when the decision was made. Pink is Jev's pick, blue boxes were sent to Jev, and dark dashed boxes were dropped.</li>
       <li><b>What Jev was told / not told:</b> every fact from the source. Dropped ones are grouped by reason, so you can check that nothing important was filtered out.</li>
       <li>Use the arrow keys to move between decisions. Run <code>jevbrief ask ... --view</code> to open this page after each run.</li>
     </ol></details>
     ${storyHtml}
-    <div class="top-grid ${pg ? "" : "one"}">
-      ${pg ? `<div class="card"><div class="bar">What Jev saw &#9642; ${esc(where(r))}</div>${shotHtml}</div>` : ""}
+    <div class="top-grid ${pg || isTimeline ? "" : "one"}">
+      ${pg ? `<div class="card"><div class="bar">What Jev saw &#9642; ${esc(where(r))}</div>${shotHtml}</div>` : timelineHtml}
       <div>
         <div class="card"><div class="bar">${esc((r.ts || "").replace("T", " ").replace("Z", " UTC"))} &#9642; decision ${r.tick}</div><div class="hero">
           <div class="ring" style="background:${soft(t)};color:${color(t)}">${fmt(j.confidence)}</div>
@@ -349,6 +389,7 @@ function renderDetail() {
   });
   $("t-kept")?.addEventListener("change", (e) => $("shot").classList.toggle("hide-kept", !e.target.checked));
   $("t-dropped")?.addEventListener("change", (e) => { showDropped = e.target.checked; $("shot").classList.toggle("hide-dropped", !showDropped); });
+  $("tl-dropped")?.addEventListener("change", (e) => { showDropped = e.target.checked; $("tl").classList.toggle("hide-dropped", !showDropped); });
   $("replay").addEventListener("click", play);
   $("skip").addEventListener("click", () => play(true));
   play(matchMedia("(prefers-reduced-motion: reduce)").matches);
@@ -368,6 +409,8 @@ function play(instant = false) {
       shot.querySelectorAll(".bx.chosen").forEach((b) => (b.style.opacity = n >= 4 ? 1 : 0));
     }
     bars.forEach((b) => (b.style.width = n >= 4 ? b.dataset.w : "0"));
+    const tl = $("tl");
+    if (tl) tl.className = "card tl " + (showDropped ? "" : "hide-dropped ") + Array.from({ length: n }, (_, k) => `s${k + 1}`).join(" ");
   };
   if (instant) return setStep(4);
   setStep(0);

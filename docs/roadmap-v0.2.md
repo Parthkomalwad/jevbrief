@@ -18,7 +18,7 @@ v0.1.0 has not been published, so the modular design ships **in v0.1.0 itself**.
 | Question | Decision |
 |---|---|
 | First stable release | **v0.1.0 = source-neutral core + `web` adapter + `json` adapter** |
-| Release order after that | v0.2 NES, v0.3 OpenTelemetry logs, v0.4 Discord and Slack (renumbered from the sections below) |
+| Release order after that | v0.2 OpenTelemetry logs, v0.3 NES, v0.4 Discord and Slack (reordered 2026-09-24: logs first; the sections below keep their original numbers) |
 | Reason codes | Core codes stay unprefixed (`hidden`, `disabled`, `unlabeled`, `duplicate`, `low_score`, `budget`). Adapter codes are namespaced (`web.not_interactive`, `nes.offscreen`) |
 | Playwright | Optional extra: `pip install "jevbrief[web]"`. The core installs with only the TypeSafe SDK |
 | JSON adapter config | TOML (with `tomli` on Python 3.10 in the `json` extra), JSON also accepted |

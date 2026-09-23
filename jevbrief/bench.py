@@ -36,6 +36,9 @@ def _correct(task, d, b) -> bool:
     if "expected_choice" in task:
         return d.choice == task["expected_choice"]
     chosen = next((f for f in b.facts if f.id == d.choice), None)
+    if "expected_contains" in task:
+        text = f"{chosen.label} {chosen.meta.get('template', '')}".lower() if chosen else ""
+        return task["expected_contains"].lower() in text
     return bool(chosen and chosen.label.lower() == task["expected_label"].lower())
 
 

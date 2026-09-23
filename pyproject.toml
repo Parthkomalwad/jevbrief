@@ -22,12 +22,14 @@ dependencies = ["typesafe-sdk>=0.7"]
 [project.optional-dependencies]
 web = ["playwright>=1.40"]
 json = ["tomli>=2; python_version < '3.11'"]
-all = ["jevbrief[web,json]"]
+otel = ["tomli>=2; python_version < '3.11'"]
+all = ["jevbrief[web,json,otel]"]
 dev = ["jevbrief[all]", "pytest>=8"]
 
 [project.entry-points."jevbrief.adapters"]
 web = "jevbrief.adapters.web:WebAdapter"
 json = "jevbrief.adapters.json:JsonAdapter"
+otel = "jevbrief.adapters.otel:OtelAdapter"
 
 [project.scripts]
 jevbrief = "jevbrief.cli:main"

@@ -19,7 +19,8 @@ from ..rules import RuleSet
 
 GROUP = "jevbrief.adapters"
 # Used when jevbrief runs from a source checkout without being installed.
-BUILTIN = {"web": "jevbrief.adapters.web:WebAdapter", "json": "jevbrief.adapters.json:JsonAdapter"}
+BUILTIN = {"web": "jevbrief.adapters.web:WebAdapter", "json": "jevbrief.adapters.json:JsonAdapter",
+           "otel": "jevbrief.adapters.otel:OtelAdapter"}
 
 
 class Adapter:
@@ -27,7 +28,7 @@ class Adapter:
 
     name = "adapter"
     version = "1"
-    renderer = "table"            # viewer layout: "spatial" (image + boxes) or "table"
+    renderer = "table"            # viewer layout: "spatial" (image + boxes), "timeline" (meta["view"] spans), or "table"
     extra = ""                    # the pip extra that installs this adapter's dependencies
     reasons: dict[str, str] = {}  # adapter reason codes ("<name>.<code>") and descriptions
 

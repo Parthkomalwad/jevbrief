@@ -35,8 +35,8 @@ Measured on our benchmarks: **57% fewer input tokens with the same accuracy on w
 |---|---|---|---|---|
 | **Web pages** (Playwright) | ✅ Supported | `pip install "jevbrief[web]"` | Which element to click next | [web](https://github.com/parthkomalwad/jevbrief/blob/main/docs/adapters/web.md) |
 | **JSON and JSON Lines** (any data, with a config file) | ✅ Supported | `pip install jevbrief` | Which item fits, or which action to take | [json](https://github.com/parthkomalwad/jevbrief/blob/main/docs/adapters/json.md) |
-| **NES games** (Super Mario Bros) | 🔜 Coming in v0.2 | `jevbrief[nes]` | Which move to make next | [plan](https://github.com/parthkomalwad/jevbrief/blob/main/docs/roadmap-v0.2.md) |
-| **OpenTelemetry logs** | 🔜 Coming in v0.3 | `jevbrief[otel]` | Which error group explains an incident | [plan](https://github.com/parthkomalwad/jevbrief/blob/main/docs/roadmap-v0.2.md) |
+| **OpenTelemetry logs** | 🔜 Coming in v0.2 | `jevbrief[otel]` | Which error group explains an incident | [plan](https://github.com/parthkomalwad/jevbrief/blob/main/docs/roadmap-v0.2.md) |
+| **NES games** (Super Mario Bros) | 🔜 Coming in v0.3 | `jevbrief[nes]` | Which move to make next | [plan](https://github.com/parthkomalwad/jevbrief/blob/main/docs/roadmap-v0.2.md) |
 | **Slack and Discord exports** | 🔜 Coming in v0.4 | `jevbrief[chat]` | Which message answers a question | [plan](https://github.com/parthkomalwad/jevbrief/blob/main/docs/roadmap-v0.2.md) |
 | **Your source?** | 💡 [Suggest it](https://github.com/parthkomalwad/jevbrief/issues/new?template=adapter_request.yml) or [build it](https://github.com/parthkomalwad/jevbrief/blob/main/ADAPTERS.md) | | | |
 

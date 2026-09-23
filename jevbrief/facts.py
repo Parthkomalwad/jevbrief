@@ -62,7 +62,7 @@ class Fact:
         if level == "summary":
             return {"id": self.id, "kept": self.kept, "reason": self.reason}
         d = asdict(self)
-        d["meta"] = {k: v for k, v in self.meta.items() if k in ("box", "order")}  # small, useful to viewers
+        d["meta"] = {k: v for k, v in self.meta.items() if k in ("box", "order", "view")}  # small, useful to viewers
         return d
 
     # Convenience for spatial adapters (web, games).
