@@ -1,7 +1,7 @@
 # jevbrief setup — Runbook for Claude Code
 > Claim the jevbrief name on GitHub, PyPI, and npm, then start building v0.1.
 
-This runbook takes an empty machine to a public `jevbrief` repo with placeholder packages on PyPI and npm, then hands off to `jevbrief-spec.md` to start the real build. The owner is **parthkomalwad**. Target ship date for v0.1.0 is **tonight, Wednesday, September 23, 2026**.
+This runbook takes an empty machine to a public `jevbrief` repo with placeholder packages on PyPI and npm, then hands off to `jevbrief-spec.md` to start the real build. The owner is **parthkomalwad**. Target ship date for v0.1.0 is **Thursday, September 24, 2026**.
 
 ---
 
@@ -66,7 +66,7 @@ Create these files.
 
 jevbrief turns messy sources like web pages into small, clean state for Jev, drops the noise with deterministic rules, and records exactly what was kept, what was dropped, and why.
 
-**Status:** under active development. v0.1.0 (Python, web page adapter, trace viewer) ships tonight, Wednesday, September 23, 2026.
+**Status:** under active development. v0.1.0 (Python, web page adapter, trace viewer) ships Thursday, September 24, 2026.
 
 Community project, not affiliated with TypeSafe AI.
 ```

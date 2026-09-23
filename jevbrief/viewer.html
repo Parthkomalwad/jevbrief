@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>jevbrief trace viewer</title>
+<style>
+:root {
+  --bg: #ffffff; --panel: #dedede; --text: #111111; --muted: #555555; --line: #111111; --soft-line: #bdbdbd;
+  --bar-bg: #1b1b1b; --bar-text: #f2f2f2;
+  --accent: #ff3fd2; --accent-soft: #ffe0f7; --sky: #d7ecff;
+  --good: #0f7a3d; --good-soft: #d6f2e0; --warn: #9a6200; --warn-soft: #fbeccc;
+  --bad: #c0262d; --bad-soft: #fbdcdc; --bar: #b9b9b9;
+  --mono: "Cascadia Mono", "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --sans: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0e0e10; --panel: #1c1c1f; --text: #ececec; --muted: #9a9aa0; --line: #3a3a40; --soft-line: #2c2c31;
+    --bar-bg: #000000; --bar-text: #f2f2f2;
+    --accent: #ff5fdc; --accent-soft: #3a1633; --sky: #13233a;
+    --good: #5fd18e; --good-soft: #10301d; --warn: #f0b64a; --warn-soft: #33280d;
+    --bad: #ff7a73; --bad-soft: #3a1717; --bar: #3a3a42;
+  }
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; }
+body { background: var(--bg); color: var(--text); font: 14px/1.45 var(--mono); }
+header.top { position: relative; display: flex; align-items: center; gap: 12px; padding: 14px 20px; overflow: hidden;
+  background:
+    radial-gradient(ellipse 40% 140% at 0% 0%, var(--accent) 0%, transparent 70%),
+    radial-gradient(ellipse 35% 140% at 100% 0%, var(--accent) 0%, transparent 70%),
+    linear-gradient(var(--sky), var(--sky));
+  border-bottom: 2px solid var(--line); }
+header.top::after { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .35;
+  background-image: radial-gradient(rgba(255,255,255,.9) 1px, transparent 1.2px); background-size: 4px 4px; }
+header.top > * { position: relative; z-index: 1; }
+header.top h1 { font: 600 15px var(--sans); margin: 0; background: #fff; color: #111; padding: 4px 8px; }
+header.top h1 span { color: #111; }
+header.top .meta { background: var(--bar-bg); color: var(--bar-text); font-size: 12px; padding: 4px 8px; }
+header.top input { margin-left: auto; width: 260px; max-width: 40vw; padding: 6px 10px; border: 2px solid #111; border-radius: 0;
+  background: #fff; color: #111; font: 13px var(--mono); }
+.app { display: grid; grid-template-columns: 330px 1fr; height: calc(100% - 58px); }
+.list { border-right: 2px solid var(--line); overflow-y: auto; background: var(--bg); }
+.item { display: grid; grid-template-columns: 8px 1fr auto; gap: 10px; padding: 10px 14px 10px 0; border-bottom: 1px solid var(--soft-line); cursor: pointer; }
+.item:hover { background: var(--panel); }
+.item.sel { background: var(--bar-bg); color: var(--bar-text); }
+.item.sel .sub { color: #bdbdbd; }
+.item > div { min-width: 0; }
+.item .goal { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.item .sub { color: var(--muted); font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.item .conf { font-size: 13px; align-self: center; font-weight: 600; }
+.detail { overflow-y: auto; padding: 24px 28px 60px;
+  background: linear-gradient(180deg, var(--sky) 0, var(--bg) 220px); }
+.card { background: var(--panel); border: 2px solid var(--line); outline: 1px solid var(--line); outline-offset: 2px;
+  padding: 0 18px 16px; margin: 0 3px 22px; }
+.card > h2, .card > .bar { margin: 0 -18px 14px; padding: 5px 10px; background: var(--bar-bg); color: var(--bar-text);
+  font: 13px var(--mono); letter-spacing: .3px; }
+.card.stats { padding-top: 16px; }
+.hero { display: flex; gap: 18px; align-items: center; flex-wrap: wrap; }
+.hero .label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+.hero .choice { font: 600 24px var(--sans); }
+.hero .ring { width: 70px; height: 70px; display: grid; place-items: center; font: 700 17px var(--mono); flex: none; border: 2px solid currentColor; }
+.badges { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+.badge { font-size: 12px; padding: 1px 8px; background: var(--bg); border: 1px solid var(--line); color: var(--text); }
+.badge.warn { background: var(--warn-soft); color: var(--warn); border-color: currentColor; }
+.badge.bad { background: var(--bad-soft); color: var(--bad); border-color: currentColor; }
+.badge.good { background: var(--good-soft); color: var(--good); border-color: currentColor; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; }
+.stat .n { font: 700 22px var(--mono); }
+.stat .k { color: var(--muted); font-size: 12px; }
+.prob { display: grid; grid-template-columns: minmax(120px, 280px) 1fr 60px; gap: 10px; align-items: center; margin: 6px 0; }
+.prob .name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.prob .track { height: 12px; background: var(--bg); border: 1px solid var(--line); }
+.prob .fill { height: 100%; background: var(--bar); }
+.prob.top .fill { background: var(--accent); }
+.prob .p { font-size: 12px; text-align: right; color: var(--muted); }
+table { width: 100%; border-collapse: collapse; }
+td, th { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--soft-line); vertical-align: top; }
+th { font-size: 12px; color: var(--muted); font-weight: 500; text-transform: uppercase; letter-spacing: .5px; }
+td.id, td.num { font-size: 12px; white-space: nowrap; }
+tr.chosen td { background: var(--accent-soft); }
+tr.chosen td:first-child { box-shadow: inset 4px 0 var(--accent); }
+.kind { font-size: 11px; padding: 0 6px; background: var(--bg); border: 1px solid var(--line); }
+.rule { font-size: 12px; color: var(--good); }
+details.group { border-top: 1px solid var(--soft-line); }
+details.group:first-of-type { border-top: 0; }
+details.group summary { cursor: pointer; padding: 8px 0; display: flex; gap: 10px; align-items: center; list-style: none; }
+details.group summary::-webkit-details-marker { display: none; }
+details.group summary::before { content: "[+]"; color: var(--muted); }
+details.group[open] summary::before { content: "[-]"; }
+.code { font-weight: 700; }
+.count { font-size: 12px; background: var(--bar-bg); color: var(--bar-text); padding: 0 7px; }
+.why { color: var(--muted); font-size: 12px; }
+.dropped td { color: var(--muted); }
+.dropped td.lbl { text-decoration: line-through; text-decoration-color: var(--soft-line); }
+.empty { color: var(--muted); padding: 40px; text-align: center; }
+.err { font-size: 12px; color: var(--bad); white-space: pre-wrap; }
+@media (max-width: 760px) {
+  .app { grid-template-columns: 1fr; height: auto; }
+  .list { max-height: 40vh; border-right: 0; border-bottom: 2px solid var(--line); }
+  .detail { padding: 16px; }
+  .prob { grid-template-columns: 1fr 1fr 48px; }
+  header.top { flex-wrap: wrap; }
+  header.top input { width: 100%; max-width: none; margin-left: 0; }
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <h1><span>jev</span>brief trace viewer</h1>
+  <div class="meta" id="meta"></div>
+  <input id="q" type="search" placeholder="Filter by goal, URL, or outcome">
+</header>
+<div class="app">
+  <nav class="list" id="list" aria-label="Decisions"></nav>
+  <main class="detail" id="detail"></main>
+</div>
+<script id="traces" type="application/json">/*__TRACES__*/[]</script>
+<script>
+const WHY = {
+  hidden: "Not visible on the page",
+  disabled: "Element is disabled",
+  not_interactive: "Plain text with no link to the goal",
+  unlabeled: "No usable label, so Jev could not tell what it is",
+  duplicate: "Same kind and label as a higher-scored element",
+  low_score: "Scored below the keep threshold",
+  budget: "Would have been kept, cut only to fit the token or option budget",
+};
+const ORDER = ["budget", "low_score", "duplicate", "not_interactive", "unlabeled", "disabled", "hidden"];
+const records = JSON.parse(document.getElementById("traces").textContent);
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+let selected = 0, visible = records.map((_, i) => i);
+
+function tone(r) {
+  const c = r.jev?.confidence;
+  if (r.outcome === "error" || c == null || c < 0.5) return "bad";
+  return c >= 0.8 ? "good" : "warn";
+}
+const color = (t) => `var(--${t})`;
+const soft = (t) => `var(--${t}-soft)`;
+const fmt = (c) => (c == null ? "–" : c.toFixed(2));
+const page = (url) => { try { const u = new URL(url); return u.protocol === "file:" ? u.pathname.split("/").pop() : u.host + u.pathname; } catch { return url || ""; } };
+const labelOf = (r, id) => id === "none" ? "None of these" : (r.facts.find((f) => f.id === id)?.label || id);
+
+function renderList() {
+  $("list").innerHTML = visible.length ? visible.map((i) => {
+    const r = records[i], t = tone(r);
+    return `<div class="item ${i === selected ? "sel" : ""}" data-i="${i}" tabindex="0">
+      <div class="strip" style="background:${color(t)}"></div>
+      <div><div class="goal">${esc(r.goal)}</div>
+      <div class="sub">tick ${r.tick} · ${esc(r.outcome)} · ${esc(page(r.source?.url))}</div></div>
+      <div class="conf" style="color:${color(t)}">${fmt(r.jev?.confidence)}</div></div>`;
+  }).join("") : `<div class="empty">No decisions match.</div>`;
+}
+
+function renderDetail() {
+  const r = records[selected];
+  if (!r) { $("detail").innerHTML = `<div class="empty">No trace records found in this file.</div>`; return; }
+  const t = tone(r), j = r.jev || {};
+  const kept = r.facts.filter((f) => f.kept);
+  const dropped = r.facts.filter((f) => !f.kept);
+  const cut = r.budget?.cut_for_budget || 0;
+  const badges = [
+    `<span class="badge">${esc(r.outcome)}</span>`,
+    cut ? `<span class="badge warn">${cut} cut for budget</span>` : "",
+    j.confidence != null && j.confidence < 0.5 ? `<span class="badge bad">Low confidence</span>` : "",
+    r.outcome === "reused" ? `<span class="badge good">Reused tick ${r.fingerprint?.reused_tick} (state unchanged)</span>` : "",
+    `<span class="badge">${esc(j.model)}</span>`,
+  ].join("");
+
+  const probs = Object.entries(j.probabilities || {}).sort((a, b) => b[1] - a[1]);
+  const shown = probs.slice(0, 8), rest = probs.slice(8).reduce((s, [, p]) => s + p, 0);
+  const probHtml = shown.length ? shown.map(([id, p], k) => `
+    <div class="prob ${k === 0 ? "top" : ""}"><div class="name" title="${esc(labelOf(r, id))}">${esc(labelOf(r, id))}</div>
+    <div class="track"><div class="fill" style="width:${(p * 100).toFixed(1)}%"></div></div><div class="p">${(p * 100).toFixed(1)}%</div></div>`).join("")
+    + (probs.length > 8 ? `<div class="why">${probs.length - 8} more options share ${(rest * 100).toFixed(1)}%</div>` : "")
+    : `<div class="why">No probabilities recorded${r.outcome === "reused" ? " (answer reused from an earlier tick)" : ""}.</div>`;
+
+  const keptRows = kept.sort((a, b) => (b.score ?? 0) - (a.score ?? 0)).map((f) => `
+    <tr class="${f.id === j.choice ? "chosen" : ""}"><td class="id">${esc(f.id)}</td><td><span class="kind">${esc(f.kind ?? "")}</span></td>
+    <td>${esc(f.label ?? "")}</td><td class="num">${f.score != null ? f.score.toFixed(2) : ""}</td><td class="rule">${esc(f.reason)}</td></tr>`).join("");
+
+  const groups = {};
+  dropped.forEach((f) => (groups[f.reason] ||= []).push(f));
+  const codes = Object.keys(groups).sort((a, b) => (ORDER.indexOf(a) + 1 || 99) - (ORDER.indexOf(b) + 1 || 99));
+  const droppedHtml = codes.length ? codes.map((code) => `
+    <details class="group" ${code === "budget" ? "open" : ""}><summary><span class="code">${esc(code)}</span>
+    <span class="count">${groups[code].length}</span><span class="why">${esc(WHY[code] || "")}</span></summary>
+    <table class="dropped"><tbody>${groups[code].map((f) => `<tr><td class="id">${esc(f.id)}</td>
+    <td><span class="kind">${esc(f.kind ?? "")}</span></td><td class="lbl">${esc(f.label || "(no label)")}</td></tr>`).join("")}</tbody></table></details>`).join("")
+    : `<div class="why">Nothing was dropped.</div>`;
+
+  $("detail").innerHTML = `
+    <div class="card"><div class="bar">${esc((r.ts || "").replace("T", " ").replace("Z", " UTC"))} &#9642; decision ${r.tick} &#9642; ${esc(r.run_id)}</div><div class="hero">
+      <div class="ring" style="background:${soft(t)};color:${color(t)}">${fmt(j.confidence)}</div>
+      <div style="min-width:0"><div class="label">Jev picked</div>
+      <div class="choice">${esc(j.choice ? labelOf(r, j.choice) : "No answer")}</div>
+      <div class="why">Goal: ${esc(r.goal)} · ${esc(page(r.source?.url))} · tick ${r.tick}</div>
+      <div class="badges">${badges}</div></div></div>
+      ${j.error ? `<div class="err" style="margin-top:10px">${esc(j.error)}</div>` : ""}</div>
+    <div class="card stats">
+      <div class="stat"><div class="n">${r.source?.raw_facts ?? r.facts.length}</div><div class="k">elements found</div></div>
+      <div class="stat"><div class="n">${kept.length}</div><div class="k">sent to Jev</div></div>
+      <div class="stat"><div class="n">${dropped.length}</div><div class="k">dropped with a reason</div></div>
+      <div class="stat"><div class="n">${r.budget?.used_tokens ?? "–"}<span class="why"> / ${r.budget?.limit_tokens ?? "–"}</span></div><div class="k">state tokens (estimate)</div></div>
+      <div class="stat"><div class="n">${j.latency_ms ?? "–"}</div><div class="k">latency, ms</div></div>
+    </div>
+    <div class="card"><h2>Probabilities</h2>${probHtml}</div>
+    <div class="card"><h2>What Jev was told (${kept.length})</h2>
+      <table><thead><tr><th>ID</th><th>Kind</th><th>Label</th><th>Score</th><th>Kept by</th></tr></thead><tbody>${keptRows}</tbody></table></div>
+    <div class="card"><h2>What Jev was not told (${dropped.length})</h2>${droppedHtml}</div>`;
+}
+
+function select(i) { selected = i; renderList(); renderDetail(); }
+$("list").addEventListener("click", (e) => { const el = e.target.closest(".item"); if (el) select(+el.dataset.i); });
+document.addEventListener("keydown", (e) => {
+  if (e.target === $("q") || !["ArrowDown", "ArrowUp", "j", "k"].includes(e.key)) return;
+  const pos = visible.indexOf(selected), step = e.key === "ArrowDown" || e.key === "j" ? 1 : -1;
+  const next = visible[Math.min(visible.length - 1, Math.max(0, pos + step))];
+  if (next != null) { e.preventDefault(); select(next); document.querySelector(".item.sel")?.scrollIntoView({ block: "nearest" }); }
+});
+$("q").addEventListener("input", (e) => {
+  const q = e.target.value.toLowerCase();
+  visible = records.map((_, i) => i).filter((i) => { const r = records[i]; return !q || `${r.goal} ${r.source?.url} ${r.outcome}`.toLowerCase().includes(q); });
+  if (visible.length && !visible.includes(selected)) selected = visible[0];
+  renderList(); renderDetail();
+});
+const runs = new Set(records.map((r) => r.run_id)).size;
+$("meta").textContent = `${records.length} decision${records.length === 1 ? "" : "s"} · ${runs} run${runs === 1 ? "" : "s"}`;
+select(0);
+</script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Demo shop</title>
+<style>
+  body { font-family: system-ui, sans-serif; margin: 0; color: #222; }
+  header, footer { padding: 12px 24px; background: #f3f3f3; }
+  header a, footer a { margin-right: 12px; }
+  main { padding: 24px; max-width: 760px; }
+  button { padding: 8px 14px; margin: 4px 4px 4px 0; }
+  .hidden { display: none; }
+  .spacer { height: 2600px; }
+  .toast { background: #e3f4ea; padding: 8px 12px; border-radius: 6px; }
+</style>
+</head>
+<body>
+<header>
+  <a href="#">Home</a><a href="#">Men</a><a href="#">Women</a><a href="#">Sale</a>
+  <input type="search" placeholder="Search the shop">
+  <a href="#" aria-label="Account"><svg width="16" height="16"></svg></a>
+  <span id="cart-count">Cart (0)</span>
+</header>
+<main>
+  <section id="product">
+    <h1>Trail Runner 2</h1>
+    <p>$129.00</p>
+    <label for="size">Size</label>
+    <select id="size"><option>8</option><option selected>9</option><option>10</option></select>
+    <button id="add">Add to cart</button>
+    <button>Add to wishlist</button>
+    <button disabled>Buy now with one click</button>
+    <a href="#">Size guide</a>
+    <div id="added" class="hidden">
+      <p class="toast">Added to your cart.</p>
+      <button id="checkout">Checkout</button>
+      <button>Keep shopping</button>
+    </div>
+  </section>
+  <section id="done" class="hidden">
+    <h1>Checkout</h1>
+    <p>Thanks! This is the end of the demo.</p>
+  </section>
+  <div class="spacer"></div>
+</main>
+<footer>
+  <a href="#">About us</a><a href="#">Careers</a><a href="#">Press</a><a href="#">Privacy policy</a><a href="#">Terms</a>
+  <input type="email" placeholder="Email for our newsletter"><button>Subscribe</button>
+</footer>
+<script>
+  document.getElementById("add").onclick = () => {
+    document.getElementById("added").classList.remove("hidden");
+    document.getElementById("cart-count").textContent = "Cart (1)";
+  };
+  document.getElementById("checkout").onclick = () => {
+    document.getElementById("product").classList.add("hidden");
+    document.getElementById("done").classList.remove("hidden");
+  };
+</script>
+</body>
+</html>

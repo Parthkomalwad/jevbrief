@@ -1,7 +1,7 @@
 # jevbrief v0.1 — Build spec
 > Turn a web page into a clean, small briefing for Jev, and record exactly what was dropped and why.
 
-jevbrief is a Python SDK that converts raw sources into compact state for TypeSafe's Jev model, filters out noise with deterministic rules, and writes a trace of every kept and dropped fact with a reason code. v0.1 supports one source (web pages via Playwright) and ships **tonight, Wednesday, September 23, 2026**.
+jevbrief is a Python SDK that converts raw sources into compact state for TypeSafe's Jev model, filters out noise with deterministic rules, and writes a trace of every kept and dropped fact with a reason code. v0.1 supports one source (web pages via Playwright) and ships **Thursday, September 24, 2026**.
 
 ---
 
@@ -253,7 +253,7 @@ Report a markdown table with accuracy, median state tokens, median latency, and 
 
 ## Build order and checkpoints
 
-### Wednesday, September 23 (tonight)
+### Thursday, September 24
 
 1. `facts.py`, `trace.py`. Check: a TraceRecord round-trips through JSONL.
 2. `dom.py`. Check: `jevbrief inspect` on one fixture lists sensible elements.
@@ -290,4 +290,4 @@ Report a markdown table with accuracy, median state tokens, median latency, and 
 - Submit to the awesome-jev lists and shipwithjev.com, and post a Show HN.
 - Reply to every comment and issue on launch day.
 
-Ship target: v0.1.0 on PyPI and GitHub tonight, Wednesday, September 23, 2026.
+Ship target: v0.1.0 on PyPI and GitHub Thursday, September 24, 2026.
