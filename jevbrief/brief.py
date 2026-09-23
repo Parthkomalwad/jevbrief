@@ -61,13 +61,25 @@ class Brief:
         return self.facts
 
     async def from_page(self, page) -> list[Fact]:
-        """Extract facts from a Playwright page, then filter and budget them."""
+        """Extract facts from an async Playwright page, then filter and budget them."""
         facts = await dom.extract(page)
+        jpg = await page.screenshot(type="jpeg", quality=55) if self._want_screenshot else None
+        return self._from_extracted(facts, page, jpg)
+
+    def from_page_sync(self, page) -> list[Fact]:
+        """Same as `from_page`, for a sync Playwright page."""
+        facts = dom.extract_sync(page)
+        jpg = page.screenshot(type="jpeg", quality=55) if self._want_screenshot else None
+        return self._from_extracted(facts, page, jpg)
+
+    @property
+    def _want_screenshot(self) -> bool:
+        return self.screenshot and self.trace_level != "off"
+
+    def _from_extracted(self, facts: list[Fact], page, jpg: bytes | None) -> list[Fact]:
         size = page.viewport_size or {"width": 1280, "height": 800}
-        if self.screenshot and self.trace_level != "off":
-            jpg = await page.screenshot(type="jpeg", quality=55)
-            self.page_image = {"image": "data:image/jpeg;base64," + base64.b64encode(jpg).decode(),
-                               "width": size["width"], "height": size["height"]}
+        self.page_image = jpg and {"image": "data:image/jpeg;base64," + base64.b64encode(jpg).decode(),
+                                   "width": size["width"], "height": size["height"]}
         return self.load(facts, page.url, size["height"])
 
     def next_click(self) -> Decision:

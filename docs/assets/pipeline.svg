@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 400" width="960" height="400" font-family="Consolas, 'Cascadia Mono', ui-monospace, monospace">
+  <title>How jevbrief works: page elements are filtered with reason codes, the rest is sent to Jev, and Jev picks one.</title>
+  <style>
+    .bg { fill: #ffffff; }
+    .panel { fill: #dedede; stroke: #111; stroke-width: 2; }
+    .bar { fill: #1b1b1b; }
+    .bartxt { fill: #f2f2f2; font-size: 13px; }
+    .chip rect { fill: #fff; stroke: #111; stroke-width: 1.5; }
+    .chip text { fill: #111; font-size: 12px; }
+    .tag { font-size: 11px; fill: #c0262d; opacity: 0; }
+    .muted { fill: #555; font-size: 12px; }
+    .big { fill: #111; font-size: 26px; font-weight: 700; }
+    .pinktxt { fill: #ff3fd2; font-weight: 700; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #0e0e10; }
+      .panel { fill: #1c1c1f; stroke: #4a4a52; }
+      .chip rect { fill: #2a2a30; stroke: #6a6a74; }
+      .chip text, .big { fill: #ececec; }
+      .muted { fill: #9a9aa0; }
+      .tag { fill: #ff7a73; }
+    }
+
+    /* 9 second loop */
+    .drop { animation: drop 9s infinite ease-in-out; }
+    .keep { animation: keep 9s infinite ease-in-out; }
+    .pick { animation: pick 9s infinite ease-in-out; }
+    .pick rect { animation: pickfill 9s infinite; }
+    .drop .tag { animation: tag 9s infinite; }
+    .drop .lbl { animation: lbl 9s infinite; }
+    .drop rect { animation: droprect 9s infinite; }
+    .d1 { animation-delay: 0s; } .d2 { animation-delay: .15s; } .d3 { animation-delay: .3s; }
+    .d4 { animation-delay: .45s; } .d5 { animation-delay: .6s; }
+    .d1 > * { animation-delay: 0s; } .d2 > * { animation-delay: .15s; } .d3 > * { animation-delay: .3s; }
+    .d4 > * { animation-delay: .45s; } .d5 > * { animation-delay: .6s; }
+    .counter1 { animation: fadeA 9s infinite; }
+    .counter2 { animation: fadeB 9s infinite; }
+    .answer { animation: answer 9s infinite; }
+    .flow { stroke-dasharray: 6 8; animation: flow 1s linear infinite; }
+
+    @keyframes drop {
+      0%, 12% { transform: translate(0, 0); opacity: 1; }
+      26%, 88% { transform: translate(240px, 0); opacity: 1; }
+      96%, 100% { transform: translate(0, 0); opacity: 0; }
+    }
+    @keyframes lbl { 0%, 30% { opacity: 1; } 36%, 88% { opacity: 0; } 94%, 100% { opacity: 1; } }
+    @keyframes droprect { 0%, 30% { opacity: 1; } 36%, 88% { opacity: .4; } 100% { opacity: 1; } }
+    @keyframes tag { 0%, 30% { opacity: 0; } 36%, 88% { opacity: 1; } 94%, 100% { opacity: 0; } }
+    @keyframes keep {
+      0%, 12% { transform: translate(0, 0); opacity: 1; }
+      26% { transform: translate(240px, 0); }
+      40% { transform: translate(240px, 0); }
+      52% { transform: translate(580px, 0); opacity: 1; }
+      60%, 88% { transform: translate(580px, 0); opacity: .35; }
+      96%, 100% { transform: translate(0, 0); opacity: 0; }
+    }
+    @keyframes pick {
+      0%, 12% { transform: translate(0, 0); opacity: 1; }
+      26% { transform: translate(240px, 0); }
+      40% { transform: translate(240px, 0); }
+      52% { transform: translate(580px, 0); }
+      62%, 88% { transform: translate(580px, 0); opacity: 1; }
+      96%, 100% { transform: translate(0, 0); opacity: 0; }
+    }
+    @keyframes pickfill { 0%, 58% { fill: #fff; stroke: #111; } 64%, 90% { fill: #ffe0f7; stroke: #ff3fd2; stroke-width: 3; } 100% { fill: #fff; } }
+    @keyframes fadeA { 0%, 30% { opacity: 1; } 36%, 100% { opacity: 0; } }
+    @keyframes fadeB { 0%, 30% { opacity: 0; } 36%, 90% { opacity: 1; } 96%, 100% { opacity: 0; } }
+    @keyframes answer { 0%, 60% { opacity: 0; } 66%, 90% { opacity: 1; } 96%, 100% { opacity: 0; } }
+    @keyframes flow { to { stroke-dashoffset: -14; } }
+  </style>
+
+  <rect class="bg" width="960" height="400"/>
+
+  <!-- 1. Page -->
+  <rect class="panel" x="20" y="20" width="200" height="300"/>
+  <rect class="bar" x="20" y="20" width="200" height="26"/>
+  <text class="bartxt" x="30" y="38">1 &#9642; web page</text>
+  <text class="muted" x="30" y="338">96 elements found</text>
+
+  <!-- 2. Salience -->
+  <rect class="panel" x="260" y="20" width="200" height="300"/>
+  <rect class="bar" x="260" y="20" width="200" height="26"/>
+  <text class="bartxt" x="270" y="38">2 &#9642; salience + budget</text>
+
+  <!-- 3. Jev -->
+  <rect class="panel" x="600" y="20" width="200" height="300"/>
+  <rect class="bar" x="600" y="20" width="200" height="26"/>
+  <text class="bartxt" x="610" y="38">3 &#9642; ask Jev (Choice)</text>
+  <path class="flow" d="M460 170 H600" stroke="#ff3fd2" stroke-width="3" fill="none"/>
+  <path class="flow" d="M220 170 H260" stroke="#111" stroke-width="2" fill="none"/>
+
+  <!-- 4. Trace -->
+  <rect class="panel" x="830" y="20" width="110" height="300"/>
+  <rect class="bar" x="830" y="20" width="110" height="26"/>
+  <text class="bartxt" x="840" y="38">4 &#9642; trace</text>
+  <g class="answer">
+    <text class="pinktxt" x="842" y="80" font-size="13">next_click</text>
+    <text class="big" x="842" y="112">0.99</text>
+    <text class="muted" x="842" y="132">confidence</text>
+    <text class="muted" x="842" y="164">kept: 28</text>
+    <text class="muted" x="842" y="182">dropped: 68</text>
+    <text class="muted" x="842" y="200">7 reasons</text>
+    <text class="muted" x="842" y="232">.jsonl</text>
+    <text class="muted" x="842" y="250">+ viewer</text>
+  </g>
+
+  <!-- chips: dropped turn into their reason code, kept ones go on to Jev -->
+  <g class="chip drop d1"><rect x="34" y="58" width="172" height="24"/><text class="lbl" x="42" y="75">link: Careers</text><text class="tag" x="42" y="75">&#10005; low_score</text></g>
+  <g class="chip drop d2"><rect x="34" y="92" width="172" height="24"/><text class="lbl" x="42" y="109">button: (no label)</text><text class="tag" x="42" y="109">&#10005; unlabeled</text></g>
+  <g class="chip drop d3"><rect x="34" y="160" width="172" height="24"/><text class="lbl" x="42" y="177">button: Buy now</text><text class="tag" x="42" y="177">&#10005; disabled</text></g>
+  <g class="chip drop d4"><rect x="34" y="228" width="172" height="24"/><text class="lbl" x="42" y="245">link: Size guide</text><text class="tag" x="42" y="245">&#10005; duplicate</text></g>
+  <g class="chip drop d5"><rect x="34" y="262" width="172" height="24"/><text class="lbl" x="42" y="279">button: Add to cart</text><text class="tag" x="42" y="279">&#10005; hidden</text></g>
+  <g class="chip keep d2"><rect x="34" y="126" width="172" height="24"/><text x="42" y="143">link: Home</text></g>
+  <g class="chip keep d4"><rect x="34" y="194" width="172" height="24"/><text x="42" y="211">button: Wishlist</text></g>
+  <g class="chip pick d1"><rect x="34" y="291" width="172" height="24"/><text x="42" y="308">button: Add to cart</text></g>
+
+  <!-- counters -->
+  <text class="muted counter1" x="400" y="362">goal: "add this item to the cart"</text>
+  <text class="muted counter2" x="400" y="362">96 elements  &#8594;  28 sent to Jev  &#8594;  1 pick, every drop explained</text>
+  <text class="pinktxt answer" x="600" y="345" font-size="15">Jev picked: button "Add to cart"</text>
+  <text class="muted" x="20" y="388">jevbrief: what Jev was told, what it wasn't told, and why</text>
+</svg>

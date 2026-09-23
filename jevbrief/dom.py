@@ -101,6 +101,10 @@ def to_fact(raw: dict) -> Fact:
 
 
 async def extract(page) -> list[Fact]:
-    """Return every candidate element on the page as a Fact, in document order."""
-    raws = await page.evaluate(_SCRIPT, SELECTOR)
-    return [to_fact(r) for r in raws]
+    """Return every candidate element on an async Playwright page as a Fact, in document order."""
+    return [to_fact(r) for r in await page.evaluate(_SCRIPT, SELECTOR)]
+
+
+def extract_sync(page) -> list[Fact]:
+    """Same as `extract`, for a sync Playwright page."""
+    return [to_fact(r) for r in page.evaluate(_SCRIPT, SELECTOR)]
