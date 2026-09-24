@@ -32,7 +32,13 @@ def _raw(adapter, goal, ex, trace_path, jev) -> Briefing:
     return b
 
 
+LABELS = ("expected_choice", "expected_contains", "expected_label", "flaky")
+
+
 def _correct(task, d, b) -> bool:
+    if "flaky" in task and not any(k in task for k in LABELS[:3]):  # scored on the pack's `flaky` Noul
+        p = (d.answers.get("flaky") or {}).get("noul")
+        return p is not None and (p > 0.5) == task["flaky"]
     if "expected_choice" in task:
         return d.choice == task["expected_choice"]
     chosen = next((f for f in b.facts if f.id == d.choice), None)
@@ -53,6 +59,8 @@ def run(tasks_path: str, repeats: int = 3, out_dir: str = "traces/bench") -> str
     per_task = []
 
     for t in tasks:
+        if not any(k in t for k in LABELS):  # collected but not labeled yet
+            continue
         adapter = adapters.get(t.get("adapter", "web"))
         src = tasks_file.parent / (t.get("source") or t["fixture"])
         if t.get("config"):
