@@ -17,6 +17,7 @@ Then review bench/ci/tasks.json: auto-labels marked "review": "auto" are guesses
 from __future__ import annotations
 
 import argparse
+import http.client
 import io
 import json
 import os
@@ -72,6 +73,11 @@ class GitHub:
                     return None
                 elif attempt == 2:
                     raise
+            except (OSError, http.client.HTTPException) as e:  # dropped connections, timeouts, partial reads
+                if attempt == 2:
+                    print(f"  giving up on {path}: {type(e).__name__}", flush=True)
+                    return None
+                time.sleep(2 * (attempt + 1))
         return None
 
 
@@ -91,6 +97,19 @@ def failed_jobs_zip(gh: GitHub, repo: str, run: dict, attempt: int | None = None
             if folder in failed or folder in safe:
                 dst.writestr(name, src.read(name))
     return out.getvalue() if len(zipfile.ZipFile(out).namelist()) else None
+
+
+def has_errors(data: bytes) -> bool:
+    """Whether the adapter finds any error at all (some failed jobs only run `false` to report others)."""
+    tmp = HERE / "runs" / ".check.zip"
+    tmp.write_bytes(data)
+    try:
+        a = CiAdapter()
+        return any(f.kept for f in a.rules().apply(a.extract(tmp).facts, "", [], {}))
+    except ValueError:
+        return False
+    finally:
+        tmp.unlink()
 
 
 def label(path: Path, changed: list[str]) -> tuple[str | None, list[str]]:
@@ -129,7 +148,7 @@ def collect(gh: GitHub, repo: str, per_repo: int, max_fix: int, out: Path) -> li
             first = gh.get(f"/repos/{repo}/actions/runs/{run['id']}/attempts/1") or {}
             if first.get("conclusion") == "failure":
                 data = failed_jobs_zip(gh, repo, run, attempt=1)
-                if data:
+                if data and has_errors(data):
                     (out / f"{tag}_a1.zip").write_bytes(data)
                     flakies += 1
                     tasks.append({"adapter": "ci", "source": f"runs/{tag}_a1.zip", "kind": "flaky", "flaky": True,
@@ -148,7 +167,7 @@ def collect(gh: GitHub, repo: str, per_repo: int, max_fix: int, out: Path) -> li
             continue
         changed = [f["filename"] for f in cmp.get("files", [])]
         data = failed_jobs_zip(gh, repo, run)
-        if not data:
+        if not data or not has_errors(data):
             continue
         path = out / f"{tag}.zip"
         path.write_bytes(data)
@@ -158,7 +177,7 @@ def collect(gh: GitHub, repo: str, per_repo: int, max_fix: int, out: Path) -> li
                       "goal": f"The {run['name']} workflow failed on {repo}",
                       **({"expected_contains": expected} if expected else {}),
                       "candidates": candidates, "fix_files": changed[:30], "run": run["html_url"],
-                      "fix": cmp.get("html_url"), "review": "auto" if expected else "needs label"})
+                      "fix": cmp.get("html_url"), "review": "auto" if expected else "needs label: fix names no error, maybe flaky"})
         print(f"  fix    {run['html_url']}  -> {expected or '(needs label)'}", flush=True)
     return tasks
 
@@ -177,7 +196,10 @@ def main():
     seen = {t["source"] for t in tasks}
     for repo in args.repos:
         print(repo, flush=True)
-        tasks += [t for t in collect(gh, repo, args.per_repo, args.max_fix, out) if t["source"] not in seen]
+        try:
+            tasks += [t for t in collect(gh, repo, args.per_repo, args.max_fix, out) if t["source"] not in seen]
+        except Exception as e:  # one bad repo should not end the run
+            print(f"  skipped {repo}: {type(e).__name__}: {e}", flush=True)
         tasks_path.write_text(json.dumps(tasks, indent=2) + "\n", encoding="utf-8")
     fix = [t for t in tasks if t["kind"] == "fix"]
     print(f"{len(tasks)} tasks: {len(fix)} fix ({sum('expected_contains' in t for t in fix)} auto-labeled), "

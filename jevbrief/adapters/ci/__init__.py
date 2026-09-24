@@ -54,13 +54,24 @@ NOT_ERROR = re.compile(r"\b(0|no) (errors?|failures?|failed)\b|\berror[_-]?(hand
                        r"|continue-on-error|fail-fast", re.I)
 WARNING = re.compile(r"\bwarn(ing)?s?\b|\bdeprecat", re.I)
 SUMMARY = re.compile(r"process completed with exit code|exited with (exit )?(code|status)|^make: \*\*\*"
+                     r"|^\s*[=!_*-]{4,}.*[=!_*-]{4,}\s*$|\"result\": \"failure\"|required to succeed"
+                     r"|^\s*\S+: (FAIL code \d+|commands failed)|evaluation failed"
                      r"|^=+ .*\b\d+ (failed|errors?)\b.* in [\d.]+s|^Tests?:? .*\d+ failed|^FAIL\s*$"
                      r"|^error: command .* failed with exit|^Error: The operation was canceled", re.I)
 FLAKY = re.compile(r"timed? ?out|timeout|connection (reset|refused|closed)|ECONNRESET|ETIMEDOUT|EAI_AGAIN"
                    r"|temporary failure in name resolution|could not resolve host|rate limit|too many requests"
                    r"|\b50[234]\b|runner .*(lost|shut ?down)|lost communication with the server"
                    r"|no space left on device|out of memory|\bOOM\b|flaky|intermittent", re.I)
-SKIP_LINE = re.compile(r"^##\[(group|endgroup|command|debug)\]|^\[command\]|^shell: |^\s*$")
+SKIP_LINE = re.compile(r"^##\[(?!error|warning)|^\[command\]|^shell: |^\s*$")
+# Source lines that pytest and other tracebacks print; they often contain the word "error".
+CODE = re.compile(r"^>?\s{4,}(#|(el)?if\b|else:|raise\b|return\b|except\b|def |class |for |while |with |try:"
+                  r"|[\w.\[\]]+ = |[\w.]+: [\w.|\[\], ]+ = |:param |@)|^>\s|^_?[a-z_][\w.]* = "
+                  r"|^Traceback \(most recent call last\)|^During handling of the above exception"
+                  r"|^The above exception was the direct cause")
+E_LINE = re.compile(r"^E\s")  # pytest's failure detail lines; a block of them is one error
+STEP_START = re.compile(r"^##\[group\]Run (.+)|^(Post job cleanup)\.?$")
+WHOLE_JOB = "log"  # a whole-job log: steps are found from the `##[group]Run ...` markers GitHub writes
+UNKNOWN_STEPS = (WHOLE_JOB, "UNKNOWN STEP")  # newer `gh run view --log` output has no step names
 RERUN_TAGS = ("flakyFailure", "flakyError", "rerunFailure", "rerunError")
 
 
@@ -102,14 +113,14 @@ def _log_sources(path: Path):
     """Yield (text, job, step, step_n) for each log in a file, zip, or directory."""
     if path.suffix == ".zip":
         with zipfile.ZipFile(path) as z:
-            names = [n for n in z.namelist() if n.endswith(".txt")]
-            jobs_with_steps = {n.split("/")[0] for n in names if "/" in n}
+            names = [n for n in z.namelist() if n.endswith(".txt") and not n.endswith("/system.txt")]
+            jobs_with_steps = {n.split("/")[0] for n in names if "/" in n}  # older archives: one file per step
             for name in sorted(names):
                 job, _, file = name.rpartition("/")
                 if not job and _step(file)[1] in jobs_with_steps:
                     continue  # the whole-job log duplicates its per-step logs
                 text = z.read(name).decode("utf-8", "replace")
-                yield (text, job, *reversed(_step(file))) if job else (text, _step(file)[1], "log", 0)
+                yield (text, job, *reversed(_step(file))) if job else (text, _step(file)[1], WHOLE_JOB, 0)
         return
     text = path.read_text(encoding="utf-8", errors="replace")
     first = next((ln for ln in text.splitlines() if ln.strip()), "")
@@ -118,7 +129,7 @@ def _log_sources(path: Path):
     elif path.parent.name and _step(path.name)[0]:  # a per-step file from an unzipped archive
         yield text, path.parent.name, _step(path.name)[1], _step(path.name)[0]
     else:
-        yield text, path.stem, "log", 0
+        yield text, path.stem, WHOLE_JOB, 0
 
 
 def _files(source) -> list[Path]:
@@ -126,7 +137,8 @@ def _files(source) -> list[Path]:
     out = []
     for p in map(Path, paths):
         if p.is_dir():
-            files = [f for f in sorted(p.rglob("*")) if f.suffix in (".txt", ".log", ".xml", ".zip")]
+            files = [f for f in sorted(p.rglob("*")) if f.suffix in (".txt", ".log", ".xml", ".zip")
+                     and f.name != "system.txt"]
             jobs_with_steps = {f.parent.name for f in files if f.parent != p}
             out += [f for f in files if not (f.parent == p and _step(f.name)[1] in jobs_with_steps)]
         else:
@@ -137,6 +149,7 @@ def _files(source) -> list[Path]:
 def log_records(source) -> list[dict]:
     """Flat log lines: dicts with job, step, step_n, ts, line, level."""
     recs = []
+    current: dict[str, tuple[int, str]] = {}  # job -> (step number, step name) for whole-job logs
     for path in _files(source):
         if path.suffix == ".xml":
             continue
@@ -145,10 +158,20 @@ def log_records(source) -> list[dict]:
                 raw = ANSI.sub("", raw)
                 m = TS.match(raw)
                 line = raw[m.end():] if m else raw
+                if s in UNKNOWN_STEPS:
+                    start = STEP_START.match(line)
+                    n, s = current.setdefault(j, (1, "Set up job"))
+                    if start:
+                        n, s = current[j] = (n + 1, clean_label(start.group(2) or f"Run {start.group(1)}")[:60])
                 if SKIP_LINE.match(line):
                     continue
+                level = None if CODE.match(line) else classify(line)
+                prev = recs[-1] if recs else None
+                if prev and E_LINE.match(line) and E_LINE.match(prev["line"]) and prev["step"] == s                         and (prev["level"] or prev.get("in_block")):
+                    level = None  # the rest of a pytest `E` block belongs to its first line
                 recs.append({"job": j, "step": s, "step_n": n, "ts": m.group(1) if m else "",
-                             "line": line.rstrip(), "level": classify(line), "i": len(recs)})
+                             "line": line.rstrip(), "level": level, "i": len(recs),
+                             "in_block": bool(prev and E_LINE.match(line) and (prev["level"] or prev.get("in_block")))})
     return recs
 
 

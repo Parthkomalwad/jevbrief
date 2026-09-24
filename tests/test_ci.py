@@ -116,3 +116,24 @@ def test_raw_arm_is_last_lines(tmp_path):
     ex = a.extract(write(tmp_path))
     raw = a.raw(ex.facts)
     assert len(raw) == 12 and raw[-1].label == "Post Run actions/checkout@v4: Cleaning up orphan processes"
+
+
+def test_real_log_noise_is_not_an_error(tmp_path):
+    (tmp_path / "job.log").write_text("\n".join(T.format(i) + " " + line for i, line in enumerate([
+        "##[group]Run pytest -v",
+        "Traceback (most recent call last):",
+        "    if error and self._is_read_error(error):",
+        "error = SSLError('EOF')",
+        "E       pexpect.exceptions.TIMEOUT: Timeout exceeded.",
+        "E       buffer (last 100 chars): 'error'",
+        "=================================== FAILURES ===================================",
+        "##[end-action id=x]",
+        "##[error]Process completed with exit code 1.",
+        "Post job cleanup.",
+        "Error: cache save failed",
+    ])) + "\n", encoding="utf-8")
+    b = brief(tmp_path / "job.log")
+    kept = [f for f in b.facts if f.kept]
+    assert [f.meta["template"] for f in kept] == ["E pexpect.exceptions.TIMEOUT: Timeout exceeded."]
+    assert kept[0].attrs["step"] == "Run pytest -v" and kept[0].attrs["looks_flaky"] == "yes"
+    assert {f.meta["template"]: f.reason for f in b.facts}["Error: cache save failed"] == "ci.after_failure"
