@@ -32,13 +32,20 @@ def _raw(adapter, goal, ex, trace_path, jev) -> Briefing:
     return b
 
 
+LABELS = ("expected_choice", "expected_contains", "expected_label", "flaky")
+
+
 def _correct(task, d, b) -> bool:
+    if "flaky" in task and not any(k in task for k in LABELS[:3]):  # scored on the pack's `flaky` Noul
+        p = (d.answers.get("flaky") or {}).get("noul")
+        return p is not None and (p > 0.5) == task["flaky"]
     if "expected_choice" in task:
         return d.choice == task["expected_choice"]
     chosen = next((f for f in b.facts if f.id == d.choice), None)
-    if "expected_contains" in task:
+    if "expected_contains" in task:  # a string, or a list of strings any of which is right
         text = f"{chosen.label} {chosen.meta.get('template', '')}".lower() if chosen else ""
-        return task["expected_contains"].lower() in text
+        want = task["expected_contains"]
+        return any(w.lower() in text for w in ([want] if isinstance(want, str) else want))
     return bool(chosen and chosen.label.lower() == task["expected_label"].lower())
 
 
@@ -53,6 +60,8 @@ def run(tasks_path: str, repeats: int = 3, out_dir: str = "traces/bench") -> str
     per_task = []
 
     for t in tasks:
+        if not any(k in t for k in LABELS):  # collected but not labeled yet
+            continue
         adapter = adapters.get(t.get("adapter", "web"))
         src = tasks_file.parent / (t.get("source") or t["fixture"])
         if t.get("config"):
@@ -73,7 +82,9 @@ def run(tasks_path: str, repeats: int = 3, out_dir: str = "traces/bench") -> str
                 j = d.record.jev
                 ok = _correct(t, d, b)
                 hits += ok
-                rows[arm].append({"ok": ok, "tokens": j.get("input_tokens") or b.used_tokens,
+                p = (d.answers.get("flaky") or {}).get("noul")
+                flaky_ok = None if "flaky" not in t or p is None else (p > 0.5) == t["flaky"]
+                rows[arm].append({"ok": ok, "flaky_ok": flaky_ok, "tokens": j.get("input_tokens") or b.used_tokens,
                                   "latency": j.get("latency_ms"), "confidence": j.get("confidence"),
                                   "options": len(b.kept), "error": d.outcome == "error"})
             line[arm] = f"{hits}/{repeats}"
@@ -88,15 +99,19 @@ def _med(xs):
 
 
 def _table(rows: dict, per_task: list[dict]) -> str:
-    out = ["| Arm | Accuracy | Median input tokens | Median latency (ms) | Median confidence | Median options |",
-           "|---|---|---|---|---|---|"]
+    flaky = any(x.get("flaky_ok") is not None for r in rows.values() for x in r)
+    out = ["| Arm | Accuracy |" + (" Flaky accuracy |" if flaky else "")
+           + " Median input tokens | Median latency (ms) | Median confidence | Median options |",
+           "|---|---|" + ("---|" if flaky else "") + "---|---|---|---|"]
     for arm in ARMS:
         r = rows[arm]
         hits = sum(x["ok"] for x in r)
         errs = sum(x["error"] for x in r)
         conf = _med([x["confidence"] for x in r])
+        fl = [x["flaky_ok"] for x in r if x.get("flaky_ok") is not None]
+        fcol = f" {sum(fl) / len(fl) if fl else 0:.0%} ({sum(fl)}/{len(fl)}) |" if flaky else ""
         out.append(f"| {arm} | {hits / len(r) if r else 0:.0%} ({hits}/{len(r)})"
-                   f"{f', {errs} errors' if errs else ''} | {_med([x['tokens'] for x in r]) or 0:.0f} | "
+                   f"{f', {errs} errors' if errs else ''} |{fcol} {_med([x['tokens'] for x in r]) or 0:.0f} | "
                    f"{_med([x['latency'] for x in r]) or 0:.0f} | {'-' if conf is None else f'{conf:.2f}'} | "
                    f"{_med([x['options'] for x in r]) or 0:.0f} |")
     out += ["", "| Task | raw | jevbrief |", "|---|---|---|"]

@@ -32,3 +32,6 @@ traces/
 Thumbs.db
 .vscode/
 .idea/
+
+# ci benchmark logs (real GitHub Actions logs, not committed; recollect with bench/ci/fetch_runs.py)
+bench/ci/runs/
