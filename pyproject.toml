@@ -24,7 +24,8 @@ web = ["playwright>=1.40"]
 json = ["tomli>=2; python_version < '3.11'"]
 otel = ["tomli>=2; python_version < '3.11'"]
 nes = ["cynes>=0.1.2"]
-all = ["jevbrief[web,json,otel,nes]"]
+ci = []
+all = ["jevbrief[web,json,otel,nes,ci]"]
 dev = ["jevbrief[all]", "pytest>=8"]
 
 [project.entry-points."jevbrief.adapters"]
@@ -32,6 +33,7 @@ web = "jevbrief.adapters.web:WebAdapter"
 json = "jevbrief.adapters.json:JsonAdapter"
 otel = "jevbrief.adapters.otel:OtelAdapter"
 nes = "jevbrief.adapters.nes:NesAdapter"
+ci = "jevbrief.adapters.ci:CiAdapter"
 
 [project.scripts]
 jevbrief = "jevbrief.cli:main"
