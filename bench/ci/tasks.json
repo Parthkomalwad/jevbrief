@@ -1,1 +1,315 @@
-[]
+[
+  {
+    "adapter": "ci",
+    "source": "runs/pallets_flask_30566227095.zip",
+    "kind": "fix",
+    "flaky": false,
+    "goal": "The Tests workflow failed on pallets/flask",
+    "expected_contains": "DeprecationWarning",
+    "candidates": [
+      "test_blueprints",
+      "test_views"
+    ],
+    "fix_files": [
+      "tests/test_blueprints.py",
+      "tests/test_views.py"
+    ],
+    "run": "https://github.com/pallets/flask/actions/runs/30566227095",
+    "fix": "https://github.com/pallets/flask/compare/6a2f545bfd8ed31e19066a299296917e034aca58...8b4fd5d18611e63080b826ecfefe8659dba7d2e4",
+    "review": "labeled by hand, check",
+    "note": "Werkzeug deprecation raised as an error; the fix updated the tests"
+  },
+  {
+    "adapter": "ci",
+    "source": "runs/psf_requests_29765540818.zip",
+    "kind": "fix",
+    "flaky": true,
+    "goal": "The Tests workflow failed on psf/requests",
+    "candidates": [],
+    "fix_files": [
+      ".github/workflows/codeql-analysis.yml"
+    ],
+    "run": "https://github.com/psf/requests/actions/runs/29765540818",
+    "fix": "https://github.com/psf/requests/compare/b17c61b618b1824f1f5d9edcacaf16801343a295...69f84847045bef7a849cc994a26fe7ba8a169e95",
+    "review": "labeled by hand, check",
+    "expected_contains": [
+      "SSL",
+      "handshake"
+    ],
+    "note": "TLS handshake with the local httpbin on Windows; the next commit only touched CodeQL"
+  },
+  {
+    "adapter": "ci",
+    "source": "runs/pydantic_pydantic_35038275114.zip",
+    "kind": "fix",
+    "flaky": true,
+    "goal": "The CI workflow failed on pydantic/pydantic",
+    "candidates": [],
+    "fix_files": [
+      "tests/types/unions/test_union.py"
+    ],
+    "run": "https://github.com/pydantic/pydantic/actions/runs/35038275114",
+    "fix": "https://github.com/pydantic/pydantic/compare/0f80fe89cf2e723562c9ff837244dee1b4987178...7b15a786a755ec4089a34c9bb5f957f8b8ce3690",
+    "review": "labeled by hand, check",
+    "expected_contains": [
+      "fonts.gstatic.com",
+      "SSL"
+    ],
+    "note": "docs build could not download a font; the next commit touched an unrelated test"
+  },
+  {
+    "adapter": "ci",
+    "source": "runs/pydantic_pydantic_35250112194.zip",
+    "kind": "fix",
+    "flaky": true,
+    "goal": "The CI workflow failed on pydantic/pydantic",
+    "candidates": [],
+    "fix_files": [
+      "docs/contributing.md"
+    ],
+    "run": "https://github.com/pydantic/pydantic/actions/runs/35250112194",
+    "fix": "https://github.com/pydantic/pydantic/compare/6aca42d7718b6a6de8f5dfc31043bbe662b01c93...c124df7fb7348a3d6779c41fb5f4e5a73531e678",
+    "review": "labeled by hand, check",
+    "expected_contains": [
+      "fonts.gstatic.com",
+      "SSL"
+    ],
+    "note": "same font download failure; the next commit touched docs only"
+  },
+  {
+    "adapter": "ci",
+    "source": "runs/pytest-dev_pytest_30567914295.zip",
+    "kind": "fix",
+    "flaky": true,
+    "goal": "The test workflow failed on pytest-dev/pytest",
+    "candidates": [],
+    "fix_files": [
+      "changelog/14675.bugfix.rst",
+      "doc/en/reference/reference.rst",
+      "src/_pytest/assertion/__init__.py",
+      "src/_pytest/assertion/_typing.py",
+      "src/_pytest/assertion/truncate.py",
+      "testing/test_assertion.py"
+    ],
+    "run": "https://github.com/pytest-dev/pytest/actions/runs/30567914295",
+    "fix": "https://github.com/pytest-dev/pytest/compare/e6701ff230876a17833b26f6406371aa411211e9...f306da747e70403ca75ae6d9e1dd61f2ad1b8979",
+    "review": "labeled by hand, check",
+    "expected_contains": [
+      "TIMEOUT",
+      "Timeout exceeded"
+    ],
+    "note": "pexpect timeout in a PDB test; the fix commit changed assertion code"
+  },
+  {
+    "adapter": "ci",
+    "source": "runs/pytest-dev_pytest_35831999592.zip",
+    "kind": "fix",
+    "flaky": false,
+    "goal": "The test workflow failed on pytest-dev/pytest",
+    "candidates": [],
+    "fix_files": [
+      "pyproject.toml"
+    ],
+    "run": "https://github.com/pytest-dev/pytest/actions/runs/35831999592",
+    "fix": "https://github.com/pytest-dev/pytest/compare/f9554ee56d264da285f3951ebfdf6f1d59ba4077...8721173580390a9d297e5af06cac3f0b6841f425",
+    "review": "labeled by hand, check",
+    "expected_contains": "cython.collection_type",
+    "note": "Cython warning on PyPy; the fix changed pyproject.toml"
+  },
+  {
+    "adapter": "ci",
+    "source": "runs/vercel_next.js_35918708820_a1.zip",
+    "kind": "flaky",
+    "flaky": true,
+    "goal": "The build-and-deploy workflow failed on vercel/next.js",
+    "run": "https://github.com/vercel/next.js/actions/runs/35918708820/attempts/1",
+    "review": "labeled by hand, check",
+    "expected_contains": "certificate verification failed",
+    "note": "git clone TLS failure; passed on rerun"
+  },
+  {
+    "adapter": "ci",
+    "source": "runs/vercel_next.js_35918709447_a1.zip",
+    "kind": "flaky",
+    "flaky": true,
+    "goal": "The build-and-test workflow failed on vercel/next.js",
+    "run": "https://github.com/vercel/next.js/actions/runs/35918709447/attempts/1",
+    "review": "labeled by hand, check",
+    "expected_contains": "Preview tarball",
+    "note": "waited on another workflow; passed on rerun"
+  },
+  {
+    "adapter": "ci",
+    "source": "runs/vercel_next.js_36018765634_a1.zip",
+    "kind": "flaky",
+    "flaky": true,
+    "goal": "The build-and-deploy workflow failed on vercel/next.js",
+    "run": "https://github.com/vercel/next.js/actions/runs/36018765634/attempts/1",
+    "review": "labeled by hand, check",
+    "expected_contains": [
+      "returned error: 500",
+      "curl"
+    ],
+    "note": "download returned 500; passed on rerun"
+  },
+  {
+    "adapter": "ci",
+    "source": "runs/vercel_next.js_36018766430_a1.zip",
+    "kind": "flaky",
+    "flaky": true,
+    "goal": "The build-and-test workflow failed on vercel/next.js",
+    "run": "https://github.com/vercel/next.js/actions/runs/36018766430/attempts/1",
+    "review": "labeled by hand, check",
+    "expected_contains": "Preview tarball",
+    "note": "waited on another workflow; passed on rerun"
+  },
+  {
+    "adapter": "ci",
+    "source": "runs/vitejs_vite_34472239889.zip",
+    "kind": "fix",
+    "flaky": true,
+    "goal": "The CI workflow failed on vitejs/vite",
+    "candidates": [],
+    "fix_files": [
+      "packages/plugin-legacy/CHANGELOG.md",
+      "packages/vite/CHANGELOG.md"
+    ],
+    "run": "https://github.com/vitejs/vite/actions/runs/34472239889",
+    "fix": "https://github.com/vitejs/vite/compare/1aec41b32510681131c6fa6978ddc227fa6f3aa8...99bd9d1d46153fa939f4a304cc0177db42e28776",
+    "review": "labeled by hand, check",
+    "expected_contains": "manifest.json",
+    "note": "watch-mode build race; the next commit only changed changelogs"
+  },
+  {
+    "adapter": "ci",
+    "source": "runs/vitejs_vite_35300882026.zip",
+    "kind": "fix",
+    "flaky": true,
+    "goal": "The CI workflow failed on vitejs/vite",
+    "candidates": [],
+    "fix_files": [
+      ".github/workflows/semgrep.yml",
+      ".github/workflows/zizmor.yml",
+      "docs/package.json",
+      "package.json",
+      "packages/create-vite/package.json",
+      "packages/create-vite/src/index.ts",
+      "packages/create-vite/template-preact-ts/package.json",
+      "packages/create-vite/template-qwik-ts/package.json",
+      "packages/create-vite/template-react-ts/package.json",
+      "packages/create-vite/template-react/package.json",
+      "packages/create-vite/template-solid-ts/package.json",
+      "packages/create-vite/template-svelte-ts/package.json",
+      "packages/create-vite/template-vue-ts/package.json",
+      "packages/create-vite/template-vue/package.json",
+      "packages/plugin-legacy/package.json",
+      "packages/vite/package.json",
+      "playground/backend-integration/package.json",
+      "playground/css-sourcemap/package.json",
+      "playground/css/package.json",
+      "playground/devtools/package.json",
+      "playground/environment-react-ssr/package.json",
+      "playground/js-sourcemap/package.json",
+      "playground/multiple-entrypoints/package.json",
+      "playground/optimize-deps/dep-linked-include/package.json",
+      "playground/optimize-deps/package.json",
+      "playground/resolve-tsconfig-paths/package.json",
+      "playground/ssr-deps/package.json",
+      "playground/ssr-webworker/package.json",
+      "playground/tailwind-v3/package.json",
+      "pnpm-lock.yaml"
+    ],
+    "run": "https://github.com/vitejs/vite/actions/runs/35300882026",
+    "fix": "https://github.com/vitejs/vite/compare/f4b4431a2f9097fd9bbb7aaebbf1b63c4b54dea1...3c752c8932bc0599465ba4a6d8f44aaf1e934c3d",
+    "review": "labeled by hand, check",
+    "expected_contains": [
+      "did not succeed in time",
+      "hello"
+    ],
+    "note": "timing assertion; the next commit changed unrelated files"
+  },
+  {
+    "adapter": "ci",
+    "source": "runs/vitejs_vite_35828720689.zip",
+    "kind": "fix",
+    "flaky": true,
+    "goal": "The CI workflow failed on vitejs/vite",
+    "candidates": [],
+    "fix_files": [
+      "packages/create-vite/src/index.ts"
+    ],
+    "run": "https://github.com/vitejs/vite/actions/runs/35828720689",
+    "fix": "https://github.com/vitejs/vite/compare/af7cdf6964f124f58d66037e808fe687654948e2...f155b62ceabbaaf71abbf59933968787e3961c56",
+    "review": "labeled by hand, check",
+    "expected_contains": [
+      "transport was disconnected",
+      "expected ''"
+    ],
+    "note": "dev server transport dropped; unrelated next commit"
+  },
+  {
+    "adapter": "ci",
+    "source": "runs/vitejs_vite_35978035629.zip",
+    "kind": "fix",
+    "flaky": false,
+    "goal": "The CI workflow failed on vitejs/vite",
+    "candidates": [],
+    "fix_files": [
+      "packages/vite/src/node/__tests__/optimizer/discoverBeforeListen.spec.ts",
+      "packages/vite/src/node/optimizer/optimizer.ts"
+    ],
+    "run": "https://github.com/vitejs/vite/actions/runs/35978035629",
+    "fix": "https://github.com/vitejs/vite/compare/6e09961181a1047ef78d37b1a23fb0e7488c8980...5f894339d27882fedc86bf6b1076fa6d92e404f3",
+    "review": "labeled by hand, check",
+    "expected_contains": [
+      "Worker exited unexpectedly",
+      "Worker forks emitted error",
+      "unhandled error"
+    ],
+    "note": "worker crash; the fix changed optimizer.ts and added a test for it"
+  },
+  {
+    "adapter": "ci",
+    "source": "runs/vitejs_vite_35985797204.zip",
+    "kind": "fix",
+    "flaky": true,
+    "goal": "The CI workflow failed on vitejs/vite",
+    "candidates": [],
+    "fix_files": [
+      "packages/create-vite/LICENSE",
+      "packages/create-vite/package.json",
+      "packages/create-vite/src/index.ts",
+      "packages/create-vite/tsconfig.json",
+      "packages/create-vite/tsdown.config.ts",
+      "pnpm-lock.yaml"
+    ],
+    "run": "https://github.com/vitejs/vite/actions/runs/35985797204",
+    "fix": "https://github.com/vitejs/vite/compare/04fc30a4b91870e65a436b3420620a2e02a94a41...e5d9af29a3571f388c4bc2a8d4c3387e46ff1da0",
+    "review": "labeled by hand, check",
+    "expected_contains": [
+      "transport was disconnected",
+      "ERR_CONNECTION_REFUSED"
+    ],
+    "note": "dev server not reachable; unrelated next commit"
+  },
+  {
+    "adapter": "ci",
+    "source": "runs/prettier_prettier_34955505973.zip",
+    "kind": "fix",
+    "flaky": true,
+    "goal": "The Prod workflow failed on prettier/prettier",
+    "expected_contains": "onCancel",
+    "candidates": [
+      "package",
+      "yarn"
+    ],
+    "fix_files": [
+      "website/package.json",
+      "website/yarn.lock"
+    ],
+    "run": "https://github.com/prettier/prettier/actions/runs/34955505973",
+    "fix": "https://github.com/prettier/prettier/compare/2bb58fd0202029708f4a3f2952ea21958d65a5d2...693b5633a5450e135950921bb691ec793b0f16ae",
+    "review": "labeled by hand, check",
+    "note": "promise race on Windows; the next commit changed website deps only"
+  }
+]
