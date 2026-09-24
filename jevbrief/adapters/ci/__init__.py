@@ -54,7 +54,8 @@ NOT_ERROR = re.compile(r"\b(0|no) (errors?|failures?|failed)\b|\berror[_-]?(hand
                        r"|continue-on-error|fail-fast", re.I)
 WARNING = re.compile(r"\bwarn(ing)?s?\b|\bdeprecat", re.I)
 SUMMARY = re.compile(r"process completed with exit code|exited with (exit )?(code|status)|^make: \*\*\*"
-                     r"|^\s*[=!_*-]{4,}.*[=!_*-]{4,}\s*$|\"result\": \"failure\"|required to succeed"
+                     r"|^\s*[=!_*⎯-]{4,}.*[=!_*⎯-]{4,}\s*$|\"result\": \"failure\"|required to succeed"
+                     r"|\bcommand failed with exit code|^The process '.*' failed with exit code|^Errors? +\d+ errors?$"
                      r"|^\s*\S+: (FAIL code \d+|commands failed)|evaluation failed"
                      r"|^=+ .*\b\d+ (failed|errors?)\b.* in [\d.]+s|^Tests?:? .*\d+ failed|^FAIL\s*$"
                      r"|^error: command .* failed with exit|^Error: The operation was canceled", re.I)
@@ -165,7 +166,7 @@ def log_records(source) -> list[dict]:
                         n, s = current[j] = (n + 1, clean_label(start.group(2) or f"Run {start.group(1)}")[:60])
                 if SKIP_LINE.match(line):
                     continue
-                level = None if CODE.match(line) else classify(line)
+                level = None if CODE.match(line) or len(line) > 2000 else classify(line)  # long: minified code
                 prev = recs[-1] if recs else None
                 if prev and E_LINE.match(line) and E_LINE.match(prev["line"]) and prev["step"] == s                         and (prev["level"] or prev.get("in_block")):
                     level = None  # the rest of a pytest `E` block belongs to its first line
