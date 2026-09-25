@@ -1,0 +1,1632 @@
+[
+  {
+    "adapter": "pr",
+    "source": "prs/psf_requests_6951.diff",
+    "goal": "docs: fix dead links to kenreitz.org",
+    "expected_choice": [
+      "ef9e4ea"
+    ],
+    "expected_chunks": [
+      {
+        "id": "ef9e4ea",
+        "chunk": "docs/conf.py:58",
+        "comments": [
+          {
+            "by": "nateprewitt",
+            "nit": true,
+            "text": "```suggestion copyright = u'MMXVIX. A Kenneth Reitz Project' ```",
+            "url": "https://github.com/psf/requests/pull/6951#discussion_r2101041830"
+          }
+        ]
+      }
+    ],
+    "chunks": 3,
+    "files": 3,
+    "pr": "https://github.com/psf/requests/pull/6951",
+    "commit": "c799b8167a13416833ad3b4f3298261a477e826f",
+    "review": "hand: kept, only nit or suggestion comments"
+  },
+  {
+    "adapter": "pr",
+    "source": "prs/encode_httpx_307.diff",
+    "goal": "Added support ssl cert file environment",
+    "expected_choice": [
+      "e173075",
+      "e2ae812",
+      "ea9e3db"
+    ],
+    "expected_chunks": [
+      {
+        "id": "e173075",
+        "chunk": "httpx/utils.py:107",
+        "comments": [
+          {
+            "by": "StephenBrown2",
+            "nit": false,
+            "text": "> We should check the three environment variables in the order above > `(SSL_CERT_FILE, REQUESTS_CA_BUNDLE, CURL_CA_BUNDLE)`, > as SSL_CERT_FILE is a PEP and a ",
+            "url": "https://github.com/encode/httpx/pull/307#discussion_r320042951"
+          }
+        ]
+      },
+      {
+        "id": "e2ae812",
+        "chunk": "tests/test_utils.py:116",
+        "comments": [
+          {
+            "by": "StephenBrown2",
+            "nit": false,
+            "text": "This should also test if all three are set and if none are valid files, and verify the order tested.",
+            "url": "https://github.com/encode/httpx/pull/307#discussion_r320043132"
+          }
+        ]
+      },
+      {
+        "id": "ea9e3db",
+        "chunk": "docs/environment_variables.md:79",
+        "comments": [
+          {
+            "by": "StephenBrown2",
+            "nit": false,
+            "text": "We should probably use `SSL_CERT_FILE` as the example, since it is [PEP 476](https://www.python.org/dev/peps/pep-0476/#trust-database).",
+            "url": "https://github.com/encode/httpx/pull/307#discussion_r320043393"
+          }
+        ]
+      }
+    ],
+    "chunks": 8,
+    "files": 5,
+    "pr": "https://github.com/encode/httpx/pull/307",
+    "commit": "7a72b0e045cb6beca037db46c36cf963277dd30f",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "pr",
+    "source": "prs/encode_httpx_3419.diff",
+    "goal": "Version 0.28.0.",
+    "expected_choice": [
+      "e69d403"
+    ],
+    "expected_chunks": [
+      {
+        "id": "e69d403",
+        "chunk": "CHANGELOG.md:4",
+        "comments": [
+          {
+            "by": "zanieb",
+            "nit": false,
+            "text": "Presumably you mean November",
+            "url": "https://github.com/encode/httpx/pull/3419#discussion_r1862275863"
+          }
+        ]
+      }
+    ],
+    "chunks": 32,
+    "files": 6,
+    "pr": "https://github.com/encode/httpx/pull/3419",
+    "commit": "9d01df2bc9ca6939aa71f7083f4c49539a3bb3c0",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "pr",
+    "source": "prs/pydantic_pydantic_12050.diff",
+    "goal": "Migrate branding",
+    "expected_choice": [
+      "e1b214b",
+      "e1d6059",
+      "eee9e13"
+    ],
+    "expected_chunks": [
+      {
+        "id": "eee9e13",
+        "chunk": "docs/help_with_pydantic.md:1",
+        "comments": [
+          {
+            "by": "Kludex",
+            "nit": true,
+            "text": "```suggestion # Getting help with Pydantic ```",
+            "url": "https://github.com/pydantic/pydantic/pull/12050#discussion_r2207055553"
+          }
+        ]
+      },
+      {
+        "id": "e1b214b",
+        "chunk": "docs/index.md:14",
+        "comments": [
+          {
+            "by": "Kludex",
+            "nit": false,
+            "text": "This is a bit weird. Can we do better?",
+            "url": "https://github.com/pydantic/pydantic/pull/12050#discussion_r2207058116"
+          }
+        ]
+      },
+      {
+        "id": "e1d6059",
+        "chunk": "docs/pydantic_people.md:1",
+        "comments": [
+          {
+            "by": "Kludex",
+            "nit": true,
+            "text": "```suggestion # Pydantic People ```",
+            "url": "https://github.com/pydantic/pydantic/pull/12050#discussion_r2207058819"
+          }
+        ]
+      }
+    ],
+    "chunks": 10,
+    "files": 9,
+    "pr": "https://github.com/pydantic/pydantic/pull/12050",
+    "commit": "59e723256933a50a36c9623852b40ae77bc7d425",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "pr",
+    "source": "prs/pydantic_pydantic_9459.diff",
+    "goal": "Add pipeline API",
+    "expected_choice": [
+      "e610244",
+      "e99c46f"
+    ],
+    "expected_chunks": [
+      {
+        "id": "e610244",
+        "chunk": "pydantic/transform_experimental.py:1",
+        "comments": [
+          {
+            "by": "sydney-runkle",
+            "nit": false,
+            "text": "What if we add an `experimental` module within `pydantic`, then we could have the warning take effect when anything is imported from said module? I think that'l",
+            "url": "https://github.com/pydantic/pydantic/pull/9459#discussion_r1610174415"
+          },
+          {
+            "by": "sydney-runkle",
+            "nit": false,
+            "text": "\ud83e\udd13",
+            "url": "https://github.com/pydantic/pydantic/pull/9459#discussion_r1610194459"
+          },
+          {
+            "by": "sydney-runkle",
+            "nit": false,
+            "text": "So this is the intermediate out type?",
+            "url": "https://github.com/pydantic/pydantic/pull/9459#discussion_r1610197403"
+          },
+          {
+            "by": "sydney-runkle",
+            "nit": false,
+            "text": "What type error are you getting?",
+            "url": "https://github.com/pydantic/pydantic/pull/9459#discussion_r1610201736"
+          },
+          {
+            "by": "sydney-runkle",
+            "nit": false,
+            "text": "Cool, I was wondering how this was going to work!",
+            "url": "https://github.com/pydantic/pydantic/pull/9459#discussion_r1610203420"
+          },
+          {
+            "by": "sydney-runkle",
+            "nit": false,
+            "text": "Could be interesting to think about supporting this case as well https://github.com/pydantic/pydantic/issues/9472",
+            "url": "https://github.com/pydantic/pydantic/pull/9459#discussion_r1610209219"
+          },
+          {
+            "by": "sydney-runkle",
+            "nit": false,
+            "text": "Very cool and interesting pattern here. I appreciate the cleanliness of the code and the documentation of major methods, etc - made things quite easy to follow.",
+            "url": "https://github.com/pydantic/pydantic/pull/9459#discussion_r1610223803"
+          }
+        ]
+      },
+      {
+        "id": "e99c46f",
+        "chunk": "docs/concepts/types.md:122",
+        "comments": [
+          {
+            "by": "sydney-runkle",
+            "nit": false,
+            "text": "This can come later if/when we introduce this as stable, but I think it could be helpful to add some extra notes about why we like this pattern, helping users (",
+            "url": "https://github.com/pydantic/pydantic/pull/9459#discussion_r1610185209"
+          },
+          {
+            "by": "sydney-runkle",
+            "nit": false,
+            "text": "This is cool, because it relieves the need for the customization of constraint order in core (or at least provides an endorsed workaround!)",
+            "url": "https://github.com/pydantic/pydantic/pull/9459#discussion_r1610186481"
+          },
+          {
+            "by": "sydney-runkle",
+            "nit": false,
+            "text": "Can we convert these to the [annotations](https://squidfunk.github.io/mkdocs-material/reference/code-blocks/#adding-annotations) that mkdocs supports?",
+            "url": "https://github.com/pydantic/pydantic/pull/9459#discussion_r1610187723"
+          },
+          {
+            "by": "sydney-runkle",
+            "nit": false,
+            "text": "Another question - do we want an `experimental` docs concepts section?",
+            "url": "https://github.com/pydantic/pydantic/pull/9459#discussion_r1610189801"
+          }
+        ]
+      }
+    ],
+    "chunks": 6,
+    "files": 6,
+    "pr": "https://github.com/pydantic/pydantic/pull/9459",
+    "commit": "89c46a196b58e73c8335950ee4913ff20247507c",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "pr",
+    "source": "prs/pytest-dev_pytest_15011.diff",
+    "goal": "Clarify the relation between marks and keywords",
+    "expected_choice": [
+      "e364787",
+      "e771c4c",
+      "e8f660c",
+      "e92677b",
+      "e9daf0b",
+      "eabf71b",
+      "ece9033",
+      "ed1e2d7",
+      "ef71fb1"
+    ],
+    "expected_chunks": [
+      {
+        "id": "e9daf0b",
+        "chunk": "doc/en/example/markers.rst:162",
+        "comments": [
+          {
+            "by": "bluetech",
+            "nit": false,
+            "text": "This paragraph is a little confusing since the example doesn't use `@pytest.mark.http`. I understand you intend to say \"if hypothetically a test were marked wit",
+            "url": "https://github.com/pytest-dev/pytest/pull/15011#discussion_r4005477827"
+          },
+          {
+            "by": "bluetech",
+            "nit": false,
+            "text": "I figure the reason why this paragraph was previously at the end was a desire to not inundate the reader with details before giving the example. Which I kinda a",
+            "url": "https://github.com/pytest-dev/pytest/pull/15011#discussion_r4005485661"
+          }
+        ]
+      },
+      {
+        "id": "e92677b",
+        "chunk": "changelog/4569.doc.rst:1",
+        "comments": [
+          {
+            "by": "bluetech",
+            "nit": false,
+            "text": "It would be nice to link to said documentation. Does it refer to example/markers.rst? If so, it did explain what \"keywords\" are. So I think there first sentence",
+            "url": "https://github.com/pytest-dev/pytest/pull/15011#discussion_r4005505176"
+          }
+        ]
+      },
+      {
+        "id": "e771c4c",
+        "chunk": "changelog/4569.bugfix.rst:1",
+        "comments": [
+          {
+            "by": "bluetech",
+            "nit": true,
+            "text": "```suggestion :option:`-k` no longer matches attributes that end up in a test function's ``__dict__`` without being meant as keywords, such as pytest's own ``py",
+            "url": "https://github.com/pytest-dev/pytest/pull/15011#discussion_r4005511109"
+          }
+        ]
+      },
+      {
+        "id": "ef71fb1",
+        "chunk": "doc/en/how-to/usage.rst:38",
+        "comments": [
+          {
+            "by": "bluetech",
+            "nit": false,
+            "text": "usage.rst is one of the \"started\" documentation pages, so I think it would be nice to keep it relatively short. Maybe can replace this paragraph with a hyperlin",
+            "url": "https://github.com/pytest-dev/pytest/pull/15011#discussion_r4005566042"
+          }
+        ]
+      },
+      {
+        "id": "ece9033",
+        "chunk": "doc/en/reference/reference.rst:2867",
+        "comments": [
+          {
+            "by": "bluetech",
+            "nit": false,
+            "text": "Would remove this paragraph from the reference documentation.",
+            "url": "https://github.com/pytest-dev/pytest/pull/15011#discussion_r4005582896"
+          }
+        ]
+      },
+      {
+        "id": "e364787",
+        "chunk": "doc/en/reference/reference.rst:2902",
+        "comments": [
+          {
+            "by": "bluetech",
+            "nit": false,
+            "text": "Would remove reference to `-k` here, and leave only reference information. There is already a link to the explanation page.",
+            "url": "https://github.com/pytest-dev/pytest/pull/15011#discussion_r4005598532"
+          },
+          {
+            "by": "bluetech",
+            "nit": false,
+            "text": "Would move the example to a line in `Examples` above.",
+            "url": "https://github.com/pytest-dev/pytest/pull/15011#discussion_r4005602488"
+          }
+        ]
+      },
+      {
+        "id": "ed1e2d7",
+        "chunk": "src/_pytest/mark/__init__.py:150",
+        "comments": [
+          {
+            "by": "bluetech",
+            "nit": false,
+            "text": "IMO the low level `KeywordMatcher` shouldn't refer to high level `-k` argument. Though maybe it makes things clearer. Would at least change to \"as used by `-k`\"",
+            "url": "https://github.com/pytest-dev/pytest/pull/15011#discussion_r4005634364"
+          },
+          {
+            "by": "bluetech",
+            "nit": false,
+            "text": "Seems this sentence was incorrect leftover from 60906f7a46863416b67d329d45e39bcb01d5a28c.",
+            "url": "https://github.com/pytest-dev/pytest/pull/15011#discussion_r4005670500"
+          }
+        ]
+      },
+      {
+        "id": "eabf71b",
+        "chunk": "src/_pytest/fixtures.py:636",
+        "comments": [
+          {
+            "by": "bluetech",
+            "nit": false,
+            "text": "(Preexisting) I wonder what \"function invocation\" refers to here? I can't make sense of what it's trying to say, maybe refers to parametrization?",
+            "url": "https://github.com/pytest-dev/pytest/pull/15011#discussion_r4005705466"
+          }
+        ]
+      },
+      {
+        "id": "e8f660c",
+        "chunk": "src/_pytest/reports.py:370",
+        "comments": [
+          {
+            "by": "bluetech",
+            "nit": false,
+            "text": "If we document the `1` then it would be good to change the type annotation to `Literal[1]` to statically guarantee it.",
+            "url": "https://github.com/pytest-dev/pytest/pull/15011#discussion_r4005738828"
+          }
+        ]
+      }
+    ],
+    "chunks": 25,
+    "files": 14,
+    "pr": "https://github.com/pytest-dev/pytest/pull/15011",
+    "commit": "ead8f489fa0c88bc67c56c752eb2a0e447743165",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "pr",
+    "source": "prs/pytest-dev_pytest_15044.diff",
+    "goal": "Warn when writing or closing a cache file fails",
+    "expected_choice": [
+      "e9d0f3e"
+    ],
+    "expected_chunks": [
+      {
+        "id": "e9d0f3e",
+        "chunk": "src/_pytest/cacheprovider.py:240",
+        "comments": [
+          {
+            "by": "RonnyPfannschmidt",
+            "nit": false,
+            "text": "Nitpick we now can use path.write_text",
+            "url": "https://github.com/pytest-dev/pytest/pull/15044#discussion_r4033360082"
+          }
+        ]
+      }
+    ],
+    "chunks": 5,
+    "files": 4,
+    "pr": "https://github.com/pytest-dev/pytest/pull/15044",
+    "commit": "bc9685609e93521f8c3175a440391ae58920c550",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "pr",
+    "source": "prs/python-poetry_poetry_10975.diff",
+    "goal": "fix(init): sanitize default package name derived from directory name",
+    "expected_choice": [
+      "e9aefce"
+    ],
+    "expected_chunks": [
+      {
+        "id": "e9aefce",
+        "chunk": "src/poetry/console/commands/init.py:495",
+        "comments": [
+          {
+            "by": "radoering",
+            "nit": false,
+            "text": "Do we really want to canonicalize the name here? It does not seem to be necessary (see e.g. https://packaging.python.org/en/latest/guides/writing-pyproject-toml",
+            "url": "https://github.com/python-poetry/poetry/pull/10975#discussion_r3943298467"
+          }
+        ]
+      }
+    ],
+    "chunks": 4,
+    "files": 2,
+    "pr": "https://github.com/python-poetry/poetry/pull/10975",
+    "commit": "208ff4f0ddc4b7e84c92a63a4243641c496e7b76",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "pr",
+    "source": "prs/python-poetry_poetry_11042.diff",
+    "goal": "Reduce virtual environment discovery subprocesses",
+    "expected_choice": [
+      "e2ed882",
+      "e634711",
+      "ede16ad"
+    ],
+    "expected_chunks": [
+      {
+        "id": "ede16ad",
+        "chunk": "src/poetry/utils/env/virtual_env.py:41",
+        "comments": [
+          {
+            "by": "radoering",
+            "nit": false,
+            "text": "Why not use `_environment_data` here?",
+            "url": "https://github.com/python-poetry/poetry/pull/11042#discussion_r3943341478"
+          }
+        ]
+      },
+      {
+        "id": "e2ed882",
+        "chunk": "tests/inspection/test_info.py:365",
+        "comments": [
+          {
+            "by": "radoering",
+            "nit": false,
+            "text": "The number changes, but why shouldn't we keep checking it?",
+            "url": "https://github.com/python-poetry/poetry/pull/11042#discussion_r3943343946"
+          }
+        ]
+      },
+      {
+        "id": "e634711",
+        "chunk": "tests/utils/env/test_env.py:101",
+        "comments": [
+          {
+            "by": "radoering",
+            "nit": false,
+            "text": "Why not keeping this check?",
+            "url": "https://github.com/python-poetry/poetry/pull/11042#discussion_r3943344911"
+          }
+        ]
+      }
+    ],
+    "chunks": 18,
+    "files": 7,
+    "pr": "https://github.com/python-poetry/poetry/pull/11042",
+    "commit": "05b0aa5746ed393a24a65b16d3b3740e7b2adfd4",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "pr",
+    "source": "prs/django_django_21975.diff",
+    "goal": "Fixed #37344 -- Enabled FETCH_PEERS batching for instances loaded by select_related.",
+    "expected_choice": [
+      "e18aace",
+      "e496698",
+      "e5304c9",
+      "ef4e94f"
+    ],
+    "expected_chunks": [
+      {
+        "id": "e496698",
+        "chunk": "docs/releases/6.1.2.txt:11",
+        "comments": [
+          {
+            "by": "charettes",
+            "nit": false,
+            "text": "Given `fetch_mode` and friends were introduced in 6.1 this is a not a regression but a bug in a newly released feature ```suggestion * Fixed a bug in Django 6.1",
+            "url": "https://github.com/django/django/pull/21975#discussion_r4021807053"
+          }
+        ]
+      },
+      {
+        "id": "e5304c9",
+        "chunk": "tests/select_related/tests.py:281",
+        "comments": [
+          {
+            "by": "sarahboyce",
+            "nit": false,
+            "text": "Do we need all three tests for this change? I think this test covers the change in behavior, including recursive populators, and appears sufficient to cover the",
+            "url": "https://github.com/django/django/pull/21975#discussion_r4023226659"
+          }
+        ]
+      },
+      {
+        "id": "e18aace",
+        "chunk": "tests/null_fk/tests.py:21",
+        "comments": [
+          {
+            "by": "sarahboyce",
+            "nit": false,
+            "text": "This test currently doesn\u2019t demonstrate batching because only one related object is non-null, so it passes even when the change is reverted. I am also not sure ",
+            "url": "https://github.com/django/django/pull/21975#discussion_r4023237504"
+          }
+        ]
+      },
+      {
+        "id": "ef4e94f",
+        "chunk": "django/db/models/query.py:3101",
+        "comments": [
+          {
+            "by": "sarahboyce",
+            "nit": true,
+            "text": "```suggestion self.peers = [] ``` I think we should have `self.peers` initialized unconditionally to match the existing `ModelIterable`/`RawModelIterable` patte",
+            "url": "https://github.com/django/django/pull/21975#discussion_r4023248225"
+          }
+        ]
+      }
+    ],
+    "chunks": 6,
+    "files": 4,
+    "pr": "https://github.com/django/django/pull/21975",
+    "commit": "5b47408a2dc5cad699542a3ed15771e1b85dbed5",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "pr",
+    "source": "prs/django_django_21138.diff",
+    "goal": "Fixed #37051 -- Improved organisation of documentation home page.",
+    "expected_choice": [
+      "ec779e8",
+      "ed39dcd"
+    ],
+    "expected_chunks": [
+      {
+        "id": "ed39dcd",
+        "chunk": "docs/index.txt:9",
+        "comments": [
+          {
+            "by": "blighj",
+            "nit": false,
+            "text": "I think the first sentence in the docs should be simpler. The description in the document organization section is better. >[Django's] tutorial takes you by the ",
+            "url": "https://github.com/django/django/pull/21138#discussion_r3294154905"
+          },
+          {
+            "by": "blighj",
+            "nit": false,
+            "text": "This may be out of scope, but should/could we think about updating this name. The tutorial is aimed at beginners, do they know what requests and responses are. ",
+            "url": "https://github.com/django/django/pull/21138#discussion_r3294161930"
+          }
+        ]
+      },
+      {
+        "id": "ec779e8",
+        "chunk": "docs/index.txt:103",
+        "comments": [
+          {
+            "by": "blighj",
+            "nit": true,
+            "text": "```suggestion :doc:`Static files management </ref/contrib/staticfiles>` ``` Unnecessary trailing `|`",
+            "url": "https://github.com/django/django/pull/21138#discussion_r3294155628"
+          },
+          {
+            "by": "blighj",
+            "nit": false,
+            "text": "Databases could be a better title here ```suggestion * **Databases**: ```",
+            "url": "https://github.com/django/django/pull/21138#discussion_r3294156915"
+          },
+          {
+            "by": "blighj",
+            "nit": false,
+            "text": "Command line tools? This is a very minor suggestion, aimed at simplifying for beginners, may not be worth it.",
+            "url": "https://github.com/django/django/pull/21138#discussion_r3294165537"
+          }
+        ]
+      }
+    ],
+    "chunks": 3,
+    "files": 1,
+    "pr": "https://github.com/django/django/pull/21138",
+    "commit": "ccb2cde96fa92e49565177a133ebc5d00ef77517",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "pr",
+    "source": "prs/vitejs_vite_23568.diff",
+    "goal": "fix(bundled-dev): serve the rolldown runtime from the installed rolldown",
+    "expected_choice": [
+      "ecbac22"
+    ],
+    "expected_chunks": [
+      {
+        "id": "ecbac22",
+        "chunk": "packages/vite/src/node/plugins/clientInjections.ts:155",
+        "comments": [
+          {
+            "by": "sapphi-red",
+            "nit": false,
+            "text": "I think we should prefer `import.meta.resolve`",
+            "url": "https://github.com/vitejs/vite/pull/23568#discussion_r4100350349"
+          },
+          {
+            "by": "sapphi-red",
+            "nit": false,
+            "text": "[Non blocking] Relying on the file name feels difficult to ensure. Maybe we should be bundling to a single file. That would also reduce the number of requests n",
+            "url": "https://github.com/vitejs/vite/pull/23568#discussion_r4100379410"
+          }
+        ]
+      }
+    ],
+    "chunks": 12,
+    "files": 6,
+    "pr": "https://github.com/vitejs/vite/pull/23568",
+    "commit": "e8829abbf3e02012e13b1e8e4f194318a21e2889",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "pr",
+    "source": "prs/vitejs_vite_18190.diff",
+    "goal": "feat: introduce RunnableDevEnvironment",
+    "expected_choice": [
+      "e02334c",
+      "ef0642e"
+    ],
+    "expected_chunks": [
+      {
+        "id": "ef0642e",
+        "chunk": "docs/guide/api-environment.md:107",
+        "comments": [
+          {
+            "by": "patak-cat",
+            "nit": true,
+            "text": "```suggestion Vite also supports a `RunnableDevEnvironment`, that extends a `DevEnvironment` exposing a `ModuleRunner` instance. You can guard any runnable envi",
+            "url": "https://github.com/vitejs/vite/pull/18190#discussion_r1778269528"
+          },
+          {
+            "by": "patak-cat",
+            "nit": false,
+            "text": "In the same way that we have `environment.mode: 'dev' | 'build'`, should we have `environment.type: 'runnable' | 'fetchable' | 'custom'`? We can move forward wi",
+            "url": "https://github.com/vitejs/vite/pull/18190#discussion_r1778275076"
+          }
+        ]
+      },
+      {
+        "id": "e02334c",
+        "chunk": "packages/vite/src/node/config.ts:213",
+        "comments": [
+          {
+            "by": "patak-cat",
+            "nit": false,
+            "text": "We can remove the `hot` option here",
+            "url": "https://github.com/vitejs/vite/pull/18190#discussion_r1778277234"
+          }
+        ]
+      }
+    ],
+    "chunks": 23,
+    "files": 8,
+    "pr": "https://github.com/vitejs/vite/pull/18190",
+    "commit": "9ede2692f0ec7701da6bb72710e7c4df4c19a475",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "pr",
+    "source": "prs/prettier_prettier_20066.diff",
+    "goal": "Preserve Angular control flow syntax in `ngNonBindable` directive",
+    "expected_choice": [
+      "ecead58"
+    ],
+    "expected_chunks": [
+      {
+        "id": "ecead58",
+        "chunk": "src/language-html/print-preprocess.js:98",
+        "comments": [
+          {
+            "by": "fisker",
+            "nit": true,
+            "text": "```suggestion if (options.parser !== \"angular\" || !options.originalText.includes('ngNonBindable')) { ``` Avoid walking the big tree for such an \"edge\" case?",
+            "url": "https://github.com/prettier/prettier/pull/20066#discussion_r4024730452"
+          }
+        ]
+      }
+    ],
+    "chunks": 6,
+    "files": 4,
+    "pr": "https://github.com/prettier/prettier/pull/20066",
+    "commit": "d673a43d57d7052b642caafb2694a2124d7932d8",
+    "review": "hand: kept, only nit or suggestion comments"
+  },
+  {
+    "adapter": "pr",
+    "source": "prs/prettier_prettier_20100.diff",
+    "goal": "Move \"dependents count update\" out of release",
+    "expected_choice": [
+      "e6de7f8",
+      "eddfcb4"
+    ],
+    "expected_chunks": [
+      {
+        "id": "e6de7f8",
+        "chunk": "scripts/update-dependents-count.js:75",
+        "comments": [
+          {
+            "by": "fisker",
+            "nit": false,
+            "text": "The script should be able to run anywhere, so, please use an absolute URL. `new URL(\"../website/src/pages/index.jsx\", import.meta.url)`",
+            "url": "https://github.com/prettier/prettier/pull/20100#discussion_r4044662230"
+          }
+        ]
+      },
+      {
+        "id": "eddfcb4",
+        "chunk": "scripts/update-dependents-count.js:1",
+        "comments": [
+          {
+            "by": "fisker",
+            "nit": false,
+            "text": "Only write file if changed.",
+            "url": "https://github.com/prettier/prettier/pull/20100#discussion_r4044666560"
+          }
+        ]
+      }
+    ],
+    "chunks": 8,
+    "files": 4,
+    "pr": "https://github.com/prettier/prettier/pull/20100",
+    "commit": "a7db6ed7e9fd071b991e13c1886571ff674b6c9e",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "pr",
+    "source": "prs/expressjs_express_7459.diff",
+    "goal": "fix(res.send): preserve ETag generation with Transfer-Encoding",
+    "expected_choice": [
+      "e90d783"
+    ],
+    "expected_chunks": [
+      {
+        "id": "e90d783",
+        "chunk": "lib/response.js:165",
+        "comments": [
+          {
+            "by": "krzysdz",
+            "nit": false,
+            "text": "This comment should be moved below (above the new `if`), since it no longer applies to this section of code.",
+            "url": "https://github.com/expressjs/express/pull/7459#discussion_r3952110404"
+          }
+        ]
+      }
+    ],
+    "chunks": 3,
+    "files": 3,
+    "pr": "https://github.com/expressjs/express/pull/7459",
+    "commit": "d8d266aa9ade44da96b32f85d295804236338820",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "pr",
+    "source": "prs/expressjs_express_5555.diff",
+    "goal": "fix #5554 passing URL instances with new location encoding",
+    "expected_choice": [
+      "e4d1005",
+      "e7c6857"
+    ],
+    "expected_chunks": [
+      {
+        "id": "e7c6857",
+        "chunk": "lib/response.js:905",
+        "comments": [
+          {
+            "by": "mruba",
+            "nit": false,
+            "text": "`String(url)` fixes the `TypeError` for `URL` instances, but it also silently converts `null`, `undefined`, and arbitrary objects into the literal header values",
+            "url": "https://github.com/expressjs/express/pull/5555#discussion_r3510607299"
+          }
+        ]
+      },
+      {
+        "id": "e4d1005",
+        "chunk": "test/res.location.js:145",
+        "comments": [
+          {
+            "by": "mruba",
+            "nit": false,
+            "text": "The only URL-instance test uses `http://google.com/`, which round-trips unchanged. Since the WHATWG `URL` serializer already percent-encodes, it would be worth ",
+            "url": "https://github.com/expressjs/express/pull/5555#discussion_r3510607305"
+          }
+        ]
+      }
+    ],
+    "chunks": 3,
+    "files": 3,
+    "pr": "https://github.com/expressjs/express/pull/5555",
+    "commit": "813e78971cbb56c14c507323cb812b572cb42532",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "pr",
+    "source": "prs/cli_cli_14356.diff",
+    "goal": "Run acceptance tests in Actions with a GitHub App token",
+    "expected_choice": [
+      "e7693e7"
+    ],
+    "expected_chunks": [
+      {
+        "id": "e7693e7",
+        "chunk": ".github/workflows/acceptance.yml:1",
+        "comments": [
+          {
+            "by": "babakks",
+            "nit": false,
+            "text": "**question:** do we want an explicit timeout other than go's default (10m)?",
+            "url": "https://github.com/cli/cli/pull/14356#discussion_r3978076793"
+          }
+        ]
+      }
+    ],
+    "chunks": 4,
+    "files": 4,
+    "pr": "https://github.com/cli/cli/pull/14356",
+    "commit": "ca0e1914f45870df47d5cdc139c40179be58b289",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "pr",
+    "source": "prs/cli_cli_14282.diff",
+    "goal": "Propagate gh path to extensions",
+    "expected_choice": [
+      "e0995ff",
+      "e20962a"
+    ],
+    "expected_chunks": [
+      {
+        "id": "e0995ff",
+        "chunk": "pkg/cmd/extension/manager.go:130",
+        "comments": [
+          {
+            "by": "babakks",
+            "nit": false,
+            "text": "**question:** what if `ghPath` has whitespaces in it? I mean, can the user of this env var (which is `go-gh`) can just run the binary with such a path?",
+            "url": "https://github.com/cli/cli/pull/14282#discussion_r3967098857"
+          }
+        ]
+      },
+      {
+        "id": "e20962a",
+        "chunk": "pkg/cmd/root/help_topic.go:99",
+        "comments": [
+          {
+            "by": "babakks",
+            "nit": false,
+            "text": "We keep the env var but we're hiding it from extensions as a part of the contract, which feels like not right, even if it's just docs.",
+            "url": "https://github.com/cli/cli/pull/14282#discussion_r3967108306"
+          }
+        ]
+      }
+    ],
+    "chunks": 7,
+    "files": 4,
+    "pr": "https://github.com/cli/cli/pull/14282",
+    "commit": "3ba73db39c91fd74147b2ab964709b21b1324265",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "pr",
+    "source": "prs/astral-sh_uv_21942.diff",
+    "goal": "Unify generation of sdists with \"malicious\" build backends in tests",
+    "expected_choice": [
+      "e589040"
+    ],
+    "expected_chunks": [
+      {
+        "id": "e589040",
+        "chunk": "crates/uv-test/src/archive.rs:31",
+        "comments": [
+          {
+            "by": "konstin",
+            "nit": false,
+            "text": "Why are we generating a source archive instead of a source distribution? uv does support source archives, but that's one of the more unfortunate features I woul",
+            "url": "https://github.com/astral-sh/uv/pull/21942#discussion_r4102939729"
+          }
+        ]
+      }
+    ],
+    "chunks": 54,
+    "files": 5,
+    "pr": "https://github.com/astral-sh/uv/pull/21942",
+    "commit": "7cb83ae4175591ae7712ec6caf32edd4f4b2cf37",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "pr",
+    "source": "prs/psf_requests_7431.diff",
+    "goal": "Fix mutability issues with headers input types",
+    "expected_choice": [
+      "e008024"
+    ],
+    "expected_chunks": [
+      {
+        "id": "e008024",
+        "chunk": "src/requests/models.py:311",
+        "comments": [
+          {
+            "by": "sigmavirus24",
+            "nit": false,
+            "text": "Why not headerstype here too?",
+            "url": "https://github.com/psf/requests/pull/7431#discussion_r3222953391"
+          }
+        ]
+      }
+    ],
+    "chunks": 6,
+    "files": 3,
+    "pr": "https://github.com/psf/requests/pull/7431",
+    "commit": "0a074cadfaccfbdd2f841d567a4c1a9132a72cd4",
+    "review": "hand: dropped chunks commented only by sdm0p, an AI review bot"
+  },
+  {
+    "adapter": "pr",
+    "source": "prs/encode_httpx_3552.diff",
+    "goal": "Add httpx-retries to third party packages docs",
+    "expected_choice": [
+      "e057346",
+      "ede6549"
+    ],
+    "expected_chunks": [
+      {
+        "id": "ede6549",
+        "chunk": "docs/third_party_packages.md:76",
+        "comments": [
+          {
+            "by": "lovelydinosaur",
+            "nit": false,
+            "text": "We shouldn't really have allowed this one on the page.",
+            "url": "https://github.com/encode/httpx/pull/3552#discussion_r2071291197"
+          }
+        ]
+      },
+      {
+        "id": "e057346",
+        "chunk": "docs/third_party_packages.md:4",
+        "comments": [
+          {
+            "by": "lovelydinosaur",
+            "nit": false,
+            "text": "\"A python library for ?...\"",
+            "url": "https://github.com/encode/httpx/pull/3552#discussion_r2071293128"
+          }
+        ]
+      }
+    ],
+    "chunks": 4,
+    "files": 1,
+    "pr": "https://github.com/encode/httpx/pull/3552",
+    "commit": "d7f76d9b2504f320ecaa8178823ca742cf489f51",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "pr",
+    "source": "prs/encode_httpx_2252.diff",
+    "goal": "Drop `rfc3986` requirement.",
+    "expected_choice": [
+      "e3ca5aa",
+      "efff724"
+    ],
+    "expected_chunks": [
+      {
+        "id": "efff724",
+        "chunk": "httpx/_urlparse.py:1",
+        "comments": [
+          {
+            "by": "xkortex",
+            "nit": false,
+            "text": "I just want to point out, I love love LOVE using format strings to improve readability and maintainability of regex.",
+            "url": "https://github.com/encode/httpx/pull/2252#discussion_r906862566"
+          }
+        ]
+      },
+      {
+        "id": "e3ca5aa",
+        "chunk": "httpx/_urls.py:365",
+        "comments": [
+          {
+            "by": "xkortex",
+            "nit": false,
+            "text": "Question: could this just be str(self._url_reference)? Just curious what the implications are of the different rendering methods are. I think it'd be more parsi",
+            "url": "https://github.com/encode/httpx/pull/2252#discussion_r906863406"
+          }
+        ]
+      }
+    ],
+    "chunks": 19,
+    "files": 6,
+    "pr": "https://github.com/encode/httpx/pull/2252",
+    "commit": "c747b7e49b6ecb06445032bfb11296c3c617b0c3",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "pr",
+    "source": "prs/fastapi_fastapi_16049.diff",
+    "goal": "\u26a1\ufe0f Reduce memory usage in dependencies",
+    "expected_choice": [
+      "eb77d5d"
+    ],
+    "expected_chunks": [
+      {
+        "id": "eb77d5d",
+        "chunk": "fastapi/dependencies/models.py:50",
+        "comments": [
+          {
+            "by": "dimaqq",
+            "nit": false,
+            "text": "I wonder how well that works or doesn't work in large projects with hairy APIs.",
+            "url": "https://github.com/fastapi/fastapi/pull/16049#discussion_r3649928915"
+          }
+        ]
+      }
+    ],
+    "chunks": 23,
+    "files": 5,
+    "pr": "https://github.com/fastapi/fastapi/pull/16049",
+    "commit": "0b81a548eab6b22848134261bdd45103257eeaa4",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "pr",
+    "source": "prs/pytest-dev_pytest_14989.diff",
+    "goal": "fix: bytecode cache invalidation for moved test files (#14552)",
+    "expected_choice": [
+      "ed5d226"
+    ],
+    "expected_chunks": [
+      {
+        "id": "ed5d226",
+        "chunk": "testing/test_assertrewrite.py:1161",
+        "comments": [
+          {
+            "by": "RonnyPfannschmidt",
+            "nit": false,
+            "text": "This test doesn't validate the invatiant",
+            "url": "https://github.com/pytest-dev/pytest/pull/14989#discussion_r3976249388"
+          }
+        ]
+      }
+    ],
+    "chunks": 3,
+    "files": 3,
+    "pr": "https://github.com/pytest-dev/pytest/pull/14989",
+    "commit": "411751e7aafd882a2612bf4673e7a29008b1da81",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "pr",
+    "source": "prs/pytest-dev_pytest_14984.diff",
+    "goal": "fixtures: use a better data structure for storing FixtureDefs",
+    "expected_choice": [
+      "e253d3a",
+      "e9b4a9a",
+      "eef971d"
+    ],
+    "expected_chunks": [
+      {
+        "id": "e253d3a",
+        "chunk": "changelog/14942.bugfix.rst:1",
+        "comments": [
+          {
+            "by": "nicoddemus",
+            "nit": true,
+            "text": "```suggestion This can happen particularly when many tests are defined in separate classes which inherit from a base class which defines fixtures (the fixtures ",
+            "url": "https://github.com/pytest-dev/pytest/pull/14984#discussion_r3957405765"
+          }
+        ]
+      },
+      {
+        "id": "eef971d",
+        "chunk": "src/_pytest/fixtures.py:2339",
+        "comments": [
+          {
+            "by": "nicoddemus",
+            "nit": false,
+            "text": "We could use `itertools.chain` instead of building a list, might be a bit more efficient (or maybe not that much, given the list of fixturedefs is much smaller ",
+            "url": "https://github.com/pytest-dev/pytest/pull/14984#discussion_r3957564522"
+          }
+        ]
+      },
+      {
+        "id": "e9b4a9a",
+        "chunk": "src/_pytest/fixtures.py:1786",
+        "comments": [
+          {
+            "by": "nicoddemus",
+            "nit": false,
+            "text": "Instead of a separate datastructure, is it possible for us to get the nodeid from the session collection tree? Or perhaps the node might not exist at this point",
+            "url": "https://github.com/pytest-dev/pytest/pull/14984#discussion_r3957572310"
+          }
+        ]
+      }
+    ],
+    "chunks": 13,
+    "files": 4,
+    "pr": "https://github.com/pytest-dev/pytest/pull/14984",
+    "commit": "d938a56b5ce367b3fafc7bc7bff79c41247db1b8",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "pr",
+    "source": "prs/python-poetry_poetry_11037.diff",
+    "goal": "Fix sdist extraction on older Python versions",
+    "expected_choice": [
+      "e48f805"
+    ],
+    "expected_chunks": [
+      {
+        "id": "e48f805",
+        "chunk": "src/poetry/utils/helpers.py:350",
+        "comments": [
+          {
+            "by": "radoering",
+            "nit": false,
+            "text": "Wouldn't it make more sense to also always set `new_attrs[\"uname\"]` and `new_attrs[\"gname\"]` to `\"\"` because now we handle the case where they are not None but ",
+            "url": "https://github.com/python-poetry/poetry/pull/11037#discussion_r3935183809"
+          }
+        ]
+      }
+    ],
+    "chunks": 3,
+    "files": 2,
+    "pr": "https://github.com/python-poetry/poetry/pull/11037",
+    "commit": "a31537b595f5dd4296929ed18ab78003e242d10c",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "pr",
+    "source": "prs/python-poetry_poetry_10982.diff",
+    "goal": "Fix explicit-priority sources not checked by poetry show --outdated",
+    "expected_choice": [
+      "ea0300d"
+    ],
+    "expected_chunks": [
+      {
+        "id": "ea0300d",
+        "chunk": "src/poetry/console/commands/show.py:656",
+        "comments": [
+          {
+            "by": "Sanjays2402",
+            "nit": false,
+            "text": "This takes the first dependency with a matching name, but Poetry supports multiple constraints for one package with different platform markers and sources. On a",
+            "url": "https://github.com/python-poetry/poetry/pull/10982#discussion_r3608818531"
+          }
+        ]
+      }
+    ],
+    "chunks": 4,
+    "files": 2,
+    "pr": "https://github.com/python-poetry/poetry/pull/10982",
+    "commit": "47e5fea7f3ea81f201d6ed3ce058114f25e4c4a8",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "pr",
+    "source": "prs/django_django_21956.diff",
+    "goal": "Fixed #37339 -- Allowed ipaddress objects in GenericIPAddressField.",
+    "expected_choice": [
+      "e038256",
+      "e4c8c9a"
+    ],
+    "expected_chunks": [
+      {
+        "id": "e4c8c9a",
+        "chunk": "django/db/models/fields/__init__.py:2368",
+        "comments": [
+          {
+            "by": "vishy0",
+            "nit": false,
+            "text": "The truthiness check here is redundant and can be removed.",
+            "url": "https://github.com/django/django/pull/21956#discussion_r4029197354"
+          }
+        ]
+      },
+      {
+        "id": "e038256",
+        "chunk": "tests/model_fields/test_genericipaddressfield.py:42",
+        "comments": [
+          {
+            "by": "vishy0",
+            "nit": false,
+            "text": "in addition to `IPv4Address`, `IPv6Address` objects could also be tested.",
+            "url": "https://github.com/django/django/pull/21956#discussion_r4029274980"
+          }
+        ]
+      }
+    ],
+    "chunks": 4,
+    "files": 3,
+    "pr": "https://github.com/django/django/pull/21956",
+    "commit": "0e9abc4f9ba00d31a5f8358557ed92ce193ca071",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "pr",
+    "source": "prs/django_django_21597.diff",
+    "goal": "Fixed #37136 --  Integrate Oracle Test Pilot into CI",
+    "expected_choice": [
+      "e6a3093",
+      "eeb98eb",
+      "effb932"
+    ],
+    "expected_chunks": [
+      {
+        "id": "eeb98eb",
+        "chunk": ".github/workflows/data/test_oracle_test_pilot.py.tpl:1",
+        "comments": [
+          {
+            "by": "jacobtylerwalls",
+            "nit": false,
+            "text": "Just confirming: is this an ephemeral password? This can be trivially exfiltrated into test output.",
+            "url": "https://github.com/django/django/pull/21597#discussion_r3582533597"
+          },
+          {
+            "by": "jacobtylerwalls",
+            "nit": false,
+            "text": "`test_postgres.py.tpl` shows the pattern we've used for avoiding duplication -- to wildcard import from test_sqlite.py and only overwrite DATABASES: ```py from ",
+            "url": "https://github.com/django/django/pull/21597#discussion_r3582546161"
+          }
+        ]
+      },
+      {
+        "id": "effb932",
+        "chunk": ".github/workflows/schedule_tests.yml:201",
+        "comments": [
+          {
+            "by": "jacobtylerwalls",
+            "nit": true,
+            "text": "```suggestion uses: actions/checkout@v7 ```",
+            "url": "https://github.com/django/django/pull/21597#discussion_r3582556216"
+          },
+          {
+            "by": "jacobtylerwalls",
+            "nit": false,
+            "text": "I see the existing postgres job omits the additional file from this cache key, which looks off. If you're up for it, you can add the oracle file here, otherwise",
+            "url": "https://github.com/django/django/pull/21597#discussion_r3582560064"
+          },
+          {
+            "by": "jacobtylerwalls",
+            "nit": false,
+            "text": "We also have a separate workflow for running GIS tests on spatial databases. See postgis.yml. It's guarded under a label: ```yaml if: contains(github.event.pull",
+            "url": "https://github.com/django/django/pull/21597#discussion_r3582679453"
+          }
+        ]
+      },
+      {
+        "id": "e6a3093",
+        "chunk": "tests/requirements/oracle.txt:1",
+        "comments": [
+          {
+            "by": "jacobtylerwalls",
+            "nit": false,
+            "text": "Please also add one bullet to the release note in docs/releases/6.2.txt under Backwards incompatible changes in 6.2 > Miscellaneous: ``` * The minimum supported",
+            "url": "https://github.com/django/django/pull/21597#discussion_r3582618795"
+          }
+        ]
+      }
+    ],
+    "chunks": 6,
+    "files": 4,
+    "pr": "https://github.com/django/django/pull/21597",
+    "commit": "12f38226e45238090281506f22c3cee58192f7de",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "pr",
+    "source": "prs/vitejs_vite_23437.diff",
+    "goal": "fix: only treat whole `node_modules` path segments as dependencies (fix #17467)",
+    "expected_choice": [
+      "ee4fd2b"
+    ],
+    "expected_chunks": [
+      {
+        "id": "ee4fd2b",
+        "chunk": "packages/vite/src/node/utils.ts:137",
+        "comments": [
+          {
+            "by": "bluwy",
+            "nit": true,
+            "text": "```suggestion ``` I think this is a given and doesn't need a comment",
+            "url": "https://github.com/vitejs/vite/pull/23437#discussion_r3966347216"
+          }
+        ]
+      }
+    ],
+    "chunks": 3,
+    "files": 2,
+    "pr": "https://github.com/vitejs/vite/pull/23437",
+    "commit": "d34098f99e7c7e1e2b7f5bae9ddf719fe69b5e30",
+    "review": "hand: kept, only nit or suggestion comments"
+  },
+  {
+    "adapter": "pr",
+    "source": "prs/vitejs_vite_23333.diff",
+    "goal": "feat(devtools): enable dev server integration",
+    "expected_choice": [
+      "ed130e8"
+    ],
+    "expected_chunks": [
+      {
+        "id": "ed130e8",
+        "chunk": "packages/vite/src/node/plugins/index.ts:57",
+        "comments": [
+          {
+            "by": "sapphi-red",
+            "nit": false,
+            "text": "Are there a reason for the user to add the devtools plugin manually?",
+            "url": "https://github.com/vitejs/vite/pull/23333#discussion_r3840913839"
+          }
+        ]
+      }
+    ],
+    "chunks": 36,
+    "files": 7,
+    "pr": "https://github.com/vitejs/vite/pull/23333",
+    "commit": "ce8ee4aa908fff022eb55b3a51f41507a5a289ec",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "pr",
+    "source": "prs/prettier_prettier_20015.diff",
+    "goal": "Angular: Support `@boundary` / `@error` error boundaries",
+    "expected_choice": [
+      "ed6ca3e"
+    ],
+    "expected_chunks": [
+      {
+        "id": "ed6ca3e",
+        "chunk": "tests/format/angular/control-flow/boundary.html:1",
+        "comments": [
+          {
+            "by": "fisker",
+            "nit": false,
+            "text": "How were these tests generated? Maybe we can adopt examples from https://github.com/angular/angular/pull/70560/changes?",
+            "url": "https://github.com/prettier/prettier/pull/20015#discussion_r3994892309"
+          }
+        ]
+      }
+    ],
+    "chunks": 8,
+    "files": 7,
+    "pr": "https://github.com/prettier/prettier/pull/20015",
+    "commit": "e08d8f79af1ceafb1f275e951c4e4e08730445fc",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "pr",
+    "source": "prs/prettier_prettier_20060.diff",
+    "goal": "[MDX] improve attribute formatting",
+    "expected_choice": [
+      "e8294af"
+    ],
+    "expected_chunks": [
+      {
+        "id": "e8294af",
+        "chunk": "src/language-markdown/embed.js:79",
+        "comments": [
+          {
+            "by": "fisker",
+            "nit": false,
+            "text": "We can wrap these expressions in a `JSXExpressionContainer` and print directly, right?",
+            "url": "https://github.com/prettier/prettier/pull/20060#discussion_r4005874182"
+          }
+        ]
+      }
+    ],
+    "chunks": 8,
+    "files": 6,
+    "pr": "https://github.com/prettier/prettier/pull/20060",
+    "commit": "3149cc1a00df15d23c6b4f585d61abbf1ab1552d",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "pr",
+    "source": "prs/cli_cli_14313.diff",
+    "goal": "Validate repository names during interactive creation",
+    "expected_choice": [
+      "ebfb823",
+      "ebffebc"
+    ],
+    "expected_chunks": [
+      {
+        "id": "ebffebc",
+        "chunk": "pkg/cmd/repo/create/create.go:893",
+        "comments": [
+          {
+            "by": "BagToad",
+            "nit": false,
+            "text": "I think this `io` arg is added so that an error could be printed to stderr, but I don't think that's the best way. I'd rather this function signature change rev",
+            "url": "https://github.com/cli/cli/pull/14313#discussion_r3941749831"
+          }
+        ]
+      },
+      {
+        "id": "ebfb823",
+        "chunk": "pkg/cmd/repo/create/create.go:925",
+        "comments": [
+          {
+            "by": "BagToad",
+            "nit": false,
+            "text": "With the function signature changes reverted, this would become an err to be returned, not a print to stderr.",
+            "url": "https://github.com/cli/cli/pull/14313#discussion_r3941751490"
+          }
+        ]
+      }
+    ],
+    "chunks": 6,
+    "files": 2,
+    "pr": "https://github.com/cli/cli/pull/14313",
+    "commit": "7bf0bd988149071d1b42f0f6f384369ae0ba360d",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "pr",
+    "source": "prs/astral-sh_uv_21908.diff",
+    "goal": "Remove redundant test snapshot filters",
+    "expected_choice": [
+      "e53ae43",
+      "e6eedf7",
+      "ede555d"
+    ],
+    "expected_chunks": [
+      {
+        "id": "e6eedf7",
+        "chunk": "crates/uv/tests/pip/pip_sync.rs:1573",
+        "comments": [
+          {
+            "by": "zanieb",
+            "nit": false,
+            "text": "seems different category",
+            "url": "https://github.com/astral-sh/uv/pull/21908#discussion_r4073892867"
+          }
+        ]
+      },
+      {
+        "id": "ede555d",
+        "chunk": "crates/uv/tests/pip_compile/pip_compile.rs:15794",
+        "comments": [
+          {
+            "by": "zanieb",
+            "nit": false,
+            "text": "were these resolved forever ago by our snapshot-harness-level changes to filtering on windows?",
+            "url": "https://github.com/astral-sh/uv/pull/21908#discussion_r4073897268"
+          }
+        ]
+      },
+      {
+        "id": "e53ae43",
+        "chunk": "crates/uv/tests/workspace/workspace.rs:523",
+        "comments": [
+          {
+            "by": "zanieb",
+            "nit": false,
+            "text": "huh this is a weird one. I wonder why? It should migrate to `context.with_filter` at least, might be needed for some historical external test run? worth checkin",
+            "url": "https://github.com/astral-sh/uv/pull/21908#discussion_r4073906723"
+          }
+        ]
+      }
+    ],
+    "chunks": 70,
+    "files": 12,
+    "pr": "https://github.com/astral-sh/uv/pull/21908",
+    "commit": "01287c9764b863b1e20ba444c3db05d63813c831",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "pr",
+    "source": "prs/astral-sh_uv_21880.diff",
+    "goal": "Check nonisolated build dependencies in preview",
+    "expected_choice": [
+      "e4f5b65",
+      "e54a65a",
+      "e706d0d",
+      "ec956b6",
+      "edc5837"
+    ],
+    "expected_chunks": [
+      {
+        "id": "e54a65a",
+        "chunk": "crates/uv-cli/src/lib.rs:2994",
+        "comments": [
+          {
+            "by": "zanieb",
+            "nit": false,
+            "text": "It's not quite clear what we're checking here. \"Skip checking if build dependencies are satisfied\"? maybe?",
+            "url": "https://github.com/astral-sh/uv/pull/21880#discussion_r4065184561"
+          },
+          {
+            "by": "zanieb",
+            "nit": false,
+            "text": "`-x` seems dubious, let's not support that",
+            "url": "https://github.com/astral-sh/uv/pull/21880#discussion_r4065320423"
+          }
+        ]
+      },
+      {
+        "id": "ec956b6",
+        "chunk": "crates/uv-build-frontend/src/error.rs:38",
+        "comments": [
+          {
+            "by": "zanieb",
+            "nit": false,
+            "text": "`String`!?",
+            "url": "https://github.com/astral-sh/uv/pull/21880#discussion_r4065227534"
+          }
+        ]
+      },
+      {
+        "id": "e4f5b65",
+        "chunk": "crates/uv-installer/src/site_packages.rs:547",
+        "comments": [
+          {
+            "by": "zanieb",
+            "nit": false,
+            "text": "I guess `String` predates you...",
+            "url": "https://github.com/astral-sh/uv/pull/21880#discussion_r4065231716"
+          }
+        ]
+      },
+      {
+        "id": "e706d0d",
+        "chunk": "crates/uv/src/commands/build_frontend.rs:190",
+        "comments": [
+          {
+            "by": "zanieb",
+            "nit": false,
+            "text": "I vaguely wonder if this should be tied to the build isolation option so we're not creating impossible states",
+            "url": "https://github.com/astral-sh/uv/pull/21880#discussion_r4065246278"
+          }
+        ]
+      },
+      {
+        "id": "edc5837",
+        "chunk": "crates/uv/tests/build/build.rs:1025",
+        "comments": [
+          {
+            "by": "zanieb",
+            "nit": false,
+            "text": "lol please no just repeat this",
+            "url": "https://github.com/astral-sh/uv/pull/21880#discussion_r4065249092"
+          },
+          {
+            "by": "zanieb",
+            "nit": false,
+            "text": "I think I'd probably just repeat this so `requires` and `backend` are clearer in the test cases.",
+            "url": "https://github.com/astral-sh/uv/pull/21880#discussion_r4065285046"
+          },
+          {
+            "by": "zanieb",
+            "nit": false,
+            "text": "huh this is goofy, I think I'd probably actually install something, personally, but I guess this is fine. Doc comments on any test utilities are much appreciate",
+            "url": "https://github.com/astral-sh/uv/pull/21880#discussion_r4065291475"
+          },
+          {
+            "by": "zanieb",
+            "nit": false,
+            "text": "wtf is even happening here?",
+            "url": "https://github.com/astral-sh/uv/pull/21880#discussion_r4065296294"
+          },
+          {
+            "by": "zanieb",
+            "nit": false,
+            "text": "split onto newlines for consistency with other tests plz",
+            "url": "https://github.com/astral-sh/uv/pull/21880#discussion_r4065298317"
+          }
+        ]
+      }
+    ],
+    "chunks": 42,
+    "files": 13,
+    "pr": "https://github.com/astral-sh/uv/pull/21880",
+    "commit": "c62858b9845acd33dc85dc41200ef559543f91ab",
+    "review": "hand: checked"
+  }
+]
