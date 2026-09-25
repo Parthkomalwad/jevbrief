@@ -10,8 +10,9 @@ Other tools show what Jev decided. jevbrief shows what Jev was told, what it was
 [![Python](https://img.shields.io/pypi/pyversions/jevbrief?color=111)](https://pypi.org/project/jevbrief)
 [![License: MIT](https://img.shields.io/badge/license-MIT-111)](https://github.com/parthkomalwad/jevbrief/blob/main/LICENSE)
 [![Adapters](https://img.shields.io/badge/adapters-6-ff3fd2)](#adapters)
+[![Docs](https://img.shields.io/badge/docs-read-111)](https://claude.ai/artifact/MpQRvn5d5bohrNVWwLVp31)
 
-[Docs](https://github.com/parthkomalwad/jevbrief/blob/main/docs/README.md) &nbsp;·&nbsp; [Quick start](#quick-start) &nbsp;·&nbsp; [Adapters](#adapters) &nbsp;·&nbsp; [Python](#use-it-in-python) &nbsp;·&nbsp; [Viewer](#see-every-decision) &nbsp;·&nbsp; [How it works](#how-it-works) &nbsp;·&nbsp; [Benchmarks](#benchmarks) &nbsp;·&nbsp; [Contributing](#contributing)
+[**Documentation**](https://claude.ai/artifact/MpQRvn5d5bohrNVWwLVp31) &nbsp;·&nbsp; [Quick start](#quick-start) &nbsp;·&nbsp; [Adapters](#adapters) &nbsp;·&nbsp; [Python](#use-it-in-python) &nbsp;·&nbsp; [Viewer](#see-every-decision) &nbsp;·&nbsp; [How it works](#how-it-works) &nbsp;·&nbsp; [Benchmarks](#benchmarks) &nbsp;·&nbsp; [Contributing](#contributing)
 
 <br>
 
@@ -59,7 +60,7 @@ likely cause: Run pytest -q: E KeyError: 'currency_code'   (confidence 0.84)
 looks flaky: no (0.07)
 ```
 
-Run `jevbrief adapters` to list what is installed. Each adapter has a [documentation page](https://github.com/parthkomalwad/jevbrief/blob/main/docs/README.md) with its own quick start, options, reason codes, and limits.
+Run `jevbrief adapters` to list what is installed. Each adapter has a page in the [documentation](https://claude.ai/artifact/MpQRvn5d5bohrNVWwLVp31) with its own quick start, options, reason codes, and limits. The same pages are in [docs/](https://github.com/parthkomalwad/jevbrief/blob/main/docs/README.md).
 
 ## Adapters
 

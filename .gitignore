@@ -35,3 +35,6 @@ Thumbs.db
 
 # ci benchmark logs (real GitHub Actions logs, not committed; recollect with bench/ci/fetch_runs.py)
 bench/ci/runs/
+
+# built docs site (python scripts/build_docs_site.py)
+site/
