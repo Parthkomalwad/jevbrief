@@ -1,0 +1,172 @@
+[
+ {
+  "tool": "get_file_contents",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "path": "src/invoice.py"
+  },
+  "result": "src/invoice.py: 250 lines. def load_0(...): ...",
+  "error": null
+ },
+ {
+  "tool": "list_commits",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "sha": "main"
+  },
+  "result": "24 commits; latest: 'fix tax rounding' by dev1",
+  "error": null
+ },
+ {
+  "tool": "search_code",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "query": "refund repo:acme/shop"
+  },
+  "result": "8 results for 'refund' in src/",
+  "error": null
+ },
+ {
+  "tool": "get_file_contents",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "path": "src/api/orders.py"
+  },
+  "result": "src/api/orders.py: 127 lines. def load_3(...): ...",
+  "error": null
+ },
+ {
+  "tool": "list_commits",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "sha": "main"
+  },
+  "result": "18 commits; latest: 'fix tax rounding' by dev4",
+  "error": null
+ },
+ {
+  "tool": "issue_read",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "issue_number": 388
+  },
+  "result": "Issue #388: invoices show the wrong total for EUR orders (opened by a customer)",
+  "error": null
+ },
+ {
+  "tool": "issue_read",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "issue_number": 361
+  },
+  "result": "Issue #361: invoices show the wrong total for EUR orders (opened by a customer)",
+  "error": null
+ },
+ {
+  "tool": "issue_read",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "issue_number": 515
+  },
+  "result": "Issue #515: invoices show the wrong total for EUR orders (opened by a customer)",
+  "error": null
+ },
+ {
+  "tool": "search_code",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "query": "refund repo:acme/shop"
+  },
+  "result": "8 results for 'refund' in src/",
+  "error": null
+ },
+ {
+  "tool": "list_commits",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "sha": "main"
+  },
+  "result": "8 commits; latest: 'fix tax rounding' by dev9",
+  "error": null
+ },
+ {
+  "tool": "search_code",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "query": "invoice total repo:acme/shop"
+  },
+  "result": "2 results for 'invoice total' in src/",
+  "error": null
+ },
+ {
+  "tool": "search_code",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "query": "rounding repo:acme/shop"
+  },
+  "result": "8 results for 'rounding' in src/",
+  "error": null
+ },
+ {
+  "tool": "actions_get",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "run_id": 5521
+  },
+  "result": "queued",
+  "error": null
+ },
+ {
+  "tool": "actions_get",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "run_id": 5521
+  },
+  "result": "in_progress: build",
+  "error": null
+ },
+ {
+  "tool": "actions_get",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "run_id": 5521
+  },
+  "result": "in_progress: test (2/5)",
+  "error": null
+ },
+ {
+  "tool": "actions_get",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "run_id": 5521
+  },
+  "result": "in_progress: test (4/5)",
+  "error": null
+ },
+ {
+  "tool": "actions_get",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "run_id": 5521
+  },
+  "result": "in_progress: deploy",
+  "error": null
+ }
+]

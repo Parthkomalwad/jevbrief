@@ -1,0 +1,156 @@
+[
+ {
+  "tool": "issue_read",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "issue_number": 750
+  },
+  "result": "Issue #750: invoices show the wrong total for EUR orders (opened by a customer)",
+  "error": null
+ },
+ {
+  "tool": "search_code",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "query": "invoice total repo:acme/shop"
+  },
+  "result": "5 results for 'invoice total' in src/",
+  "error": null
+ },
+ {
+  "tool": "list_commits",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "sha": "main"
+  },
+  "result": "21 commits; latest: 'fix tax rounding' by dev2",
+  "error": null
+ },
+ {
+  "tool": "issue_read",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "issue_number": 294
+  },
+  "result": "Issue #294: invoices show the wrong total for EUR orders (opened by a customer)",
+  "error": null
+ },
+ {
+  "tool": "issue_read",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "issue_number": 903
+  },
+  "result": "Issue #903: invoices show the wrong total for EUR orders (opened by a customer)",
+  "error": null
+ },
+ {
+  "tool": "list_commits",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "sha": "main"
+  },
+  "result": "5 commits; latest: 'fix tax rounding' by dev5",
+  "error": null
+ },
+ {
+  "tool": "list_commits",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "sha": "main"
+  },
+  "result": "22 commits; latest: 'fix tax rounding' by dev6",
+  "error": null
+ },
+ {
+  "tool": "list_issues",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "state": "OPEN",
+   "labels": [
+    "bug"
+   ],
+   "page": 1
+  },
+  "result": "issues 31-60 of 214",
+  "error": null
+ },
+ {
+  "tool": "list_issues",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "state": "OPEN",
+   "labels": [
+    "bug"
+   ],
+   "page": 2
+  },
+  "result": "issues 61-90 of 214",
+  "error": null
+ },
+ {
+  "tool": "list_issues",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "state": "OPEN",
+   "labels": [
+    "bug"
+   ],
+   "page": 3
+  },
+  "result": "issues 91-120 of 214",
+  "error": null
+ },
+ {
+  "tool": "list_issues",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "state": "OPEN",
+   "labels": [
+    "bug"
+   ],
+   "page": 4
+  },
+  "result": "issues 121-150 of 214",
+  "error": null
+ },
+ {
+  "tool": "list_issues",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "state": "OPEN",
+   "labels": [
+    "bug"
+   ],
+   "page": 5
+  },
+  "result": "issues 151-180 of 214",
+  "error": null
+ },
+ {
+  "tool": "list_issues",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "state": "OPEN",
+   "labels": [
+    "bug"
+   ],
+   "page": 6
+  },
+  "result": "issues 181-210 of 214",
+  "error": null
+ }
+]

@@ -187,16 +187,16 @@ def signals(steps: list[dict], window: int = WINDOW) -> list[dict]:
                     "label": f"{recent[-1]['action']} called {_times(streak)} in a row with the same arguments, {how}",
                     "attrs": {"in_a_row": streak, "same_result_each_time": "yes" if same else "no"}})
 
-    # the same call many times in the window, not only at the end
+    # the same call with the same result many times in the window, not only at the end (a changing result is polling)
     counts: dict = {}
-    for c in calls:
-        counts[c] = counts.get(c, 0) + 1
-    call, k = max(counts.items(), key=lambda kv: kv[1])
-    covered = call == calls[-1] and k == streak  # already said by the streak above
+    for c, o in zip(calls, outcomes):
+        counts[(c, o)] = counts.get((c, o), 0) + 1
+    (call, _), k = max(counts.items(), key=lambda kv: kv[1])
+    covered = call == calls[-1] and k <= streak  # already said by the streak above
     if k >= 2 and not covered:
         out.append({"kind": "repeat_total", "strength": k,
-                    "label": f"{call[0]} called {_times(k)} with the same arguments in the last {n} steps",
-                    "attrs": {"times": k}})
+                    "label": f"{call[0]} called {_times(k)} with the same arguments and the same result "
+                             f"in the last {n} steps", "attrs": {"times": k}})
 
     # the same error again
     errors = [_short(s["error"], 80) for s in recent if s["error"]]
@@ -240,7 +240,8 @@ def signals(steps: list[dict], window: int = WINDOW) -> list[dict]:
 def loop_signals(history, window: int = WINDOW) -> list[str]:
     """The loop patterns in plain words, strongest first. Local and free: no Jev call."""
     sigs = [s for s in signals(normalize(history), window)
-            if not (s["kind"] == "novelty" and s["strength"] < 2) and not s.get("changing")]  # polling is not a loop
+            if not (s["kind"] == "novelty" and s["strength"] < 2) and not s.get("changing")  # polling is not a loop
+            and not (s["kind"] in ("repeat", "repeat_total", "errors") and s["strength"] < MIN_REPEAT)]
     return [s["label"] for s in sorted(sigs, key=lambda s: -s["strength"])]
 
 
