@@ -235,10 +235,11 @@ def _iso(ns: int) -> str:
 
 
 def incident_start(groups: dict, t0: int, span: int) -> int | None:
-    """When the incident started: the first error from a group that was not already erroring
-    at the start of the export. Errors present from the beginning are background noise."""
-    firsts = [rs[0]["ts"] for rs in groups.values()
-              if max(r["sev"] for r in rs) >= 17 and rs[0].get("src") != "alert"]  # alerts lag behind the cause
+    """When the incident started: the first error (or Warning event) from a group that was not already
+    erroring at the start of the export. Errors present from the beginning are background noise."""
+    # Kubernetes marks problems as Warning at most, so a Warning event counts like an error log. Alerts lag the cause.
+    firsts = [rs[0]["ts"] for rs in groups.values() if rs[0].get("src") != "alert"
+              and max(r["sev"] for r in rs) >= (13 if rs[0].get("src") == "event" else 17)]
     new = [ts for ts in firsts if ts > t0 + span * 0.1]
     return min(new or firsts) if firsts else None
 
@@ -283,7 +284,8 @@ class OtelAdapter(Adapter):
             raise ValueError("no records found. Expected OTLP JSON with `resourceLogs`, Kubernetes events, "
                              "or Alertmanager or Prometheus alerts")
 
-        t0 = recs[0]["ts"]
+        # The timeline starts at the first log or event: an alert that began hours earlier would stretch it.
+        t0 = min((r["ts"] for r in recs if r["src"] != "alert"), default=recs[0]["ts"])
         t1 = max(max(r["ts"], r.get("end", 0)) for r in recs)
         span = max(t1 - t0, 1)
         send = c.get("send_attributes", SEND_ATTRIBUTES)
@@ -337,7 +339,7 @@ class OtelAdapter(Adapter):
                 meta={"sev": max(r["sev"] for r in rs), "count": count, "first_ns": first, "last_ns": last,
                       "template": tmpl, "order": i, "records": rs[-300:], "src": src,
                       "reason": rs[0]["attrs"].get("reason"), "state": rs[-1].get("state"),
-                      "view": {"start": round((first - t0) / span, 4), "end": round((last - t0) / span, 4),
+                      "view": {"start": round(max(first - t0, 0) / span, 4), "end": round((last - t0) / span, 4),
                                "count": count, **({} if src == "log" else {"source": src})}},
             ))
         source_info = {"name": Path(source).name if isinstance(source, (str, Path)) else "signals",
@@ -404,8 +406,12 @@ class OtelAdapter(Adapter):
         return {"incident": goal, ("signals" if _mixed(kept) else "log_groups"): [f.state() for f in kept]}
 
     def raw(self, facts):
-        """What a naive integration sends: the most recent raw log lines, one fact each."""
-        lines = sorted((r for f in facts for r in f.meta.get("records", [])), key=lambda r: r["ts"])[-254:]
+        """What a naive integration sends: every Kubernetes event and alert (there are few), then the most
+        recent raw log lines, one fact each, up to the Choice option limit."""
+        recs = sorted((r for f in facts for r in f.meta.get("records", [])), key=lambda r: r["ts"])
+        other = [r for r in recs if r.get("src", "log") != "log"][-254:]
+        logs = [r for r in recs if r.get("src", "log") == "log"][len(other) - 254:] if len(other) < 254 else []
+        lines = sorted(other + logs, key=lambda r: r["ts"])
         return [Fact(id=fact_id("otel-raw", str(r["ts"]), r["body"], str(i)), kind=level_of(r["sev"]),
                      label=clean_label(f"{_raw_prefix(r)}{r['service']}: {r['body']}"),
                      attrs={"time": _iso(r["ts"]), "severity": level_of(r["sev"])},
