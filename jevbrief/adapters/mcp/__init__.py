@@ -169,7 +169,7 @@ class McpAdapter(Adapter):
 
     def rules(self) -> RuleSet:
         c = self.config
-        hidden, disabled, unlabeled, goal_match, duplicate = CORE_RULES
+        hidden, disabled, unlabeled, goal_match, _ = CORE_RULES
         top_k = int(c.get("top_k", TOP_K))
 
         def listed(f, patterns):
@@ -199,7 +199,8 @@ class McpAdapter(Adapter):
                  and f.attrs.get("effect") in ("changes data", "destructive") else None),
             goal_match,
             GroupRule(NOT_RELEVANT, rank),
-            duplicate,
+            # No core `duplicate` rule: the same tool name on two servers (github.search_code, gitlab.search_code)
+            # is two different tools.
         ])
 
     def packs(self):

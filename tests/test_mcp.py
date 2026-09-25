@@ -115,3 +115,10 @@ def test_question_and_raw():
     raw = McpAdapter().raw(b.facts)
     assert len(raw) == 6 and raw[0].attrs["params"] == "owner, repo, title"
     assert len(b.pack.build(b.goal, raw, {})["next_tool"]["criteria"]) == 7  # the raw arm builds the same question
+
+
+def test_same_name_on_two_servers_is_kept():
+    data = {"github": {"tools": [tool("search_code", "Search code in GitHub repositories.")]},
+            "gitlab": {"tools": [tool("search_code", "Search code in GitLab projects.")]}}
+    b = brief("search the code for parse_invoice", data)
+    assert sorted(f.meta["server"] for f in b.kept) == ["github", "gitlab"]
