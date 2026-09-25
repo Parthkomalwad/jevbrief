@@ -57,8 +57,9 @@ class GitHub:
         self.headers = {"Authorization": f"Bearer {tok}", "Accept": "application/vnd.github+json",
                         "X-GitHub-Api-Version": "2022-11-28", "User-Agent": "jevbrief-bench"}
 
-    def get(self, path: str, raw: bool = False):
-        req = urllib.request.Request(path if path.startswith("http") else API + path, headers=self.headers)
+    def get(self, path: str, raw: bool = False, accept: str | None = None):
+        headers = {**self.headers, "Accept": accept} if accept else self.headers
+        req = urllib.request.Request(path if path.startswith("http") else API + path, headers=headers)
         for attempt in range(3):
             try:
                 with urllib.request.urlopen(req, timeout=60) as r:

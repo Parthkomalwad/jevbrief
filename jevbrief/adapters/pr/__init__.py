@@ -46,7 +46,7 @@ LOCKFILES = {"package-lock.json", "yarn.lock", "pnpm-lock.yaml", "poetry.lock", 
              "gemfile.lock", "composer.lock", "uv.lock", "pipfile.lock", "podfile.lock", "flake.lock",
              "packages.lock.json", "npm-shrinkwrap.json", "bun.lockb", "mix.lock", "pubspec.lock"}
 GENERATED_PATH = re.compile(r"(\.min\.(js|css)|\.pb\.go|_pb2(_grpc)?\.pyi?|\.pb\.(h|cc)|\.g\.dart|\.generated\.\w+"
-                            r"|\.designer\.cs|\.snap|\.map)$|(^|/)(__snapshots__|dist|build|gen|generated)/", re.I)
+                            r"|\.designer\.cs|\.snap|\.map)$|(^|/)(__snapshots__|generated)/", re.I)
 GENERATED_MARK = re.compile(r"@generated|Code generated .* DO NOT EDIT|auto-?generated|do not edit", re.I)
 VENDOR_PATH = re.compile(r"(^|/)(vendor|third_party|thirdparty|3rdparty|node_modules|external|extern|deps)/", re.I)
 TEST_PATH = re.compile(r"(^|/)(tests?|__tests__|spec|specs|testing)/|(^|/)test_[^/]+$|_tests?\.\w+$"
