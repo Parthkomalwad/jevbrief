@@ -65,7 +65,7 @@ check_progress(history, goal).stuck          # is the agent going in circles?
 | [steps](https://claude.ai/artifact/MpQRvn5d5bohrNVWwLVp31#steps) | An agent's step history, from any framework or a jevbrief trace | Is the agent stuck, making progress, or done | `jevbrief` |
 | [ci](https://claude.ai/artifact/MpQRvn5d5bohrNVWwLVp31#ci) | GitHub Actions logs and JUnit XML | Which error broke the build, and whether it looks flaky | `jevbrief` |
 | [pr](https://claude.ai/artifact/MpQRvn5d5bohrNVWwLVp31#pr) | A pull request's diff: `gh pr diff`, `.patch`, or the GitHub API | Which chunk most needs a human reviewer, and whether it is safe to merge | `jevbrief` |
-| [otel](https://claude.ai/artifact/MpQRvn5d5bohrNVWwLVp31#otel) | OpenTelemetry logs (OTLP JSON) | Which log group explains an incident | `jevbrief` |
+| [otel](https://claude.ai/artifact/MpQRvn5d5bohrNVWwLVp31#otel) | OpenTelemetry logs, Kubernetes events, and Prometheus alerts | Which signal shows an incident's cause | `jevbrief` |
 | [json](https://claude.ai/artifact/MpQRvn5d5bohrNVWwLVp31#json) | Any JSON or JSON Lines, with a config file | Which item fits, or which action to take | `jevbrief` |
 | [web](https://claude.ai/artifact/MpQRvn5d5bohrNVWwLVp31#web) | Web pages, through Playwright | Which element to click next | `jevbrief[web]` |
 | [nes](https://claude.ai/artifact/MpQRvn5d5bohrNVWwLVp31#nes) | An NES game's memory | Which move to make next | `jevbrief[nes]` |
@@ -83,6 +83,7 @@ Both arms use the same Jev and the same question, with three runs per task and m
 | ci | 16 real failed GitHub Actions runs | 88% → **100%** | 30,502 → **988** |
 | pr | 37 real merged pull requests | 55% → 55% | 2,599 → **1,652** |
 | otel | 6 synthetic incidents | 83% → **100%** | 29,678 → **1,070** |
+| otel with events and alerts | 8 synthetic incidents | 71% → **100%** | 29,912 → **1,830** |
 | json | 9 synthetic queries | 89% → **100%** | 3,848 → **2,002** |
 | web | 10 synthetic pages | 100% → 100% | 5,400 → **2,344** |
 | nes | 100 moves on a real level | block 8.6 → **block 56.4** | 2,829 → **713** |

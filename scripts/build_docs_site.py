@@ -30,7 +30,7 @@ PAGES = [
     ("steps", "steps", "Adapters", "docs/adapters/steps.md", "Is the agent stuck"),
     ("ci", "ci", "Adapters", "docs/adapters/ci.md", "Which error broke the build"),
     ("pr", "pr", "Adapters", "docs/adapters/pr.md", "Which chunk needs a reviewer"),
-    ("otel", "otel", "Adapters", "docs/adapters/otel.md", "Which log group explains an incident"),
+    ("otel", "otel", "Adapters", "docs/adapters/otel.md", "Which signal shows an incident's cause"),
     ("json", "json", "Adapters", "docs/adapters/json.md", "Which item fits the goal"),
     ("web", "web", "Adapters", "docs/adapters/web.md", "Which element to click next"),
     ("nes", "nes", "Adapters", "docs/adapters/nes.md", "Which move to make next"),
