@@ -2,10 +2,35 @@
 
 jevbrief sits between a source and TypeSafe's Jev. It keeps what matters, drops the rest with a reason for every drop, asks Jev one clear question, and records the decision so you can replay it.
 
+## Quick start
+
+```bash
+pip install jevbrief                  # tools, ci, otel, and json; add [web] or [nes], or [all] for everything
+```
+
+Get an API key at [console.typesafe.ai](https://console.typesafe.ai), and set `TYPESAFE_API_KEY` in your environment or in a `.env` file.
+
+`inspect` shows what would be kept and dropped, with no API key and no cost. `ask` calls Jev, writes a trace, and `--view` opens the replay:
+
+```bash
+jevbrief inspect run.log --adapter ci --goal "CI is red on main"
+jevbrief ask     run.log --adapter ci --goal "CI is red on main" --view
+```
+
+In Python, every adapter works the same way:
+
+```python
+from jevbrief import Briefing
+from jevbrief.adapters.ci import CiAdapter
+
+brief = Briefing(CiAdapter(), goal="CI is red on main", trace="traces/ci.jsonl")
+brief.extract("run.log")
+decision = brief.decide()
+```
+
 ## Start here
 
-- [Quick start](../README.md#quick-start): install, set your API key, and run a first decision.
-- [How it works](../README.md#how-it-works): facts, rules, the budget, the question, and the trace.
+- [How it works](concepts.md): the pipeline, reason codes, outcomes, the viewer, benchmarks, and privacy.
 - [Python API](reference/python.md): `Briefing`, `Decision`, `select_tools`, `pick_tool`, and the web `Brief`.
 - [Command line](reference/cli.md): `inspect`, `ask`, `view`, `bench`, and `adapters`.
 
@@ -31,9 +56,7 @@ Every adapter page has the same sections: at a glance, quick start, Python, inpu
 
 ## Benchmarks
 
-Each adapter is measured the same way. The raw arm sends what a naive integration would send, and the jevbrief arm sends the kept facts. Both use the same Jev and the same question, with three runs per task.
-
-Results and caveats:
+The full table and method are in [How it works](concepts.md#benchmarks). Results and caveats per adapter:
 - [tools](../bench/mcp/results.md)
 - [ci](../bench/ci/results.md)
 - [otel](../bench/otel/results.md)

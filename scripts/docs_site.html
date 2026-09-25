@@ -199,7 +199,7 @@ function render(route, anchor) {
   const body = marked.parse(p.md, {gfm: true});
   main.innerHTML = (p.route === "home" ? hero() : "") +
     `<article class="card"><div class="bar"><span>${esc(p.src)}</span>` +
-    `<a href="${DOCS.repo}/blob/main/${p.src}">Edit on GitHub</a></div><div class="doc">${body}</div></article>` +
+    `<a href="${DOCS.repo}/blob/main/${p.src}">View source</a></div><div class="doc">${body}</div></article>` +
     `<div class="pager">${prev ? `<a href="#${prev.route}"><span class="k">Previous</span>${esc(prev.label)}</a>` : "<span></span>"}` +
     `${next ? `<a class="next" href="#${next.route}"><span class="k">Next</span>${esc(next.label)}</a>` : ""}</div>`;
   const doc = main.querySelector(".doc");

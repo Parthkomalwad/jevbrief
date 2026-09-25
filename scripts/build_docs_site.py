@@ -23,6 +23,7 @@ from jevbrief import __version__  # noqa: E402
 # (route, nav label, section, source file, one-line summary shown in the nav)
 PAGES = [
     ("home", "Overview", "Start", "docs/README.md", "What jevbrief does and where everything is"),
+    ("concepts", "How it works", "Start", "docs/concepts.md", "Pipeline, reason codes, viewer, benchmarks, privacy"),
     ("python", "Python API", "Start", "docs/reference/python.md", "Briefing, Decision, select_tools, pick_tool"),
     ("cli", "Command line", "Start", "docs/reference/cli.md", "inspect, ask, view, bench, adapters"),
     ("tools", "tools", "Adapters", "docs/adapters/tools.md", "Which tool an agent calls next"),
