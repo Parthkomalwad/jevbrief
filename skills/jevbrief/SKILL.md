@@ -11,7 +11,7 @@ jevbrief turns a source into small, relevant state for Jev. An **adapter** reads
 |---|---|---|---|
 | Web pages (Playwright) | `web` | `pip install "jevbrief[web]"` then `playwright install chromium` | Which element to click next |
 | JSON / JSON Lines with a config | `json` | `pip install jevbrief` | Which item fits, or which fixed action to take |
-| OpenTelemetry logs (OTLP JSON) | `otel` | `pip install jevbrief` | Which log group explains an incident |
+| OpenTelemetry logs (OTLP JSON), `kubectl get events -o json`, Alertmanager or Prometheus alerts | `otel` | `pip install jevbrief` | Which log group, Kubernetes event, or alert shows an incident's cause |
 | CI logs (GitHub Actions) and JUnit XML | `ci` | `pip install jevbrief` | Which error broke the build, and whether it looks flaky |
 | Pull request diffs: `gh pr diff`, `.diff`/`.patch`, or `/pulls/{n}/files` JSON | `pr` | `pip install jevbrief` | Which chunk most needs a human reviewer, and whether it is safe to merge |
 | Agent step history: dicts, chat messages, LangGraph, or a jevbrief trace | `steps` | `pip install jevbrief` | Is the agent stuck. In code: `loop_signals(history)` or `check_progress(history, goal)` |
@@ -29,7 +29,7 @@ Set `TYPESAFE_API_KEY` in the environment or in a `.env` file where the CLI runs
 ```bash
 jevbrief inspect <url-or-file> --goal "<goal>"                                         # web
 jevbrief inspect data.json --adapter json --config map.toml --goal "<goal>"            # json
-jevbrief inspect logs.json --adapter otel --goal "<what users see failing>"            # otel
+jevbrief inspect incident/ --adapter otel --goal "<what users see failing>"            # otel: logs, events.json, alerts.json
 jevbrief inspect run.log   --adapter ci   --goal "CI is red on main"                     # ci: gh run view --log-failed, a log zip, or JUnit XML
 jevbrief inspect pr.diff   --adapter pr   --goal "<the PR's title>"                      # pr: gh pr diff <n> > pr.diff
 jevbrief inspect tools/    --adapter tools --goal "<what the user asked the agent>"      # tools: a folder of MCP tools/list JSON

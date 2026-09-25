@@ -1,0 +1,64 @@
+[
+  {
+    "adapter": "otel",
+    "source": "oom_checkout",
+    "goal": "Checkout keeps failing with 503 errors",
+    "expected_contains": "out of memory",
+    "cause_in": "event"
+  },
+  {
+    "adapter": "otel",
+    "source": "image_pull",
+    "goal": "Payments are failing since the release went out",
+    "expected_contains": [
+      "Failed to pull image",
+      "Back-off pulling image"
+    ],
+    "cause_in": "event"
+  },
+  {
+    "adapter": "otel",
+    "source": "cert_alert",
+    "goal": "Nobody can log in",
+    "expected_contains": "TLSCertificateExpired",
+    "cause_in": "alert"
+  },
+  {
+    "adapter": "otel",
+    "source": "disk_pressure",
+    "goal": "Product pages are timing out",
+    "expected_contains": [
+      "ephemeral-storage",
+      "EvictionThresholdMet"
+    ],
+    "cause_in": "event"
+  },
+  {
+    "adapter": "otel",
+    "source": "coredns_crash",
+    "goal": "Most requests are failing across the site",
+    "expected_contains": "coredns",
+    "cause_in": "event"
+  },
+  {
+    "adapter": "otel",
+    "source": "quota",
+    "goal": "Orders are very slow under the evening load",
+    "expected_contains": "exceeded quota",
+    "cause_in": "event"
+  },
+  {
+    "adapter": "otel",
+    "source": "pool_logs",
+    "goal": "Checkout requests started failing with 503 errors",
+    "expected_contains": "database connection pool exhausted",
+    "cause_in": "log"
+  },
+  {
+    "adapter": "otel",
+    "source": "config_log",
+    "goal": "Every request returns 502 since a few minutes ago",
+    "expected_contains": "config reload failed",
+    "cause_in": "log"
+  }
+]

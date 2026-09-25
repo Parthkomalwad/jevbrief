@@ -1,28 +1,31 @@
 # Next adapters: priority list
 
-Written 2026-09-25, after v0.5.0. It is for picking up the work in a new session: what to build, in what order, and what "done" means.
+Written 2026-09-25, after v0.5.0, and updated 2026-09-26. It is for picking up the work in a new session: what to build, in what order, and what "done" means.
 
-## Where things stand (v0.5.0)
+## Where things stand
 
-- **Released adapters (7):**
+- **Released adapters (8, v0.6.0):**
   - web, json, otel, and nes
   - ci: GitHub Actions and JUnit
   - tools: `select_tools` and `pick_tool`, with hybrid ranking
   - steps: `check_progress` and `loop_signals`
+  - pr: review priority for a pull request (released in v0.6.0)
+- **Done, not yet released:** the incident pack. otel also reads Kubernetes events and Alertmanager or Prometheus alerts (`bench/incident/`).
 - **Docs site:** https://claude.ai/artifact/MpQRvn5d5bohrNVWwLVp31, built by `scripts/build_docs_site.py`.
-- **Open item:** the `docs/site-ux` branch holds the new site template. Merge it before rebuilding the site.
 
 ## Priority list
 
 | # | Adapter | Jev answers | Why now | Benchmark data | Size |
 |---|---|---|---|---|---|
-| 1 | `pr` | Which parts of this pull request need a human reviewer, and is it safe to merge? | Over 1 in 5 GitHub reviews now involve an agent. Agent PRs carry more duplication and debt. | **Real:** public PRs. Truth is which diff chunks got review comments or were reverted. | Medium |
-| 2 | Incident pack (extend `otel`) | Which signal shows the root cause: a log group, a Kubernetes event, or an alert? | AI SRE is the hot category. Teams report 40–70% faster recovery, and evidence is scattered across logs, events, and alerts. | **Hard:** use the datasets behind the ARGUS and TriFleetRCA papers, or synthetic data | Medium |
+| 1 ✓ | `pr` (v0.6.0) | Which parts of this pull request need a human reviewer, and is it safe to merge? | Over 1 in 5 GitHub reviews now involve an agent. Agent PRs carry more duplication and debt. | **Real:** public PRs. Truth is which diff chunks got review comments or were reverted. | Medium |
+| 2 ✓ | Incident pack (extend `otel`) | Which signal shows the root cause: a log group, a Kubernetes event, or an alert? | AI SRE is the hot category. Teams report 40–70% faster recovery, and evidence is scattered across logs, events, and alerts. | **Hard:** use the datasets behind the ARGUS and TriFleetRCA papers, or synthetic data | Medium |
 | 3 | `android` | Which element to tap next | Mobile agents are growing. A screen has about 200 elements, and screenshots cost 5–10 times more tokens than the element list. | **Real:** AndroidWorld, Android in the Wild | Small to medium, since it reuses the web pattern |
 | 4 | `vulns` | Which security alert to fix first, and which are noise | Teams get thousands of CVE alerts that match only on package name and version, and the real ones are buried. | **Real:** VEX-Bench (2026) | Medium |
 | — | Skipped: RAG chunk selection | | Dedicated rerankers already do this well. jevbrief would be a weaker reranker. | | |
 
 Also worth doing:
+- **pr:** the benchmark was a tie on accuracy (55% against 55%, with 36% fewer tokens). Add merged PRs with no review comments so `safe_to_merge` can be scored, and measure large PRs separately.
+- **Incident pack:** both otel sets are synthetic. Record a real one by injecting faults into a demo cluster (for example, the OpenTelemetry demo's fault flags) and exporting its logs, events, and alerts.
 - **tools benchmark:** add Docker MCP servers (filesystem, memory, slack) with `bench/mcp/fetch_tools.py`, for a harder test with 300 or more tools.
 - **steps benchmark:** replace the synthetic histories with real stuck agent traces as they become available.
 

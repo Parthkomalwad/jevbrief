@@ -44,7 +44,7 @@ Every adapter page has the same sections: at a glance, quick start, Python, inpu
 | [steps](adapters/steps.md) | An agent's step history: dicts, chat messages, LangGraph, or a jevbrief trace | Is the agent stuck, making progress, or done | `jevbrief` |
 | [ci](adapters/ci.md) | GitHub Actions logs and JUnit XML | Which error broke the build, and whether it looks flaky | `jevbrief` |
 | [pr](adapters/pr.md) | A pull request's diff: `gh pr diff`, `.patch`, or the GitHub API | Which chunk most needs a human reviewer, and whether it is safe to merge | `jevbrief` |
-| [otel](adapters/otel.md) | OpenTelemetry logs (OTLP JSON) | Which log group explains an incident | `jevbrief` |
+| [otel](adapters/otel.md) | OpenTelemetry logs, Kubernetes events, and Prometheus alerts | Which signal shows an incident's cause | `jevbrief` |
 | [json](adapters/json.md) | Any JSON or JSON Lines, with a config file | Which item fits, or which action to take | `jevbrief` |
 | [web](adapters/web.md) | Web pages, through Playwright | Which element to click next | `jevbrief[web]` |
 | [nes](adapters/nes.md) | An NES game's memory | Which move to make next | `jevbrief[nes]` |
@@ -63,7 +63,7 @@ The full table and method are in [How it works](concepts.md#benchmarks). Results
 - [steps](../bench/steps/results.md)
 - [ci](../bench/ci/results.md)
 - [pr](../bench/pr/results.md)
-- [otel](../bench/otel/results.md)
+- [otel](../bench/otel/results.md), and [with events and alerts](../bench/incident/results.md)
 - [json](../bench/json/results.md)
 - [web](../bench/results.md)
 - [nes](../bench/nes/results.md)
