@@ -162,6 +162,7 @@ tr.hl td { background: rgba(255, 230, 0, .35) !important; }
 .tl .row .lane { position: relative; height: 14px; background: var(--bg); border: 1px solid var(--soft-line); }
 .tl .span { position: absolute; top: 1px; bottom: 1px; min-width: 3px; background: var(--bar); transform-origin: left;
   transform: scaleX(0); transition: transform .8s cubic-bezier(.2, .8, .2, 1), background .4s; }
+.tl .src { font-size: 10px; background: var(--bar-bg, #1b1b1b); color: var(--bar-text, #f2f2f2); padding: 0 4px; margin-right: 6px; }
 .tl .count { position: absolute; right: 4px; top: -1px; font-size: 10px; color: var(--muted); }
 .tl .marker { position: absolute; top: -18px; bottom: 0; width: 0; border-left: 2px dashed var(--bad); pointer-events: none; }
 .tl .marker span { position: absolute; top: 0; left: 4px; font-size: 10px; color: var(--bad); white-space: nowrap; }
@@ -327,7 +328,7 @@ function renderDetail() {
       const cls = f.id === j.choice ? "pick kept" : f.kept ? "kept" : "dropped";
       const left = f.view.start * 100, width = Math.max((f.view.end - f.view.start) * 100, 0.6);
       return `<div class="row ${cls}" data-id="${esc(f.id)}" title="${esc((f.label || "") + " · " + (f.kept ? "sent to Jev" : "dropped: " + f.reason))}">
-        <div class="name">${esc(f.label || "(no label)")}</div>
+        <div class="name">${f.view.source ? `<span class="src">${f.view.source === "event" ? "k8s" : esc(f.view.source)}</span>` : ""}${esc(f.label || "(no label)")}</div>
         <div class="lane"><div class="span" style="left:${left}%;width:${width}%"></div><span class="count">${f.view.count ?? ""}</span></div></div>`;
     }).join("") : "";
   const marker = isTimeline && r.source?.marker != null
