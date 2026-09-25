@@ -22,7 +22,7 @@ from pathlib import Path
 
 from ...briefing import Extracted
 from ...facts import Fact, clean_label, fact_id, register_reasons
-from ...questions import FactChoice
+from ...questions import NONE, FactChoice
 from ...rules import CORE_RULES, Boost, Drop, Rule, RuleSet
 from .. import Adapter, need
 
@@ -273,11 +273,13 @@ class OtelAdapter(Adapter):
     def __init__(self, config=None):
         register_reasons(REASONS)
         self.config: dict = _load_config(config)
+        self._options: dict = {}  # options passed to the most recent `extract`, used by `rules`
 
     def configure(self, config) -> None:
         self.config = _load_config(config)
 
     def extract(self, source, **options) -> Extracted:
+        self._options = dict(options)
         c = {**self.config, **options}
         recs = all_records(source)
         if not recs:
@@ -350,7 +352,7 @@ class OtelAdapter(Adapter):
         return Extracted(facts, source_info)
 
     def rules(self) -> RuleSet:
-        c = self.config
+        c = {**self.config, **self._options}
         hidden, disabled, unlabeled, goal_match, duplicate = CORE_RULES
         min_sev = c.get("min_severity", "warn")
         min_sev = TEXT_LEVELS.get(str(min_sev).lower(), 13) if not isinstance(min_sev, int) else min_sev
@@ -440,6 +442,5 @@ class _CausePack(FactChoice):
                 f"Incident: {goal}\nEach item in `signals` is a group of similar log messages, a group of similar "
                 "Kubernetes events, or an alert. Which one signal most likely shows the cause of this incident, "
                 "rather than a symptom of it?")
-            q["criteria"][next(k for k in q["criteria"] if k not in {f.id for f in kept})] = \
-                "None of these signals explains the incident"
+            q["criteria"][NONE] = "None of these signals explains the incident"
         return qs

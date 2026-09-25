@@ -191,9 +191,9 @@ def _read(source) -> tuple[list[dict], dict]:
     pr: dict = {}
     for p in map(Path, paths):
         items = sorted(f for f in p.rglob("*") if f.suffix in (".diff", ".patch", ".json")) if p.is_dir() else [p]
-        for f in items:
-            text = f.read_text(encoding="utf-8", errors="replace")
-            if f.suffix == ".json":
+        for path in items:
+            text = path.read_text(encoding="utf-8", errors="replace")
+            if path.suffix == ".json":
                 data = json.loads(text)
                 if isinstance(data, list) and data and isinstance(data[0], dict) and "filename" in data[0]:
                     files += _from_api_files(data)
@@ -202,11 +202,12 @@ def _read(source) -> tuple[list[dict], dict]:
             else:
                 files += parse_diff(text)
     # The same file from a diff and from the API JSON: keep the first.
-    seen, out = set(), []
-    for f in files:
-        if f["path"] not in seen:
-            seen.add(f["path"])
-            out.append(f)
+    seen: set[str] = set()
+    out = []
+    for file in files:
+        if file["path"] not in seen:
+            seen.add(file["path"])
+            out.append(file)
     return out, pr
 
 

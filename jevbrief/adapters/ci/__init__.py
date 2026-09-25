@@ -225,12 +225,13 @@ class CiAdapter(Adapter):
         register_reasons(REASONS)
         self.config: dict = dict(config or {})
         self._tail: list[dict] = []  # the last log lines of the most recent extraction, for `raw`
+        self._options: dict = {}     # options passed to the most recent `extract`, used by `rules`
 
     def configure(self, config) -> None:
         self.config = dict(config or {})
 
     def extract(self, source, **options) -> Extracted:
-        c = {**self.config, **options}
+        self._options = dict(options)
         recs = log_records(source)
         cases = junit_cases(source)
         if not any(r["level"] for r in recs) and not cases:
@@ -292,7 +293,8 @@ class CiAdapter(Adapter):
 
     def rules(self) -> RuleSet:
         hidden, disabled, unlabeled, goal_match, duplicate = CORE_RULES
-        min_sev = SEV.get(str(self.config.get("min_severity", "error")).lower(), SEV["error"])
+        c = {**self.config, **self._options}
+        min_sev = SEV.get(str(c.get("min_severity", "error")).lower(), SEV["error"])
         return RuleSet([
             hidden, disabled, unlabeled,
             Rule(BELOW_SEVERITY, lambda f, ctx: Drop(BELOW_SEVERITY) if f.meta["sev"] < min_sev else None),

@@ -137,3 +137,9 @@ def test_real_log_noise_is_not_an_error(tmp_path):
     assert [f.meta["template"] for f in kept] == ["E pexpect.exceptions.TIMEOUT: Timeout exceeded."]
     assert kept[0].attrs["step"] == "Run pytest -v" and kept[0].attrs["looks_flaky"] == "yes"
     assert {f.meta["template"]: f.reason for f in b.facts}["Error: cache save failed"] == "ci.after_failure"
+
+
+def test_min_severity_as_an_extract_option(tmp_path):
+    b = Briefing(CiAdapter(), "CI is red on main", trace=None, jev=FakeJev())
+    b.extract(write(tmp_path), min_severity="warning")
+    assert by_template(b)["npm WARN deprecated <email>: This module is not supported"].reason == "ci.passed_step"
