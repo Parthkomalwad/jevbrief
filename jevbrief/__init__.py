@@ -13,9 +13,13 @@ def __getattr__(name):
         from .adapters.web import Brief
 
         return Brief
+    if name in ("select_tools", "pick_tool"):  # the tools shortcuts, also lazy
+        from .adapters import tools
+
+        return getattr(tools, name)
     raise AttributeError(name)
 
 
 __all__ = ["Adapter", "Boost", "Brief", "Briefing", "Decision", "Drop", "Extracted", "Fact", "FactChoice",
-           "GroupRule", "OptionChoice", "QuestionPack", "Rule", "RuleSet", "get_adapter", "register_reasons"]
+           "GroupRule", "OptionChoice", "QuestionPack", "pick_tool", "select_tools", "Rule", "RuleSet", "get_adapter", "register_reasons"]
 __version__ = "0.4.0"

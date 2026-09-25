@@ -1,4 +1,4 @@
-# mcp adapter benchmark
+# tools adapter benchmark (MCP tools)
 
 Run on 2026-09-25 with Jev, 40 tasks, 3 runs per task and arm.
 - **Tools:** 105 real tools, collected with `fetch_tools.py` from four MCP servers: GitHub's official server (v1.12.2, 90 tools) and the reference time, fetch, and git servers (v1.30.0, 15 tools).
@@ -30,7 +30,7 @@ Run on 2026-09-25 with Jev, 40 tasks, 3 runs per task and arm.
 Before asking Jev, the right tool survived the ranking for 33 of 36 goals (92%). Recall is measured with no Jev call:
 
 ```python
-b = Briefing(McpAdapter(), goal, jev=FakeJev())
+b = Briefing(ToolsAdapter(), goal, jev=FakeJev())
 b.extract("bench/mcp/tools")
 kept = [f.label for f in b.kept]
 ```
@@ -40,3 +40,4 @@ kept = [f.label for f in b.kept]
 - **The tasks were written by hand**, by the same person who wrote the adapter. They were written before the ranking was run on them, and nothing was tuned after, but they are not an independent benchmark.
 - **The ranking changed once, before the tasks were written:** URLs became the word `url`, and a short list of generic abbreviations was expanded (PR, repo, dir, config, msg, db). The three vocabulary misses above were not patched.
 - **Real agents often see several hundred tools.** Add Docker servers (filesystem, memory, puppeteer, slack) with `fetch_tools.py` for a harder set.
+- **Rerun after renaming the adapter to `tools`** (same ranking and question): raw 82% (98/120) at 13,442 tokens, jevbrief 88% (105/120) at 3,700.

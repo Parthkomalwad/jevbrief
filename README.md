@@ -11,7 +11,7 @@ Other tools show what Jev decided. jevbrief shows what Jev was told, what it was
 [![License: MIT](https://img.shields.io/badge/license-MIT-111)](https://github.com/parthkomalwad/jevbrief/blob/main/LICENSE)
 [![Adapters](https://img.shields.io/badge/adapters-6-ff3fd2)](#adapters)
 
-[Quick start](#quick-start) &nbsp;·&nbsp; [Adapters](#adapters) &nbsp;·&nbsp; [Python](#use-it-in-python) &nbsp;·&nbsp; [Viewer](#see-every-decision) &nbsp;·&nbsp; [How it works](#how-it-works) &nbsp;·&nbsp; [Benchmarks](#benchmarks) &nbsp;·&nbsp; [Contributing](#contributing)
+[Docs](https://github.com/parthkomalwad/jevbrief/blob/main/docs/README.md) &nbsp;·&nbsp; [Quick start](#quick-start) &nbsp;·&nbsp; [Adapters](#adapters) &nbsp;·&nbsp; [Python](#use-it-in-python) &nbsp;·&nbsp; [Viewer](#see-every-decision) &nbsp;·&nbsp; [How it works](#how-it-works) &nbsp;·&nbsp; [Benchmarks](#benchmarks) &nbsp;·&nbsp; [Contributing](#contributing)
 
 <br>
 
@@ -23,7 +23,7 @@ Other tools show what Jev decided. jevbrief shows what Jev was told, what it was
 
 ## Why jevbrief
 
-[Jev](https://docs.typesafe.ai) turns state into typed decisions. It does its best work on small, relevant state, and it is weak at raw numbers, dates, and long lists of irrelevant detail. Real sources are the opposite: a web page has hundreds of elements, an agent sees a hundred tools, and a failed build prints thousands of log lines.
+[Jev](https://docs.typesafe.ai) turns state into typed decisions. It does its best work on small, relevant state, and it is weak at raw numbers, dates, and long lists of irrelevant detail. Real sources are the opposite: a web page has hundreds of elements, an agent can call a hundred tools, and a failed build prints thousands of log lines.
 
 jevbrief sits between your source and Jev. It keeps what matters, drops the rest with a reason for every drop, asks Jev one clear question, and records the whole decision so you can replay it.
 
@@ -40,7 +40,7 @@ jevbrief sits between your source and Jev. It keeps what matters, drops the rest
 ## Quick start
 
 ```bash
-pip install jevbrief                  # json, otel, ci, and mcp; add [web] or [nes], or [all] for everything
+pip install jevbrief                  # tools, ci, otel, and json; add [web] or [nes], or [all] for everything
 ```
 
 Get an API key at [console.typesafe.ai](https://console.typesafe.ai), and set `TYPESAFE_API_KEY` in your environment or in a `.env` file where you run the CLI.
@@ -59,16 +59,16 @@ likely cause: Run pytest -q: E KeyError: 'currency_code'   (confidence 0.84)
 looks flaky: no (0.07)
 ```
 
-Run `jevbrief adapters` to list what is installed. Each adapter's page below has its own quick start.
+Run `jevbrief adapters` to list what is installed. Each adapter has a [documentation page](https://github.com/parthkomalwad/jevbrief/blob/main/docs/README.md) with its own quick start, options, reason codes, and limits.
 
 ## Adapters
 
-![Adapter overview: web pages, JSON data, OpenTelemetry logs, CI logs, MCP tool lists, and NES games are supported; Slack and Discord are planned; new sources are open for contribution](https://raw.githubusercontent.com/parthkomalwad/jevbrief/main/docs/assets/adapters.svg)
+![Adapter overview: agent tools, web pages, JSON data, OpenTelemetry logs, CI logs, and NES games are supported; Slack and Discord are planned; new sources are open for contribution](https://raw.githubusercontent.com/parthkomalwad/jevbrief/main/docs/assets/adapters.svg)
 
 | Adapter | Reads | Jev answers | Install |
 |---|---|---|---|
 | [ci](https://github.com/parthkomalwad/jevbrief/blob/main/docs/adapters/ci.md) | GitHub Actions logs and JUnit XML | Which error broke the build, and whether it looks flaky | `jevbrief` |
-| [mcp](https://github.com/parthkomalwad/jevbrief/blob/main/docs/adapters/mcp.md) | MCP tool lists (`tools/list`) | Which tool the agent should call next | `jevbrief` |
+| [tools](https://github.com/parthkomalwad/jevbrief/blob/main/docs/adapters/tools.md) | Your functions, MCP servers, LangChain, CrewAI, OpenAI, and Anthropic tools | Which tool the agent should call next | `jevbrief` |
 | [otel](https://github.com/parthkomalwad/jevbrief/blob/main/docs/adapters/otel.md) | OpenTelemetry logs (OTLP JSON) | Which log group explains an incident | `jevbrief` |
 | [json](https://github.com/parthkomalwad/jevbrief/blob/main/docs/adapters/json.md) | JSON and JSON Lines, with a config file | Which item fits, or which action to take | `jevbrief` |
 | [web](https://github.com/parthkomalwad/jevbrief/blob/main/docs/adapters/web.md) | Web pages, through Playwright | Which element to click next | `jevbrief[web]` |
@@ -108,6 +108,17 @@ Every decision comes back in the same shape:
 
 Extra questions in the same call, such as ci's `flaky`, are in `decision.answers`.
 
+**Building an agent?** One call narrows any mix of tools (your functions, MCP, LangChain, CrewAI, OpenAI, or Anthropic) to the ones that fit the current step, and returns your own objects:
+
+```python
+from jevbrief import select_tools, pick_tool
+
+llm.bind_tools(select_tools(tools, goal))     # ranking only: local, free, no API key
+pick = pick_tool(tools, goal)                 # Jev picks one: pick.tool, pick.confidence
+```
+
+See [Use with your framework](https://github.com/parthkomalwad/jevbrief/blob/main/docs/adapters/tools.md#use-with-your-framework) for LangGraph, CrewAI, and the OpenAI and Anthropic SDKs.
+
 <details>
 <summary><b>Web shortcut for Playwright agents</b></summary>
 <br>
@@ -124,7 +135,7 @@ if decision.fact:
 
 </details>
 
-More in [examples/](https://github.com/parthkomalwad/jevbrief/tree/main/examples): one script per adapter.
+More in [examples/](https://github.com/parthkomalwad/jevbrief/tree/main/examples): one script per adapter. Full reference: [Python API](https://github.com/parthkomalwad/jevbrief/blob/main/docs/reference/python.md) · [command line](https://github.com/parthkomalwad/jevbrief/blob/main/docs/reference/cli.md).
 
 ## See every decision
 
@@ -136,7 +147,7 @@ Each adapter picks the view that fits its source:
 
 | View | Used by | Shows |
 |---|---|---|
-| Table | json, ci, mcp | Every fact with its score and reason |
+| Table | json, ci, tools | Every fact with its score and reason |
 | Timeline | otel | One bar per log group, with the incident start marked |
 | Snapshot | web | The page with Jev's pick outlined |
 | Live | nes | Decisions as they are written, next to the running game (`jevbrief view --live`) |
@@ -187,12 +198,12 @@ Force-keep facts with `pins=["<fact id>"]`. Fact IDs are stable across decisions
 
 ## Benchmarks
 
-![Benchmark chart: median input tokens, raw state against jevbrief, for web, JSON, OpenTelemetry logs, CI logs, MCP tools, and an NES game](https://raw.githubusercontent.com/parthkomalwad/jevbrief/main/docs/assets/benchmarks.svg)
+![Benchmark chart: median input tokens, raw state against jevbrief, for web, JSON, OpenTelemetry logs, CI logs, agent tools, and an NES game](https://raw.githubusercontent.com/parthkomalwad/jevbrief/main/docs/assets/benchmarks.svg)
 
 | Adapter | Data | Tasks | Raw accuracy | jevbrief accuracy | Raw tokens | jevbrief tokens |
 |---|---|---|---|---|---|---|
 | [ci](https://github.com/parthkomalwad/jevbrief/blob/main/bench/ci/results.md) | **Real** | 16 failed GitHub Actions runs | 88% | **100%** | 30,502 | **988** (−97%) |
-| [mcp](https://github.com/parthkomalwad/jevbrief/blob/main/bench/mcp/results.md) | **Real** tools, hand-written tasks | 40 goals over 105 tools | 82% | **88%** | 13,450 | **3,685** (−73%) |
+| [tools](https://github.com/parthkomalwad/jevbrief/blob/main/bench/mcp/results.md) | **Real** MCP tools, hand-written goals | 40 goals over 105 tools | 82% | **88%** | 13,450 | **3,685** (−73%) |
 | [otel](https://github.com/parthkomalwad/jevbrief/blob/main/bench/otel/results.md) | Synthetic | 6 incidents | 83% | **100%** | 29,678 | **1,070** (−96%) |
 | [json](https://github.com/parthkomalwad/jevbrief/blob/main/bench/json/results.md) | Synthetic | 9 queries | 89% | **100%** | 3,848 | **2,002** (−48%) |
 | [web](https://github.com/parthkomalwad/jevbrief/blob/main/bench/results.md) | Synthetic | 10 pages | 100% | 100% | 5,400 | **2,344** (−57%) |
@@ -200,7 +211,7 @@ Force-keep facts with `pins=["<fact id>"]`. Fact IDs are stable across decisions
 
 - **Same setup for both arms:** the same Jev (`jev-1.13.0`) and the same question, with three runs per task and median input tokens. The raw arm sends what a naive integration would send: every element, every record, or the most recent log lines.
 - **ci's flaky question:** here jevbrief scored lower, 67% against 93%. The raw arm answered "flaky" every time, and 13 of the 16 labels are flaky.
-- **mcp's ranking:** keyword ranking dropped the right tool for 3 of 36 goals, all synonyms ("bug report" for issue). With every tool sent, Jev drifted to generic read and list tools.
+- **tools' ranking:** keyword ranking dropped the right tool for 3 of 36 goals, all synonyms ("bug report" for issue). With every tool sent, Jev drifted to generic read and list tools.
 - **Synthetic sets:** some rules were designed while building them, so treat those numbers as illustrations.
 
 Each adapter name links to its full results and caveats. Reproduce them with `jevbrief bench`.

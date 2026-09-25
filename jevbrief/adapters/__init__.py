@@ -22,7 +22,7 @@ GROUP = "jevbrief.adapters"
 BUILTIN = {"web": "jevbrief.adapters.web:WebAdapter", "json": "jevbrief.adapters.json:JsonAdapter",
            "otel": "jevbrief.adapters.otel:OtelAdapter", "nes": "jevbrief.adapters.nes:NesAdapter",
            "ci": "jevbrief.adapters.ci:CiAdapter",
-           "mcp": "jevbrief.adapters.mcp:McpAdapter"}
+           "tools": "jevbrief.adapters.tools:ToolsAdapter"}
 
 
 class Adapter:

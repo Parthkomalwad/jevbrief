@@ -2,6 +2,16 @@
 
 Chooses the next move in an NES platformer from the game's memory. It ships one game mapping: level 1-1 of [Nova the Squirrel](https://github.com/NovaSquirrel/NovaTheSquirrel), an open-source platformer by NovaSquirrel.
 
+| | |
+|---|---|
+| **Reads** | An NES game's memory: RAM, the level map, and block flags |
+| **Jev answers** | Which move to make next, and whether walking right is dangerous |
+| **Install** | `pip install "jevbrief[nes]"` (adds the cynes emulator, MIT) |
+| **Main API** | `Briefing(NesAdapter(), goal)` with `NovaGame`, or `python examples/nes_live.py` |
+| **Benchmark** | Level 1-1, 100 moves: block 56.4 against 8.6, with 75% fewer tokens |
+
+## Quick start
+
 ```bash
 pip install "jevbrief[nes]"          # adds the cynes emulator (MIT), which needs only numpy
 python examples/nes_live.py --rom path/to/nova.nes --headed
@@ -79,7 +89,7 @@ Distance is `touching` (under 1 block), `close` (under 3), `near` (under 7), or 
 
 `last_action` tells Jev when its last move had no effect. It also changes the state, so a move that failed is not reused with no new call.
 
-## Rules
+## Reason codes
 
 | Rule | Effect |
 |---|---|
@@ -115,3 +125,8 @@ The `spatial` renderer shows the frame for each decision with boxes on the playe
 ## Add another game
 
 Follow [skills/jevbrief-nes-game/SKILL.md](../../skills/jevbrief-nes-game/SKILL.md), by hand or with a coding agent such as Claude Code: check the ROM is legal, find and verify the memory map (`ram_search.py` finds addresses by watching which bytes change), turn memory into facts in words, then add actions, rules, tests, a benchmark, and docs.
+
+## Limits
+
+- **One game.** Only level 1-1 of Nova the Squirrel is mapped. Other games need their own memory map; see [Add another game](#add-another-game).
+- **Jev is not a game-playing model.** Nova often stops at a tall wall around block 56. The trace shows exactly what Jev was told there.
