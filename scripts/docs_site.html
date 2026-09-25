@@ -5,7 +5,8 @@
   --bg: #ffffff; --panel: #f1f1f1; --text: #111111; --muted: #555555; --line: #111111; --soft-line: #cfcfcf;
   --bar-bg: #1b1b1b; --bar-text: #f2f2f2;
   --accent: #ff3fd2; --accent-ink: #b0128f; --accent-soft: #ffe0f7; --sky: #d7ecff;
-  --code-bg: #f6f6f8;
+  --code-bg: #f6f6f8; --code-str: #0f7a3d; --code-com: #7a7a85; --code-num: #9a6200;
+  --head: 58px;
   --mono: "Cascadia Mono", "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   --sans: system-ui, -apple-system, "Segoe UI", sans-serif;
 }
@@ -15,6 +16,7 @@
     --bg: #0e0e10; --panel: #18181b; --text: #ececec; --muted: #9a9aa0; --line: #3a3a40; --soft-line: #2c2c31;
     --bar-bg: #000000; --bar-text: #f2f2f2;
     --accent: #ff5fdc; --accent-ink: #ff8ae6; --accent-soft: #3a1633; --sky: #13233a; --code-bg: #141417;
+    --code-str: #5fd18e; --code-com: #8a8a94; --code-num: #f0b64a;
   }
 }
 :root[data-theme="dark"] {
@@ -22,6 +24,7 @@
   --bg: #0e0e10; --panel: #18181b; --text: #ececec; --muted: #9a9aa0; --line: #3a3a40; --soft-line: #2c2c31;
   --bar-bg: #000000; --bar-text: #f2f2f2;
   --accent: #ff5fdc; --accent-ink: #ff8ae6; --accent-soft: #3a1633; --sky: #13233a; --code-bg: #141417;
+  --code-str: #5fd18e; --code-com: #8a8a94; --code-num: #f0b64a;
 }
 * { box-sizing: border-box; }
 body { margin: 0; background: var(--bg); color: var(--text); font: 14px/1.6 var(--mono); }
@@ -87,7 +90,7 @@ main { padding: 24px 28px 64px; background: linear-gradient(180deg, var(--sky) 0
 .doc img { display: block; max-width: 100%; height: auto; border: 2px solid var(--line); margin: 12px 0; background: #fff; }
 .doc code { font: 13px var(--mono); background: var(--accent-soft); padding: 0 4px; }
 .doc a code { background: transparent; padding: 0; }
-.doc pre { position: relative; background: var(--code-bg); border: 1px solid var(--line); padding: 12px 14px; overflow-x: auto; }
+.doc pre { position: relative; background: var(--code-bg); border: 1px solid var(--line); padding: 12px 64px 12px 14px; overflow-x: auto; }
 .doc pre code { background: transparent; padding: 0; font-size: 12.5px; line-height: 1.55; }
 .doc pre button.copy { position: absolute; top: 6px; right: 6px; font: 11px var(--mono); padding: 2px 8px; cursor: pointer;
   background: var(--bar-bg); color: var(--bar-text); border: 0; border-radius: 0; opacity: .8; }
@@ -125,12 +128,53 @@ mark { background: var(--accent); color: #111; }
 .results .hit:hover { background: var(--panel); }
 .results .hit .where { font-size: 12px; color: var(--muted); }
 
+/* the nav stays put while the page scrolls */
+nav { position: sticky; top: calc(var(--head) + env(safe-area-inset-top, 0px)); align-self: start;
+  max-height: calc(100vh - var(--head)); overflow-y: auto; }
+#menu { display: none; }
+
+/* article plus an "on this page" rail on wide screens */
+.page { display: grid; grid-template-columns: minmax(0, 900px); gap: 28px; align-items: start; }
+.toc { display: none; }
+@media (min-width: 1240px) {
+  .page { grid-template-columns: minmax(0, 900px) 220px; }
+  .toc { display: block; position: sticky; top: calc(var(--head) + 24px); font-size: 12px; }
+  .toc .k { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+  .toc a { display: block; padding: 4px 10px; color: var(--text); text-decoration: none; border-left: 2px solid var(--soft-line); }
+  .toc a:hover { background: var(--panel); }
+  .toc a.on { border-left-color: var(--accent); font-weight: 700; }
+}
+.doc h1, .doc h2, .doc h3 { scroll-margin-top: calc(var(--head) + 16px); }
+.doc h2 .anchor, .doc h3 .anchor { margin-left: 8px; color: inherit; opacity: 0; text-decoration: none; }
+.doc h2:hover .anchor, .doc h3:hover .anchor, .doc .anchor:focus-visible { opacity: .6; }
+
+/* home: start from the job */
+.choose { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 12px; }
+.job { display: grid; gap: 6px; align-content: start; border: 2px solid var(--line); background: var(--bg); padding: 12px 14px;
+  color: var(--text); text-decoration: none; }
+.job:hover { background: var(--panel); }
+.job .t { font: 600 15px var(--sans); }
+.job .d { color: var(--muted); font-size: 12px; line-height: 1.5; }
+.job .a { display: flex; gap: 6px; flex-wrap: wrap; }
+.job .a span { font-size: 11px; background: var(--bar-bg); color: var(--bar-text); padding: 0 6px; }
+.hero .k { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 6px; }
+
+/* code colors */
+.tok-k { color: var(--accent-ink); font-weight: 600; }
+.tok-s { color: var(--code-str); }
+.tok-c { color: var(--code-com); font-style: italic; }
+.tok-n { color: var(--code-num); }
+
 @media (max-width: 800px) {
   .app { grid-template-columns: 1fr; }
-  nav { border-right: 0; border-bottom: 2px solid var(--line); display: flex; flex-wrap: wrap; gap: 6px; padding: 10px 16px; }
-  nav .sec { display: none; }
-  nav a.item { display: inline-block; border: 1px solid var(--line); padding: 3px 8px; }
-  nav a.item::before, nav a.item .sub { display: none; }
+  nav { position: static; max-height: none; overflow: visible; }
+  #menu { display: flex; width: 100%; justify-content: space-between; align-items: center; font: 600 13px var(--mono);
+    padding: 8px 12px; border: 2px solid var(--line); background: var(--bg); color: var(--text); border-radius: 0; cursor: pointer; }
+  nav:not(.open) a.item, nav:not(.open) .sec { display: none !important; }
+  .doc table.glance, .doc table.glance tbody, .doc table.glance tr, .doc table.glance td { display: block; width: auto; }
+  .doc table.glance td:first-child { padding-bottom: 0; border-bottom: 0; }
+  nav { border-right: 0; border-bottom: 2px solid var(--line); padding: 10px 16px; }
+  nav.open { padding-bottom: 12px; }
   main { padding: 16px 16px 48px; }
   .doc { padding: 4px 14px 16px; }
   .doc h2 { margin-left: -14px; margin-right: -14px; padding-left: 14px; }
@@ -143,10 +187,10 @@ mark { background: var(--accent); color: #111; }
   <span class="chip" id="version"></span>
   <a class="chip" id="repo" href="https://github.com/parthkomalwad/jevbrief">GitHub</a>
   <a class="chip" href="https://pypi.org/project/jevbrief">PyPI</a>
-  <input id="search" type="search" placeholder="Search the docs, e.g. read_only" aria-label="Search the docs">
+  <input id="search" type="search" placeholder="Search the docs   ( / )" aria-label="Search the docs">
 </header>
 <div class="app">
-  <nav id="nav" aria-label="Pages"></nav>
+  <nav id="nav" aria-label="Pages"><button id="menu" type="button" aria-expanded="false" aria-controls="nav"><span id="menulabel">Menu</span><span aria-hidden="true">[+]</span></button><div id="navlist"></div></nav>
   <main id="main"></main>
 </div>
 
@@ -155,7 +199,7 @@ mark { background: var(--accent); color: #111; }
 const DOCS = __DOCS__;
 const pages = DOCS.pages;
 const byRoute = Object.fromEntries(pages.map(p => [p.route, p]));
-const nav = document.getElementById("nav"), main = document.getElementById("main"), search = document.getElementById("search");
+const nav = document.getElementById("nav"), navlist = document.getElementById("navlist"), main = document.getElementById("main"), search = document.getElementById("search");
 document.getElementById("version").textContent = "v" + DOCS.version;
 
 const slug = t => t.trim().toLowerCase().replace(/[^\w\- ]/g, "").replace(/ /g, "-");
@@ -170,7 +214,7 @@ function buildNav(hits) {
     html += `<a class="${cls}" href="#${p.route}" data-route="${p.route}"><span><span class="name">${esc(p.label)}</span>` +
             (n ? `<span class="hits">${n}</span>` : "") + `<span class="sub">${esc(p.summary)}</span></span></a>`;
   }
-  nav.innerHTML = html;
+  navlist.innerHTML = html;
 }
 
 function copyButton(pre, text) {
@@ -184,13 +228,58 @@ function copyButton(pre, text) {
 }
 function select(el) { const r = document.createRange(); r.selectNodeContents(el); const s = getSelection(); s.removeAllRanges(); s.addRange(r); }
 
+const JOBS = [
+  ["An agent that calls tools", "Give it only the tools that fit this step, and notice when it goes in circles.", ["tools", "steps"]],
+  ["A failing CI build", "Find the error that broke it, and whether it looks flaky.", ["ci"]],
+  ["A production incident", "Find the log group that shows the cause, not a symptom.", ["otel"]],
+  ["Records to triage", "Pick the ticket, product, or row that fits, from any JSON.", ["json"]],
+  ["A browser agent", "Choose the next element to click on a real page.", ["web"]],
+  ["A game", "Watch Jev play an NES platformer, one move at a time.", ["nes"]],
+];
 function hero() {
+  const jobs = JOBS.map(([t, d, a]) => `<a class="job" href="#${a[0]}"><span class="t">${esc(t)}</span>` +
+    `<span class="d">${esc(d)}</span><span class="a">${a.map(x => `<span>${x}</span>`).join("")}</span></a>`).join("");
   return `<section class="hero">
     <h1>Clean, traceable state briefings for TypeSafe's Jev, from any source.</h1>
     <p>Other tools show what Jev decided. jevbrief shows what Jev was told, what it wasn't told, and why.</p>
     <div class="install"><code id="pip">pip install jevbrief</code><button type="button" id="pipcopy">copy</button></div>
-    <img src="assets/pipeline.svg" alt="Facts from a source flow into the rules, noise is dropped with a reason code, the rest goes to Jev, and Jev picks one">
+    <div class="k">What are you building?</div>
+    <div class="choose">${jobs}</div>
   </section>`;
+}
+
+/* a small highlighter for Python and shell: keywords, strings, comments, numbers */
+const KW = /^(from|import|def|class|return|if|elif|else|for|in|while|with|as|not|and|or|is|None|True|False|await|async|lambda|try|except|raise|pip|jevbrief|python|gh|git|cd)$/;
+function highlight(code) {
+  const lang = (code.className.match(/language-(\w+)/) || [])[1] || "";
+  if (lang === "text" || !code.textContent.trim()) return;
+  const src = code.textContent, re = /(#[^\n]*)|("""[\s\S]*?"""|"(?:\\.|[^"\\\n])*"|'(?:\\.|[^'\\\n])*')|\b(\d+(?:\.\d+)?)\b|([A-Za-z_][\w]*)/g;
+  let out = "", last = 0, m;
+  while ((m = re.exec(src))) {
+    out += esc(src.slice(last, m.index));
+    const [t, com, str, num, word] = m;
+    out += com ? `<span class="tok-c">${esc(com)}</span>` : str ? `<span class="tok-s">${esc(str)}</span>`
+      : num ? `<span class="tok-n">${num}</span>` : KW.test(word) ? `<span class="tok-k">${word}</span>` : esc(t);
+    last = re.lastIndex;
+  }
+  code.innerHTML = out + esc(src.slice(last));
+}
+
+let spy;
+function buildToc(p, doc, aside) {
+  const hs = [...doc.querySelectorAll("h2")];
+  if (spy) spy.disconnect();
+  if (hs.length < 3) { aside.remove(); return; }
+  aside.innerHTML = `<div class="k">On this page</div>` + hs.map(h => `<a href="#${h.id}">${esc(h.textContent.replace(/#$/, ""))}</a>`).join("");
+  const links = [...aside.querySelectorAll("a")];
+  const mark = () => {  // the section you are reading: the last heading above the upper third of the screen
+    let i = 0;
+    hs.forEach((h, k) => { if (h.getBoundingClientRect().top < innerHeight / 3) i = k; });
+    links.forEach((a, k) => a.classList.toggle("on", k === i));
+  };
+  window.addEventListener("scroll", mark, {passive: true});
+  spy = {disconnect: () => window.removeEventListener("scroll", mark)};
+  mark();
 }
 
 function render(route, anchor) {
@@ -198,12 +287,18 @@ function render(route, anchor) {
   const i = pages.indexOf(p), prev = pages[i - 1], next = pages[i + 1];
   const body = marked.parse(p.md, {gfm: true});
   main.innerHTML = (p.route === "home" ? hero() : "") +
-    `<article class="card"><div class="bar"><span>${esc(p.src)}</span>` +
+    `<div class="page"><article class="card"><div class="bar"><span>${esc(p.src)}</span>` +
     `<a href="${DOCS.repo}/blob/main/${p.src}">View source</a></div><div class="doc">${body}</div></article>` +
+    `<aside class="toc" aria-label="On this page"></aside></div>` +
     `<div class="pager">${prev ? `<a href="#${prev.route}"><span class="k">Previous</span>${esc(prev.label)}</a>` : "<span></span>"}` +
     `${next ? `<a class="next" href="#${next.route}"><span class="k">Next</span>${esc(next.label)}</a>` : ""}</div>`;
   const doc = main.querySelector(".doc");
-  doc.querySelectorAll("h1,h2,h3,h4").forEach(h => (h.id = p.route + "." + slug(h.textContent)));
+  if (p.route === "home") doc.querySelector("h1")?.remove();  // the hero already says it
+  doc.querySelectorAll("h1,h2,h3,h4").forEach(h => {
+    h.id = p.route + "." + slug(h.textContent);
+    if (h.tagName !== "H1") h.insertAdjacentHTML("beforeend", `<a class="anchor" href="#${h.id}" aria-label="Link to this section">#</a>`);
+  });
+  doc.querySelectorAll("pre code").forEach(highlight);
   doc.querySelectorAll("table").forEach(t => {
     const wrap = document.createElement("div"); wrap.className = "table"; t.replaceWith(wrap); wrap.appendChild(t);
     const heads = [...t.querySelectorAll("thead th")];
@@ -217,6 +312,9 @@ function render(route, anchor) {
     if (navigator.clipboard) navigator.clipboard.writeText("pip install jevbrief").then(done, () => select(document.getElementById("pip")));
   });
   nav.querySelectorAll("a.item").forEach(a => a.classList.toggle("sel", a.dataset.route === p.route));
+  document.getElementById("menulabel").textContent = "Menu · " + p.label;
+  setMenu(false);
+  buildToc(p, doc, main.querySelector(".toc"));
   document.title = (p.route === "home" ? "" : p.label + " · ") + "jevbrief docs";
   const target = anchor && document.getElementById(p.route + "." + anchor);
   if (target) target.scrollIntoView(); else window.scrollTo(0, 0);
@@ -227,6 +325,11 @@ function route() {
   const dot = h.indexOf(".");
   const r = dot < 0 ? h : h.slice(0, dot), anchor = dot < 0 ? "" : h.slice(dot + 1);
   if (search.value.trim()) { search.value = ""; buildNav(); }
+  if (byRoute[r] && document.getElementById("main").dataset.route === r && anchor) {  // same page: just scroll
+    document.getElementById(r + "." + anchor)?.scrollIntoView();
+    return;
+  }
+  main.dataset.route = byRoute[r] ? r : "home";
   render(byRoute[r] ? r : "home", anchor);
 }
 
@@ -247,6 +350,7 @@ function runSearch() {
     }
   }
   buildNav(hits);
+  main.dataset.route = "";
   const mark = s => esc(s).replace(new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "gi"), m => `<mark>${m}</mark>`);
   main.innerHTML = `<div class="results"><article class="card"><div class="bar"><span>search: ${esc(q)}</span>` +
     `<span>${results.length} matches</span></div></article>` +
@@ -254,6 +358,19 @@ function runSearch() {
       `<span class="where">${esc(r.p.label)} › ${esc(r.section)}</span><br>${mark(r.line.slice(0, 220))}</a>`).join("")
       : `<p>No page mentions “${esc(q)}”. Try a shorter word.</p>`) + `</div>`;
 }
+
+function setMenu(open) {
+  nav.classList.toggle("open", open);
+  const b = document.getElementById("menu");
+  b.setAttribute("aria-expanded", String(open));
+  b.lastElementChild.textContent = open ? "[-]" : "[+]";
+}
+document.getElementById("menu").addEventListener("click", () => setMenu(!nav.classList.contains("open")));
+document.addEventListener("keydown", e => {
+  const typing = /INPUT|TEXTAREA/.test(document.activeElement?.tagName || "");
+  if (e.key === "/" && !typing) { e.preventDefault(); search.focus(); }
+  if (e.key === "Escape" && document.activeElement === search) { search.value = ""; runSearch(); search.blur(); }
+});
 
 buildNav();
 search.addEventListener("input", runSearch);
