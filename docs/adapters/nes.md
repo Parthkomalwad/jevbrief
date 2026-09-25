@@ -15,6 +15,36 @@ jevbrief never ships, downloads, or links to a ROM for you. Nova the Squirrel is
 
 Commercial games such as Super Mario Bros are not supported. Their ROMs are copyrighted, and downloading them is infringement in most countries.
 
+## Live viewer
+
+Your browser opens the live viewer at `http://127.0.0.1:8765/`:
+
+- **Bottom right:** the game, as it plays.
+- **Left:** one row per decision, colored by Jev's confidence.
+- **Middle:** what Jev was told, what was dropped and why, the frame with boxes, and how sure Jev was of each move.
+
+The terminal prints one line per decision, such as `jump_right 0.89 -> jump_right x=7.3 health=4`. Replay a run later with `jevbrief view traces/nes.jsonl`.
+
+![The live viewer during a game: decisions on the left, the frame Jev saw with boxes in the middle, and the running game in the corner](../assets/viewer-nes-live.png)
+
+## Options
+
+| Option | Default | What it does |
+|---|---|---|
+| `--decisions` | 150 | How many moves to play |
+| `--headed` | off | Open the viewer in your browser |
+| `--timeout` | 3 | Seconds before a slow Jev call is retried |
+| `--danger` | 0.7 | Wait instead of walking right when Jev's danger answer is at least this |
+| `--port` | 8765 | Port of the live viewer |
+| `--trace` | `traces/nes.jsonl` | Where the trace is written |
+
+## Troubleshooting
+
+- **A few slow decisions at the start:** the first Jev calls after a quiet period can take several seconds. The game waits, so play is not affected, and calls speed up to a few hundred milliseconds.
+- **jevbrief warns the ROM is not the release:** use `nova.nes` from v1.0.6a; other builds may use a different memory layout.
+- **Port in use:** pass `--port 8770`.
+- **Nova gets stuck:** she often stops at a tall wall around block 56, where the path continues below a thin ledge. Jev is not a game-playing model; the trace shows exactly what it was told at that point.
+
 ## Python
 
 ```python
