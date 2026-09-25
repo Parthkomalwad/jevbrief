@@ -41,3 +41,29 @@ kept = [f.label for f in b.kept]
 - **The ranking changed once, before the tasks were written:** URLs became the word `url`, and a short list of generic abbreviations was expanded (PR, repo, dir, config, msg, db). The three vocabulary misses above were not patched.
 - **Real agents often see several hundred tools.** Add Docker servers (filesystem, memory, puppeteer, slack) with `fetch_tools.py` for a harder set.
 - **Rerun after renaming the adapter to `tools`** (same ranking and question): raw 82% (98/120) at 13,442 tokens, jevbrief 88% (105/120) at 3,700.
+
+## Hybrid ranking
+
+Added in the next version: `rank="hybrid"` fuses the keyword ranking with an embedding ranking (fastembed's local `BAAI/bge-small-en-v1.5`), by reciprocal rank. It was run on the same 40 tasks with the same question and `top_k` 30. Only the ranking changed.
+
+| Arm | Accuracy | Median input tokens |
+|---|---|---|
+| raw (every tool) | 82% (99/120) | 13,442 |
+| jevbrief, keyword ranking (default) | 88% (105/120) | 3,685 |
+| **jevbrief, hybrid ranking** | **94% (113/120)** | 3,727 |
+
+Ranking recall on the 36 goals with a right tool, measured with no Jev call:
+
+| Ranking | Right tool kept (top 30) | Median rank of the right tool |
+|---|---|---|
+| keyword (BM25) | 33/36 | 2 |
+| embedding only | 32/36 | 2 |
+| hybrid | **35/36** | **1** |
+
+- **Embedding alone does worse than keywords.** It loses exact matches ("PR 88", URLs). Hybrid keeps both.
+- **Fixed by hybrid:** "show me the README" and "the newest published version". "Push a fix to docs/setup.md" also passed 3/3, because with better candidates Jev picked the right tool.
+- **Still missed:**
+  - "Open a bug report in acme/shop: checkout button does nothing on Safari". The words describing the bug pull toward other tools ("checkout" matches `git_checkout`), and `issue_write` ranks 72nd.
+  - "Merge pull request 88 once it's approved", as before.
+- **Worse by one run:** "Why did the last CI run on main fail?" passed 2 of 3 runs, down from 3 of 3.
+- **Speed:** about 40 ms per goal after the first call. The model downloads once (about 67 MB) and loads in a few seconds. Tool vectors are cached, so each later call embeds only the goal.

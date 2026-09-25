@@ -58,12 +58,12 @@ Act on `applied` and `reused`. Take no action on `low_confidence` and `error`.
 Choose which tool an agent should call next, from any mix of functions, MCP tools, LangChain, CrewAI, OpenAI, or Anthropic tools. Both return your own objects. See the [tools adapter](../adapters/tools.md).
 
 ```python
-select_tools(tools, goal, *, top_k=20, allow=None, deny=None, read_only=False) -> list
-pick_tool(tools, goal, *, top_k=20, allow=None, deny=None, read_only=False,
+select_tools(tools, goal, *, top_k=20, allow=None, deny=None, read_only=False, rank="bm25", embed=None) -> list
+pick_tool(tools, goal, *, top_k=20, allow=None, deny=None, read_only=False, rank="bm25", embed=None,
           trace="traces/tools.jsonl", min_confidence=0.5, **briefing) -> Pick   # .tool, .tools, .confidence, .decision
 ```
 
-`select_tools` ranks locally, with no Jev call. `pick_tool` also asks Jev, and `pick.tool` is `None` when Jev is unsure or no tool fits.
+`select_tools` ranks locally, with no Jev call. `rank="hybrid"` adds embedding similarity to keywords (`pip install "jevbrief[embed]"`, or pass your own `embed` function). `pick_tool` also asks Jev, and `pick.tool` is `None` when Jev is unsure or no tool fits.
 
 ## `Brief` (web)
 

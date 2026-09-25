@@ -75,7 +75,7 @@ Both arms use the same Jev and the same question, with three runs per task and m
 
 | Adapter | Data | Accuracy, raw → jevbrief | Input tokens, raw → jevbrief |
 |---|---|---|---|
-| tools | 105 real MCP tools, 40 hand-written goals | 82% → **88%** | 13,450 → **3,685** |
+| tools | 105 real MCP tools, 40 hand-written goals | 82% → **88%** (94% with hybrid ranking) | 13,450 → **3,685** |
 | ci | 16 real failed GitHub Actions runs | 88% → **100%** | 30,502 → **988** |
 | otel | 6 synthetic incidents | 83% → **100%** | 29,678 → **1,070** |
 | json | 9 synthetic queries | 89% → **100%** | 3,848 → **2,002** |
