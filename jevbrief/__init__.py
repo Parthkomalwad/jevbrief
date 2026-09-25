@@ -26,4 +26,4 @@ def __getattr__(name):
 
 __all__ = ["Adapter", "Boost", "Brief", "Briefing", "Decision", "Drop", "Extracted", "Fact", "FactChoice",
            "GroupRule", "OptionChoice", "QuestionPack", "check_progress", "loop_signals", "pick_tool", "select_tools", "Rule", "RuleSet", "get_adapter", "register_reasons"]
-__version__ = "0.5.0"
+__version__ = "0.6.0"
