@@ -1,0 +1,36 @@
+2026-09-25T09:12:00.0000000Z Current runner version: '2.336.0'
+2026-09-25T09:12:01.0000000Z ##[group]Run actions/checkout@v4
+2026-09-25T09:12:02.0000000Z Syncing repository: acme/shop
+2026-09-25T09:12:03.0000000Z ##[endgroup]
+2026-09-25T09:12:04.0000000Z ##[group]Run pip install -e .[dev]
+2026-09-25T09:12:05.0000000Z Successfully installed shop-0.1.0 pytest-8.3.2
+2026-09-25T09:12:06.0000000Z WARNING: pip is being invoked by an old script wrapper
+2026-09-25T09:12:07.0000000Z ##[endgroup]
+2026-09-25T09:12:08.0000000Z ##[group]Run ruff check .
+2026-09-25T09:12:09.0000000Z All checks passed! Found 0 errors.
+2026-09-25T09:12:10.0000000Z ##[endgroup]
+2026-09-25T09:12:11.0000000Z ##[group]Run pytest -q --junitxml=junit.xml
+2026-09-25T09:12:12.0000000Z collected 212 items
+2026-09-25T09:12:13.0000000Z tests/test_orders.py ........F....
+2026-09-25T09:12:14.0000000Z tests/test_refunds.py ..F
+2026-09-25T09:12:15.0000000Z =================================== FAILURES ===================================
+2026-09-25T09:12:16.0000000Z ____________________________ test_refund_in_euros _____________________________
+2026-09-25T09:12:17.0000000Z     def test_refund_in_euros(client):
+2026-09-25T09:12:18.0000000Z         order = make_order(currency='EUR')
+2026-09-25T09:12:19.0000000Z >       resp = client.post(f'/orders/{order.id}/refund')
+2026-09-25T09:12:20.0000000Z E       KeyError: 'currency_code'
+2026-09-25T09:12:21.0000000Z E       while reading order 8812 from the payments response
+2026-09-25T09:12:22.0000000Z shop/refunds.py:41: KeyError
+2026-09-25T09:12:23.0000000Z ____________________________ test_bulk_refund __________________________________
+2026-09-25T09:12:24.0000000Z E       KeyError: 'currency_code'
+2026-09-25T09:12:25.0000000Z shop/refunds.py:41: KeyError
+2026-09-25T09:12:26.0000000Z =========================== short test summary info ============================
+2026-09-25T09:12:27.0000000Z FAILED tests/test_refunds.py::test_refund_in_euros - KeyError: 'currency_code'
+2026-09-25T09:12:28.0000000Z FAILED tests/test_orders.py::test_bulk_refund - KeyError: 'currency_code'
+2026-09-25T09:12:29.0000000Z ======================== 2 failed, 210 passed in 14.02s ========================
+2026-09-25T09:12:30.0000000Z ##[error]Process completed with exit code 1.
+2026-09-25T09:12:31.0000000Z ##[group]Run actions/upload-artifact@v4
+2026-09-25T09:12:32.0000000Z Error: No files were found with the provided path: coverage.xml
+2026-09-25T09:12:33.0000000Z ##[endgroup]
+2026-09-25T09:12:34.0000000Z Post job cleanup.
+2026-09-25T09:12:35.0000000Z Cleaning up orphan processes

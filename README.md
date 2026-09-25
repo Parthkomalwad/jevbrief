@@ -9,7 +9,7 @@ Other tools show what Jev decided. jevbrief shows what Jev was told, what it was
 [![PyPI](https://img.shields.io/pypi/v/jevbrief?color=ff3fd2&label=pypi)](https://pypi.org/project/jevbrief)
 [![Python](https://img.shields.io/pypi/pyversions/jevbrief?color=111)](https://pypi.org/project/jevbrief)
 [![License: MIT](https://img.shields.io/badge/license-MIT-111)](https://github.com/parthkomalwad/jevbrief/blob/main/LICENSE)
-[![Adapters](https://img.shields.io/badge/adapters-web%20%C2%B7%20json%20%C2%B7%20otel%20%C2%B7%20nes-ff3fd2)](#adapters)
+[![Adapters](https://img.shields.io/badge/adapters-web%20%C2%B7%20json%20%C2%B7%20otel%20%C2%B7%20ci%20%C2%B7%20nes-ff3fd2)](#adapters)
 
 [Adapters](#adapters) &nbsp;·&nbsp; [Quick start](#quick-start) &nbsp;·&nbsp; [Game demo](#watch-jev-play-a-game) &nbsp;·&nbsp; [Python](#use-it-in-python) &nbsp;·&nbsp; [Viewer](#see-every-decision) &nbsp;·&nbsp; [How it works](#how-it-works) &nbsp;·&nbsp; [Benchmarks](#benchmarks) &nbsp;·&nbsp; [Build an adapter](#build-your-own-adapter) &nbsp;·&nbsp; [Contributing](#contributing)
 
@@ -80,13 +80,14 @@ One JSON line per decision: what was kept, what was dropped and why, and what Je
 
 ## Adapters
 
-![Adapter overview: web pages, JSON data, OpenTelemetry logs, and NES games are supported; Slack and Discord are planned; new sources are open for contribution](https://raw.githubusercontent.com/parthkomalwad/jevbrief/main/docs/assets/adapters.svg)
+![Adapter overview: web pages, JSON data, OpenTelemetry logs, CI logs, and NES games are supported; Slack and Discord are planned; new sources are open for contribution](https://raw.githubusercontent.com/parthkomalwad/jevbrief/main/docs/assets/adapters.svg)
 
 | Source | Status | Install | Jev answers | Docs |
 |---|---|---|---|---|
 | Web pages (Playwright) | Supported | `pip install "jevbrief[web]"` | Which element to click next | [web](https://github.com/parthkomalwad/jevbrief/blob/main/docs/adapters/web.md) |
 | JSON and JSON Lines, with a config file | Supported | `pip install jevbrief` | Which item fits, or which action to take | [json](https://github.com/parthkomalwad/jevbrief/blob/main/docs/adapters/json.md) |
 | OpenTelemetry logs (OTLP JSON) | Supported | `pip install jevbrief` | Which log group explains an incident | [otel](https://github.com/parthkomalwad/jevbrief/blob/main/docs/adapters/otel.md) |
+| CI logs (GitHub Actions) and JUnit XML | Supported | `pip install jevbrief` | Which error broke the build, and whether it looks flaky | [ci](https://github.com/parthkomalwad/jevbrief/blob/main/docs/adapters/ci.md) |
 | NES games (Nova the Squirrel, a free open-source platformer) | Supported | `pip install "jevbrief[nes]"` | Which move to make next | [nes](https://github.com/parthkomalwad/jevbrief/blob/main/docs/adapters/nes.md) |
 | Slack and Discord exports | Planned for v0.4 | `jevbrief[chat]` | Which message answers a question | [roadmap](https://github.com/parthkomalwad/jevbrief/blob/main/docs/roadmap-v0.2.md) |
 | Your source | Open | | | [Suggest it](https://github.com/parthkomalwad/jevbrief/issues/new?template=adapter_request.yml) or [build it](https://github.com/parthkomalwad/jevbrief/blob/main/ADAPTERS.md) |
@@ -94,7 +95,7 @@ One JSON line per decision: what was kept, what was dropped and why, and what Je
 ## Quick start
 
 ```bash
-pip install "jevbrief[all]"       # everything; or jevbrief (json and otel), jevbrief[web], or jevbrief[nes]
+pip install "jevbrief[all]"       # everything; or jevbrief (json, otel, and ci), jevbrief[web], or jevbrief[nes]
 playwright install chromium       # only for web pages
 ```
 
@@ -111,6 +112,23 @@ jevbrief ask logs.json --adapter otel --goal "Checkout requests started failing 
 ```text
 1447 log records -> 23 groups -> 5 sent to Jev
 likely cause: auth: failed to load token signing key: certificate expired   (confidence 1.00)
+```
+
+</details>
+
+<details>
+<summary><b>CI logs: find why the build failed</b></summary>
+<br>
+
+```bash
+gh run view <run id> --log-failed > run.log     # or the run's log archive zip, plus any JUnit XML
+jevbrief ask run.log --adapter ci --goal "CI is red on main" --view
+```
+
+```text
+27 log lines -> 7 failures -> 3 sent to Jev
+likely cause: Run pytest -q: E KeyError: 'currency_code'   (confidence 0.84)
+looks flaky: no (0.07)
 ```
 
 </details>
@@ -253,7 +271,7 @@ Every decision comes back in the same shape:
 | `low_confidence` | Below `min_confidence`, or Jev chose "none" | Take no action |
 | `error` | The API call failed | Take no action |
 
-Examples: [nes_live.py](https://github.com/parthkomalwad/jevbrief/blob/main/examples/nes_live.py) · [otel_incident.py](https://github.com/parthkomalwad/jevbrief/blob/main/examples/otel_incident.py) · [json_triage.py](https://github.com/parthkomalwad/jevbrief/blob/main/examples/json_triage.py) · [click_agent.py](https://github.com/parthkomalwad/jevbrief/blob/main/examples/click_agent.py)
+Examples: [nes_live.py](https://github.com/parthkomalwad/jevbrief/blob/main/examples/nes_live.py) · [otel_incident.py](https://github.com/parthkomalwad/jevbrief/blob/main/examples/otel_incident.py) · [ci_failure.py](https://github.com/parthkomalwad/jevbrief/blob/main/examples/ci_failure.py) · [json_triage.py](https://github.com/parthkomalwad/jevbrief/blob/main/examples/json_triage.py) · [click_agent.py](https://github.com/parthkomalwad/jevbrief/blob/main/examples/click_agent.py)
 
 ## See every decision
 
@@ -319,7 +337,7 @@ Core codes are shared by every adapter. Adapter codes are namespaced, so adapter
 | `duplicate` | Same kind and label as a higher-scored fact |
 | `low_score` | Scored below the keep threshold |
 | `budget` | Would have been kept, cut only to fit the token or option budget |
-| `<adapter>.<code>` | Adapter rules such as `web.not_interactive`, `json.closed`, `otel.healthcheck`, or `nes.far_ahead`, each described in the trace |
+| `<adapter>.<code>` | Adapter rules such as `web.not_interactive`, `json.closed`, `otel.healthcheck`, `ci.after_failure`, or `nes.far_ahead`, each described in the trace |
 
 Force-keep facts with `pins=["<fact id>"]`. Fact IDs are stable across decisions.
 
@@ -327,16 +345,17 @@ Force-keep facts with `pins=["<fact id>"]`. Fact IDs are stable across decisions
 
 ## Benchmarks
 
-![Benchmark chart: median input tokens, raw state against jevbrief, for web, JSON, and OpenTelemetry logs](https://raw.githubusercontent.com/parthkomalwad/jevbrief/main/docs/assets/benchmarks.svg)
+![Benchmark chart: median input tokens, raw state against jevbrief, for web, JSON, OpenTelemetry logs, CI logs, and an NES game](https://raw.githubusercontent.com/parthkomalwad/jevbrief/main/docs/assets/benchmarks.svg)
 
 | Adapter | Tasks | Raw accuracy | jevbrief accuracy | Raw tokens | jevbrief tokens |
 |---|---|---|---|---|---|
 | web | 10 pages | 100% (30/30) | 100% (30/30) | 5,400 | **2,344** (−57%) |
 | json | 9 queries | 89% (24/27) | **100% (27/27)** | 3,848 | **2,002** (−48%) |
 | otel | 6 incidents | 83% (15/18) | **100% (18/18)** | 29,678 | **1,070** (−96%) |
+| ci | 16 real failed runs | 88% (42/48) | **100% (48/48)** | 30,502 | **988** (−97%) |
 | nes | Nova the Squirrel 1-1, 100 moves | reached x 8.6 | **reached x 56.4** | 2,829 | **713** (−75%) |
 
-Same Jev (`jev-1.13.0`), same question, three runs per task, median input tokens. The raw arm sends what a naive integration would send: every element, every record, or the most recent log lines. The data is synthetic and built to resemble real sources, and some rules were designed while building these sets, so treat the numbers as illustrations rather than general results. For nes, accuracy is how far Nova got in 100 moves (median of 3 runs, level map 256 blocks); neither arm finished the level. Details: [web](https://github.com/parthkomalwad/jevbrief/blob/main/bench/results.md) · [json](https://github.com/parthkomalwad/jevbrief/blob/main/bench/json/results.md) · [otel](https://github.com/parthkomalwad/jevbrief/blob/main/bench/otel/results.md) · [nes](https://github.com/parthkomalwad/jevbrief/blob/main/bench/nes/results.md). Reproduce them with `jevbrief bench`.
+Same Jev (`jev-1.13.0`), same question, three runs per task, median input tokens. The raw arm sends what a naive integration would send: every element, every record, or the most recent log lines. The web, json, and otel data is synthetic and built to resemble real sources, and some rules were designed while building these sets, so treat the numbers as illustrations rather than general results. For nes, accuracy is how far Nova got in 100 moves (median of 3 runs, level map 256 blocks); neither arm finished the level. The ci set is 16 real failed GitHub Actions runs from 7 public repos, labeled by hand; on its second question, whether the failure looks flaky, jevbrief scored 67% against 93% for raw, which answered "flaky" every time (13 of 16 labels are flaky). Details: [web](https://github.com/parthkomalwad/jevbrief/blob/main/bench/results.md) · [json](https://github.com/parthkomalwad/jevbrief/blob/main/bench/json/results.md) · [otel](https://github.com/parthkomalwad/jevbrief/blob/main/bench/otel/results.md) · [ci](https://github.com/parthkomalwad/jevbrief/blob/main/bench/ci/results.md) · [nes](https://github.com/parthkomalwad/jevbrief/blob/main/bench/nes/results.md). Reproduce them with `jevbrief bench`.
 
 ## Build your own adapter
 
@@ -368,7 +387,7 @@ pytest -q
 ## Privacy
 
 - The API key is read from the environment or `.env` and is never printed, logged, or written to a trace.
-- Adapters send only what they list. The web adapter never sends form values, the json adapter sends only the configured fields and buckets, and the otel adapter sends message templates with IDs, emails, and addresses replaced.
+- Adapters send only what they list. The web adapter never sends form values, the json adapter sends only the configured fields and buckets, and the otel and ci adapters send message templates with IDs, emails, and addresses replaced.
 - Traces contain labels, source names, and, for web pages, a screenshot. Treat them like logs, and use `--no-screenshot` for private pages.
 
 ## License

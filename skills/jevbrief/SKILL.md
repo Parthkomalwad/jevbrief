@@ -12,6 +12,7 @@ jevbrief turns a source into small, relevant state for Jev. An **adapter** reads
 | Web pages (Playwright) | `web` | `pip install "jevbrief[web]"` then `playwright install chromium` | Which element to click next |
 | JSON / JSON Lines with a config | `json` | `pip install jevbrief` | Which item fits, or which fixed action to take |
 | OpenTelemetry logs (OTLP JSON) | `otel` | `pip install jevbrief` | Which log group explains an incident |
+| CI logs (GitHub Actions) and JUnit XML | `ci` | `pip install jevbrief` | Which error broke the build, and whether it looks flaky |
 | NES games (Nova the Squirrel; the user supplies the free ROM) | `nes` | `pip install "jevbrief[nes]"` | Which move to make next |
 
 Run `jevbrief adapters` to list what is installed. Other sources need a new adapter (see ADAPTERS.md in the repo).
@@ -26,6 +27,7 @@ Set `TYPESAFE_API_KEY` in the environment or in a `.env` file where the CLI runs
 jevbrief inspect <url-or-file> --goal "<goal>"                                         # web
 jevbrief inspect data.json --adapter json --config map.toml --goal "<goal>"            # json
 jevbrief inspect logs.json --adapter otel --goal "<what users see failing>"            # otel
+jevbrief inspect run.log   --adapter ci   --goal "CI is red on main"                     # ci: gh run view --log-failed, a log zip, or JUnit XML
 jevbrief ask ... --view                                                                # one real decision + replay
 jevbrief view --live traces/nes.jsonl                                                  # watch decisions as they arrive
 ```
