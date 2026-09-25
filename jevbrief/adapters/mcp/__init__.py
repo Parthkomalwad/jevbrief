@@ -1,6 +1,6 @@
 """The mcp adapter: MCP tool lists to tool facts, for choosing which tool an agent should call next.
 
-Reads the result of MCP `tools/list` (`{"tools": [...]}`), several of them keyed by server
+Reads the result of MCP `tools/list` (`{"tools": [...]}`), a folder of them, several of them keyed by server
 (`{"servers": {"github": {"tools": [...]}, ...}}` or `{"github": {"tools": [...]}}`), or a plain list of
 tool dicts, from a file or from Python. Standard library only.
 
@@ -39,14 +39,25 @@ TOOL_STOPWORDS = STOPWORDS | set("tool tools use used using can will get returns
                                  "optional required value values data".split())
 
 
+# Common abbreviations in goals, expanded to the words tool descriptions use. Deliberately short and generic.
+ABBREVIATIONS = {"pr": "pull request", "prs": "pull request", "repo": "repository", "repos": "repository",
+                 "dir": "directory", "config": "configuration", "msg": "message", "db": "database"}
+URL = re.compile(r"\b(?:https?://|www\.)\S+", re.I)
+
+
 def words(text: str) -> list[str]:
-    """Lowercase word stems, with snake_case, camelCase, and kebab-case split: `listPullRequests` -> list pull request."""
-    text = re.sub(r"([a-z0-9])([A-Z])", r"\1 \2", str(text))
+    """Lowercase word stems, with snake_case, camelCase, and kebab-case split: `listPullRequests` -> list pull request.
+    Any URL becomes the word `url`."""
+    text = URL.sub(" url ", str(text))
+    text = re.sub(r"([a-z0-9])([A-Z])", r"\1 \2", text)
     out = []
-    for w in re.findall(r"[a-z0-9]+", text.lower()):
-        w = w[:-3] + "y" if w.endswith("ies") and len(w) > 4 else w.rstrip("s") if len(w) > 3 else w
-        if w and w not in TOOL_STOPWORDS:
-            out.append(w)
+    for raw in re.findall(r"[a-z0-9]+", text.lower()):
+        for w in ABBREVIATIONS.get(raw, raw).split():
+            if w in TOOL_STOPWORDS:
+                continue
+            w = w[:-3] + "y" if w.endswith("ies") and len(w) > 4 else w.rstrip("s") if len(w) > 3 else w
+            if w and w not in TOOL_STOPWORDS:
+                out.append(w)
     return out
 
 
@@ -130,7 +141,9 @@ class McpAdapter(Adapter):
     def extract(self, source, **options) -> Extracted:
         data = source
         if isinstance(source, (str, Path)):
-            data = json.loads(Path(source).read_text(encoding="utf-8"))
+            path = Path(source)
+            files = sorted(path.glob("*.json")) if path.is_dir() else [path]  # a folder of tools/list dumps
+            data = [json.loads(f.read_text(encoding="utf-8")) for f in files]
         pairs = tool_lists(data)
         if not pairs:
             raise ValueError("no tools found. Expected an MCP tools/list result: {\"tools\": [...]}")

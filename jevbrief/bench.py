@@ -46,7 +46,8 @@ def _correct(task, d, b) -> bool:
         text = f"{chosen.label} {chosen.meta.get('template', '')}".lower() if chosen else ""
         want = task["expected_contains"]
         return any(w.lower() in text for w in ([want] if isinstance(want, str) else want))
-    return bool(chosen and chosen.label.lower() == task["expected_label"].lower())
+    want = task["expected_label"]  # a label, or a list of labels any of which is right
+    return bool(chosen and chosen.label.lower() in [w.lower() for w in ([want] if isinstance(want, str) else want)])
 
 
 def run(tasks_path: str, repeats: int = 3, out_dir: str = "traces/bench") -> str:

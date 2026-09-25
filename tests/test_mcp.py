@@ -47,6 +47,12 @@ def test_contract(tmp_path):
     check_adapter(McpAdapter(), path, goal="open a bug report about the login page")
 
 
+def test_folder_of_dumps(tmp_path):
+    for name, v in SERVERS["servers"].items():
+        (tmp_path / f"{name}.json").write_text(json.dumps({"server": name, **v}), encoding="utf-8")
+    assert McpAdapter().extract(tmp_path).source["servers"] == 3
+
+
 def test_input_shapes():
     one = {"tools": SERVERS["servers"]["time"]["tools"]}
     assert [s for s, _ in tool_lists(one)] == ["tools"]
@@ -60,6 +66,8 @@ def test_words_split_names():
     assert words("listPullRequests") == ["list", "pull", "request"]
     assert words("get_current_time") == ["current", "time"]  # "get" is a tool stopword
     assert words("repositories") == ["repository"]
+    assert words("summarize this page https://example.com/a?b=1") == ["summarize", "page", "url"]
+    assert words("review my PR") == ["review", "pull", "request"]
 
 
 def test_bm25_prefers_rare_matching_words():
