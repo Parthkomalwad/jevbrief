@@ -1,0 +1,252 @@
+[
+ {
+  "tool": "issue_read",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "issue_number": 473
+  },
+  "result": "Issue #473: invoices show the wrong total for EUR orders (opened by a customer)",
+  "error": null
+ },
+ {
+  "tool": "get_file_contents",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "path": "tests/test_invoice.py"
+  },
+  "result": "tests/test_invoice.py: 92 lines. def load_1(...): ...",
+  "error": null
+ },
+ {
+  "tool": "search_code",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "query": "tax rate repo:acme/shop"
+  },
+  "result": "4 results for 'tax rate' in src/",
+  "error": null
+ },
+ {
+  "tool": "issue_read",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "issue_number": 309
+  },
+  "result": "Issue #309: invoices show the wrong total for EUR orders (opened by a customer)",
+  "error": null
+ },
+ {
+  "tool": "list_commits",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "sha": "main"
+  },
+  "result": "24 commits; latest: 'fix tax rounding' by dev4",
+  "error": null
+ },
+ {
+  "tool": "get_file_contents",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "path": "docs/setup.md"
+  },
+  "result": "docs/setup.md: 374 lines. def load_5(...): ...",
+  "error": null
+ },
+ {
+  "tool": "issue_read",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "issue_number": 918
+  },
+  "result": "Issue #918: invoices show the wrong total for EUR orders (opened by a customer)",
+  "error": null
+ },
+ {
+  "tool": "get_file_contents",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "path": "src/cart.py"
+  },
+  "result": "src/cart.py: 238 lines. def load_7(...): ...",
+  "error": null
+ },
+ {
+  "tool": "search_code",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "query": "tax rate repo:acme/shop"
+  },
+  "result": "3 results for 'tax rate' in src/",
+  "error": null
+ },
+ {
+  "tool": "list_commits",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "sha": "main"
+  },
+  "result": "30 commits; latest: 'fix tax rounding' by dev9",
+  "error": null
+ },
+ {
+  "tool": "issue_read",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "issue_number": 188
+  },
+  "result": "Issue #188: invoices show the wrong total for EUR orders (opened by a customer)",
+  "error": null
+ },
+ {
+  "tool": "list_commits",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "sha": "main"
+  },
+  "result": "19 commits; latest: 'fix tax rounding' by dev11",
+  "error": null
+ },
+ {
+  "tool": "list_commits",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "sha": "main"
+  },
+  "result": "28 commits; latest: 'fix tax rounding' by dev12",
+  "error": null
+ },
+ {
+  "tool": "get_file_contents",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "path": "src/api/orders.py"
+  },
+  "result": "src/api/orders.py: 127 lines. def load_13(...): ...",
+  "error": null
+ },
+ {
+  "tool": "search_code",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "query": "currency repo:acme/shop"
+  },
+  "result": "3 results for 'currency' in src/",
+  "error": null
+ },
+ {
+  "tool": "list_commits",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "sha": "main"
+  },
+  "result": "30 commits; latest: 'fix tax rounding' by dev15",
+  "error": null
+ },
+ {
+  "tool": "search_code",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "query": "rounding repo:acme/shop"
+  },
+  "result": "8 results for 'rounding' in src/",
+  "error": null
+ },
+ {
+  "tool": "issue_read",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "issue_number": 259
+  },
+  "result": "Issue #259: invoices show the wrong total for EUR orders (opened by a customer)",
+  "error": null
+ },
+ {
+  "tool": "search_code",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "query": "currency repo:acme/shop"
+  },
+  "result": "1 results for 'currency' in src/",
+  "error": null
+ },
+ {
+  "tool": "get_file_contents",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "path": "src/api/orders.py"
+  },
+  "result": "src/api/orders.py: 262 lines. def load_19(...): ...",
+  "error": null
+ },
+ {
+  "tool": "search_code",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "query": "round_total repo:acme/shop"
+  },
+  "result": "0 results",
+  "error": null
+ },
+ {
+  "tool": "search_code",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "query": "roundTotal repo:acme/shop"
+  },
+  "result": "0 results",
+  "error": null
+ },
+ {
+  "tool": "search_code",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "query": "round total repo:acme/shop"
+  },
+  "result": "0 results",
+  "error": null
+ },
+ {
+  "tool": "search_code",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "query": "rounding total repo:acme/shop"
+  },
+  "result": "0 results",
+  "error": null
+ },
+ {
+  "tool": "search_code",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "query": "total_round repo:acme/shop"
+  },
+  "result": "0 results",
+  "error": null
+ }
+]

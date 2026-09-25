@@ -1,0 +1,226 @@
+[
+ {
+  "tool": "search_code",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "query": "currency repo:acme/shop"
+  },
+  "result": "5 results for 'currency' in src/",
+  "error": null
+ },
+ {
+  "tool": "get_file_contents",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "path": "tests/test_invoice.py"
+  },
+  "result": "tests/test_invoice.py: 293 lines. def load_1(...): ...",
+  "error": null
+ },
+ {
+  "tool": "search_code",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "query": "refund repo:acme/shop"
+  },
+  "result": "4 results for 'refund' in src/",
+  "error": null
+ },
+ {
+  "tool": "search_code",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "query": "tax rate repo:acme/shop"
+  },
+  "result": "4 results for 'tax rate' in src/",
+  "error": null
+ },
+ {
+  "tool": "issue_read",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "issue_number": 878
+  },
+  "result": "Issue #878: invoices show the wrong total for EUR orders (opened by a customer)",
+  "error": null
+ },
+ {
+  "tool": "issue_read",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "issue_number": 211
+  },
+  "result": "Issue #211: invoices show the wrong total for EUR orders (opened by a customer)",
+  "error": null
+ },
+ {
+  "tool": "list_commits",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "sha": "main"
+  },
+  "result": "24 commits; latest: 'fix tax rounding' by dev6",
+  "error": null
+ },
+ {
+  "tool": "search_code",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "query": "invoice total repo:acme/shop"
+  },
+  "result": "8 results for 'invoice total' in src/",
+  "error": null
+ },
+ {
+  "tool": "list_commits",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "sha": "main"
+  },
+  "result": "26 commits; latest: 'fix tax rounding' by dev8",
+  "error": null
+ },
+ {
+  "tool": "get_file_contents",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "path": "src/api/orders.py"
+  },
+  "result": "src/api/orders.py: 241 lines. def load_9(...): ...",
+  "error": null
+ },
+ {
+  "tool": "get_file_contents",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "path": "tests/test_invoice.py"
+  },
+  "result": "tests/test_invoice.py: 52 lines. def load_10(...): ...",
+  "error": null
+ },
+ {
+  "tool": "search_code",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "query": "tax rate repo:acme/shop"
+  },
+  "result": "1 results for 'tax rate' in src/",
+  "error": null
+ },
+ {
+  "tool": "get_file_contents",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "path": "src/api/orders.py"
+  },
+  "result": "src/api/orders.py: 241 lines. def load_12(...): ...",
+  "error": null
+ },
+ {
+  "tool": "list_commits",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "sha": "main"
+  },
+  "result": "27 commits; latest: 'fix tax rounding' by dev13",
+  "error": null
+ },
+ {
+  "tool": "issue_read",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "issue_number": 850
+  },
+  "result": "Issue #850: invoices show the wrong total for EUR orders (opened by a customer)",
+  "error": null
+ },
+ {
+  "tool": "get_file_contents",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "path": "src/cart.py"
+  },
+  "result": "src/cart.py: 124 lines. def load_15(...): ...",
+  "error": null
+ },
+ {
+  "tool": "issue_read",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "issue_number": 295
+  },
+  "result": "Issue #295: invoices show the wrong total for EUR orders (opened by a customer)",
+  "error": null
+ },
+ {
+  "tool": "search_code",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "query": "rounding repo:acme/shop"
+  },
+  "result": "8 results for 'rounding' in src/",
+  "error": null
+ },
+ {
+  "tool": "pull_request_read",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "pullNumber": 88,
+   "method": "get"
+  },
+  "result": "PR #88: Fix EUR rounding, 3 files changed",
+  "error": null
+ },
+ {
+  "tool": "pull_request_read",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "pullNumber": 88,
+   "method": "get_files"
+  },
+  "result": "src/invoice.py, src/cart.py, tests/test_invoice.py",
+  "error": null
+ },
+ {
+  "tool": "pull_request_read",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "pullNumber": 88,
+   "method": "get_diff"
+  },
+  "result": "src/invoice.py: -round(total) +round(total, 2)",
+  "error": null
+ },
+ {
+  "tool": "pull_request_read",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "pullNumber": 88,
+   "method": "get_comments"
+  },
+  "result": "2 comments: 'LGTM', 'add a test for JPY'",
+  "error": null
+ }
+]

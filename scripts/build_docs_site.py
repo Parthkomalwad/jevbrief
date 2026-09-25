@@ -27,6 +27,7 @@ PAGES = [
     ("python", "Python API", "Start", "docs/reference/python.md", "Briefing, Decision, select_tools, pick_tool"),
     ("cli", "Command line", "Start", "docs/reference/cli.md", "inspect, ask, view, bench, adapters"),
     ("tools", "tools", "Adapters", "docs/adapters/tools.md", "Which tool an agent calls next"),
+    ("steps", "steps", "Adapters", "docs/adapters/steps.md", "Is the agent stuck"),
     ("ci", "ci", "Adapters", "docs/adapters/ci.md", "Which error broke the build"),
     ("otel", "otel", "Adapters", "docs/adapters/otel.md", "Which log group explains an incident"),
     ("json", "json", "Adapters", "docs/adapters/json.md", "Which item fits the goal"),

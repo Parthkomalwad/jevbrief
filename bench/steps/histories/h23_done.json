@@ -1,0 +1,195 @@
+[
+ {
+  "tool": "issue_read",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "issue_number": 941
+  },
+  "result": "Issue #941: invoices show the wrong total for EUR orders (opened by a customer)",
+  "error": null
+ },
+ {
+  "tool": "list_commits",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "sha": "main"
+  },
+  "result": "7 commits; latest: 'fix tax rounding' by dev1",
+  "error": null
+ },
+ {
+  "tool": "get_file_contents",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "path": "docs/setup.md"
+  },
+  "result": "docs/setup.md: 140 lines. def load_2(...): ...",
+  "error": null
+ },
+ {
+  "tool": "issue_read",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "issue_number": 654
+  },
+  "result": "Issue #654: invoices show the wrong total for EUR orders (opened by a customer)",
+  "error": null
+ },
+ {
+  "tool": "list_commits",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "sha": "main"
+  },
+  "result": "11 commits; latest: 'fix tax rounding' by dev4",
+  "error": null
+ },
+ {
+  "tool": "issue_read",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "issue_number": 472
+  },
+  "result": "Issue #472: invoices show the wrong total for EUR orders (opened by a customer)",
+  "error": null
+ },
+ {
+  "tool": "list_commits",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "sha": "main"
+  },
+  "result": "5 commits; latest: 'fix tax rounding' by dev6",
+  "error": null
+ },
+ {
+  "tool": "list_commits",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "sha": "main"
+  },
+  "result": "12 commits; latest: 'fix tax rounding' by dev7",
+  "error": null
+ },
+ {
+  "tool": "list_commits",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "sha": "main"
+  },
+  "result": "6 commits; latest: 'fix tax rounding' by dev8",
+  "error": null
+ },
+ {
+  "tool": "list_commits",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "sha": "main"
+  },
+  "result": "6 commits; latest: 'fix tax rounding' by dev9",
+  "error": null
+ },
+ {
+  "tool": "list_commits",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "sha": "main"
+  },
+  "result": "7 commits; latest: 'fix tax rounding' by dev10",
+  "error": null
+ },
+ {
+  "tool": "get_file_contents",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "path": "README.md"
+  },
+  "result": "README.md: 139 lines. def load_11(...): ...",
+  "error": null
+ },
+ {
+  "tool": "get_file_contents",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "path": "src/payments/stripe.py"
+  },
+  "result": "src/payments/stripe.py: 225 lines. def load_12(...): ...",
+  "error": null
+ },
+ {
+  "tool": "issue_read",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "issue_number": 443
+  },
+  "result": "Issue #443: invoices show the wrong total for EUR orders (opened by a customer)",
+  "error": null
+ },
+ {
+  "tool": "get_file_contents",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "path": "README.md"
+  },
+  "result": "README.md: 393 lines. def load_14(...): ...",
+  "error": null
+ },
+ {
+  "tool": "issue_read",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "issue_number": 382
+  },
+  "result": "Issue #382: invoices show the wrong total for EUR orders (opened by a customer)",
+  "error": null
+ },
+ {
+  "tool": "issue_read",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "issue_number": 103
+  },
+  "result": "Issue #103: invoices show the wrong total for EUR orders (opened by a customer)",
+  "error": null
+ },
+ {
+  "tool": "push_files",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "branch": "fix-invoice",
+   "message": "Fix invoice total"
+  },
+  "result": "Pushed 2 files to fix-invoice",
+  "error": null
+ },
+ {
+  "tool": "create_pull_request",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "head": "fix-invoice",
+   "base": "main",
+   "title": "Fix invoice total"
+  },
+  "result": "Created pull request #93: Fix invoice total https://github.com/acme/shop/pull/93",
+  "error": null
+ }
+]

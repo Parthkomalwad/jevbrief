@@ -213,3 +213,60 @@ def test_real_mcp_sdk_tools():
                    annotations=types.ToolAnnotations(readOnlyHint=True))
     assert spec(t)["annotations"] == {"readOnlyHint": True} and spec(t)["schema"]["required"] == ["city"]
     assert select_tools([t, refund_order], "weather in Paris")[0] is t
+
+
+# --- Embedding and hybrid ranking ---
+
+CONCEPTS = {"bug": 0, "issue": 0, "problem": 0, "money": 1, "refund": 1, "weather": 2, "rain": 2}
+
+
+def fake_embed(texts):
+    """Vectors over three concepts, so "bug report" lands next to an issue tool with no shared word."""
+    out = []
+    for t in texts:
+        v = [0.0, 0.0, 0.0, 0.01]
+        for w in t.lower().replace(":", " ").split():
+            if w.rstrip("s") in CONCEPTS:
+                v[CONCEPTS[w.rstrip("s")]] += 1
+        out.append(v)
+    return out
+
+
+def test_embedding_ranking_finds_synonyms():
+    data = SERVERS["servers"]["github"]["tools"] + [refund_order]
+    assert select_tools(data, "file a bug report", top_k=3)[:1] == []  # keywords: no shared word, nothing kept
+    assert select_tools(data, "file a bug report", top_k=1, rank="embedding", embed=fake_embed)[0]["name"] == "create_issue"
+    assert select_tools(data, "the customer wants their money back", top_k=1, rank="hybrid",
+                        embed=fake_embed)[0] is refund_order
+
+
+def test_hybrid_keeps_keyword_precision_and_caches():
+    calls = []
+
+    def counting(texts):
+        calls.append(len(texts))
+        return fake_embed(texts)
+
+    data = SERVERS["servers"]["github"]["tools"] + SERVERS["servers"]["filesystem"]["tools"]
+    got = select_tools(data, "list pull requests", top_k=2, rank="hybrid", embed=counting)
+    assert got[0]["name"] == "list_pull_requests"  # keywords still decide when the embedding has no opinion
+    select_tools(data, "read a file", rank="hybrid", embed=counting)
+    assert calls == [1, 5, 1]  # goal, then the 5 tools once; the next call embeds only its goal
+    b = brief("list pull requests", data, rank="hybrid", embed=counting)
+    assert all("similarity" in f.meta for f in b.facts if "rank" in f.meta)
+
+
+def test_rank_option_is_checked(tmp_path):
+    with pytest.raises(ValueError, match="rank must be one of"):
+        brief("anything", rank="semantic")
+    (tmp_path / "hybrid.json").write_text('{"rank": "hybrid", "top_k": 5}', encoding="utf-8")
+    a = ToolsAdapter()
+    a.configure(tmp_path / "hybrid.json")
+    assert a.config == {"rank": "hybrid", "top_k": 5}
+
+
+def test_real_fastembed_finds_the_issue_tool():
+    pytest.importorskip("fastembed")
+    got = select_tools(SERVERS["servers"]["github"]["tools"] + [refund_order], "open a bug report about the login page",
+                       top_k=1, rank="embedding")
+    assert got[0]["name"] == "create_issue"

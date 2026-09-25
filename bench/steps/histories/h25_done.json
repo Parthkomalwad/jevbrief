@@ -1,0 +1,112 @@
+[
+ {
+  "tool": "search_code",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "query": "refund repo:acme/shop"
+  },
+  "result": "6 results for 'refund' in src/",
+  "error": null
+ },
+ {
+  "tool": "list_commits",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "sha": "main"
+  },
+  "result": "16 commits; latest: 'fix tax rounding' by dev1",
+  "error": null
+ },
+ {
+  "tool": "get_file_contents",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "path": "tests/test_invoice.py"
+  },
+  "result": "tests/test_invoice.py: 240 lines. def load_2(...): ...",
+  "error": null
+ },
+ {
+  "tool": "search_code",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "query": "invoice total repo:acme/shop"
+  },
+  "result": "7 results for 'invoice total' in src/",
+  "error": null
+ },
+ {
+  "tool": "get_file_contents",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "path": "src/invoice.py"
+  },
+  "result": "src/invoice.py: 286 lines. def load_4(...): ...",
+  "error": null
+ },
+ {
+  "tool": "issue_read",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "issue_number": 264
+  },
+  "result": "Issue #264: invoices show the wrong total for EUR orders (opened by a customer)",
+  "error": null
+ },
+ {
+  "tool": "list_commits",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "sha": "main"
+  },
+  "result": "8 commits; latest: 'fix tax rounding' by dev6",
+  "error": null
+ },
+ {
+  "tool": "get_file_contents",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "path": "README.md"
+  },
+  "result": "README.md: 359 lines. def load_7(...): ...",
+  "error": null
+ },
+ {
+  "tool": "get_file_contents",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "path": "tests/test_invoice.py"
+  },
+  "result": "tests/test_invoice.py: 89 lines. def load_8(...): ...",
+  "error": null
+ },
+ {
+  "tool": "list_commits",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "sha": "main"
+  },
+  "result": "20 commits; latest: 'fix tax rounding' by dev9",
+  "error": null
+ },
+ {
+  "tool": "search_code",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "query": "def compute_total repo:acme/shop"
+  },
+  "result": "1 result: src/invoice.py:88 def compute_total(items, currency):",
+  "error": null
+ }
+]

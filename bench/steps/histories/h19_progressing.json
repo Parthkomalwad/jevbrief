@@ -1,0 +1,94 @@
+[
+ {
+  "tool": "issue_read",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "issue_number": 571
+  },
+  "result": "Issue #571: invoices show the wrong total for EUR orders (opened by a customer)",
+  "error": null
+ },
+ {
+  "tool": "issue_read",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "issue_number": 423
+  },
+  "result": "Issue #423: invoices show the wrong total for EUR orders (opened by a customer)",
+  "error": null
+ },
+ {
+  "tool": "search_code",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "query": "tax rate repo:acme/shop"
+  },
+  "result": "9 results for 'tax rate' in src/",
+  "error": null
+ },
+ {
+  "tool": "search_code",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "query": "rounding repo:acme/shop"
+  },
+  "result": "4 results for 'rounding' in src/",
+  "error": null
+ },
+ {
+  "tool": "get_file_contents",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "path": "src/models.py"
+  },
+  "result": "src/models.py: 400 lines. def load_4(...): ...",
+  "error": null
+ },
+ {
+  "tool": "issue_read",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "issue_number": 156
+  },
+  "result": "Issue #156: invoices show the wrong total for EUR orders (opened by a customer)",
+  "error": null
+ },
+ {
+  "tool": "create_pull_request",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "head": "fix-invoice",
+   "base": "main"
+  },
+  "result": null,
+  "error": "502 Bad Gateway"
+ },
+ {
+  "tool": "create_pull_request",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "head": "fix-invoice",
+   "base": "main"
+  },
+  "result": "Created pull request #92: Fix invoice total",
+  "error": null
+ },
+ {
+  "tool": "request_copilot_review",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "pullNumber": 92
+  },
+  "result": "Review requested",
+  "error": null
+ }
+]

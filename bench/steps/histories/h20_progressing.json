@@ -1,0 +1,102 @@
+[
+ {
+  "tool": "search_code",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "query": "tax rate repo:acme/shop"
+  },
+  "result": "7 results for 'tax rate' in src/",
+  "error": null
+ },
+ {
+  "tool": "get_file_contents",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "path": "README.md"
+  },
+  "result": "README.md: 156 lines. def load_1(...): ...",
+  "error": null
+ },
+ {
+  "tool": "list_commits",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "sha": "main"
+  },
+  "result": "16 commits; latest: 'fix tax rounding' by dev2",
+  "error": null
+ },
+ {
+  "tool": "search_code",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "query": "tax rate repo:acme/shop"
+  },
+  "result": "1 results for 'tax rate' in src/",
+  "error": null
+ },
+ {
+  "tool": "issue_read",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "issue_number": 835
+  },
+  "result": "Issue #835: invoices show the wrong total for EUR orders (opened by a customer)",
+  "error": null
+ },
+ {
+  "tool": "list_commits",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "sha": "main"
+  },
+  "result": "16 commits; latest: 'fix tax rounding' by dev5",
+  "error": null
+ },
+ {
+  "tool": "get_file_contents",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "path": "src/refunds.py"
+  },
+  "result": "src/refunds.py: 210 lines",
+  "error": null
+ },
+ {
+  "tool": "get_file_contents",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "path": "src/payments/stripe.py"
+  },
+  "result": "src/payments/stripe.py: 340 lines",
+  "error": null
+ },
+ {
+  "tool": "get_file_contents",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "path": "src/models.py"
+  },
+  "result": "src/models.py: 512 lines",
+  "error": null
+ },
+ {
+  "tool": "get_file_contents",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "path": "tests/test_refunds.py"
+  },
+  "result": "tests/test_refunds.py: 180 lines",
+  "error": null
+ }
+]

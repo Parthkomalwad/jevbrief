@@ -32,13 +32,13 @@ from ...briefing import Briefing, Decision, Extracted
 from ...facts import Fact, clean_label, fact_id, register_reasons
 from ...questions import FactChoice
 from ...rules import CORE_RULES, STOPWORDS, Drop, GroupRule, Rule, RuleSet
-from .. import Adapter
+from .. import Adapter, need
 
 NOT_RELEVANT = "tools.not_relevant"
 DENIED = "tools.denied"
 WRITES = "tools.writes"
 REASONS = {
-    NOT_RELEVANT: "Ranked below the top tools for this goal by keyword relevance (BM25)",
+    NOT_RELEVANT: "Ranked below the top tools for this goal (keyword or embedding relevance)",
     DENIED: "Excluded by the allow or deny list",
     WRITES: "Changes or deletes data, and only read-only tools are allowed",
     "tools.relevant": "Kept: among the top tools for this goal by keyword relevance",
@@ -85,6 +85,60 @@ def bm25(docs: list[list[str]], query: list[str], k1: float = 1.2, b: float = 0.
                 s += idf * tf[q] * (k1 + 1) / (tf[q] + k1 * (1 - b + b * len(d) / (avg or 1)))
         scores.append(s)
     return scores
+
+
+# --- Embedding ranking (optional) --------------------------------------------------------------------
+
+RANKS = ("bm25", "embedding", "hybrid")
+DEFAULT_MODEL = "BAAI/bge-small-en-v1.5"
+RRF_K = 60  # reciprocal rank fusion constant: how much the top of each ranking dominates
+
+
+class Embedder:
+    """Turns texts into vectors, caching every tool text it has seen. Wraps either your own function
+    (`embed(list_of_texts) -> list_of_vectors`, used for both tools and goals) or fastembed's local model."""
+
+    def __init__(self, fn=None, model: str = DEFAULT_MODEL):
+        self.fn, self.model, self._fast, self._cache = fn, model, None, {}
+
+    def _fastembed(self):
+        if self._fast is None:
+            need("embed", "fastembed")
+            from fastembed import TextEmbedding
+
+            self._fast = TextEmbedding(self.model)
+        return self._fast
+
+    def documents(self, texts: list[str]) -> list[list[float]]:
+        todo = [t for t in dict.fromkeys(texts) if t not in self._cache]
+        if todo:
+            vecs = self.fn(todo) if self.fn else self._fastembed().passage_embed(todo)
+            self._cache.update(zip(todo, (list(map(float, v)) for v in vecs)))
+        return [self._cache[t] for t in texts]
+
+    def query(self, text: str) -> list[float]:
+        if self.fn:
+            return list(map(float, self.fn([text])[0]))
+        return list(map(float, next(iter(self._fastembed().query_embed([text])))))
+
+
+_EMBEDDERS: dict = {}  # one per function or model, so the cache survives across calls
+
+
+def embedder(embed=None) -> Embedder:
+    """An Embedder for `embed`: None (fastembed's default model), a model name, a function, or an Embedder."""
+    if isinstance(embed, Embedder):
+        return embed
+    key = embed if callable(embed) else (embed or DEFAULT_MODEL)
+    if key not in _EMBEDDERS:
+        _EMBEDDERS[key] = Embedder(embed) if callable(embed) else Embedder(model=key)
+    return _EMBEDDERS[key]
+
+
+def cosine(a: list[float], b: list[float]) -> float:
+    dot = sum(x * y for x, y in zip(a, b))
+    na, nb = math.sqrt(sum(x * x for x in a)), math.sqrt(sum(y * y for y in b))
+    return dot / (na * nb) if na and nb else 0.0
 
 
 # --- Reading any tool object -------------------------------------------------------------------------
@@ -216,6 +270,9 @@ class ToolsAdapter(Adapter):
     allow      tool names, "server.tool", or "server.*" to consider; everything else is dropped
     deny       tool names, "server.tool", or "server.*" to drop
     read_only  True drops tools that declare they change or delete data
+    rank       "bm25" (default, keywords), "embedding" (meaning), or "hybrid" (both, fused by rank)
+    embed      for embedding and hybrid: your function `texts -> vectors`, or a fastembed model name.
+               Default: fastembed's BAAI/bge-small-en-v1.5, a local model (`pip install "jevbrief[embed]"`)
     """
 
     name = "tools"
@@ -229,6 +286,9 @@ class ToolsAdapter(Adapter):
         self.config: dict = dict(config or {})
 
     def configure(self, config) -> None:
+        """A dict, or a path to a JSON file of options."""
+        if isinstance(config, (str, Path)):
+            config = json.loads(Path(config).read_text(encoding="utf-8"))
         self.config = dict(config or {})
 
     def extract(self, source, **options) -> Extracted:
@@ -256,6 +316,7 @@ class ToolsAdapter(Adapter):
                               label=clean_label(s["name"]), attrs=attrs,
                               meta={"order": i, "server": s["server"], "words": words(text),
                                     "name_words": words(s["name"]), "description": s["description"],
+                                    "embed_text": f"{' '.join(words(s['name']))}: {short(s['description'], 300)}",
                                     "params": list(props), "obj": obj}))
         return Extracted(facts, {"name": Path(source).name if isinstance(source, (str, Path)) else "tools",
                                  "tools": len(facts), "servers": len({s["server"] for s, _ in pairs if s["server"]})})
@@ -264,6 +325,9 @@ class ToolsAdapter(Adapter):
         c = self.config
         hidden, disabled, unlabeled, goal_match, _ = CORE_RULES
         top_k = int(c.get("top_k", TOP_K))
+        mode = c.get("rank", "bm25")
+        if mode not in RANKS:
+            raise ValueError(f"rank must be one of {', '.join(RANKS)}")
 
         def listed(f, patterns):
             server = f.meta.get("server")
@@ -271,14 +335,35 @@ class ToolsAdapter(Adapter):
                        for p in patterns)
 
         def rank(facts, ctx):
-            """Score every remaining tool against the goal. Words in the tool name count double."""
+            """Order every remaining tool by relevance to the goal: keywords (BM25, words in the tool name count
+            double), meaning (embedding cosine similarity), or both fused by reciprocal rank."""
             live = [f for f in facts if f.kept]
+            if not live:
+                return
             scores = bm25([f.meta["words"] + f.meta["name_words"] for f in live], words(ctx.goal))
-            order = sorted(range(len(live)), key=lambda i: (-scores[i], live[i].meta["order"]))
+            by_kw = sorted(range(len(live)), key=lambda i: (-scores[i], live[i].meta["order"]))
+            sims = [0.0] * len(live)
+            if mode != "bm25":
+                e = embedder(c.get("embed"))
+                q = e.query(ctx.goal)
+                sims = [cosine(q, v) for v in e.documents([f.meta["embed_text"] for f in live])]
+            by_sim = sorted(range(len(live)), key=lambda i: (-sims[i], live[i].meta["order"]))
+            if mode == "bm25":
+                order = by_kw
+            elif mode == "embedding":
+                order = by_sim
+            else:
+                fused = [0.0] * len(live)
+                for ranking in (by_kw, by_sim):
+                    for r, i in enumerate(ranking):
+                        fused[i] += 1 / (RRF_K + r + 1)
+                order = sorted(range(len(live)), key=lambda i: (-fused[i], live[i].meta["order"]))
             for r, i in enumerate(order):
                 f = live[i]
                 f.meta["rank"], f.meta["relevance"] = r + 1, round(scores[i], 3)
-                if r >= top_k or scores[i] <= 0:
+                if mode != "bm25":
+                    f.meta["similarity"] = round(sims[i], 3)
+                if r >= top_k or (mode == "bm25" and scores[i] <= 0):  # no shared word only matters for keywords
                     f.drop(NOT_RELEVANT)
                 else:
                     f.score = round(f.score + 0.5 * (1 - r / top_k), 4)
@@ -329,8 +414,9 @@ class Pick:
     decision: Decision | None = field(default=None, repr=False)
 
 
-def _brief(tools, goal, top_k, allow, deny, read_only, **briefing) -> Briefing:
-    config = {"top_k": top_k, "allow": allow or [], "deny": deny or [], "read_only": read_only}
+def _brief(tools, goal, top_k, allow, deny, read_only, rank="bm25", embed=None, **briefing) -> Briefing:
+    config = {"top_k": top_k, "allow": allow or [], "deny": deny or [], "read_only": read_only,
+              "rank": rank, "embed": embed}
     b = Briefing(ToolsAdapter(config), goal, **briefing)
     b.extract(tools)
     return b
@@ -340,22 +426,26 @@ def _ranked(b: Briefing) -> list:
     return [f.meta["obj"] for f in sorted(b.kept, key=lambda f: f.meta["rank"])]
 
 
-def select_tools(tools, goal: str, *, top_k: int = 20, allow=None, deny=None, read_only: bool = False) -> list:
+def select_tools(tools, goal: str, *, top_k: int = 20, allow=None, deny=None, read_only: bool = False,
+                 rank: str = "bm25", embed=None) -> list:
     """The `top_k` tools most relevant to `goal`, most relevant first, as the same objects you passed in.
 
-    Local and free: no Jev call and no API key. Pass the result straight to your framework, for example
+    No Jev call and no API key. Pass the result straight to your framework, for example
     `llm.bind_tools(select_tools(tools, goal))` or `Agent(tools=select_tools(tools, task))`.
+    `rank="hybrid"` adds meaning to keywords, so "bug report" finds an issue tool; see `ToolsAdapter`.
     """
-    return _ranked(_brief(tools, goal, top_k, allow, deny, read_only, trace=None, trace_level="off"))
+    return _ranked(_brief(tools, goal, top_k, allow, deny, read_only, rank, embed, trace=None, trace_level="off"))
 
 
 def pick_tool(tools, goal: str, *, top_k: int = 20, allow=None, deny=None, read_only: bool = False,
-              trace: str | None = "traces/tools.jsonl", min_confidence: float = 0.5, **briefing) -> Pick:
+              rank: str = "bm25", embed=None, trace: str | None = "traces/tools.jsonl",
+              min_confidence: float = 0.5, **briefing) -> Pick:
     """Rank the tools, then ask Jev which one to call next. Returns a `Pick` with your own objects.
 
     `pick.tool` is None when Jev is below `min_confidence` or says no tool fits; use `pick.tools`, the
     narrowed list, as the fallback. Every call is written to `trace` for `jevbrief view`.
     """
-    b = _brief(tools, goal, top_k, allow, deny, read_only, trace=trace, min_confidence=min_confidence, **briefing)
+    b = _brief(tools, goal, top_k, allow, deny, read_only, rank, embed, trace=trace, min_confidence=min_confidence,
+               **briefing)
     d = b.decide()
     return Pick(d.fact.meta["obj"] if d.fact else None, _ranked(b), d.confidence, d)

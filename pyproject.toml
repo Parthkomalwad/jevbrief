@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "jevbrief"
-version = "0.4.0"
+version = "0.5.0"
 description = "Clean, traceable state briefings for TypeSafe's Jev model, from any source: web pages, JSON, and more."
 readme = "README.md"
 requires-python = ">=3.10"
@@ -26,7 +26,9 @@ otel = ["tomli>=2; python_version < '3.11'"]
 nes = ["cynes>=0.1.2"]
 ci = []
 tools = []
-all = ["jevbrief[web,json,otel,nes,ci,tools]"]
+embed = ["fastembed>=0.5"]
+steps = []
+all = ["jevbrief[web,json,otel,nes,ci,tools,embed,steps]"]
 dev = ["jevbrief[all]", "pytest>=8"]
 
 [project.entry-points."jevbrief.adapters"]
@@ -36,6 +38,7 @@ otel = "jevbrief.adapters.otel:OtelAdapter"
 nes = "jevbrief.adapters.nes:NesAdapter"
 ci = "jevbrief.adapters.ci:CiAdapter"
 tools = "jevbrief.adapters.tools:ToolsAdapter"
+steps = "jevbrief.adapters.steps:StepsAdapter"
 
 [project.scripts]
 jevbrief = "jevbrief.cli:main"

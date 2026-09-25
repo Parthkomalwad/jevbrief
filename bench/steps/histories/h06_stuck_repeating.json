@@ -1,0 +1,172 @@
+[
+ {
+  "tool": "search_code",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "query": "currency repo:acme/shop"
+  },
+  "result": "5 results for 'currency' in src/",
+  "error": null
+ },
+ {
+  "tool": "search_code",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "query": "refund repo:acme/shop"
+  },
+  "result": "9 results for 'refund' in src/",
+  "error": null
+ },
+ {
+  "tool": "search_code",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "query": "rounding repo:acme/shop"
+  },
+  "result": "6 results for 'rounding' in src/",
+  "error": null
+ },
+ {
+  "tool": "issue_read",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "issue_number": 657
+  },
+  "result": "Issue #657: invoices show the wrong total for EUR orders (opened by a customer)",
+  "error": null
+ },
+ {
+  "tool": "list_commits",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "sha": "main"
+  },
+  "result": "9 commits; latest: 'fix tax rounding' by dev4",
+  "error": null
+ },
+ {
+  "tool": "get_file_contents",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "path": "src/payments/stripe.py"
+  },
+  "result": "src/payments/stripe.py: 274 lines. def load_5(...): ...",
+  "error": null
+ },
+ {
+  "tool": "list_commits",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "sha": "main"
+  },
+  "result": "21 commits; latest: 'fix tax rounding' by dev6",
+  "error": null
+ },
+ {
+  "tool": "search_code",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "query": "rounding repo:acme/shop"
+  },
+  "result": "3 results for 'rounding' in src/",
+  "error": null
+ },
+ {
+  "tool": "get_file_contents",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "path": "docs/setup.md"
+  },
+  "result": "docs/setup.md: 133 lines. def load_8(...): ...",
+  "error": null
+ },
+ {
+  "tool": "get_file_contents",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "path": "src/api/orders.py"
+  },
+  "result": "src/api/orders.py: 128 lines. def load_9(...): ...",
+  "error": null
+ },
+ {
+  "tool": "search_code",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "query": "tax rate repo:acme/shop"
+  },
+  "result": "2 results for 'tax rate' in src/",
+  "error": null
+ },
+ {
+  "tool": "get_file_contents",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "path": "src/payments/stripe.py"
+  },
+  "result": "src/payments/stripe.py: 389 lines. def load_11(...): ...",
+  "error": null
+ },
+ {
+  "tool": "search_code",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "query": "EUR bug repo:acme/shop"
+  },
+  "result": "0 results",
+  "error": null
+ },
+ {
+  "tool": "search_code",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "query": "euro total repo:acme/shop"
+  },
+  "result": "0 results",
+  "error": null
+ },
+ {
+  "tool": "search_code",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "query": "currency total bug repo:acme/shop"
+  },
+  "result": "0 results",
+  "error": null
+ },
+ {
+  "tool": "search_code",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "query": "wrong total EUR repo:acme/shop"
+  },
+  "result": "0 results",
+  "error": null
+ },
+ {
+  "tool": "search_code",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "query": "invoice EUR repo:acme/shop"
+  },
+  "result": "0 results",
+  "error": null
+ }
+]

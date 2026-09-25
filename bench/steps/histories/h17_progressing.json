@@ -1,0 +1,172 @@
+[
+ {
+  "tool": "list_commits",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "sha": "main"
+  },
+  "result": "15 commits; latest: 'fix tax rounding' by dev0",
+  "error": null
+ },
+ {
+  "tool": "list_commits",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "sha": "main"
+  },
+  "result": "18 commits; latest: 'fix tax rounding' by dev1",
+  "error": null
+ },
+ {
+  "tool": "search_code",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "query": "rounding repo:acme/shop"
+  },
+  "result": "4 results for 'rounding' in src/",
+  "error": null
+ },
+ {
+  "tool": "search_code",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "query": "currency repo:acme/shop"
+  },
+  "result": "3 results for 'currency' in src/",
+  "error": null
+ },
+ {
+  "tool": "issue_read",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "issue_number": 669
+  },
+  "result": "Issue #669: invoices show the wrong total for EUR orders (opened by a customer)",
+  "error": null
+ },
+ {
+  "tool": "get_file_contents",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "path": "src/payments/stripe.py"
+  },
+  "result": "src/payments/stripe.py: 162 lines. def load_5(...): ...",
+  "error": null
+ },
+ {
+  "tool": "issue_read",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "issue_number": 364
+  },
+  "result": "Issue #364: invoices show the wrong total for EUR orders (opened by a customer)",
+  "error": null
+ },
+ {
+  "tool": "search_code",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "query": "currency repo:acme/shop"
+  },
+  "result": "7 results for 'currency' in src/",
+  "error": null
+ },
+ {
+  "tool": "list_commits",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "sha": "main"
+  },
+  "result": "18 commits; latest: 'fix tax rounding' by dev8",
+  "error": null
+ },
+ {
+  "tool": "search_code",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "query": "tax rate repo:acme/shop"
+  },
+  "result": "5 results for 'tax rate' in src/",
+  "error": null
+ },
+ {
+  "tool": "issue_read",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "issue_number": 870
+  },
+  "result": "Issue #870: invoices show the wrong total for EUR orders (opened by a customer)",
+  "error": null
+ },
+ {
+  "tool": "get_file_contents",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "path": "docs/setup.md"
+  },
+  "result": "docs/setup.md: 182 lines. def load_11(...): ...",
+  "error": null
+ },
+ {
+  "tool": "issue_read",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "issue_number": 228
+  },
+  "result": "Issue #228: invoices show the wrong total for EUR orders (opened by a customer)",
+  "error": null
+ },
+ {
+  "tool": "actions_get",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "run_id": 601
+  },
+  "result": "failure: 7 tests failed",
+  "error": null
+ },
+ {
+  "tool": "actions_get",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "run_id": 602
+  },
+  "result": "failure: 4 tests failed",
+  "error": null
+ },
+ {
+  "tool": "actions_get",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "run_id": 603
+  },
+  "result": "failure: 2 tests failed",
+  "error": null
+ },
+ {
+  "tool": "actions_get",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "run_id": 604
+  },
+  "result": "failure: 1 test failed: test_eur_rounding",
+  "error": null
+ }
+]

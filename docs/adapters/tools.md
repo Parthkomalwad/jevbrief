@@ -8,7 +8,7 @@ Chooses which tool an agent should call next. Works with your own functions, MCP
 | **Jev answers** | Which tool to call next, or that no tool fits |
 | **Install** | `pip install jevbrief`. No extra dependencies, and no framework is imported. |
 | **Main API** | `select_tools()` (ranking only, local and free) and `pick_tool()` (also asks Jev) |
-| **Benchmark** | 105 real MCP tools, 40 hand-written goals: 88% against 82%, with 73% fewer tokens |
+| **Benchmark** | 105 real MCP tools, 40 hand-written goals: 94% with hybrid ranking (88% with keywords) against 82%, with 72% fewer tokens |
 
 ## Quick start
 
@@ -125,6 +125,21 @@ Ranking runs locally, before Jev sees anything:
 2. **Keep:** the top `top_k` tools go to Jev (default 20 in `select_tools` and `pick_tool`, 30 in the adapter).
 3. **Drop:** the rest, and any tool with no word in common with the goal, are dropped as `tools.not_relevant`, with each tool's rank and score in the trace.
 
+**Hybrid ranking** adds meaning to keywords, so "show me the README" finds `get_file_contents`:
+
+```python
+select_tools(tools, goal, rank="hybrid")                  # local model: pip install "jevbrief[embed]"
+select_tools(tools, goal, rank="hybrid", embed=my_embed)  # or your own: texts -> vectors (OpenAI, Voyage, ...)
+```
+
+| `rank` | How tools are ordered | Right tool kept (36 goals) | Needs |
+|---|---|---|---|
+| `"bm25"` (default) | Keywords | 33 | Nothing |
+| `"embedding"` | Meaning: cosine similarity of embeddings | 32 | A model |
+| `"hybrid"` | Both, fused by reciprocal rank | **35** | A model |
+
+The default model is fastembed's `BAAI/bge-small-en-v1.5`. It runs locally with no PyTorch, downloads once (about 67 MB), and embeds a goal in milliseconds. Tool vectors are cached, so an agent calling every step embeds only the goal.
+
 Two small normalizations run first:
 - Any URL becomes the word `url`, which matches tools such as `fetch`.
 - A short list of generic abbreviations is expanded: PR, repo, dir, config, msg, db.
@@ -163,11 +178,11 @@ The core `duplicate` rule is off for this adapter. The same name on two servers 
 
 ## Options
 
-`select_tools(tools, goal, top_k=20, allow=None, deny=None, read_only=False)`
+`select_tools(tools, goal, top_k=20, allow=None, deny=None, read_only=False, rank="bm25", embed=None)`
 
-`pick_tool(tools, goal, top_k=20, allow=None, deny=None, read_only=False, trace="traces/tools.jsonl", min_confidence=0.5)`. It also accepts any `Briefing` argument, such as `jev`, `model`, or `trace_level`.
+`pick_tool(tools, goal, top_k=20, allow=None, deny=None, read_only=False, rank="bm25", embed=None, trace="traces/tools.jsonl", min_confidence=0.5)`. It also accepts any `Briefing` argument, such as `jev`, `model`, or `trace_level`.
 
-With the adapter directly: `ToolsAdapter({"top_k": 30, "allow": [...], "deny": [...], "read_only": True})`.
+With the adapter directly: `ToolsAdapter({"top_k": 30, "allow": [...], "deny": [...], "read_only": True, "rank": "hybrid"})`, or a path to a JSON file of the same options.
 
 ## Question pack
 
@@ -182,13 +197,15 @@ With the adapter directly: `ToolsAdapter({"top_k": 30, "allow": [...], "deny": [
 | Arm | Accuracy | Median input tokens |
 |---|---|---|
 | raw (every tool, full description) | 82% | 13,450 |
-| jevbrief (top 30) | 88% | 3,685 (−73%) |
+| jevbrief, keyword ranking (default) | 88% | 3,685 (−73%) |
+| jevbrief, hybrid ranking | **94%** | 3,727 (−72%) |
 
 Recollect the tool lists with `python bench/mcp/fetch_tools.py`. It runs each server over stdio. Docker servers need Docker, and `GITHUB_MCP_BIN` runs GitHub's server from its release binary.
 
 ## Limits
 
-- **Synonyms:** keyword ranking misses them. In the benchmark it dropped the right tool for "open a bug report" (the tool says issue), "show me the README" (file contents), and "the newest published version" (release). If this matters for your tools, add those words to the tool descriptions. Optional embedding ranking is planned.
+- **Synonyms:** keyword ranking misses them. In the benchmark it dropped the right tool for "show me the README" (file contents) and "the newest published version" (release). Use `rank="hybrid"`, which fixed both.
+- **Goals full of detail:** "Open a bug report: checkout button does nothing on Safari" still fails in every mode, because the bug's own words ("checkout") point at other tools. When you can, pass the action as the goal ("open a bug report"), not the whole message.
 - **Similar tools on many servers:** GitHub `list_issues` and Jira `search_issues` compete. Use `allow` or `deny` per step, or name the product in the goal.
 - **One step at a time:** it does not remember earlier calls, so it will not notice an agent calling the same tool again and again.
 - **Tested frameworks:**

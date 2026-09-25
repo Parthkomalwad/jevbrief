@@ -1,0 +1,112 @@
+[
+ {
+  "tool": "get_file_contents",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "path": "tests/test_invoice.py"
+  },
+  "result": "tests/test_invoice.py: 94 lines. def load_0(...): ...",
+  "error": null
+ },
+ {
+  "tool": "list_commits",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "sha": "main"
+  },
+  "result": "27 commits; latest: 'fix tax rounding' by dev1",
+  "error": null
+ },
+ {
+  "tool": "list_commits",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "sha": "main"
+  },
+  "result": "29 commits; latest: 'fix tax rounding' by dev2",
+  "error": null
+ },
+ {
+  "tool": "list_commits",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "sha": "main"
+  },
+  "result": "30 commits; latest: 'fix tax rounding' by dev3",
+  "error": null
+ },
+ {
+  "tool": "issue_read",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "issue_number": 540
+  },
+  "result": "Issue #540: invoices show the wrong total for EUR orders (opened by a customer)",
+  "error": null
+ },
+ {
+  "tool": "list_commits",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "sha": "main"
+  },
+  "result": "9 commits; latest: 'fix tax rounding' by dev5",
+  "error": null
+ },
+ {
+  "tool": "list_commits",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "sha": "main"
+  },
+  "result": "10 commits; latest: 'fix tax rounding' by dev6",
+  "error": null
+ },
+ {
+  "tool": "get_file_contents",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "path": "README.md"
+  },
+  "result": "README.md: 394 lines. def load_7(...): ...",
+  "error": null
+ },
+ {
+  "tool": "actions_get",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "run_id": 611
+  },
+  "result": "failure: 1 test failed",
+  "error": null
+ },
+ {
+  "tool": "push_files",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "branch": "fix-invoice"
+  },
+  "result": "Pushed 1 file",
+  "error": null
+ },
+ {
+  "tool": "actions_get",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "run_id": 612
+  },
+  "result": "success: all 214 tests passed",
+  "error": null
+ }
+]

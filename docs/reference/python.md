@@ -1,7 +1,7 @@
 # Python API
 
 ```python
-from jevbrief import Briefing, Decision, select_tools, pick_tool, Brief
+from jevbrief import Briefing, Decision, select_tools, pick_tool, check_progress, loop_signals, Brief
 ```
 
 ## `Briefing`
@@ -58,12 +58,22 @@ Act on `applied` and `reused`. Take no action on `low_confidence` and `error`.
 Choose which tool an agent should call next, from any mix of functions, MCP tools, LangChain, CrewAI, OpenAI, or Anthropic tools. Both return your own objects. See the [tools adapter](../adapters/tools.md).
 
 ```python
-select_tools(tools, goal, *, top_k=20, allow=None, deny=None, read_only=False) -> list
-pick_tool(tools, goal, *, top_k=20, allow=None, deny=None, read_only=False,
+select_tools(tools, goal, *, top_k=20, allow=None, deny=None, read_only=False, rank="bm25", embed=None) -> list
+pick_tool(tools, goal, *, top_k=20, allow=None, deny=None, read_only=False, rank="bm25", embed=None,
           trace="traces/tools.jsonl", min_confidence=0.5, **briefing) -> Pick   # .tool, .tools, .confidence, .decision
 ```
 
-`select_tools` ranks locally, with no Jev call. `pick_tool` also asks Jev, and `pick.tool` is `None` when Jev is unsure or no tool fits.
+`select_tools` ranks locally, with no Jev call. `rank="hybrid"` adds embedding similarity to keywords (`pip install "jevbrief[embed]"`, or pass your own `embed` function). `pick_tool` also asks Jev, and `pick.tool` is `None` when Jev is unsure or no tool fits.
+
+## `check_progress` and `loop_signals`
+
+Notice when an agent is stuck, from any step history: step dicts, OpenAI, Anthropic, or LangChain messages, or a jevbrief trace. See the [steps adapter](../adapters/steps.md).
+
+```python
+loop_signals(history, window=20) -> list[str]                   # counted loop patterns, no Jev call
+check_progress(history, goal, *, window=20, recent=6, trace="traces/progress.jsonl",
+               min_confidence=0.5, **briefing) -> Progress     # .stuck, .verdict, .advice, .probability, .signals
+```
 
 ## `Brief` (web)
 

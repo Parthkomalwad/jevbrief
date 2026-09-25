@@ -1,0 +1,222 @@
+[
+ {
+  "tool": "issue_read",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "issue_number": 713
+  },
+  "result": "Issue #713: invoices show the wrong total for EUR orders (opened by a customer)",
+  "error": null
+ },
+ {
+  "tool": "search_code",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "query": "refund repo:acme/shop"
+  },
+  "result": "1 results for 'refund' in src/",
+  "error": null
+ },
+ {
+  "tool": "list_commits",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "sha": "main"
+  },
+  "result": "10 commits; latest: 'fix tax rounding' by dev2",
+  "error": null
+ },
+ {
+  "tool": "search_code",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "query": "refund repo:acme/shop"
+  },
+  "result": "8 results for 'refund' in src/",
+  "error": null
+ },
+ {
+  "tool": "get_file_contents",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "path": "README.md"
+  },
+  "result": "README.md: 226 lines. def load_4(...): ...",
+  "error": null
+ },
+ {
+  "tool": "issue_read",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "issue_number": 660
+  },
+  "result": "Issue #660: invoices show the wrong total for EUR orders (opened by a customer)",
+  "error": null
+ },
+ {
+  "tool": "issue_read",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "issue_number": 350
+  },
+  "result": "Issue #350: invoices show the wrong total for EUR orders (opened by a customer)",
+  "error": null
+ },
+ {
+  "tool": "get_file_contents",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "path": "README.md"
+  },
+  "result": "README.md: 151 lines. def load_7(...): ...",
+  "error": null
+ },
+ {
+  "tool": "issue_read",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "issue_number": 287
+  },
+  "result": "Issue #287: invoices show the wrong total for EUR orders (opened by a customer)",
+  "error": null
+ },
+ {
+  "tool": "get_file_contents",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "path": "src/payments/stripe.py"
+  },
+  "result": "src/payments/stripe.py: 235 lines. def load_9(...): ...",
+  "error": null
+ },
+ {
+  "tool": "get_file_contents",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "path": "docs/setup.md"
+  },
+  "result": "docs/setup.md: 182 lines. def load_10(...): ...",
+  "error": null
+ },
+ {
+  "tool": "search_code",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "query": "invoice total repo:acme/shop"
+  },
+  "result": "9 results for 'invoice total' in src/",
+  "error": null
+ },
+ {
+  "tool": "get_file_contents",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "path": "src/cart.py"
+  },
+  "result": "src/cart.py: 175 lines. def load_12(...): ...",
+  "error": null
+ },
+ {
+  "tool": "get_file_contents",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "path": "src/api/orders.py"
+  },
+  "result": "src/api/orders.py: 244 lines. def load_13(...): ...",
+  "error": null
+ },
+ {
+  "tool": "get_file_contents",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "path": "src/models.py"
+  },
+  "result": "src/models.py: 51 lines. def load_14(...): ...",
+  "error": null
+ },
+ {
+  "tool": "issue_read",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "issue_number": 411
+  },
+  "result": "Issue #411: invoices show the wrong total for EUR orders (opened by a customer)",
+  "error": null
+ },
+ {
+  "tool": "search_code",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "query": "currency repo:acme/shop"
+  },
+  "result": "9 results for 'currency' in src/",
+  "error": null
+ },
+ {
+  "tool": "search_code",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "query": "rounding repo:acme/shop"
+  },
+  "result": "7 results for 'rounding' in src/",
+  "error": null
+ },
+ {
+  "tool": "actions_run_trigger",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "workflow_id": "ci.yml"
+  },
+  "result": null,
+  "error": "403 Resource not accessible by integration"
+ },
+ {
+  "tool": "actions_run_trigger",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "workflow_id": "ci.yml"
+  },
+  "result": null,
+  "error": "403 Resource not accessible by integration"
+ },
+ {
+  "tool": "actions_run_trigger",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "workflow_id": "ci.yml"
+  },
+  "result": null,
+  "error": "403 Resource not accessible by integration"
+ },
+ {
+  "tool": "actions_run_trigger",
+  "args": {
+   "owner": "acme",
+   "repo": "shop",
+   "workflow_id": "ci.yml"
+  },
+  "result": null,
+  "error": "403 Resource not accessible by integration"
+ }
+]

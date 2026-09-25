@@ -1,0 +1,176 @@
+[
+  {
+    "adapter": "steps",
+    "source": "histories/h00_stuck_repeating.json",
+    "goal": "Find where invoice totals are rounded",
+    "expected_choice": "stuck_repeating"
+  },
+  {
+    "adapter": "steps",
+    "source": "histories/h01_stuck_repeating.json",
+    "goal": "Find where invoice totals are rounded",
+    "expected_choice": "stuck_repeating"
+  },
+  {
+    "adapter": "steps",
+    "source": "histories/h02_stuck_repeating.json",
+    "goal": "Find where invoice totals are rounded",
+    "expected_choice": "stuck_repeating"
+  },
+  {
+    "adapter": "steps",
+    "source": "histories/h03_stuck_repeating.json",
+    "goal": "Check that the working tree is clean before committing",
+    "expected_choice": "stuck_repeating"
+  },
+  {
+    "adapter": "steps",
+    "source": "histories/h04_stuck_repeating.json",
+    "goal": "Check that the working tree is clean before committing",
+    "expected_choice": "stuck_repeating"
+  },
+  {
+    "adapter": "steps",
+    "source": "histories/h05_stuck_repeating.json",
+    "goal": "Find the code that computes the invoice total",
+    "expected_choice": "stuck_repeating"
+  },
+  {
+    "adapter": "steps",
+    "source": "histories/h06_stuck_repeating.json",
+    "goal": "Find the code that computes the invoice total",
+    "expected_choice": "stuck_repeating"
+  },
+  {
+    "adapter": "steps",
+    "source": "histories/h07_stuck_repeating.json",
+    "goal": "Read the payments module",
+    "expected_choice": "stuck_repeating"
+  },
+  {
+    "adapter": "steps",
+    "source": "histories/h08_stuck_failing.json",
+    "goal": "Open a pull request with the invoice fix",
+    "expected_choice": "stuck_failing"
+  },
+  {
+    "adapter": "steps",
+    "source": "histories/h09_stuck_failing.json",
+    "goal": "Open a pull request with the invoice fix",
+    "expected_choice": "stuck_failing"
+  },
+  {
+    "adapter": "steps",
+    "source": "histories/h10_stuck_failing.json",
+    "goal": "Open a pull request with the invoice fix",
+    "expected_choice": "stuck_failing"
+  },
+  {
+    "adapter": "steps",
+    "source": "histories/h11_stuck_failing.json",
+    "goal": "Re-run the failed CI workflow",
+    "expected_choice": "stuck_failing"
+  },
+  {
+    "adapter": "steps",
+    "source": "histories/h12_stuck_failing.json",
+    "goal": "Push the fix to the fix-invoice branch",
+    "expected_choice": "stuck_failing"
+  },
+  {
+    "adapter": "steps",
+    "source": "histories/h13_stuck_failing.json",
+    "goal": "Merge pull request 91",
+    "expected_choice": [
+      "stuck_failing",
+      "stuck_repeating"
+    ]
+  },
+  {
+    "adapter": "steps",
+    "source": "histories/h14_stuck_failing.json",
+    "goal": "Read the invoice module from the release branch",
+    "expected_choice": "stuck_failing"
+  },
+  {
+    "adapter": "steps",
+    "source": "histories/h15_progressing.json",
+    "goal": "List every open bug in acme/shop",
+    "expected_choice": "progressing"
+  },
+  {
+    "adapter": "steps",
+    "source": "histories/h16_progressing.json",
+    "goal": "Wait for the deploy workflow to finish",
+    "expected_choice": "progressing"
+  },
+  {
+    "adapter": "steps",
+    "source": "histories/h17_progressing.json",
+    "goal": "Get the tests passing on the fix-invoice branch",
+    "expected_choice": "progressing"
+  },
+  {
+    "adapter": "steps",
+    "source": "histories/h18_progressing.json",
+    "goal": "Find the code that computes the invoice total",
+    "expected_choice": "progressing"
+  },
+  {
+    "adapter": "steps",
+    "source": "histories/h19_progressing.json",
+    "goal": "Open a pull request with the invoice fix",
+    "expected_choice": "progressing"
+  },
+  {
+    "adapter": "steps",
+    "source": "histories/h20_progressing.json",
+    "goal": "Understand how refunds are computed",
+    "expected_choice": "progressing"
+  },
+  {
+    "adapter": "steps",
+    "source": "histories/h21_progressing.json",
+    "goal": "Review the changes in pull request 88",
+    "expected_choice": "progressing"
+  },
+  {
+    "adapter": "steps",
+    "source": "histories/h22_progressing.json",
+    "goal": "Summarize every issue that mentions refunds",
+    "expected_choice": "progressing"
+  },
+  {
+    "adapter": "steps",
+    "source": "histories/h23_done.json",
+    "goal": "Open a pull request with the invoice fix",
+    "expected_choice": "done"
+  },
+  {
+    "adapter": "steps",
+    "source": "histories/h24_done.json",
+    "goal": "Get the tests passing on the fix-invoice branch",
+    "expected_choice": "done"
+  },
+  {
+    "adapter": "steps",
+    "source": "histories/h25_done.json",
+    "goal": "Find which file defines compute_total",
+    "expected_choice": "done"
+  },
+  {
+    "adapter": "steps",
+    "source": "histories/h26_done.json",
+    "goal": "Find which file defines compute_total",
+    "expected_choice": [
+      "done",
+      "stuck_repeating"
+    ]
+  },
+  {
+    "adapter": "steps",
+    "source": "histories/h27_done.json",
+    "goal": "Label issue 1203 as a bug",
+    "expected_choice": "done"
+  }
+]

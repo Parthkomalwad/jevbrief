@@ -39,8 +39,9 @@ def _correct(task, d, b) -> bool:
     if "flaky" in task and not any(k in task for k in LABELS[:3]):  # scored on the pack's `flaky` Noul
         p = (d.answers.get("flaky") or {}).get("noul")
         return p is not None and (p > 0.5) == task["flaky"]
-    if "expected_choice" in task:
-        return d.choice == task["expected_choice"]
+    if "expected_choice" in task:  # an option, or a list of options any of which is right
+        want = task["expected_choice"]
+        return d.choice in ([want] if isinstance(want, str) else want)
     chosen = next((f for f in b.facts if f.id == d.choice), None)
     if "expected_contains" in task:  # a string, or a list of strings any of which is right
         text = f"{chosen.label} {chosen.meta.get('template', '')}".lower() if chosen else ""
