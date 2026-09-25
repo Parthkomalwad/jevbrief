@@ -17,9 +17,13 @@ def __getattr__(name):
         from .adapters import tools
 
         return getattr(tools, name)
+    if name in ("check_progress", "loop_signals"):  # the steps shortcuts, also lazy
+        from .adapters import steps
+
+        return getattr(steps, name)
     raise AttributeError(name)
 
 
 __all__ = ["Adapter", "Boost", "Brief", "Briefing", "Decision", "Drop", "Extracted", "Fact", "FactChoice",
-           "GroupRule", "OptionChoice", "QuestionPack", "pick_tool", "select_tools", "Rule", "RuleSet", "get_adapter", "register_reasons"]
+           "GroupRule", "OptionChoice", "QuestionPack", "check_progress", "loop_signals", "pick_tool", "select_tools", "Rule", "RuleSet", "get_adapter", "register_reasons"]
 __version__ = "0.4.0"

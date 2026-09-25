@@ -27,7 +27,8 @@ nes = ["cynes>=0.1.2"]
 ci = []
 tools = []
 embed = ["fastembed>=0.5"]
-all = ["jevbrief[web,json,otel,nes,ci,tools,embed]"]
+steps = []
+all = ["jevbrief[web,json,otel,nes,ci,tools,embed,steps]"]
 dev = ["jevbrief[all]", "pytest>=8"]
 
 [project.entry-points."jevbrief.adapters"]
@@ -37,6 +38,7 @@ otel = "jevbrief.adapters.otel:OtelAdapter"
 nes = "jevbrief.adapters.nes:NesAdapter"
 ci = "jevbrief.adapters.ci:CiAdapter"
 tools = "jevbrief.adapters.tools:ToolsAdapter"
+steps = "jevbrief.adapters.steps:StepsAdapter"
 
 [project.scripts]
 jevbrief = "jevbrief.cli:main"
