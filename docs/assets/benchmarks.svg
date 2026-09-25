@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 440" width="960" height="440" font-family="Consolas, 'Cascadia Mono', ui-monospace, monospace">
-  <title>Benchmarks: median input tokens and accuracy, raw state versus jevbrief. Web 5,400 vs 2,344 tokens, both 100% accurate. JSON 3,848 vs 2,002 tokens, 89% vs 100%. OpenTelemetry logs 29,678 vs 1,070 tokens, 83% vs 100%. NES game 2,829 vs 713 tokens, reaching block 8.6 vs 56.4. CI logs 30,502 vs 988 tokens, 88% vs 100%.</title>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 510" width="960" height="510" font-family="Consolas, 'Cascadia Mono', ui-monospace, monospace">
+  <title>Benchmarks: median input tokens and accuracy, raw state versus jevbrief. Web 5,400 vs 2,344 tokens, both 100% accurate. JSON 3,848 vs 2,002 tokens, 89% vs 100%. OpenTelemetry logs 29,678 vs 1,070 tokens, 83% vs 100%. NES game 2,829 vs 713 tokens, reaching block 8.6 vs 56.4. CI logs 30,502 vs 988 tokens, 88% vs 100%. MCP tools 13,450 vs 3,685 tokens, 82% vs 88%.</title>
   <style>
     .bg { fill: #ffffff; }
     .t { fill: #111; font-size: 14px; font-weight: 700; }
@@ -15,13 +15,13 @@
       .raw { fill: #4a4a52; } .grid { stroke: #2c2c31; } .acc { fill: #5fd18e; } .accbad { fill: #ff7a73; }
     }
     .grow { transform-box: fill-box; transform-origin: left; animation: grow 7s infinite cubic-bezier(.2,.8,.2,1); }
-    .d2 { animation-delay: .3s; } .d3 { animation-delay: .6s; } .d4 { animation-delay: .9s; } .d5 { animation-delay: 1.2s; }
+    .d2 { animation-delay: .3s; } .d3 { animation-delay: .6s; } .d4 { animation-delay: .9s; } .d5 { animation-delay: 1.2s; } .d6 { animation-delay: 1.5s; }
     @keyframes grow { 0% { transform: scaleX(0); } 20%, 90% { transform: scaleX(1); } 100% { transform: scaleX(0); } }
   </style>
-  <rect class="bg" width="960" height="440"/>
+  <rect class="bg" width="960" height="510"/>
   <text class="t" x="20" y="28">Median input tokens per decision (bars to scale)</text>
   <text class="m" x="20" y="46">same Jev (jev-1.13.0), same question, 3 runs per task · grey = raw state · pink = jevbrief</text>
-  <line class="grid" x1="170" y1="60" x2="170" y2="410"/>
+  <line class="grid" x1="170" y1="60" x2="170" y2="480"/>
 
   <!-- scale: 30,000 tokens = 620 px -->
   <text class="t" x="20" y="92">web</text><text class="m" x="20" y="108">10 pages</text>
@@ -44,5 +44,9 @@
   <rect class="raw grow d5" x="170" y="356" width="630" height="16"/><text class="v" x="808" y="369">30,502 · <tspan class="accbad">88%</tspan></text>
   <rect class="jb grow d5" x="170" y="376" width="20" height="16"/><text class="v" x="198" y="389">988 · <tspan class="acc">100%</tspan> · −97%</text>
 
-  <text class="m" x="20" y="430">web, json, otel: synthetic data built to look like real sources. nes: one real level. ci: 16 real GitHub Actions failures. See bench/*/results.md.</text>
+  <text class="t" x="20" y="442">mcp tools</text><text class="m" x="20" y="458">105 real tools</text>
+  <rect class="raw grow d6" x="170" y="426" width="278" height="16"/><text class="v" x="456" y="439">13,450 · <tspan class="accbad">82%</tspan></text>
+  <rect class="jb grow d6" x="170" y="446" width="76" height="16"/><text class="v" x="254" y="459">3,685 · <tspan class="acc">88%</tspan> · −73%</text>
+
+  <text class="m" x="20" y="500">web, json, otel: synthetic data. nes: one real level. ci: 16 real CI failures. mcp: 105 real tools, hand-written goals.</text>
 </svg>
