@@ -13,6 +13,7 @@ jevbrief turns a source into small, relevant state for Jev. An **adapter** reads
 | JSON / JSON Lines with a config | `json` | `pip install jevbrief` | Which item fits, or which fixed action to take |
 | OpenTelemetry logs (OTLP JSON) | `otel` | `pip install jevbrief` | Which log group explains an incident |
 | CI logs (GitHub Actions) and JUnit XML | `ci` | `pip install jevbrief` | Which error broke the build, and whether it looks flaky |
+| Agent step history: dicts, chat messages, LangGraph, or a jevbrief trace | `steps` | `pip install jevbrief` | Is the agent stuck. In code: `loop_signals(history)` or `check_progress(history, goal)` |
 | Agent tools: functions, MCP, LangChain, CrewAI, OpenAI, Anthropic | `tools` | `pip install jevbrief` | Which tool the agent should call next. In code: `select_tools(tools, goal)` or `pick_tool(tools, goal)` |
 | NES games (Nova the Squirrel; the user supplies the free ROM) | `nes` | `pip install "jevbrief[nes]"` | Which move to make next |
 

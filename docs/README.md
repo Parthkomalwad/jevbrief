@@ -41,6 +41,7 @@ Every adapter page has the same sections: at a glance, quick start, Python, inpu
 | Adapter | Reads | Jev answers | Install |
 |---|---|---|---|
 | [tools](adapters/tools.md) | Your functions, MCP servers, LangChain, CrewAI, OpenAI, and Anthropic tools | Which tool the agent should call next | `jevbrief` |
+| [steps](adapters/steps.md) | An agent's step history: dicts, chat messages, LangGraph, or a jevbrief trace | Is the agent stuck, making progress, or done | `jevbrief` |
 | [ci](adapters/ci.md) | GitHub Actions logs and JUnit XML | Which error broke the build, and whether it looks flaky | `jevbrief` |
 | [otel](adapters/otel.md) | OpenTelemetry logs (OTLP JSON) | Which log group explains an incident | `jevbrief` |
 | [json](adapters/json.md) | Any JSON or JSON Lines, with a config file | Which item fits, or which action to take | `jevbrief` |
@@ -58,6 +59,7 @@ Every adapter page has the same sections: at a glance, quick start, Python, inpu
 
 The full table and method are in [How it works](concepts.md#benchmarks). Results and caveats per adapter:
 - [tools](../bench/mcp/results.md)
+- [steps](../bench/steps/results.md)
 - [ci](../bench/ci/results.md)
 - [otel](../bench/otel/results.md)
 - [json](../bench/json/results.md)

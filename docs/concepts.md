@@ -53,7 +53,7 @@ Each adapter picks the view that fits its source:
 
 | View | Used by | Shows |
 |---|---|---|
-| Table | json, ci, tools | Every fact with its score and reason |
+| Table | json, ci, tools, steps | Every fact with its score and reason |
 | Timeline | otel | One bar per log group, with the incident start marked |
 | Snapshot | web | The page with Jev's pick outlined |
 | Live | nes | Decisions as they are written, next to the running game (`jevbrief view --live`) |
@@ -72,6 +72,7 @@ Each adapter is measured the same way:
 | Adapter | Data | Tasks | Raw accuracy | jevbrief accuracy | Raw tokens | jevbrief tokens |
 |---|---|---|---|---|---|---|
 | [tools](../bench/mcp/results.md) | Real MCP tools, hand-written goals | 40 goals over 105 tools | 82% | **88%**, 94% hybrid | 13,450 | **3,685** (−73%) |
+| [steps](../bench/steps/results.md) | Synthetic | 28 agent histories | 89% | **93%** | 2,506 | **1,266** (−49%) |
 | [ci](../bench/ci/results.md) | Real | 16 failed GitHub Actions runs | 88% | **100%** | 30,502 | **988** (−97%) |
 | [otel](../bench/otel/results.md) | Synthetic | 6 incidents | 83% | **100%** | 29,678 | **1,070** (−96%) |
 | [json](../bench/json/results.md) | Synthetic | 9 queries | 89% | **100%** | 3,848 | **2,002** (−48%) |
