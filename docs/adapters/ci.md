@@ -2,19 +2,23 @@
 
 Finds the error that most likely broke a CI build, and says whether the failure looks flaky. Standard library only.
 
-It reads any mix of:
-- the log archive of a GitHub Actions run ("Download log archive", or `GET /repos/{owner}/{repo}/actions/runs/{id}/logs`), zipped or unzipped
-- `gh run view <id> --log` or `--log-failed` output
-- plain log files (the file name becomes the job name)
-- JUnit XML reports (pytest `--junitxml`, Maven Surefire, Jest, gotestsum, ...)
+| | |
+|---|---|
+| **Reads** | GitHub Actions log archives, `gh run view --log` output, plain logs, and JUnit XML |
+| **Jev answers** | Which error broke the build, and whether the failure looks flaky |
+| **Install** | `pip install jevbrief`. Standard library only. |
+| **Main API** | `Briefing(CiAdapter(), goal)` and `--adapter ci` |
+| **Benchmark** | 16 real failed runs: 100% against 88% on the cause, with 97% fewer tokens |
 
-Pass a file, a zip, a directory, or a list of paths.
+## Quick start
 
 ```bash
 gh run view 123456 --log-failed > run.log
 jevbrief inspect run.log --adapter ci --goal "CI is red on main"
 jevbrief ask     run.log --adapter ci --goal "CI is red on main" --view
 ```
+
+## Python
 
 ```python
 from jevbrief import Briefing
@@ -27,6 +31,16 @@ if decision.fact:
     print("likely cause:", decision.fact.label, decision.fact.attrs)
 print("looks flaky:", decision.answers["flaky"]["noul"] > 0.5)
 ```
+
+## Input
+
+It reads any mix of:
+- the log archive of a GitHub Actions run ("Download log archive", or `GET /repos/{owner}/{repo}/actions/runs/{id}/logs`), zipped or unzipped
+- `gh run view <id> --log` or `--log-failed` output
+- plain log files (the file name becomes the job name)
+- JUnit XML reports (pytest `--junitxml`, Maven Surefire, Jest, gotestsum, ...)
+
+Pass a file, a zip, a directory, or a list of paths.
 
 ## What Jev sees
 
@@ -50,7 +64,7 @@ Not counted as errors, even when they contain the word:
 - every line of a pytest `E` block after the first, since the block is one error
 - lines like `0 errors`, `error_handler`, or `continue-on-error`
 
-## Rules
+## Reason codes
 
 | Rule | Effect |
 |---|---|
@@ -96,3 +110,9 @@ To rebuild the set:
 3. Review the labels in `bench/ci/tasks.json`.
 
 The logs are not committed, because GitHub deletes them after about 90 days.
+
+## Limits
+
+- **Flaky is the weaker answer.** On the benchmark, jevbrief scored 67% on it, against 93% for sending the raw log. The raw arm said "flaky" every time, and 13 of the 16 labels were flaky.
+- **GitHub Actions only.** Steps are found from GitHub's `##[group]` and `##[error]` markers. Other CI systems still work as plain logs, but without step names or a failing step.
+- **Error detection is pattern-based.** It is tuned on Python and JavaScript test output. Unusual tools may need `min_severity = "warning"`.

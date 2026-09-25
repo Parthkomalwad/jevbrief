@@ -2,10 +2,22 @@
 
 Finds the log group that most likely explains an incident, from OpenTelemetry logs. Reads an OTLP JSON export (`{"resourceLogs": [...]}`) or a JSON Lines file of them, which is what the OpenTelemetry Collector's [`file` exporter](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/exporter/fileexporter) writes. Standard library only.
 
+| | |
+|---|---|
+| **Reads** | OpenTelemetry logs: an OTLP JSON export or JSON Lines of them |
+| **Jev answers** | Which log group most likely shows the cause of an incident |
+| **Install** | `pip install jevbrief`. Standard library only. |
+| **Main API** | `Briefing(OtelAdapter(), goal)` and `--adapter otel` |
+| **Benchmark** | 6 synthetic incidents: 100% against 83%, with 96% fewer tokens |
+
+## Quick start
+
 ```bash
 jevbrief inspect logs.json --adapter otel --goal "Checkout requests started failing with 500 errors"
 jevbrief ask     logs.json --adapter otel --goal "Checkout requests started failing with 500 errors" --view
 ```
+
+## Python
 
 ```python
 from jevbrief import Briefing
@@ -34,7 +46,7 @@ Each group is sent with values computed in code, because Jev is weak at counting
 
 **Incident start:** the first error from a group that was not already erroring at the start of the export, so a background error that has been failing for hours does not count as the start. Set it yourself with `incident_start`.
 
-## Rules
+## Reason codes
 
 | Rule | Effect |
 |---|---|
@@ -69,3 +81,8 @@ The `timeline` renderer draws one bar per log group from its first to its last r
 ## Benchmark
 
 [bench/otel/results.md](../../bench/otel/results.md): 6 incidents, 3 runs each. Raw (the 254 most recent lines) 83% (15/18) at a median of 29,678 input tokens; jevbrief 100% (18/18) at 1,070 (96% fewer). Synthetic data; see the caveats.
+
+## Limits
+
+- **Logs only.** Traces and metrics are not read yet. Kubernetes events and Prometheus alerts are planned, as additions to the same incident view.
+- **Synthetic benchmark.** The incidents were written while building the adapter, so treat the numbers as an illustration.

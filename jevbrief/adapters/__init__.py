@@ -21,7 +21,8 @@ GROUP = "jevbrief.adapters"
 # Used when jevbrief runs from a source checkout without being installed.
 BUILTIN = {"web": "jevbrief.adapters.web:WebAdapter", "json": "jevbrief.adapters.json:JsonAdapter",
            "otel": "jevbrief.adapters.otel:OtelAdapter", "nes": "jevbrief.adapters.nes:NesAdapter",
-           "ci": "jevbrief.adapters.ci:CiAdapter"}
+           "ci": "jevbrief.adapters.ci:CiAdapter",
+           "tools": "jevbrief.adapters.tools:ToolsAdapter"}
 
 
 class Adapter:

@@ -1,0 +1,321 @@
+[
+  {
+    "adapter": "tools",
+    "source": "tools",
+    "goal": "What time is it in Tokyo right now?",
+    "expected_label": [
+      "get_current_time"
+    ]
+  },
+  {
+    "adapter": "tools",
+    "source": "tools",
+    "goal": "If it's 9am in New York, what time is it in Berlin?",
+    "expected_label": [
+      "convert_time"
+    ]
+  },
+  {
+    "adapter": "tools",
+    "source": "tools",
+    "goal": "Read this article and give me the key points: https://blog.example.com/scaling-postgres",
+    "expected_label": [
+      "fetch"
+    ]
+  },
+  {
+    "adapter": "tools",
+    "source": "tools",
+    "goal": "Which files have I modified but not staged yet?",
+    "expected_label": [
+      "git_status",
+      "git_diff_unstaged"
+    ]
+  },
+  {
+    "adapter": "tools",
+    "source": "tools",
+    "goal": "Show the exact line changes I've staged for the next commit",
+    "expected_label": [
+      "git_diff_staged"
+    ]
+  },
+  {
+    "adapter": "tools",
+    "source": "tools",
+    "goal": "Commit my staged work with the message 'fix login redirect'",
+    "expected_label": [
+      "git_commit"
+    ]
+  },
+  {
+    "adapter": "tools",
+    "source": "tools",
+    "goal": "Unstage everything I added by mistake",
+    "expected_label": [
+      "git_reset"
+    ]
+  },
+  {
+    "adapter": "tools",
+    "source": "tools",
+    "goal": "Show the last 10 commits on this branch",
+    "expected_label": [
+      "git_log",
+      "list_commits"
+    ]
+  },
+  {
+    "adapter": "tools",
+    "source": "tools",
+    "goal": "Switch my local checkout to the release-2.0 branch",
+    "expected_label": [
+      "git_checkout"
+    ]
+  },
+  {
+    "adapter": "tools",
+    "source": "tools",
+    "goal": "Start a new local branch called feature/dark-mode",
+    "expected_label": [
+      "git_create_branch"
+    ]
+  },
+  {
+    "adapter": "tools",
+    "source": "tools",
+    "goal": "Stage the file src/app.py",
+    "expected_label": [
+      "git_add"
+    ]
+  },
+  {
+    "adapter": "tools",
+    "source": "tools",
+    "goal": "What did commit a1b2c3d change?",
+    "expected_label": [
+      "git_show",
+      "get_commit"
+    ]
+  },
+  {
+    "adapter": "tools",
+    "source": "tools",
+    "goal": "Open a bug report in acme/shop: checkout button does nothing on Safari",
+    "expected_label": [
+      "issue_write"
+    ]
+  },
+  {
+    "adapter": "tools",
+    "source": "tools",
+    "goal": "Reply on issue 57 that the fix is released in 2.3.1",
+    "expected_label": [
+      "add_issue_comment"
+    ]
+  },
+  {
+    "adapter": "tools",
+    "source": "tools",
+    "goal": "Which issues are still open in acme/shop with the label 'bug'?",
+    "expected_label": [
+      "list_issues",
+      "search_issues"
+    ]
+  },
+  {
+    "adapter": "tools",
+    "source": "tools",
+    "goal": "Read the details of issue 1203 in acme/shop",
+    "expected_label": [
+      "issue_read"
+    ]
+  },
+  {
+    "adapter": "tools",
+    "source": "tools",
+    "goal": "Open a PR from feature/dark-mode into main",
+    "expected_label": [
+      "create_pull_request"
+    ]
+  },
+  {
+    "adapter": "tools",
+    "source": "tools",
+    "goal": "Merge pull request 88 once it's approved",
+    "expected_label": [
+      "merge_pull_request"
+    ]
+  },
+  {
+    "adapter": "tools",
+    "source": "tools",
+    "goal": "What files does PR 88 touch?",
+    "expected_label": [
+      "pull_request_read"
+    ]
+  },
+  {
+    "adapter": "tools",
+    "source": "tools",
+    "goal": "Approve PR 88 with a short note",
+    "expected_label": [
+      "pull_request_review_write"
+    ]
+  },
+  {
+    "adapter": "tools",
+    "source": "tools",
+    "goal": "Ask Copilot to review my pull request 91",
+    "expected_label": [
+      "request_copilot_review"
+    ]
+  },
+  {
+    "adapter": "tools",
+    "source": "tools",
+    "goal": "Hand issue 77 to the Copilot coding agent so it writes the fix",
+    "expected_label": [
+      "assign_copilot_to_issue",
+      "assign_copilot_to_issue_with_intent"
+    ]
+  },
+  {
+    "adapter": "tools",
+    "source": "tools",
+    "goal": "Why did the last CI run on main fail? Show me the failing job's output",
+    "expected_label": [
+      "get_job_logs"
+    ]
+  },
+  {
+    "adapter": "tools",
+    "source": "tools",
+    "goal": "Re-run the deploy workflow",
+    "expected_label": [
+      "actions_run_trigger"
+    ]
+  },
+  {
+    "adapter": "tools",
+    "source": "tools",
+    "goal": "List recent workflow runs for acme/shop",
+    "expected_label": [
+      "actions_list"
+    ]
+  },
+  {
+    "adapter": "tools",
+    "source": "tools",
+    "goal": "Find where the function parse_invoice is defined across our GitHub org",
+    "expected_label": [
+      "search_code"
+    ]
+  },
+  {
+    "adapter": "tools",
+    "source": "tools",
+    "goal": "Find popular Rust repositories about terminal UIs",
+    "expected_label": [
+      "search_repositories"
+    ]
+  },
+  {
+    "adapter": "tools",
+    "source": "tools",
+    "goal": "Show me the README of acme/shop on GitHub",
+    "expected_label": [
+      "get_file_contents"
+    ]
+  },
+  {
+    "adapter": "tools",
+    "source": "tools",
+    "goal": "Push a fix to docs/setup.md directly on GitHub without cloning",
+    "expected_label": [
+      "create_or_update_file",
+      "push_files"
+    ]
+  },
+  {
+    "adapter": "tools",
+    "source": "tools",
+    "goal": "Make my own copy of torvalds/linux under my account",
+    "expected_label": [
+      "fork_repository"
+    ]
+  },
+  {
+    "adapter": "tools",
+    "source": "tools",
+    "goal": "What's the newest published version of acme/shop?",
+    "expected_label": [
+      "get_latest_release",
+      "list_releases"
+    ]
+  },
+  {
+    "adapter": "tools",
+    "source": "tools",
+    "goal": "Are there any Dependabot security alerts on acme/shop?",
+    "expected_label": [
+      "list_dependabot_alerts"
+    ]
+  },
+  {
+    "adapter": "tools",
+    "source": "tools",
+    "goal": "Did anyone accidentally commit an API key to acme/shop? Check the alerts",
+    "expected_label": [
+      "list_secret_scanning_alerts"
+    ]
+  },
+  {
+    "adapter": "tools",
+    "source": "tools",
+    "goal": "Which GitHub account am I authenticated as?",
+    "expected_label": [
+      "get_me"
+    ]
+  },
+  {
+    "adapter": "tools",
+    "source": "tools",
+    "goal": "What's new in my GitHub inbox?",
+    "expected_label": [
+      "list_notifications"
+    ]
+  },
+  {
+    "adapter": "tools",
+    "source": "tools",
+    "goal": "Clear all my GitHub notifications",
+    "expected_label": [
+      "mark_all_notifications_read"
+    ]
+  },
+  {
+    "adapter": "tools",
+    "source": "tools",
+    "goal": "What is the capital of Australia?",
+    "expected_choice": "none"
+  },
+  {
+    "adapter": "tools",
+    "source": "tools",
+    "goal": "Write a haiku about autumn",
+    "expected_choice": "none"
+  },
+  {
+    "adapter": "tools",
+    "source": "tools",
+    "goal": "Explain the difference between a list and a tuple in Python",
+    "expected_choice": "none"
+  },
+  {
+    "adapter": "tools",
+    "source": "tools",
+    "goal": "Book a table for two at an Italian restaurant tonight",
+    "expected_choice": "none"
+  }
+]
