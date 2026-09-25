@@ -208,7 +208,7 @@ class McpAdapter(Adapter):
             "Agent goal: {goal}\n"
             "Each item in `tools` is a tool the agent can call. Which one tool should the agent call next "
             "to make progress on this goal?",
-            lambda f: f"{f.meta['server']}.{f.label}: {f.attrs.get('description', '')}",
+            lambda f: f"{f.meta.get('server', f.attrs.get('server'))}.{f.label}: {short(f.attrs.get('description', ''))}",
             none_text="No tool fits; the agent should answer directly or ask the user",
         )
         return {pack.name: pack}
@@ -221,4 +221,4 @@ class McpAdapter(Adapter):
         return [Fact(id=f.id, kind="tool", label=f.label,
                      attrs={"server": f.meta["server"], "description": f.meta["description"],
                             "params": ", ".join(f.meta["params"])},
-                     meta={"order": f.meta["order"]}) for f in facts]
+                     meta={"order": f.meta["order"], "server": f.meta["server"]}) for f in facts]

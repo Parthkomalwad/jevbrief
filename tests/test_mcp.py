@@ -114,3 +114,4 @@ def test_question_and_raw():
     assert "github.create_issue: Create a new issue in a GitHub repository." in q["criteria"].values()
     raw = McpAdapter().raw(b.facts)
     assert len(raw) == 6 and raw[0].attrs["params"] == "owner, repo, title"
+    assert len(b.pack.build(b.goal, raw, {})["next_tool"]["criteria"]) == 7  # the raw arm builds the same question
