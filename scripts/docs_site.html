@@ -231,6 +231,7 @@ function select(el) { const r = document.createRange(); r.selectNodeContents(el)
 const JOBS = [
   ["An agent that calls tools", "Give it only the tools that fit this step, and notice when it goes in circles.", ["tools", "steps"]],
   ["A failing CI build", "Find the error that broke it, and whether it looks flaky.", ["ci"]],
+  ["A pull request to review", "Find the chunk that most needs a human reviewer.", ["pr"]],
   ["A production incident", "Find the log group that shows the cause, not a symptom.", ["otel"]],
   ["Records to triage", "Pick the ticket, product, or row that fits, from any JSON.", ["json"]],
   ["A browser agent", "Choose the next element to click on a real page.", ["web"]],
