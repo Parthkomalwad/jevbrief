@@ -13,6 +13,7 @@ jevbrief turns a source into small, relevant state for Jev. An **adapter** reads
 | JSON / JSON Lines with a config | `json` | `pip install jevbrief` | Which item fits, or which fixed action to take |
 | OpenTelemetry logs (OTLP JSON) | `otel` | `pip install jevbrief` | Which log group explains an incident |
 | CI logs (GitHub Actions) and JUnit XML | `ci` | `pip install jevbrief` | Which error broke the build, and whether it looks flaky |
+| Pull request diffs: `gh pr diff`, `.diff`/`.patch`, or `/pulls/{n}/files` JSON | `pr` | `pip install jevbrief` | Which chunk most needs a human reviewer, and whether it is safe to merge |
 | Agent step history: dicts, chat messages, LangGraph, or a jevbrief trace | `steps` | `pip install jevbrief` | Is the agent stuck. In code: `loop_signals(history)` or `check_progress(history, goal)` |
 | Agent tools: functions, MCP, LangChain, CrewAI, OpenAI, Anthropic | `tools` | `pip install jevbrief` | Which tool the agent should call next. In code: `select_tools(tools, goal)` or `pick_tool(tools, goal)` |
 | NES games (Nova the Squirrel; the user supplies the free ROM) | `nes` | `pip install "jevbrief[nes]"` | Which move to make next |
@@ -30,6 +31,7 @@ jevbrief inspect <url-or-file> --goal "<goal>"                                  
 jevbrief inspect data.json --adapter json --config map.toml --goal "<goal>"            # json
 jevbrief inspect logs.json --adapter otel --goal "<what users see failing>"            # otel
 jevbrief inspect run.log   --adapter ci   --goal "CI is red on main"                     # ci: gh run view --log-failed, a log zip, or JUnit XML
+jevbrief inspect pr.diff   --adapter pr   --goal "<the PR's title>"                      # pr: gh pr diff <n> > pr.diff
 jevbrief inspect tools/    --adapter tools --goal "<what the user asked the agent>"      # tools: a folder of MCP tools/list JSON
 jevbrief ask ... --view                                                                # one real decision + replay
 jevbrief view --live traces/nes.jsonl                                                  # watch decisions as they arrive

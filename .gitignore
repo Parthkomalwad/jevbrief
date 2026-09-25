@@ -38,3 +38,5 @@ bench/ci/runs/
 
 # built docs site (python scripts/build_docs_site.py)
 site/
+# pr benchmark diffs (real public PR diffs, not committed; recollect with bench/pr/fetch_prs.py)
+bench/pr/prs/

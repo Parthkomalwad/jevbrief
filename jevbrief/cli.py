@@ -134,7 +134,7 @@ def main(argv: list[str] | None = None) -> int:
     sub = p.add_subparsers(dest="cmd", required=True)
 
     def source_args(sp):
-        sp.add_argument("source", help="What to brief: a URL or HTML file (web), a JSON file (json), an OTLP JSON log export (otel), CI logs or JUnit XML (ci), tool lists or MCP tools/list JSON (tools), agent steps or a trace (steps), ...")
+        sp.add_argument("source", help="What to brief: a URL or HTML file (web), a JSON file (json), an OTLP JSON log export (otel), CI logs or JUnit XML (ci), tool lists or MCP tools/list JSON (tools), agent steps or a trace (steps), a PR diff or /pulls/{n}/files JSON (pr), ...")
         sp.add_argument("--goal", required=True, help='What the agent is trying to do, e.g. "add to cart"')
         sp.add_argument("--adapter", default="web", help="Source type (default: web). See `jevbrief adapters`")
         sp.add_argument("--config", help="Adapter config file (required by the json adapter)")

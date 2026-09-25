@@ -5,7 +5,7 @@ jevbrief sits between a source and TypeSafe's Jev. It keeps what matters, drops 
 ## Quick start
 
 ```bash
-pip install jevbrief                  # tools, ci, otel, and json; add [web] or [nes], or [all] for everything
+pip install jevbrief                  # tools, ci, pr, otel, and json; add [web] or [nes], or [all] for everything
 ```
 
 Get an API key at [console.typesafe.ai](https://console.typesafe.ai), and set `TYPESAFE_API_KEY` in your environment or in a `.env` file.
@@ -43,6 +43,7 @@ Every adapter page has the same sections: at a glance, quick start, Python, inpu
 | [tools](adapters/tools.md) | Your functions, MCP servers, LangChain, CrewAI, OpenAI, and Anthropic tools | Which tool the agent should call next | `jevbrief` |
 | [steps](adapters/steps.md) | An agent's step history: dicts, chat messages, LangGraph, or a jevbrief trace | Is the agent stuck, making progress, or done | `jevbrief` |
 | [ci](adapters/ci.md) | GitHub Actions logs and JUnit XML | Which error broke the build, and whether it looks flaky | `jevbrief` |
+| [pr](adapters/pr.md) | A pull request's diff: `gh pr diff`, `.patch`, or the GitHub API | Which chunk most needs a human reviewer, and whether it is safe to merge | `jevbrief` |
 | [otel](adapters/otel.md) | OpenTelemetry logs (OTLP JSON) | Which log group explains an incident | `jevbrief` |
 | [json](adapters/json.md) | Any JSON or JSON Lines, with a config file | Which item fits, or which action to take | `jevbrief` |
 | [web](adapters/web.md) | Web pages, through Playwright | Which element to click next | `jevbrief[web]` |
@@ -61,6 +62,7 @@ The full table and method are in [How it works](concepts.md#benchmarks). Results
 - [tools](../bench/mcp/results.md)
 - [steps](../bench/steps/results.md)
 - [ci](../bench/ci/results.md)
+- [pr](../bench/pr/results.md)
 - [otel](../bench/otel/results.md)
 - [json](../bench/json/results.md)
 - [web](../bench/results.md)
