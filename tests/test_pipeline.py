@@ -134,7 +134,7 @@ class FakeJev:
     def ask(self, state, questions):
         self.calls += 1
         if self.fail:
-            raise RuntimeError("boom")
+            raise self.fail("boom") if isinstance(self.fail, type) else ConnectionError("boom")
         q = questions["next_click"]
         assert "none" in q["criteria"] and set(q["criteria"]) - {"none"} == {e["id"] for e in state["elements"]}
         return Answers("jev-test", {"next_click": {"type": "choice", "choice": self.choice_id, "confidence": self.conf,
@@ -165,9 +165,17 @@ def test_low_confidence_and_none_take_no_action(tmp_path):
     assert d.outcome == "low_confidence" and d.fact is None
 
 
-def test_error_is_recorded(tmp_path):
+def test_api_and_network_errors_are_recorded(tmp_path):
     d = brief_with(FakeJev(fail=True), tmp_path).next_click()
-    assert d.outcome == "error" and d.fact is None and "boom" in d.record.jev["error"]
+    assert d.outcome == "error" and d.fact is None and d.record.jev["error"] == "ConnectionError: boom"
+    from typesafe_sdk import TypeSafeAPITimeoutError
+    d = brief_with(FakeJev(fail=TypeSafeAPITimeoutError), tmp_path).next_click()
+    assert d.outcome == "error" and d.record.jev["error"].startswith("TypeSafeAPITimeoutError")
+
+
+def test_bugs_are_raised_not_recorded(tmp_path):
+    with pytest.raises(KeyError):
+        brief_with(FakeJev(fail=KeyError), tmp_path).next_click()
 
 
 def test_trace_record_has_schema_adapter_and_reason_legend(tmp_path):
@@ -243,3 +251,11 @@ def test_rules_passed_to_briefing_are_kept_after_extract():
     b = Briefing(OtelAdapter(), "checkout", rules=own, trace=None, jev=FakeJev())
     b.extract(__import__("pathlib").Path(__file__).resolve().parent.parent / "bench" / "otel" / "checkout_500.json")
     assert b.rules is own and all(f.kept or f.reason == "budget" for f in b.facts)
+
+
+def test_anext_click_matches_next_click(tmp_path):
+    import asyncio
+
+    sync = brief_with(FakeJev(), tmp_path).next_click()
+    d = asyncio.run(brief_with(FakeJev(), tmp_path).anext_click())
+    assert (d.outcome, d.fact.id) == (sync.outcome, sync.fact.id)

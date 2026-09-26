@@ -39,7 +39,7 @@ Every decision comes back in the same shape:
 | `applied` | Jev answered at or above `min_confidence` (default 0.5) | Act on `decision.choice`, and on `decision.fact` when the options are facts |
 | `reused` | The facts did not change, so the last answer was reused with no API call | Act, but stop if nothing changes |
 | `low_confidence` | Below `min_confidence`, or Jev chose "none" | Take no action |
-| `error` | The API call failed | Take no action |
+| `error` | The Jev call failed: the API, the network, or a missing key. Other exceptions are raised. | Take no action |
 
 ## The viewer
 

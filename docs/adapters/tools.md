@@ -55,7 +55,7 @@ def agent(state):
 To let Jev choose, and force the model to call that one tool:
 
 ```python
-pick = pick_tool(tools, goal)
+pick = pick_tool(tools, goal)                   # in an async node: pick = await apick_tool(tools, goal)
 model = llm.bind_tools([pick.tool], tool_choice=pick.tool.name) if pick.tool else llm.bind_tools(pick.tools)
 ```
 

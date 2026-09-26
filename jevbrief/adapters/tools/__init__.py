@@ -448,5 +448,20 @@ def pick_tool(tools, goal: str, *, top_k: int = 20, allow=None, deny=None, read_
     """
     b = _brief(tools, goal, top_k, allow, deny, read_only, rank, embed, trace=trace, min_confidence=min_confidence,
                **briefing)
-    d = b.decide()
+    return _pick(b, b.decide())
+
+
+async def apick_tool(tools, goal: str, *, top_k: int = 20, allow=None, deny=None, read_only: bool = False,
+                     rank: str = "bm25", embed=None, trace: str | None = "traces/tools.jsonl",
+                     min_confidence: float = 0.5, **briefing) -> Pick:
+    """`pick_tool` for async agents: the same result, without blocking the event loop while Jev answers.
+
+    Ranking is local and fast, so it runs inline. With `rank="hybrid"`, the first call also loads the model.
+    """
+    b = _brief(tools, goal, top_k, allow, deny, read_only, rank, embed, trace=trace, min_confidence=min_confidence,
+               **briefing)
+    return _pick(b, await b.adecide())
+
+
+def _pick(b: Briefing, d) -> Pick:
     return Pick(d.fact.meta["obj"] if d.fact else None, _ranked(b), d.confidence, d)

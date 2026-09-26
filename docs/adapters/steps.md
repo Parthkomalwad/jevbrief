@@ -109,7 +109,7 @@ Some repeats are progress, not loops, and the counting keeps them apart:
 
 ## Options
 
-`check_progress(history, goal, window=20, recent=6, trace="traces/progress.jsonl", min_confidence=0.5)`. It also accepts any `Briefing` argument, such as `jev`, `model`, or `trace_level`.
+`check_progress(history, goal, window=20, recent=6, trace="traces/progress.jsonl", min_confidence=0.5)`. It also accepts any `Briefing` argument, such as `jev`, `model`, or `trace_level`. In async code, use `await acheck_progress(...)` with the same arguments.
 
 `loop_signals(history, window=20)`.
 

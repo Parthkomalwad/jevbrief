@@ -2,13 +2,14 @@
 
 from __future__ import annotations
 
+import asyncio
 import secrets
 from dataclasses import dataclass, field
 
 from . import budget, trace
 from .facts import BUDGET, REASONS, Fact
 from .fingerprint import fingerprint
-from .jev import DEFAULT_MODEL, Jev, JevClient
+from .jev import DEFAULT_MODEL, Answers, Jev, JevClient, api_errors
 from .questions import QuestionPack
 from .rules import RuleSet
 
@@ -30,6 +31,32 @@ class Decision:
     confidence: float | None = None
     answers: dict = field(default_factory=dict)  # every answer in the call
     record: trace.TraceRecord | None = None
+
+
+class _Call:
+    """One decision in progress: the questions to ask, then the answer or the failure."""
+
+    def __init__(self, brief: Briefing, kept: list[Fact], fp: str, jev_info: dict):
+        self.brief, self.kept, self.fp, self.jev_info = brief, kept, fp, jev_info
+        self.fp_info: dict = {"hash": fp, "changed": True, "reused_tick": None}
+        self.state: dict = {}
+        self.questions: dict = {}
+        self.decision: Decision | None = None
+
+    def answered(self, res: Answers) -> None:
+        b = self.brief
+        main = res.answers.get(b.pack.primary, {})
+        choice, conf = main.get("choice"), main.get("confidence")
+        self.jev_info.update(model=res.model, choice=choice, confidence=conf, probabilities=main.get("probabilities"),
+                             latency_ms=res.latency_ms, input_tokens=res.input_tokens)
+        if choice is None or choice == "none" or conf is None or conf < b.min_confidence:
+            self.decision = Decision(None, "low_confidence", choice, conf, res.answers)
+        else:
+            self.decision = Decision(b.pack.fact_for(choice, self.kept), "applied", choice, conf, res.answers)
+
+    def failed(self, e: BaseException) -> None:
+        self.jev_info["error"] = f"{type(e).__name__}: {e}"
+        self.decision = Decision(None, "error")
 
 
 class Briefing:
@@ -95,40 +122,55 @@ class Briefing:
         return self.facts
 
     def decide(self) -> Decision:
-        """Ask Jev the pack's questions. Reuses the last decision if the kept state is unchanged."""
+        """Ask Jev the pack's questions. Reuses the last decision if the kept state is unchanged.
+
+        Jev and network failures give `outcome="error"`. Any other exception is a bug and is raised.
+        """
+        call = self._begin()
+        if call.questions:
+            try:
+                call.answered(self.jev.ask(call.state, call.questions))
+            except api_errors() as e:
+                call.failed(e)
+        return self._finish(call)
+
+    async def adecide(self) -> Decision:
+        """`decide()` for async code: the same result, without blocking the event loop.
+
+        Uses the Jev client's `aask` when it has one, and otherwise runs `ask` in a worker thread.
+        """
+        call = self._begin()
+        if call.questions:
+            try:
+                aask = getattr(self.jev, "aask", None)
+                res = await (aask(call.state, call.questions) if aask
+                             else asyncio.to_thread(self.jev.ask, call.state, call.questions))
+                call.answered(res)
+            except api_errors() as e:
+                call.failed(e)
+        return self._finish(call)
+
+    def _begin(self) -> _Call:
         self.tick += 1
         kept = self.kept
         fp = fingerprint(kept, self.goal)
-        jev_info: dict = {"model": self.jev.model, "question": self.pack.primary}
-        questions: dict = {}
-
+        call = _Call(self, kept, fp, {"model": self.jev.model, "question": self.pack.primary})
         if self._last and self._last[0] == fp:
             prev = self._last[2]
-            decision = Decision(prev.fact, "reused", prev.choice, prev.confidence, prev.answers)
-            fp_info = {"hash": fp, "changed": False, "reused_tick": self._last[1]}
-            jev_info.update(choice=prev.choice, confidence=prev.confidence)
+            call.decision = Decision(prev.fact, "reused", prev.choice, prev.confidence, prev.answers)
+            call.fp_info = {"hash": fp, "changed": False, "reused_tick": self._last[1]}
+            call.jev_info.update(choice=prev.choice, confidence=prev.confidence)
         else:
-            fp_info = {"hash": fp, "changed": True, "reused_tick": None}
-            questions = self.pack.build(self.goal, kept, self.state())
-            try:
-                res = self.jev.ask(self.state(), questions)
-            except Exception as e:  # any API or network failure: record it, take no action
-                jev_info["error"] = f"{type(e).__name__}: {e}"
-                decision = Decision(None, "error")
-            else:
-                main = res.answers.get(self.pack.primary, {})
-                choice, conf = main.get("choice"), main.get("confidence")
-                jev_info.update(model=res.model, choice=choice, confidence=conf,
-                                probabilities=main.get("probabilities"), latency_ms=res.latency_ms,
-                                input_tokens=res.input_tokens)
-                if choice is None or choice == "none" or conf is None or conf < self.min_confidence:
-                    decision = Decision(None, "low_confidence", choice, conf, res.answers)
-                else:
-                    decision = Decision(self.pack.fact_for(choice, kept), "applied", choice, conf, res.answers)
-            if decision.outcome != "error":
-                self._last = (fp, self.tick, decision)
+            call.state = self.state()
+            call.questions = self.pack.build(self.goal, kept, call.state)
+        return call
 
-        record = self._record(fp_info, jev_info, decision, questions)
+    def _finish(self, call: _Call) -> Decision:
+        decision = call.decision
+        assert decision is not None
+        if call.fp_info["changed"] and decision.outcome != "error":
+            self._last = (call.fp, self.tick, decision)
+        record = self._record(call.fp_info, call.jev_info, decision, call.questions)
         decision.record = record
         if record and self.trace_path:
             trace.write(self.trace_path, record, image=self.image)
