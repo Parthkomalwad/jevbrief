@@ -25,7 +25,7 @@ def _raw(adapter, goal, ex, trace_path, jev) -> Briefing:
     b = Briefing(adapter, goal, rules=RuleSet([], threshold=0), trace=trace_path, jev=jev,
                  max_options=budget.MAX_OPTIONS, budget_tokens=budget.MAX_TOKENS)
     ex = copy.deepcopy(ex)
-    ex.facts = adapter.raw(ex.facts)[: budget.MAX_OPTIONS]
+    ex.facts = (ex.raw if ex.raw is not None else adapter.raw(ex.facts))[: budget.MAX_OPTIONS]
     b.load_extracted(ex)
     for f in b.facts:
         f.reason = "raw"

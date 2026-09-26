@@ -17,15 +17,16 @@ from __future__ import annotations
 import json
 import re
 from collections import Counter
-from collections.abc import Callable
 from datetime import datetime, timezone
 from pathlib import Path
 
 from ...briefing import Extracted
-from ...facts import Fact, clean_label, fact_id, register_reasons
+from ...facts import Fact, clean_label, fact_id
 from ...questions import NONE, FactChoice
-from ...rules import CORE_RULES, Boost, Drop, Rule, RuleSet
-from .. import Adapter, need
+from ...rules import Boost, Drop, Rule, RuleSet, disabled, duplicate, goal_match, hidden, unlabeled
+from ...sources import find_files
+from ...text import frequency, template
+from .. import Adapter
 
 BELOW_SEVERITY = "otel.below_severity"
 HEALTHCHECK = "otel.healthcheck"
@@ -58,28 +59,6 @@ ROUTINE_REASONS = {"Scheduled", "Pulling", "Pulled", "Created", "Started", "Succ
 ALERT_LEVELS = {"critical": 21, "page": 21, "high": 17, "error": 17, "major": 17, "warning": 13, "warn": 13,
                 "minor": 13, "info": 9, "none": 9, "low": 9}
 POD_SUFFIX = re.compile(r"-[a-f0-9]{8,10}-[a-z0-9]{5}$|-[a-z0-9]{5}$|-\d+$")  # checkout-7d9f8b6c4-x2k9q -> checkout
-
-
-def _number(m: re.Match) -> str:
-    # Bare 3-digit status codes (100-599) carry meaning ("503"), so they stay. Other numbers become <n>.
-    return m.group(0) if re.fullmatch(r"[1-5]\d\d", m.group(0)) else "<n>"
-
-
-_SUBS: list[tuple[re.Pattern[str], str | Callable[[re.Match[str]], str]]] = [
-    (re.compile(r"\b[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\b", re.I), "<id>"),
-    (re.compile(r"\b[0-9a-f]{12,}\b", re.I), "<id>"),
-    (re.compile(r"\b[\w.+-]+@[\w-]+\.[\w.]+\b"), "<email>"),
-    (re.compile(r"\b\d{1,3}(?:\.\d{1,3}){3}(?::\d+)?\b"), "<ip>"),
-    (re.compile(r"\d+(?:\.\d+)?(?:ms|s|m|h|%|kb|mb|gb)?\b", re.I), _number),
-]
-
-
-def template(body: str) -> str:
-    """Replace IDs, emails, addresses, and numbers so repeated messages group together."""
-    t = str(body)
-    for pattern, repl in _SUBS:
-        t = pattern.sub(repl, t)
-    return " ".join(t.split())
 
 
 def level_of(number: int) -> str:
@@ -192,11 +171,9 @@ def _documents(source):
     if not all(isinstance(p, (str, Path)) for p in paths) or not paths:
         yield source
         return
-    for p in map(Path, paths):
-        for f in sorted(x for x in p.rglob("*") if x.suffix in (".json", ".jsonl")) if p.is_dir() else [p]:
-            text = f.read_text(encoding="utf-8")
-            yield [json.loads(ln) for ln in text.splitlines() if ln.strip()] if f.suffix == ".jsonl" \
-                else json.loads(text)
+    for f in find_files(paths, (".json", ".jsonl")):
+        text = f.read_text(encoding="utf-8")
+        yield [json.loads(ln) for ln in text.splitlines() if ln.strip()] if f.suffix == ".jsonl" else json.loads(text)
 
 
 def all_records(source) -> list[dict]:
@@ -210,20 +187,6 @@ def all_records(source) -> list[dict]:
         recs += list(records(doc) if kind == "logs" else k8s_events(doc) if kind == "events" else
                      alerts(doc) if kind == "alerts" else [])
     return sorted((r for r in recs if r["ts"]), key=lambda r: r["ts"])
-
-
-def _load_config(config) -> dict:
-    if config is None or isinstance(config, dict):
-        return dict(config or {})
-    path = Path(config)
-    if path.suffix == ".json":
-        return json.loads(path.read_text(encoding="utf-8"))
-    try:
-        import tomllib
-    except ModuleNotFoundError:  # Python 3.10
-        need("otel", "tomli")
-        import tomli as tomllib
-    return tomllib.loads(path.read_text(encoding="utf-8"))
 
 
 def _ns(iso: str) -> int:
@@ -251,10 +214,6 @@ def minutes(seconds: float) -> str:
             else f"about {round(m / 60)} hours")
 
 
-def frequency(count: int) -> str:
-    return "once" if count == 1 else "a few times" if count < 10 else "often" if count < 100 else "very often"
-
-
 class OtelAdapter(Adapter):
     """Options (config file, dict, or keyword arguments to `extract`):
 
@@ -271,17 +230,8 @@ class OtelAdapter(Adapter):
     extra = "otel"
     reasons = REASONS
 
-    def __init__(self, config=None):
-        register_reasons(REASONS)
-        self.config: dict = _load_config(config)
-        self._options: dict = {}  # options passed to the most recent `extract`, used by `rules`
-
-    def configure(self, config) -> None:
-        self.config = _load_config(config)
-
     def extract(self, source, **options) -> Extracted:
-        self._options = dict(options)
-        c = {**self.config, **options}
+        c = self.settings(options)
         recs = all_records(source)
         if not recs:
             raise ValueError("no records found. Expected OTLP JSON with `resourceLogs`, Kubernetes events, "
@@ -352,9 +302,8 @@ class OtelAdapter(Adapter):
             source_info["marker"] = round((start - t0) / span, 4)
         return Extracted(facts, source_info)
 
-    def rules(self) -> RuleSet:
-        c = {**self.config, **self._options}
-        hidden, disabled, unlabeled, goal_match, duplicate = CORE_RULES
+    def rules(self, options: dict | None = None) -> RuleSet:
+        c = self.settings(options)
         min_sev = c.get("min_severity", "warn")
         min_sev = TEXT_LEVELS.get(str(min_sev).lower(), 13) if not isinstance(min_sev, int) else min_sev
         noise = re.compile(c.get("healthcheck", HEALTHCHECK_PATTERN), re.I)

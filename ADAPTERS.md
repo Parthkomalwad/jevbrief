@@ -30,7 +30,14 @@ Prefer a separate package? Publish `jevbrief-mysource` with the same entry point
 
 ## 1. Extract facts
 
-`extract(source, **options)` returns an `Extracted(facts, source={...}, image=None, image_size=None)`.
+`extract(source, **options)` returns an `Extracted(facts, source={...}, image=None, image_size=None, raw=None)`.
+
+The base `Adapter` does the setup: its constructor registers your `reasons` and loads a config (a dict, or a `.toml` or `.json` file), so most adapters need no `__init__`. Set `takes_config = False` if yours takes none.
+
+- `self.settings(options)` is the config with this call's keyword arguments on top.
+- `jevbrief.sources.find_files(source, (".json",))` turns a file, a folder, or a list of paths into files.
+- `jevbrief.text.template(message)` and `frequency(count)` group log-like messages and turn counts into words.
+- Keep adapters stateless between calls. If the benchmark's raw arm needs more than the facts (such as raw log lines), pass them as `raw=[...]`.
 
 Each `Fact` has:
 
@@ -59,14 +66,16 @@ For a spatial source (screens, games), put `meta["box"] = [x, y, width, height]`
 Start from the core rules and add your own:
 
 ```python
-from jevbrief.rules import CORE_RULES, Boost, Drop, Rule, RuleSet
+from jevbrief.rules import Boost, Drop, Rule, RuleSet, disabled, duplicate, goal_match, hidden, unlabeled
 
-hidden, disabled, unlabeled, goal_match, duplicate = CORE_RULES
 offscreen = Rule("mysource.offscreen", lambda f, ctx: Drop("mysource.offscreen") if f.meta["x"] < 0 else None)
 
-def rules(self):
+def rules(self, options=None):
+    margin = self.settings(options).get("margin", 0)   # config, with this call's extract() options on top
     return RuleSet([hidden, disabled, unlabeled, offscreen, goal_match, duplicate])
 ```
+
+`rules` receives the keyword arguments of the latest `extract()`, so `brief.extract(src, margin=10)` works without storing anything on the adapter. Adapters written with `rules(self)` still work.
 
 - A rule returns `Drop(reason)`, `Boost(delta, name)`, or `None`. A `GroupRule` sees all facts (for duplicates or neighbors).
 - Name every reason code `<adapter>.<code>` and give it a plain description in the adapter's `reasons` dict. Core codes (`hidden`, `disabled`, `unlabeled`, `duplicate`, `low_score`, `budget`) are shared.

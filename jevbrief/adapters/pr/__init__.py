@@ -20,9 +20,10 @@ import re
 from pathlib import Path, PurePosixPath
 
 from ...briefing import Extracted
-from ...facts import Fact, clean_label, fact_id, register_reasons
+from ...facts import Fact, clean_label, fact_id
 from ...questions import FactChoice
-from ...rules import CORE_RULES, Boost, Drop, Rule, RuleSet
+from ...rules import Boost, Drop, Rule, RuleSet, disabled, duplicate, goal_match, hidden, unlabeled
+from ...sources import find_files
 from .. import Adapter
 
 GENERATED = "pr.generated"
@@ -186,21 +187,18 @@ def _read(source) -> tuple[list[dict], dict]:
     """(files, pr) from a path, a list of paths, or diff text."""
     if isinstance(source, str) and "\n" in source:
         return parse_diff(source), {}
-    paths = source if isinstance(source, (list, tuple)) else [source]
     files: list[dict] = []
     pr: dict = {}
-    for p in map(Path, paths):
-        items = sorted(f for f in p.rglob("*") if f.suffix in (".diff", ".patch", ".json")) if p.is_dir() else [p]
-        for path in items:
-            text = path.read_text(encoding="utf-8", errors="replace")
-            if path.suffix == ".json":
-                data = json.loads(text)
-                if isinstance(data, list) and data and isinstance(data[0], dict) and "filename" in data[0]:
-                    files += _from_api_files(data)
-                elif isinstance(data, dict) and ("title" in data or "number" in data):
-                    pr = data
-            else:
-                files += parse_diff(text)
+    for path in find_files(source, (".diff", ".patch", ".json")):
+        text = path.read_text(encoding="utf-8", errors="replace")
+        if path.suffix == ".json":
+            data = json.loads(text)
+            if isinstance(data, list) and data and isinstance(data[0], dict) and "filename" in data[0]:
+                files += _from_api_files(data)
+            elif isinstance(data, dict) and ("title" in data or "number" in data):
+                pr = data
+        else:
+            files += parse_diff(text)
     # The same file from a diff and from the API JSON: keep the first.
     seen: set[str] = set()
     out = []
@@ -263,20 +261,11 @@ class PrAdapter(Adapter):
     extra = "pr"
     reasons = REASONS
 
-    def __init__(self, config=None):
-        register_reasons(REASONS)
-        self.config: dict = dict(config or {})
-        self._files: list[dict] = []
-
-    def configure(self, config) -> None:
-        self.config = dict(config or {})
-
     def extract(self, source, **options) -> Extracted:
         files, pr = _read(source)
         if not files:
             raise ValueError("no diff found. Expected `gh pr diff` output, a .diff or .patch file, "
                              "or /pulls/{n}/files JSON")
-        self._files = files
         tested = {_stem(f["path"]) for f in files if role(f["path"]) == "test"}
 
         facts: list[Fact] = []
@@ -329,9 +318,8 @@ class PrAdapter(Adapter):
             info["number"] = pr["number"]
         return Extracted(facts, info)
 
-    def rules(self) -> RuleSet:
-        hidden, disabled, unlabeled, goal_match, duplicate = CORE_RULES
-        drop_docs = bool(self.config.get("drop_docs", False))
+    def rules(self, options: dict | None = None) -> RuleSet:
+        drop_docs = bool(self.settings(options).get("drop_docs", False))
         return RuleSet([
             hidden, disabled, unlabeled,
             Rule(GENERATED, lambda f, ctx: Drop(GENERATED) if f.meta["role"] in ("generated", "lockfile") else None),

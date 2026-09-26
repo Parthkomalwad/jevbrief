@@ -21,11 +21,11 @@ from collections import Counter
 from pathlib import Path
 
 from ...briefing import Extracted
-from ...facts import Fact, clean_label, fact_id, register_reasons
+from ...facts import Fact, clean_label, fact_id
 from ...questions import FactChoice
-from ...rules import CORE_RULES, Boost, Drop, Rule, RuleSet
+from ...rules import Boost, Drop, Rule, RuleSet, disabled, duplicate, goal_match, hidden, unlabeled
+from ...text import frequency, template
 from .. import Adapter
-from ..otel import frequency, template
 
 BELOW_SEVERITY = "ci.below_severity"
 SUMMARY_LINE = "ci.summary_line"
@@ -221,23 +221,12 @@ class CiAdapter(Adapter):
     extra = "ci"
     reasons = REASONS
 
-    def __init__(self, config=None):
-        register_reasons(REASONS)
-        self.config: dict = dict(config or {})
-        self._tail: list[dict] = []  # the last log lines of the most recent extraction, for `raw`
-        self._options: dict = {}     # options passed to the most recent `extract`, used by `rules`
-
-    def configure(self, config) -> None:
-        self.config = dict(config or {})
-
     def extract(self, source, **options) -> Extracted:
-        self._options = dict(options)
         recs = log_records(source)
         cases = junit_cases(source)
         if not any(r["level"] for r in recs) and not cases:
             raise ValueError("no errors, warnings, or failed tests found. Expected CI logs or JUnit XML")
         failing = _failing_steps(recs)
-        self._tail = recs[-254:]
 
         groups: dict[tuple, list] = {}
         for r in recs:
@@ -289,11 +278,10 @@ class CiAdapter(Adapter):
                 "errors": levels["error"], "failed_tests": sum(tc["failed"] for tc in cases),
                 "failing_steps": {j: next(r["step"] for r in recs if r["job"] == j and r["step_n"] == n)
                                   for j, n in failing.items()}}
-        return Extracted(facts, info)
+        return Extracted(facts, info, raw=_raw_lines(recs[-254:]))
 
-    def rules(self) -> RuleSet:
-        hidden, disabled, unlabeled, goal_match, duplicate = CORE_RULES
-        c = {**self.config, **self._options}
+    def rules(self, options: dict | None = None) -> RuleSet:
+        c = self.settings(options)
         min_sev = SEV.get(str(c.get("min_severity", "error")).lower(), SEV["error"])
         return RuleSet([
             hidden, disabled, unlabeled,
@@ -330,9 +318,10 @@ class CiAdapter(Adapter):
     def state(self, goal, kept, source):
         return {"build": goal, "failures": [f.state() for f in kept]}
 
-    def raw(self, facts):
-        """What a naive integration sends: the last log lines of the run, one fact each."""
-        return [Fact(id=fact_id("ci-raw", str(r["i"]), r["line"]), kind=r["level"] or "line",
-                     label=clean_label(f"{r['step']}: {r['line']}"), attrs={"job": r["job"]},
-                     meta={"order": k, "template": template(r["line"])})
-                for k, r in enumerate(self._tail)]
+
+def _raw_lines(recs: list[dict]) -> list[Fact]:
+    """What a naive integration sends: the last log lines of the run, one fact each."""
+    return [Fact(id=fact_id("ci-raw", str(r["i"]), r["line"]), kind=r["level"] or "line",
+                 label=clean_label(f"{r['step']}: {r['line']}"), attrs={"job": r["job"]},
+                 meta={"order": k, "template": template(r["line"])})
+            for k, r in enumerate(recs)]
