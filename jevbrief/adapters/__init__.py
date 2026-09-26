@@ -9,6 +9,7 @@ entry point group. A third-party package adds one line to its pyproject.toml:
 
 from __future__ import annotations
 
+import functools
 import inspect
 from importlib import import_module
 from importlib.metadata import entry_points
@@ -55,6 +56,11 @@ class Adapter:
             raise ValueError(f"the {self.name} adapter takes no config")
         self.config = load_config(config, self.extra)
 
+    def reason_descriptions(self) -> dict[str, str]:
+        """This adapter's reason codes and descriptions. Traces use these over the global registry, so two
+        adapters (or two configs) that use the same code with different descriptions do not mix."""
+        return dict(self.reasons)
+
     def settings(self, options: dict | None = None) -> dict:
         """The config with per-call options (keyword arguments to `extract`) on top."""
         return {**self.config, **(options or {})}
@@ -99,8 +105,14 @@ def _load(target: str):
 
 def available() -> dict[str, str]:
     """Adapter name -> import target, from entry points plus the built-ins."""
-    found = {ep.name: ep.value for ep in entry_points(group=GROUP)}
-    return {**BUILTIN, **found}
+    return {**BUILTIN, **_installed()}
+
+
+@functools.lru_cache(maxsize=1)
+def _installed() -> dict[str, str]:
+    """Entry points, read once per process: scanning installed packages takes milliseconds.
+    After installing an adapter package into a running process, call `_installed.cache_clear()`."""
+    return {ep.name: ep.value for ep in entry_points(group=GROUP)}
 
 
 def get(name: str) -> Adapter:

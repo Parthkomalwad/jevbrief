@@ -15,6 +15,18 @@ These are used by applications and are kept compatible:
 
 The adapter interface (`Adapter`, `Extracted`, `Rule`, `RuleSet`, and question packs) can still change in a minor release. When it does, adapters written for the previous release keep working.
 
+## 0.8.1
+
+Fixes for running jevbrief from many threads or processes. See [Threads, processes, and async](concurrency.md).
+
+- **Trace files no longer lose records.** Parallel writers on Windows could overwrite each other: about 3% of records in a test with 8 processes. Writes are now locked, with a `<trace>.jsonl.lock` file next to the trace.
+- **Run IDs are 12 hex characters** instead of 4. With 4, 1,000 briefings gave about 10 duplicates, which could mix up records and screenshots in the viewer.
+- **Each trace describes its own reason codes.** Two adapters, or two json configs, that use the same code with different descriptions no longer overwrite each other. Adapters can override `reason_descriptions()`.
+- **`Jev` creates one async client per event loop**, so one `Jev` is safe across several `asyncio.run` calls and across threads with their own loops.
+- **`get_adapter()` is about 2,500 times faster:** 0.002 ms instead of 5 ms. It read every installed package's entry points on each call; now it reads them once per process.
+- **Hybrid tool ranking loads its embedding model once**, even when many threads ask at the same time.
+- **CI runs on free-threaded Python 3.14t**, without the GIL.
+
 ## 0.8.0
 
 An engineering release: no new adapter. Every published benchmark gives the same facts and states as in 0.7.0.

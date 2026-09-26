@@ -2,9 +2,11 @@
 
 from __future__ import annotations
 
+import asyncio
 import time
+import weakref
 from dataclasses import dataclass
-from typing import Protocol
+from typing import Any, Protocol
 
 DEFAULT_MODEL = "jev-1.13.0"
 
@@ -39,7 +41,9 @@ class Jev:
         self.timeout = timeout
         self.retries = retries
         self._client = client
-        self._async_client = async_client
+        self._async_client = async_client  # yours, used as given
+        self._loop_clients: weakref.WeakKeyDictionary = weakref.WeakKeyDictionary()  # ours: one per event loop
+        self._no_loop_client: Any = None
 
     def _options(self) -> dict:
         opts: dict = {"model": self.model}
@@ -61,11 +65,27 @@ class Jev:
 
     @property
     def async_client(self):
-        if self._async_client is None:
+        """The SDK's async client for the running event loop.
+
+        An async HTTP client belongs to the event loop it was first used in, so each loop gets its own.
+        That makes one `Jev` safe across several `asyncio.run` calls and across threads with their own loops.
+        """
+        if self._async_client is not None:
+            return self._async_client
+        try:
+            loop = asyncio.get_running_loop()
+        except RuntimeError:
+            loop = None
+        client = self._loop_clients.get(loop) if loop else self._no_loop_client
+        if client is None:
             from typesafe_sdk import AsyncTypeSafeClient
 
-            self._async_client = AsyncTypeSafeClient(**self._options())
-        return self._async_client
+            client = AsyncTypeSafeClient(**self._options())
+            if loop:
+                self._loop_clients[loop] = client
+            else:
+                self._no_loop_client = client
+        return client
 
     def ask(self, state, questions: dict[str, dict]) -> Answers:
         """Ask every question against the same state in one call. Questions are plain API-shaped dicts."""
@@ -80,10 +100,14 @@ class Jev:
         return _answers(resp, start)
 
     async def aclose(self) -> None:
-        """Close the async client's connections. The sync client is closed by `close`."""
+        """Close the async client for the running event loop. The sync client is closed by `close`."""
         if self._async_client is not None:
             await self._async_client.aclose()
             self._async_client = None
+            return
+        client = self._loop_clients.pop(asyncio.get_running_loop(), None)
+        if client is not None:
+            await client.aclose()
 
     def close(self) -> None:
         if self._client is not None:
