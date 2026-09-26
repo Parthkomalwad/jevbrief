@@ -107,8 +107,12 @@ class JsonAdapter(Adapter):
 
     def configure(self, config) -> None:
         self.config = load_config(config)
-        register_reasons({f"json.{r['name']}": r.get("description", f"Config rule `{r['name']}`")
-                          for r in self.config.get("rules", [])}, replace=True)
+        self._config_reasons = {f"json.{r['name']}": r.get("description", f"Config rule `{r['name']}`")
+                                for r in self.config.get("rules", [])}
+        register_reasons(self._config_reasons, replace=True)
+
+    def reason_descriptions(self) -> dict[str, str]:
+        return {**self.reasons, **getattr(self, "_config_reasons", {})}
 
     def extract(self, source, config=None, **options) -> Extracted:
         if config is not None:

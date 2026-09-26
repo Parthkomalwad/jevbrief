@@ -3,6 +3,9 @@
 from __future__ import annotations
 
 import json
+import sys
+import threading
+from contextlib import contextmanager
 from dataclasses import asdict, dataclass, field, fields
 from datetime import datetime, timezone
 from pathlib import Path
@@ -46,8 +49,46 @@ def write(path: str | Path, record: TraceRecord, image: bytes | None = None, ext
         name = f"{record.run_id}-{record.tick}.{ext}"
         (assets / name).write_bytes(image)
         record.image["path"] = f"{assets.name}/{name}"
-    with path.open("a", encoding="utf-8") as f:
-        f.write(json.dumps(record.to_dict(), ensure_ascii=False) + "\n")
+    line = json.dumps(record.to_dict(), ensure_ascii=False) + "\n"
+    with _locked(path), path.open("a", encoding="utf-8") as f:
+        f.write(line)
+
+
+_LOCKS: dict[str, threading.Lock] = {}
+_LOCKS_GUARD = threading.Lock()
+
+
+@contextmanager
+def _locked(path: Path):
+    """Hold the trace file for one write: a thread lock in this process, and an OS lock on `<trace>.lock`
+    across processes. Without it, parallel appends on Windows can overwrite each other and lose records.
+    The lock file is separate so that readers, such as the live viewer, are never blocked."""
+    with _LOCKS_GUARD:
+        lock = _LOCKS.setdefault(str(path.resolve()), threading.Lock())
+    with lock, open(path.with_name(path.name + ".lock"), "a+b") as lf:
+        if sys.platform == "win32":
+            import msvcrt
+
+            lf.seek(0)
+            while True:
+                try:
+                    msvcrt.locking(lf.fileno(), msvcrt.LK_LOCK, 1)  # retries for about 10 s, then raises
+                    break
+                except OSError:
+                    continue
+            try:
+                yield
+            finally:
+                lf.seek(0)
+                msvcrt.locking(lf.fileno(), msvcrt.LK_UNLCK, 1)
+        else:
+            import fcntl
+
+            fcntl.flock(lf.fileno(), fcntl.LOCK_EX)
+            try:
+                yield
+            finally:
+                fcntl.flock(lf.fileno(), fcntl.LOCK_UN)
 
 
 def read(path: str | Path) -> list[TraceRecord]:

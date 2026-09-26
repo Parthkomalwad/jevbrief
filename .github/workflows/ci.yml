@@ -51,6 +51,19 @@ jobs:
       - run: python -m coverage run -m pytest -q
       - run: python -m coverage report
 
+  free-threaded:
+    # Python without the GIL, where thread-safety bugs show up. Core and stdlib-only adapters: the heavier
+    # extras (Playwright, fastembed) do not all publish free-threaded wheels yet.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.14t"
+      - run: pip install -e ".[json,otel,ci,tools,steps,pr]" "pytest>=8"
+      - run: python -c "import sys; assert not sys._is_gil_enabled(), 'the GIL is on'"
+      - run: python -m pytest -q -p no:cacheprovider
+
   package:
     runs-on: ubuntu-latest
     steps:

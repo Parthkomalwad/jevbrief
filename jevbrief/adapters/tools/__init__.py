@@ -24,6 +24,7 @@ import inspect
 import json
 import math
 import re
+import threading
 from collections import Counter
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -101,13 +102,16 @@ class Embedder:
     def __init__(self, fn=None, model: str = DEFAULT_MODEL):
         self.fn, self.model, self._fast = fn, model, None
         self._cache: dict[str, list[float]] = {}
+        self._load = threading.Lock()  # threads share one embedder: load the model once
 
     def _fastembed(self):
         if self._fast is None:
-            need("embed", "fastembed")
-            from fastembed import TextEmbedding
+            with self._load:
+                if self._fast is None:
+                    need("embed", "fastembed")
+                    from fastembed import TextEmbedding
 
-            self._fast = TextEmbedding(self.model)
+                    self._fast = TextEmbedding(self.model)
         return self._fast
 
     def documents(self, texts: list[str]) -> list[list[float]]:
@@ -124,6 +128,7 @@ class Embedder:
 
 
 _EMBEDDERS: dict = {}  # one per function or model, so the cache survives across calls
+_EMBEDDERS_LOCK = threading.Lock()
 
 
 def embedder(embed=None) -> Embedder:
@@ -131,8 +136,9 @@ def embedder(embed=None) -> Embedder:
     if isinstance(embed, Embedder):
         return embed
     key = embed if callable(embed) else (embed or DEFAULT_MODEL)
-    if key not in _EMBEDDERS:
-        _EMBEDDERS[key] = Embedder(embed) if callable(embed) else Embedder(model=key)
+    with _EMBEDDERS_LOCK:
+        if key not in _EMBEDDERS:
+            _EMBEDDERS[key] = Embedder(embed) if callable(embed) else Embedder(model=key)
     return _EMBEDDERS[key]
 
 

@@ -81,7 +81,7 @@ class Briefing:
         self.pins = list(pins)
         self.jev: JevClient = jev or Jev(model)
         self.images = images
-        self.run_id = "r_" + secrets.token_hex(2)
+        self.run_id = "r_" + secrets.token_hex(6)  # 48 bits: no collisions across many runs and processes
         self.tick = 0
         self.source: dict = {}
         self.image: bytes | None = None
@@ -189,6 +189,9 @@ class Briefing:
                 d.update(kind=f.kind, label=f.label, score=f.score, box=f.box)
                 if "view" in f.meta:  # adapter-provided layout hints for the viewer, such as a timeline span
                     d["view"] = f.meta["view"]
+        own = getattr(self.adapter, "reason_descriptions", None)
+        legend = {**REASONS, **(own() if own else {}),
+                  **{r.name: r.description for r in self.rules.rules if r.description}}
         image = None
         if self.image is not None:
             w, h = self.image_size or (0, 0)
@@ -207,7 +210,7 @@ class Briefing:
             outcome=decision.outcome,
             answers=decision.answers,
             questions=questions if level == "full" else {},
-            reasons={f.reason: REASONS.get(f.reason, "") for f in self.facts},
+            reasons={f.reason: legend.get(f.reason, "") for f in self.facts},
             image=image,
             state=self.state() if level == "full" else None,
         )
