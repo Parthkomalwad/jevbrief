@@ -11,6 +11,7 @@ Needs `pip install "jevbrief[nes]"`. Uses only a ROM you are allowed to use.
 """
 
 import argparse
+from pathlib import Path
 
 import numpy as np
 from cynes import NES
@@ -71,7 +72,7 @@ def main():
         np.asarray(nes.save(), dtype=np.uint8).tofile(a.save)
     if a.png and frame is not None:
         from jevbrief.adapters.nes import png
-        open(a.png, "wb").write(png(frame))
+        Path(a.png).write_bytes(png(frame))
 
 
 if __name__ == "__main__":

@@ -89,7 +89,7 @@ def cmd_view(a) -> int:
 
     trace = a.trace or latest_trace() or ("traces/trace.jsonl" if a.live else None)
     if a.live:
-        server = serve_live(trace, port=a.port, open_browser=not a.no_open)
+        server = serve_live(str(trace), port=a.port, open_browser=not a.no_open)
         print(f"trace: {trace}")
         print(f"live viewer: http://127.0.0.1:{server.server_port}/  (Ctrl+C to stop)")
         try:

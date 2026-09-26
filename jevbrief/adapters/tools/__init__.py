@@ -99,7 +99,8 @@ class Embedder:
     (`embed(list_of_texts) -> list_of_vectors`, used for both tools and goals) or fastembed's local model."""
 
     def __init__(self, fn=None, model: str = DEFAULT_MODEL):
-        self.fn, self.model, self._fast, self._cache = fn, model, None, {}
+        self.fn, self.model, self._fast = fn, model, None
+        self._cache: dict[str, list[float]] = {}
 
     def _fastembed(self):
         if self._fast is None:
@@ -113,7 +114,7 @@ class Embedder:
         todo = [t for t in dict.fromkeys(texts) if t not in self._cache]
         if todo:
             vecs = self.fn(todo) if self.fn else self._fastembed().passage_embed(todo)
-            self._cache.update(zip(todo, (list(map(float, v)) for v in vecs)))
+            self._cache.update(zip(todo, (list(map(float, v)) for v in vecs), strict=True))
         return [self._cache[t] for t in texts]
 
     def query(self, text: str) -> list[float]:
@@ -136,7 +137,7 @@ def embedder(embed=None) -> Embedder:
 
 
 def cosine(a: list[float], b: list[float]) -> float:
-    dot = sum(x * y for x, y in zip(a, b))
+    dot = sum(x * y for x, y in zip(a, b, strict=True))
     na, nb = math.sqrt(sum(x * x for x in a)), math.sqrt(sum(y * y for y in b))
     return dot / (na * nb) if na and nb else 0.0
 
@@ -190,7 +191,7 @@ def spec(obj, server: str | None = None) -> dict | None:
     `description` (MCP SDK, LangChain, CrewAI), and plain functions.
     """
     if isinstance(obj, dict):
-        d = obj.get("function") if obj.get("type") == "function" and isinstance(obj.get("function"), dict) else obj
+        d: dict = obj["function"] if obj.get("type") == "function" and isinstance(obj.get("function"), dict) else obj
         if "name" not in d:
             return None
         schema = d.get("inputSchema") or d.get("input_schema") or d.get("parameters") or {}

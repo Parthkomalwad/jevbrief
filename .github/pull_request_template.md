@@ -4,7 +4,7 @@
 
 ## Checklist
 
-- [ ] `pytest -q` passes
+- [ ] `pytest -q`, `ruff check .`, and `mypy` pass (CI checks all three)
 - [ ] No change to the core API, or the change is discussed in an issue first
 
 ### For a new adapter (see ADAPTERS.md)

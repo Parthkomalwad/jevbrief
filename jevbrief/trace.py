@@ -33,7 +33,7 @@ class TraceRecord:
     ts: str = field(default_factory=lambda: datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"))
 
     def to_dict(self) -> dict:
-        return {k: v for k, v in asdict(self).items() if v is not None and v != {} or k in ("jev", "budget")}
+        return {k: v for k, v in asdict(self).items() if (v is not None and v != {}) or k in ("jev", "budget")}
 
 
 def write(path: str | Path, record: TraceRecord, image: bytes | None = None, ext: str = "jpg") -> None:

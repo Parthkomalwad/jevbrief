@@ -5,6 +5,7 @@ The emulator only runs inside `hold()`, so it is paused while Jev answers.
 
 from __future__ import annotations
 
+import contextlib
 import hashlib
 import warnings
 from pathlib import Path
@@ -40,10 +41,8 @@ class NovaGame:
             if self.live_frame and self.frames % 4 == 0:
                 tmp = self.live_frame.with_suffix(".tmp")
                 tmp.write_bytes(png(self.frame))
-                try:
+                with contextlib.suppress(PermissionError):  # Windows: the viewer is reading the old frame
                     tmp.replace(self.live_frame)
-                except PermissionError:  # Windows: the viewer is reading the old frame; the next one comes soon
-                    pass
 
     def start_level(self):
         """From power-on: title screen, level select (level 1-1), then "Start!" in the level menu."""
@@ -128,5 +127,5 @@ def play(game, briefing, decisions: int, danger_threshold: float = 0.7, log=prin
         health = game.health
         best = max(best, game.x_blocks)
         conf = f"{d.confidence:.2f}" if d.confidence is not None else "-"
-        log(f"{i + 1:>3}  {d.outcome:<14} {str(d.choice):<10} {conf}  -> {action:<10} x={game.x_blocks:5.1f} health={game.health}")
+        log(f"{i + 1:>3}  {d.outcome:<14} {d.choice!s:<10} {conf}  -> {action:<10} x={game.x_blocks:5.1f} health={game.health}")
     return {"furthest_x": round(best, 1), "hits": hits, "deaths": deaths}

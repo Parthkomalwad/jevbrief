@@ -81,7 +81,8 @@ def _get(obj, *keys, default=None):
 
 def _from_messages(msgs) -> list[dict]:
     """Steps from OpenAI, Anthropic, or LangChain messages: each tool call, matched to its result by ID."""
-    steps, by_id = [], {}
+    steps: list[dict] = []
+    by_id: dict = {}
     for m in msgs:
         role = _get(m, "role", "type", default="")
         calls = _get(m, "tool_calls", default=None) or []
@@ -169,7 +170,7 @@ def signals(steps: list[dict], window: int = WINDOW) -> list[dict]:
     """Loop patterns in the last `window` steps, each {"kind", "label", "strength", "attrs"}. Pure counting."""
     recent = steps[-window:]
     n = len(recent)
-    out = []
+    out: list[dict] = []
     if not n:
         return out
     calls = [(s["action"], _key(s["args"])) for s in recent]
@@ -189,7 +190,7 @@ def signals(steps: list[dict], window: int = WINDOW) -> list[dict]:
 
     # the same call with the same result many times in the window, not only at the end (a changing result is polling)
     counts: dict = {}
-    for c, o in zip(calls, outcomes):
+    for c, o in zip(calls, outcomes, strict=True):
         counts[(c, o)] = counts.get((c, o), 0) + 1
     (call, _), k = max(counts.items(), key=lambda kv: kv[1])
     covered = call == calls[-1] and k <= streak  # already said by the streak above
@@ -223,7 +224,7 @@ def signals(steps: list[dict], window: int = WINDOW) -> list[dict]:
 
     # new information: a result or state not seen before in the window
     seen, new = set(), []
-    for s, o in zip(recent, outcomes):
+    for s, o in zip(recent, outcomes, strict=True):
         key = _key(s.get("state")) or o
         new.append(bool(key) and key not in seen)
         seen.add(key)
@@ -274,7 +275,7 @@ class StepsAdapter(Adapter):
         if not steps:
             raise ValueError("no steps found. Pass step dicts, chat messages with tool calls, or a jevbrief trace")
         window, recent = int(self.config.get("window", WINDOW)), int(self.config.get("recent", RECENT))
-        facts = []
+        facts: list[Fact] = []
         for s in signals(steps, window):
             facts.append(Fact(id=fact_id("steps", s["kind"]), kind=s["kind"], label=clean_label(s["label"]),
                               attrs=s["attrs"], meta={"strength": s["strength"], "order": len(facts)}))

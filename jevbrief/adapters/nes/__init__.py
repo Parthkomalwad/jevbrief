@@ -300,7 +300,7 @@ class NesAdapter(Adapter):
         return {"platformer": pack}
 
     def state(self, goal, kept, source):
-        player = next((f.attrs for f in kept if f.kind == "player"), {})
+        player: dict = next((f.attrs for f in kept if f.kind == "player"), {})
         return {"goal": goal, "player": player, "nearby": [f.state() for f in kept if f.kind != "player"]}
 
     def raw(self, facts):

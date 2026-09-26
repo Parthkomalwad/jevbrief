@@ -9,7 +9,6 @@ Run:  python scripts/make_demo_gif.py
 
 import io
 import sys
-import tempfile
 from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFont

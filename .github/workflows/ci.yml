@@ -1,0 +1,68 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -e ".[json,otel,ci,tools,steps,pr]" "ruff>=0.6" "mypy>=1.11"
+      - run: ruff check .
+      - run: mypy
+
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+        python: ["3.10", "3.11", "3.12", "3.13", "3.14"]
+        include:
+          - os: windows-latest
+            python: "3.10"
+          - os: windows-latest
+            python: "3.14"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      # Every extra except nes: its tests use recorded snapshots, and the emulator has no wheel for every Python.
+      - run: pip install -e ".[web,json,otel,ci,tools,embed,steps,pr]" "pytest>=8" "coverage>=7"
+      - run: python -m playwright install --with-deps chromium
+        if: runner.os == 'Linux'
+      - run: python -m playwright install chromium
+        if: runner.os == 'Windows'
+      - run: python -m coverage run -m pytest -q
+      - run: python -m coverage report
+
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install build
+      - run: python -m build
+      - name: No secrets, traces, or benchmark data in the package
+        run: |
+          for f in dist/*; do
+            (unzip -l "$f" 2>/dev/null || tar -tzf "$f") | tee /dev/stderr \
+              | grep -E '(^|/)\.env$|traces/|(^|/)bench/|tasks\.json' && { echo "unexpected file in $f"; exit 1; } || true
+          done
+      - run: pip install dist/*.whl && python -c "import jevbrief, sys; print(jevbrief.__version__); assert not any(m.startswith('jevbrief.adapters.') for m in sys.modules)"

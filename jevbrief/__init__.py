@@ -24,6 +24,26 @@ def __getattr__(name):
     raise AttributeError(name)
 
 
-__all__ = ["Adapter", "Boost", "Brief", "Briefing", "Decision", "Drop", "Extracted", "Fact", "FactChoice",
-           "GroupRule", "OptionChoice", "QuestionPack", "check_progress", "loop_signals", "pick_tool", "select_tools", "Rule", "RuleSet", "get_adapter", "register_reasons"]
+__all__ = [
+    "Adapter",
+    "Boost",
+    "Brief",
+    "Briefing",
+    "Decision",
+    "Drop",
+    "Extracted",
+    "Fact",
+    "FactChoice",
+    "GroupRule",
+    "OptionChoice",
+    "QuestionPack",
+    "Rule",
+    "RuleSet",
+    "check_progress",
+    "get_adapter",
+    "loop_signals",
+    "pick_tool",
+    "register_reasons",
+    "select_tools",
+]
 __version__ = "0.7.0"

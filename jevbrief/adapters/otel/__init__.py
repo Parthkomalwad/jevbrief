@@ -17,6 +17,7 @@ from __future__ import annotations
 import json
 import re
 from collections import Counter
+from collections.abc import Callable
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -64,7 +65,7 @@ def _number(m: re.Match) -> str:
     return m.group(0) if re.fullmatch(r"[1-5]\d\d", m.group(0)) else "<n>"
 
 
-_SUBS = [
+_SUBS: list[tuple[re.Pattern[str], str | Callable[[re.Match[str]], str]]] = [
     (re.compile(r"\b[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\b", re.I), "<id>"),
     (re.compile(r"\b[0-9a-f]{12,}\b", re.I), "<id>"),
     (re.compile(r"\b[\w.+-]+@[\w-]+\.[\w.]+\b"), "<email>"),

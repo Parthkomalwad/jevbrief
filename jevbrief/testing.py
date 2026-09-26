@@ -62,7 +62,7 @@ def check_adapter(adapter, source, goal: str, **extract_options) -> Briefing:
         b = Briefing(adapter, goal, trace=str(trace_path), jev=FakeJev())
         b.load_extracted(first)
         for f in b.facts:
-            assert f.reason in REASONS and REASONS[f.reason], f"reason {f.reason!r} is not registered with a description"
+            assert REASONS.get(f.reason), f"reason {f.reason!r} is not registered with a description"
 
         state = b.state()
         json.dumps(state)

@@ -11,6 +11,7 @@ from __future__ import annotations
 
 from importlib import import_module
 from importlib.metadata import entry_points
+from typing import ClassVar
 
 from ..briefing import Extracted
 from ..facts import Fact
@@ -34,7 +35,7 @@ class Adapter:
     version = "1"
     renderer = "table"            # viewer layout: "spatial" (image + boxes), "timeline" (meta["view"] spans), or "table"
     extra = ""                    # the pip extra that installs this adapter's dependencies
-    reasons: dict[str, str] = {}  # adapter reason codes ("<name>.<code>") and descriptions
+    reasons: ClassVar[dict[str, str]] = {}  # adapter reason codes ("<name>.<code>") and descriptions
 
     def configure(self, config) -> None:
         """Load an adapter config (a path or a dict). Adapters that take no config reject one."""

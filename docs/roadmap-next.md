@@ -109,7 +109,7 @@ These are the steps each adapter so far has followed:
    - an entry in `PAGES` in `scripts/build_docs_site.py`
    - a row in `skills/jevbrief/SKILL.md`
 7. **Release:**
-   - bump the version in `pyproject.toml` and `jevbrief/__init__.py`
+   - bump the version in `jevbrief/__init__.py` (the only place it lives)
    - open a PR, merge it, then tag
    - `python -m build`, then list the package contents and confirm there are no `.env`, traces, or benchmark logs
    - upload with twine

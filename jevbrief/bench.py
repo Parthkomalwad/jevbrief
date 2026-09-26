@@ -14,7 +14,7 @@ from pathlib import Path
 
 from . import adapters, budget
 from .briefing import Briefing
-from .jev import Jev
+from .jev import Jev, JevClient
 from .rules import RuleSet
 
 ARMS = ("raw", "jevbrief")
@@ -51,14 +51,14 @@ def _correct(task, d, b) -> bool:
     return bool(chosen and chosen.label.lower() in [w.lower() for w in ([want] if isinstance(want, str) else want)])
 
 
-def run(tasks_path: str, repeats: int = 3, out_dir: str = "traces/bench") -> str:
+def run(tasks_path: str, repeats: int = 3, out_dir: str = "traces/bench", jev: JevClient | None = None) -> str:
     import json
 
     tasks_file = Path(tasks_path)
     tasks = json.loads(tasks_file.read_text(encoding="utf-8"))
     Path(out_dir).mkdir(parents=True, exist_ok=True)
-    jev = Jev()
-    rows = {arm: [] for arm in ARMS}
+    jev = jev or Jev()
+    rows: dict[str, list[dict]] = {arm: [] for arm in ARMS}
     per_task = []
 
     for t in tasks:
@@ -81,7 +81,7 @@ def run(tasks_path: str, repeats: int = 3, out_dir: str = "traces/bench") -> str
                     b = Briefing(adapter, t["goal"], trace=trace_path, jev=jev)
                     b.load_extracted(copy.deepcopy(ex))
                 d = b.decide()
-                j = d.record.jev
+                j = d.record.jev if d.record else {}
                 ok = _correct(t, d, b)
                 hits += ok
                 p = (d.answers.get("flaky") or {}).get("noul")

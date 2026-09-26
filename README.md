@@ -6,6 +6,7 @@
 
 Other tools show what Jev decided. jevbrief shows what Jev was told, what it wasn't told, and why.
 
+[![CI](https://github.com/Parthkomalwad/jevbrief/actions/workflows/ci.yml/badge.svg)](https://github.com/Parthkomalwad/jevbrief/actions/workflows/ci.yml)
 [![PyPI](https://img.shields.io/pypi/v/jevbrief?color=ff3fd2&label=pypi)](https://pypi.org/project/jevbrief)
 [![Python](https://img.shields.io/pypi/pyversions/jevbrief?color=111)](https://pypi.org/project/jevbrief)
 [![License: MIT](https://img.shields.io/badge/license-MIT-111)](https://github.com/parthkomalwad/jevbrief/blob/main/LICENSE)
@@ -104,7 +105,7 @@ See [how the benchmarks work](https://claude.ai/artifact/MpQRvn5d5bohrNVWwLVp31#
 ```bash
 git clone https://github.com/parthkomalwad/jevbrief && cd jevbrief
 python -m venv .venv && . .venv/bin/activate    # Windows: .venv\Scripts\activate
-pip install -e ".[dev]" && pytest -q
+pip install -e ".[dev]" && pytest -q && ruff check . && mypy
 ```
 
 ## License
