@@ -35,6 +35,7 @@ PAGES = [
     ("web", "web", "Adapters", "docs/adapters/web.md", "Which element to click next"),
     ("nes", "nes", "Adapters", "docs/adapters/nes.md", "Which move to make next"),
     ("build", "Build an adapter", "Guides", "ADAPTERS.md", "Facts, rules, packs, the contract test"),
+    ("changes", "Stability and changes", "Guides", "docs/stability.md", "What is stable, and what changed in 0.8.0"),
 ]
 ROUTES = {src: route for route, _, _, src, _ in PAGES}
 LINK = re.compile(r"(!?)\[([^\]]*)\]\(([^)\s]+)\)")

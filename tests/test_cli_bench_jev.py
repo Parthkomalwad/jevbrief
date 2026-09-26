@@ -103,3 +103,36 @@ def test_load_env_keeps_existing_values(tmp_path, monkeypatch):
     cli.load_env(tmp_path / ".env")
     import os
     assert os.environ["JB_A"] == "from file" and os.environ["JB_B"] == "already set"
+
+
+def test_cli_inspect_json(capsys):
+    assert cli.main(["inspect", str(OTEL), "--adapter", "otel", "--goal", "checkout fails", "--json"]) == 0
+    out = json.loads(capsys.readouterr().out)
+    assert out["adapter"] == "otel" and out["kept"] == sum(f["kept"] for f in out["facts"])
+    assert {"id", "kind", "label", "kept", "reason", "score", "attrs"} <= set(out["facts"][0])
+    assert "log_groups" in out["state"]
+
+
+def test_cli_ask_json(capsys, monkeypatch, tmp_path):
+    monkeypatch.setenv("TYPESAFE_API_KEY", "test-not-a-key")
+    monkeypatch.setattr(Jev, "ask", lambda self, state, questions: FakeJev().ask(state, questions))
+    trace = tmp_path / "t.jsonl"
+    assert cli.main(["ask", str(OTEL), "--adapter", "otel", "--goal", "x", "--trace", str(trace), "--json"]) == 0
+    out = json.loads(capsys.readouterr().out)
+    assert out["outcome"] == "applied" and out["fact"]["id"] == out["choice"] and out["trace"] == str(trace)
+
+
+def test_cli_bench_writes_the_table(capsys, monkeypatch, tmp_path):
+    monkeypatch.setenv("TYPESAFE_API_KEY", "test-not-a-key")
+    monkeypatch.setattr(Jev, "ask", lambda self, state, questions: FakeJev().ask(state, questions))
+    md = tmp_path / "results.md"
+    assert cli.main(["bench", str(tasks(tmp_path)), "--repeats", "1", "--workers", "2",
+                     "--out", str(tmp_path / "tr"), "--write", str(md)]) == 0
+    assert md.read_text(encoding="utf-8").startswith("| Arm | Accuracy |")
+
+
+def test_bench_is_the_same_on_one_or_many_threads(tmp_path):
+    a = run(str(tasks(tmp_path)), repeats=3, out_dir=str(tmp_path / "a"), jev=FakeJev(), workers=1)
+    b = run(str(tasks(tmp_path)), repeats=3, out_dir=str(tmp_path / "b"), jev=FakeJev(), workers=6)
+    assert a == b
+    assert len((tmp_path / "b" / "raw.jsonl").read_text(encoding="utf-8").splitlines()) == 3

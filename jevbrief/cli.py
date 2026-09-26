@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 import os
 import sys
 import time
@@ -56,8 +57,22 @@ def print_facts(b) -> None:
             print(f"    {f.id}  {f.kind:<7} {f.label!r}")
 
 
+def facts_json(b) -> dict:
+    """What `inspect --json` prints: every fact with its decision, and the state Jev would receive."""
+    return {"goal": b.goal, "adapter": b.adapter.name, "source": b.source,
+            "budget": {"limit_tokens": b.budget_tokens, "used_tokens": b.used_tokens},
+            "kept": len(b.kept), "dropped": len(b.facts) - len(b.kept),
+            "facts": [{"id": f.id, "kind": f.kind, "label": f.label, "kept": f.kept, "reason": f.reason,
+                       "score": f.score, "attrs": f.attrs} for f in b.facts],
+            "state": b.state()}
+
+
 def cmd_inspect(a) -> int:
-    print_facts(make_briefing(a, trace=None, trace_level="off"))
+    b = make_briefing(a, trace=None, trace_level="off")
+    if a.json:
+        print(json.dumps(facts_json(b), ensure_ascii=False, default=str))
+    else:
+        print_facts(b)
     return 0
 
 
@@ -68,11 +83,18 @@ def cmd_ask(a) -> int:
     b = make_briefing(a, trace=a.trace, trace_level=a.trace_level, min_confidence=a.min_confidence,
                       images=not a.no_screenshot)
     d = b.decide()
+    error = ((d.record.jev.get("error") if d.record else None) or "unknown") if d.outcome == "error" else None
+    if a.json:
+        fact = {"id": d.fact.id, "kind": d.fact.kind, "label": d.fact.label, "attrs": d.fact.attrs} if d.fact else None
+        print(json.dumps({"outcome": d.outcome, "choice": d.choice, "confidence": d.confidence, "fact": fact,
+                          "answers": d.answers, "error": error,
+                          "trace": b.trace_path if b.trace_level != "off" else None}, ensure_ascii=False, default=str))
+        return 1 if d.outcome == "error" else 0
     conf = f"{d.confidence:.2f}" if d.confidence is not None else "-"
     label = d.fact.label if d.fact else ""
     print(f"outcome: {d.outcome}\nchoice: {d.choice} {label!r}\nconfidence: {conf}")
-    if d.outcome == "error":
-        print(f"error: {d.record.jev.get('error') if d.record else 'unknown'}", file=sys.stderr)
+    if error:
+        print(f"error: {error}", file=sys.stderr)
     if b.trace_path and b.trace_level != "off":
         print(f"trace: {b.trace_path}")
         if a.view:
@@ -112,7 +134,11 @@ def cmd_bench(a) -> int:
     if not os.environ.get("TYPESAFE_API_KEY"):
         print(NO_KEY, file=sys.stderr)
         return 2
-    print(run(a.tasks, repeats=a.repeats, out_dir=a.out))
+    table = run(a.tasks, repeats=a.repeats, out_dir=a.out, workers=a.workers)
+    print(table)
+    if a.write:
+        Path(a.write).write_text(table + "\n", encoding="utf-8")
+        print(f"wrote {a.write}")
     return 0
 
 
@@ -128,6 +154,9 @@ def latest_trace(folder: str = "traces") -> str | None:
 
 
 def main(argv: list[str] | None = None) -> int:
+    for stream in (sys.stdout, sys.stderr):  # a Windows console cannot print every character in a label or goal
+        if hasattr(stream, "reconfigure"):
+            stream.reconfigure(errors="replace")
     load_env()
     p = argparse.ArgumentParser(prog="jevbrief", description="Clean, traceable state briefings for TypeSafe's Jev model.")
     p.add_argument("--version", action="version", version=f"jevbrief {__version__}")
@@ -143,6 +172,7 @@ def main(argv: list[str] | None = None) -> int:
 
     sp = sub.add_parser("inspect", help="Show kept and dropped facts. No Jev call, no API key needed.")
     source_args(sp)
+    sp.add_argument("--json", action="store_true", help="Print JSON: every fact with its reason and score, and the state")
     sp.set_defaults(fn=cmd_inspect)
 
     sp = sub.add_parser("ask", help="Ask Jev the adapter's question and write a trace.")
@@ -152,6 +182,7 @@ def main(argv: list[str] | None = None) -> int:
     sp.add_argument("--min-confidence", type=float, default=0.5, help="Below this, take no action (default 0.5)")
     sp.add_argument("--view", action="store_true", help="Open the trace viewer when done")
     sp.add_argument("--no-screenshot", action="store_true", help="Do not store an image in the trace")
+    sp.add_argument("--json", action="store_true", help="Print the decision as JSON")
     sp.set_defaults(fn=cmd_ask)
 
     sp = sub.add_parser("view", help="Open a trace file in the HTML viewer (default: the newest in traces/).")
@@ -165,6 +196,8 @@ def main(argv: list[str] | None = None) -> int:
     sp.add_argument("tasks", nargs="?", default="bench/tasks.json", help="Tasks file (default bench/tasks.json)")
     sp.add_argument("--repeats", type=int, default=3, help="Runs per task and arm (default 3)")
     sp.add_argument("--out", default="traces/bench", help="Folder for benchmark traces")
+    sp.add_argument("--workers", type=int, default=4, help="Jev calls run in parallel (default 4)")
+    sp.add_argument("--write", help="Also write the results tables to this Markdown file")
     sp.set_defaults(fn=cmd_bench)
 
     sp = sub.add_parser("adapters", help="List installed adapters.")
