@@ -31,6 +31,9 @@ An engineering release: no new adapter. Every published benchmark gives the same
 - `jevbrief bench` crashed on a Windows console when a task name held a character the console could not print.
 - The json adapter now rejects an invalid `now` date at once, with a clear message.
 
+**Known, not changed**
+- `Briefing(...)` writes its trace to `trace.jsonl` in the current folder by default, and `pick_tool` and `check_progress` write to `traces/`. Pass `trace=None` for no trace. The default may change in a later release; it will be listed here first.
+
 **Changed**
 - **Errors:** only Jev and network failures give `outcome="error"`. That means the SDK's `TypeSafeError` (which covers a missing API key, rate limits, and timeouts) and `OSError`. Any other exception is a bug, in an adapter, a rule, or your code, and is now raised instead of being recorded as an error.
 
