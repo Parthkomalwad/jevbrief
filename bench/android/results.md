@@ -14,7 +14,7 @@ Run on 2026-09-26 with `jev-1.13.0`: 107 real taps from 40 episodes of Google's 
 | random element among the ones jevbrief keeps | 6% (expected) |
 | the element jevbrief's rules score highest | 37% (40/107) |
 
-Where the arms disagree: jevbrief was right and raw wrong on 36 tasks, raw right and jevbrief wrong on 4. Both were right on 54 and both wrong on 13.
+Per task: jevbrief was right more often than raw on 36 tasks, and raw more often than jevbrief on 4. Both were right every time on 54, both wrong every time on 12, and on 1 task raw was right 2 of 3 times and jevbrief 3 of 3.
 
 ## Notes
 
@@ -32,7 +32,7 @@ Where the arms disagree: jevbrief was right and raw wrong on 36 tasks, raw right
   - identical buttons in different places were dropped as duplicates
 
   Treat the result as measured on the data the adapter was tuned on. A second file of the dataset (`--shard 1`) is the check.
-- **Small, one file.** 107 taps from 40 episodes. The screens are not committed: `fetch_androidcontrol.py` downloads them again, streaming about 200 MB of a 2.5 GB file.
+- **Small, one file.** 107 taps from 40 episodes. The screens are not committed: `fetch_androidcontrol.py` downloads them again. It streams the start of one 2.5 GB file and stops after the episodes it needs.
 
 ## Per task
 
