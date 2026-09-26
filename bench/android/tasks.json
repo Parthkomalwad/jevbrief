@@ -1,0 +1,1718 @@
+[
+  {
+    "adapter": "android",
+    "source": "screens/0_2.json",
+    "goal": "Go to the Past section",
+    "episode_goal": "Open the Zoho Meet app , view the scheduled meetings .",
+    "expected_choice": [
+      "eb818e4"
+    ],
+    "target": "Past",
+    "tap": [
+      540,
+      390
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/20_1.json",
+    "goal": "Click on the Mobile category at the top left corner of the screen",
+    "episode_goal": "Go to the mobile category after closing the pop up and browse the products",
+    "expected_choice": [
+      "ec07f19"
+    ],
+    "target": "Mobiles",
+    "tap": [
+      110,
+      506
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/20_2.json",
+    "goal": "close the pop up",
+    "episode_goal": "Go to the mobile category after closing the pop up and browse the products",
+    "expected_choice": [
+      "e234c62"
+    ],
+    "target": "Close ad",
+    "tap": [
+      978,
+      411
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/60_1.json",
+    "goal": "Click on the search bar",
+    "episode_goal": " I want to view the recipe for Welsh Cakes in the kitchen stories app.",
+    "expected_choice": [
+      "e65c765"
+    ],
+    "target": "Hungry?",
+    "tap": [
+      540,
+      462
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/80_1.json",
+    "goal": "Select the Strava mail ",
+    "episode_goal": "Open the Yahoo Mail App, Select the Starva Mail and Unmark an Email as read. ",
+    "expected_choice": [
+      "ed69529"
+    ],
+    "target": "Profile Me & Strava",
+    "tap": [
+      94,
+      1184
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/80_2.json",
+    "goal": "Click on the Mark as unread icon to unmark an Email as read",
+    "episode_goal": "Open the Yahoo Mail App, Select the Starva Mail and Unmark an Email as read. ",
+    "expected_choice": [
+      "eb08ed9"
+    ],
+    "target": "Mark as unread",
+    "tap": [
+      756,
+      2263
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/100_0.json",
+    "goal": "Click on the three dots next to the agents.txt",
+    "episode_goal": "If I lose connection to the internet, I want to make the agents.txt file accessible offline in Google Drive so that I can readily access it.",
+    "expected_choice": [
+      "e8ecd00"
+    ],
+    "target": "More actions for agents.txt",
+    "tap": [
+      1016,
+      1051
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/100_1.json",
+    "goal": "Click on the make available offline option.",
+    "episode_goal": "If I lose connection to the internet, I want to make the agents.txt file accessible offline in Google Drive so that I can readily access it.",
+    "expected_choice": [
+      "e71c753"
+    ],
+    "target": "Make available offline",
+    "tap": [
+      602,
+      1219
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/140_1.json",
+    "goal": "Long press on the \"the Queen's Gambit\" book.",
+    "episode_goal": "Share my favorite Book \"the Queen's Gambit\" to my Friend Natalie larson over her gmail address -natalie.larson1998@gmail.com from the  PocketBook app.",
+    "expected_choice": [
+      "eda3497"
+    ],
+    "target": "thumbnail",
+    "tap": [
+      117,
+      654
+    ],
+    "action": "long_press",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/140_2.json",
+    "goal": "Click on the more options icon at the top right corner of the screen.",
+    "episode_goal": "Share my favorite Book \"the Queen's Gambit\" to my Friend Natalie larson over her gmail address -natalie.larson1998@gmail.com from the  PocketBook app.",
+    "expected_choice": [
+      "e7c7390"
+    ],
+    "target": "More options",
+    "tap": [
+      1027,
+      209
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/140_3.json",
+    "goal": "Click on the tab \"share\".",
+    "episode_goal": "Share my favorite Book \"the Queen's Gambit\" to my Friend Natalie larson over her gmail address -natalie.larson1998@gmail.com from the  PocketBook app.",
+    "expected_choice": [
+      "e0e4c7f"
+    ],
+    "target": "Share",
+    "tap": [
+      843,
+      231
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/140_4.json",
+    "goal": "Click on the tab See all.",
+    "episode_goal": "Share my favorite Book \"the Queen's Gambit\" to my Friend Natalie larson over her gmail address -natalie.larson1998@gmail.com from the  PocketBook app.",
+    "expected_choice": [
+      "e4fd528"
+    ],
+    "target": "See all",
+    "tap": [
+      780,
+      861
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/160_1.json",
+    "goal": "Tap on the home option at the bottom left corner of the screen",
+    "episode_goal": "I want to share ''Oscar and the wolf -somebody wants '' music to my friend karin.iversen@example.com via gmail ",
+    "expected_choice": [
+      "e637ea3"
+    ],
+    "target": "Home",
+    "tap": [
+      108,
+      2263
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/160_2.json",
+    "goal": "Tap on the three dots icon of Oscar and the wolf music",
+    "episode_goal": "I want to share ''Oscar and the wolf -somebody wants '' music to my friend karin.iversen@example.com via gmail ",
+    "expected_choice": [
+      "e57d3c8"
+    ],
+    "target": "list item video card overflow imagebutton",
+    "tap": [
+      729,
+      1946
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/160_3.json",
+    "goal": "Tap on the share option",
+    "episode_goal": "I want to share ''Oscar and the wolf -somebody wants '' music to my friend karin.iversen@example.com via gmail ",
+    "expected_choice": [
+      "e71994d"
+    ],
+    "target": "Share",
+    "tap": [
+      540,
+      907
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/160_4.json",
+    "goal": "Select the gmail option at the bottom left corner of the screen",
+    "episode_goal": "I want to share ''Oscar and the wolf -somebody wants '' music to my friend karin.iversen@example.com via gmail ",
+    "expected_choice": [
+      "efe8cd8"
+    ],
+    "target": "Gmail",
+    "tap": [
+      133,
+      2119
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/220_2.json",
+    "goal": "Click on the I DON'T WANT TO AVAIL THIS OFFER at the bottom of the screen",
+    "episode_goal": "In the HealthifyMe app, view your today activity ",
+    "expected_choice": [
+      "ec4057c"
+    ],
+    "target": "I DON'T WANT TO AVAIL THIS OFFER",
+    "tap": [
+      539,
+      2268
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/220_4.json",
+    "goal": "Click on the running icon in the Other Trackers section",
+    "episode_goal": "In the HealthifyMe app, view your today activity ",
+    "expected_choice": [
+      "eadfc72"
+    ],
+    "target": "2 of 327 · Cal Burnt",
+    "tap": [
+      279,
+      1298
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/220_5.json",
+    "goal": "Click on the Stats icon",
+    "episode_goal": "In the HealthifyMe app, view your today activity ",
+    "expected_choice": [
+      "e0a92ff"
+    ],
+    "target": "Insights",
+    "tap": [
+      868,
+      398
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/240_6.json",
+    "goal": "Click on the painting present on the screen.",
+    "episode_goal": "Add paintings to cart on the Rtistiq app.",
+    "expected_choice": [
+      "e850e03"
+    ],
+    "target": "XIAOYANG GALAS , · France",
+    "tap": [
+      504,
+      1655
+    ],
+    "action": "click",
+    "review": "hand: kept; the recording marks the tapped element hidden (stale flag), so jevbrief drops it"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/240_8.json",
+    "goal": "Tap on the Add to Cart option present at the right bottom corner of the screen.",
+    "episode_goal": "Add paintings to cart on the Rtistiq app.",
+    "expected_choice": [
+      "e528d5e"
+    ],
+    "target": "FOLLOW · ADD TO CART",
+    "tap": [
+      855,
+      2118
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/260_0.json",
+    "goal": "Click on the Select Products option to add bicycle to my cart.",
+    "episode_goal": "I want to add the Rockrider City Cycle Btwin My bike to my cart, so add this bicycle to my cart in the Decathlon app.",
+    "expected_choice": [
+      "e9db72a"
+    ],
+    "target": "SELECT PRODUCTS",
+    "tap": [
+      719,
+      528
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/260_1.json",
+    "goal": "Click on the Add Selected Items at the bottom right corner of the screen to add bicycle to my cart.",
+    "episode_goal": "I want to add the Rockrider City Cycle Btwin My bike to my cart, so add this bicycle to my cart in the Decathlon app.",
+    "expected_choice": [
+      "e34d4de"
+    ],
+    "target": "ADD SELECTED ITEMS",
+    "tap": [
+      744,
+      2239
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/260_2.json",
+    "goal": "Click on the M option to select the size.",
+    "episode_goal": "I want to add the Rockrider City Cycle Btwin My bike to my cart, so add this bicycle to my cart in the Decathlon app.",
+    "expected_choice": [
+      "e70f2c5"
+    ],
+    "target": "M",
+    "tap": [
+      133,
+      994
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/260_3.json",
+    "goal": "Click on the Add Selected Items at the bottom right corner of the screen to add bicycle to my cart",
+    "episode_goal": "I want to add the Rockrider City Cycle Btwin My bike to my cart, so add this bicycle to my cart in the Decathlon app.",
+    "expected_choice": [
+      "eff807a"
+    ],
+    "target": "ADD SELECTED ITEMS",
+    "tap": [
+      744,
+      2239
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/281_0.json",
+    "goal": "close the current event",
+    "episode_goal": "Set 10 minutes before notification for the birthday event in gmail calendar",
+    "expected_choice": [
+      "e04a411"
+    ],
+    "target": "cancel image",
+    "tap": [
+      84,
+      209
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/281_1.json",
+    "goal": "click on search bar",
+    "episode_goal": "Set 10 minutes before notification for the birthday event in gmail calendar",
+    "expected_choice": [
+      "ee3f736"
+    ],
+    "target": "Search",
+    "tap": [
+      742,
+      218
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/281_3.json",
+    "goal": "click on search icon",
+    "episode_goal": "Set 10 minutes before notification for the birthday event in gmail calendar",
+    "expected_choice": [
+      "eb1dc95"
+    ],
+    "target": "Search",
+    "tap": [
+      994,
+      2158
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/281_4.json",
+    "goal": "select birthday event on 16 jun ",
+    "episode_goal": "Set 10 minutes before notification for the birthday event in gmail calendar",
+    "expected_choice": [
+      "e6c9b7e"
+    ],
+    "target": "Birthday, 9:30 AM – 10:30 AM",
+    "tap": [
+      603,
+      1100
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/321_1.json",
+    "goal": "Click on the cross icon of the search bar at the top of the screen ",
+    "episode_goal": "Im going to Deutsches Museum from Ulm city, so get the traffic update on the route of the Deutsches Museum from my location.",
+    "expected_choice": [
+      "e094c19"
+    ],
+    "target": "Clear",
+    "tap": [
+      859,
+      219
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/321_2.json",
+    "goal": "Click on the search bar at the top of the screen ",
+    "episode_goal": "Im going to Deutsches Museum from Ulm city, so get the traffic update on the route of the Deutsches Museum from my location.",
+    "expected_choice": [
+      "ec6abf8"
+    ],
+    "target": "Search here",
+    "tap": [
+      475,
+      219
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/321_4.json",
+    "goal": "Click on the search icon at the bottom right corner of the screen to view the route.",
+    "episode_goal": "Im going to Deutsches Museum from Ulm city, so get the traffic update on the route of the Deutsches Museum from my location.",
+    "expected_choice": [
+      "eb5a96d"
+    ],
+    "target": "Search",
+    "tap": [
+      994,
+      2169
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/321_5.json",
+    "goal": "Click on the layers icon to apply the traffic filter",
+    "episode_goal": "Im going to Deutsches Museum from Ulm city, so get the traffic update on the route of the Deutsches Museum from my location.",
+    "expected_choice": [
+      "e4bfac4"
+    ],
+    "target": "Layers",
+    "tap": [
+      1003,
+      650
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/341_1.json",
+    "goal": "Click on the forward toggle button at the top.",
+    "episode_goal": "I want to search for some interesting activities in Hawaii.",
+    "expected_choice": [
+      "e304f96"
+    ],
+    "target": "iv right arrow",
+    "tap": [
+      1051,
+      408
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/341_2.json",
+    "goal": "Click on the forward toggle button at the top.",
+    "episode_goal": "I want to search for some interesting activities in Hawaii.",
+    "expected_choice": [
+      "e304f96"
+    ],
+    "target": "iv right arrow",
+    "tap": [
+      1040,
+      433
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/341_3.json",
+    "goal": "Click on activities.",
+    "episode_goal": "I want to search for some interesting activities in Hawaii.",
+    "expected_choice": [
+      "ee66501"
+    ],
+    "target": "Activities",
+    "tap": [
+      709,
+      370
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/341_4.json",
+    "goal": "Click on the search box at the top",
+    "episode_goal": "I want to search for some interesting activities in Hawaii.",
+    "expected_choice": [
+      "ed6629b"
+    ],
+    "target": "New Delhi",
+    "tap": [
+      634,
+      209
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/361_1.json",
+    "goal": "click on the check box of Microsoft training update ",
+    "episode_goal": "Open the TickTick app and mark microsoft training update classes as complete",
+    "expected_choice": [
+      "e24cdb4"
+    ],
+    "target": "Oct 13 · Microsoft training update",
+    "tap": [
+      96,
+      369
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/381_0.json",
+    "goal": "Click on Log out on the left side of the screen in the account section.",
+    "episode_goal": "Sign out of the Babbel app to prevent the unauthorized actions.",
+    "expected_choice": [
+      "ea52a67"
+    ],
+    "target": "Log out",
+    "tap": [
+      540,
+      654
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/381_1.json",
+    "goal": "Click on yes in the middle right of the screen.",
+    "episode_goal": "Sign out of the Babbel app to prevent the unauthorized actions.",
+    "expected_choice": [
+      "edae403"
+    ],
+    "target": "YES",
+    "tap": [
+      893,
+      1359
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/421_1.json",
+    "goal": "Click on the drop down icon next to the reviews",
+    "episode_goal": "I want to read the reviews of the Nike Fly.By Mid 3 shoe in the Nike app.",
+    "expected_choice": [
+      "e300535"
+    ],
+    "target": "Reviews (24) · Clickable Chevron to open section",
+    "tap": [
+      985,
+      1788
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/421_4.json",
+    "goal": "Click on the see more reviews button",
+    "episode_goal": "I want to read the reviews of the Nike Fly.By Mid 3 shoe in the Nike app.",
+    "expected_choice": [
+      "e13de7c"
+    ],
+    "target": "See More Reviews",
+    "tap": [
+      295,
+      1087
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/442_0.json",
+    "goal": "click on search bar",
+    "episode_goal": "Search for Kayak mail in gmail app",
+    "expected_choice": [
+      "e017ac1"
+    ],
+    "target": "Search in mail",
+    "tap": [
+      310,
+      219
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/442_2.json",
+    "goal": "click on search icon",
+    "episode_goal": "Search for Kayak mail in gmail app",
+    "expected_choice": [
+      "e51c24f"
+    ],
+    "target": "Search",
+    "tap": [
+      994,
+      2158
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/462_0.json",
+    "goal": "Tap on the search omio button",
+    "episode_goal": "Use the gmail address karin.iversen@example.com to send Karin information about the bus that leaves at 1:55 a.m.",
+    "expected_choice": [
+      "e7ab0a6"
+    ],
+    "target": "Search Omio",
+    "tap": [
+      540,
+      1606
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/462_1.json",
+    "goal": "Tap on the bus icon at the top of the screen",
+    "episode_goal": "Use the gmail address karin.iversen@example.com to send Karin information about the bus that leaves at 1:55 a.m.",
+    "expected_choice": [
+      "e43b631"
+    ],
+    "target": "Buses",
+    "tap": [
+      540,
+      339
+    ],
+    "action": "click",
+    "review": "hand: kept; the recording marks the tapped element disabled (stale flag), so jevbrief drops it"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/462_2.json",
+    "goal": "Tap on the 1:55am -3:15am option",
+    "episode_goal": "Use the gmail address karin.iversen@example.com to send Karin information about the bus that leaves at 1:55 a.m.",
+    "expected_choice": [
+      "ebe1a90",
+      "e6fa91f"
+    ],
+    "target": "CHEAPEST, FASTEST, FlixBus, 1:55 AM, 1h20m, 3:15 AM, Brussels, Brussels South (G",
+    "tap": [
+      539,
+      1023
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/462_3.json",
+    "goal": "Tap on the share icon at the top right corner of the screen",
+    "episode_goal": "Use the gmail address karin.iversen@example.com to send Karin information about the bus that leaves at 1:55 a.m.",
+    "expected_choice": [
+      "e2b2103"
+    ],
+    "target": "tcp share button",
+    "tap": [
+      1021,
+      241
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/482_0.json",
+    "goal": "Click on the search icon at the top right corner of the screen ",
+    "episode_goal": "In the Simple Habit app, In order to improve my meditation, I would like to listen to the sound of ocean.",
+    "expected_choice": [
+      "e0fa0f8"
+    ],
+    "target": "Search",
+    "tap": [
+      1022,
+      209
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/482_2.json",
+    "goal": "Click on the ocean",
+    "episode_goal": "In the Simple Habit app, In order to improve my meditation, I would like to listen to the sound of ocean.",
+    "expected_choice": [
+      "e2d7506"
+    ],
+    "target": "Ocean 10·20·80 mins",
+    "tap": [
+      810,
+      639
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/482_3.json",
+    "goal": "Click on the play button",
+    "episode_goal": "In the Simple Habit app, In order to improve my meditation, I would like to listen to the sound of ocean.",
+    "expected_choice": [
+      "e37c501"
+    ],
+    "target": "fab",
+    "tap": [
+      964,
+      629
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/502_2.json",
+    "goal": "Click on the search box at the top.",
+    "episode_goal": "I am looking for the stand desk for my office laptop, so search for \"stand desk for laptop\" on the GlobalSources app.",
+    "expected_choice": [
+      "e4c35cf"
+    ],
+    "target": "I’m looking for…",
+    "tap": [
+      533,
+      193
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/502_4.json",
+    "goal": "Click on the search icon at the bottom right corner of the keyboard.",
+    "episode_goal": "I am looking for the stand desk for my office laptop, so search for \"stand desk for laptop\" on the GlobalSources app.",
+    "expected_choice": [
+      "e1bd915"
+    ],
+    "target": "Search",
+    "tap": [
+      994,
+      2169
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/522_0.json",
+    "goal": "Click on the arrow icon at the top left corner of the screen.",
+    "episode_goal": "Open the existing grocery list document file on the google docs app.",
+    "expected_choice": [
+      "e98508d"
+    ],
+    "target": "Back",
+    "tap": [
+      73,
+      201
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/522_1.json",
+    "goal": "Click on Grocery list file on the right side of the screen.",
+    "episode_goal": "Open the existing grocery list document file on the google docs app.",
+    "expected_choice": [
+      "efa4c7a"
+    ],
+    "target": "More actions for Grocery list · Grocery list",
+    "tap": [
+      823,
+      725
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/542_8.json",
+    "goal": "click on the first search result of train",
+    "episode_goal": "Find Location from Los angeles to Oakland and select transportation by train Mode.Get the Directions",
+    "expected_choice": [
+      "e60e566"
+    ],
+    "target": "Train · 11 hr 15 min • ₹1,600 - ₹14,000",
+    "tap": [
+      540,
+      1896
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/542_9.json",
+    "goal": "click on the Amtrak of operators section",
+    "episode_goal": "Find Location from Los angeles to Oakland and select transportation by train Mode.Get the Directions",
+    "expected_choice": [
+      "e98b243",
+      "eb43079"
+    ],
+    "target": "Amtrak · 11 hr 15 min • Twice daily • Direct",
+    "tap": [
+      582,
+      2062
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/562_1.json",
+    "goal": "Click on the search bar at the top of the screen.",
+    "episode_goal": "On the eBay app,search for a pair of adidas brand shoes, as they are well-known for their cutting-edge shoe technology.",
+    "expected_choice": [
+      "eec94b2"
+    ],
+    "target": "Search on eBay",
+    "tap": [
+      413,
+      370
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/562_3.json",
+    "goal": "Click on first option at the top of the screen.",
+    "episode_goal": "On the eBay app,search for a pair of adidas brand shoes, as they are well-known for their cutting-edge shoe technology.",
+    "expected_choice": [
+      "ea340f1"
+    ],
+    "target": "shoes men Men's Shoes",
+    "tap": [
+      529,
+      348
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/562_5.json",
+    "goal": "Click on Filter on the right side of the screen.",
+    "episode_goal": "On the eBay app,search for a pair of adidas brand shoes, as they are well-known for their cutting-edge shoe technology.",
+    "expected_choice": [
+      "e6f197a"
+    ],
+    "target": "Filter",
+    "tap": [
+      960,
+      370
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/562_6.json",
+    "goal": "Click on Brand in the middle of the screen.",
+    "episode_goal": "On the eBay app,search for a pair of adidas brand shoes, as they are well-known for their cutting-edge shoe technology.",
+    "expected_choice": [
+      "e91d15c"
+    ],
+    "target": "Brand",
+    "tap": [
+      435,
+      1413
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/582_1.json",
+    "goal": "Click on the three dots at the top right corner of the screen ",
+    "episode_goal": "Open Google Translate app and share the translation withdbwscratch.test.id9@gmail.com",
+    "expected_choice": [
+      "ef19281"
+    ],
+    "target": "More options",
+    "tap": [
+      1005,
+      218
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/582_2.json",
+    "goal": "Click on the share icon",
+    "episode_goal": "Open Google Translate app and share the translation withdbwscratch.test.id9@gmail.com",
+    "expected_choice": [
+      "ee814bb"
+    ],
+    "target": "Share",
+    "tap": [
+      832,
+      492
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/582_3.json",
+    "goal": "Click on the gmail option ",
+    "episode_goal": "Open Google Translate app and share the translation withdbwscratch.test.id9@gmail.com",
+    "expected_choice": [
+      "e1d7fd0"
+    ],
+    "target": "Gmail",
+    "tap": [
+      133,
+      2119
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/582_5.json",
+    "goal": "Click on the send icon ",
+    "episode_goal": "Open Google Translate app and share the translation withdbwscratch.test.id9@gmail.com",
+    "expected_choice": [
+      "e804a22"
+    ],
+    "target": "Send",
+    "tap": [
+      890,
+      218
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/602_0.json",
+    "goal": "Click on the Rotterdam Centraal tab.",
+    "episode_goal": "Show me the bus schedule from Amsterdam Centraal to Rotterdam Centraal for October 26 on the Rail Planner app.",
+    "expected_choice": [
+      "ebabb1b"
+    ],
+    "target": "09:55 · Rotterdam Centraal",
+    "tap": [
+      540,
+      1521
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/622_1.json",
+    "goal": "Click on Flights.",
+    "episode_goal": "I want to search for a flight from Knoxville to Hawaii.",
+    "expected_choice": [
+      "e7f3afb"
+    ],
+    "target": "Flights",
+    "tap": [
+      416,
+      363
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/622_2.json",
+    "goal": "Click on One-way.",
+    "episode_goal": "I want to search for a flight from Knoxville to Hawaii.",
+    "expected_choice": [
+      "ec02a14",
+      "ebeff00"
+    ],
+    "target": "One-way",
+    "tap": [
+      539,
+      573
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/622_3.json",
+    "goal": "Click on Delhi.",
+    "episode_goal": "I want to search for a flight from Knoxville to Hawaii.",
+    "expected_choice": [
+      "e9f59ef"
+    ],
+    "target": "Departing from DEL Delhi International Airport",
+    "tap": [
+      477,
+      722
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/622_4.json",
+    "goal": "Click on cancel.",
+    "episode_goal": "I want to search for a flight from Knoxville to Hawaii.",
+    "expected_choice": [
+      "e9f5248"
+    ],
+    "target": "Remove DEL New Delhi",
+    "tap": [
+      373,
+      493
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/642_3.json",
+    "goal": "click on the Vocabulary option",
+    "episode_goal": "Go to the HelloTalk app & start the basic vocabulary lesson",
+    "expected_choice": [
+      "e777fdc"
+    ],
+    "target": "Vocabulary · Game-like vocab learning",
+    "tap": [
+      186,
+      1450
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/642_4.json",
+    "goal": "click on the Start now button at the bottom of the screen",
+    "episode_goal": "Go to the HelloTalk app & start the basic vocabulary lesson",
+    "expected_choice": [
+      "ee49f66"
+    ],
+    "target": "Start now",
+    "tap": [
+      540,
+      2180
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/642_5.json",
+    "goal": "select the Basic option",
+    "episode_goal": "Go to the HelloTalk app & start the basic vocabulary lesson",
+    "expected_choice": [
+      "ea88eea"
+    ],
+    "target": "Basic I have a modest vocabulary of 100-500 words and can express myself in simp",
+    "tap": [
+      540,
+      837
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/642_6.json",
+    "goal": "click on the Star now button at the bottom of the screen",
+    "episode_goal": "Go to the HelloTalk app & start the basic vocabulary lesson",
+    "expected_choice": [
+      "e600ef7"
+    ],
+    "target": "Start now",
+    "tap": [
+      539,
+      2161
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/662_1.json",
+    "goal": "Click on the search icon at the bottom.",
+    "episode_goal": "Browse Leonardo Da Vinci Mona lisa's painting for me on the Artsy app.",
+    "expected_choice": [
+      "eb0cad8"
+    ],
+    "target": "search bottom tab",
+    "tap": [
+      334,
+      2268
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/662_3.json",
+    "goal": "Click on the Search icon at the bottom right corner of the keyboard.",
+    "episode_goal": "Browse Leonardo Da Vinci Mona lisa's painting for me on the Artsy app.",
+    "expected_choice": [
+      "e07f227"
+    ],
+    "target": "Search",
+    "tap": [
+      994,
+      2169
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/662_4.json",
+    "goal": "Click on the tab \"Lenardo da vinci\".",
+    "episode_goal": "Browse Leonardo Da Vinci Mona lisa's painting for me on the Artsy app.",
+    "expected_choice": [
+      "e978f06"
+    ],
+    "target": "Leonardo da Vinci · Artist",
+    "tap": [
+      605,
+      772
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/702_1.json",
+    "goal": "Click on the search bar the top of the screen",
+    "episode_goal": "Cole is planning to meet me at my house; send my location to coledbwpersonatest@gmail.com using the Google Maps app.",
+    "expected_choice": [
+      "e2e7059"
+    ],
+    "target": "Search here",
+    "tap": [
+      475,
+      212
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/702_2.json",
+    "goal": "Click on the upper east side",
+    "episode_goal": "Cole is planning to meet me at my house; send my location to coledbwpersonatest@gmail.com using the Google Maps app.",
+    "expected_choice": [
+      "ef26050"
+    ],
+    "target": "Upper East Side · Manhattan, New York, NY, USA",
+    "tap": [
+      618,
+      843
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/702_3.json",
+    "goal": "Click on the share button",
+    "episode_goal": "Cole is planning to meet me at my house; send my location to coledbwpersonatest@gmail.com using the Google Maps app.",
+    "expected_choice": [
+      "ea7ee92"
+    ],
+    "target": "Share Upper East Side",
+    "tap": [
+      753,
+      1568
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/702_4.json",
+    "goal": "Click on the Cole",
+    "episode_goal": "Cole is planning to meet me at my house; send my location to coledbwpersonatest@gmail.com using the Google Maps app.",
+    "expected_choice": [
+      "eea33d3"
+    ],
+    "target": "Cole · coledbwpersonatest@gmail.com",
+    "tap": [
+      605,
+      1939
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/743_0.json",
+    "goal": "Click on the tHmesto TH-T08 8in Combination screwdriver set",
+    "episode_goal": "Use the flipkart app to view the product  specification of tHmesto TH-T08 8in Combination screwdriver set in the flipkart app.",
+    "expected_choice": [
+      "e4bc7c8"
+    ],
+    "target": "Sponsored · tHemiStO TH-T08 8in1 Combination Screwdriver Set",
+    "tap": [
+      633,
+      1316
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/743_3.json",
+    "goal": "Click on all details",
+    "episode_goal": "Use the flipkart app to view the product  specification of tHmesto TH-T08 8in Combination screwdriver set in the flipkart app.",
+    "expected_choice": [
+      "e658bd8"
+    ],
+    "target": "All Details",
+    "tap": [
+      540,
+      1764
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/743_4.json",
+    "goal": "Click on the specification",
+    "episode_goal": "Use the flipkart app to view the product  specification of tHmesto TH-T08 8in Combination screwdriver set in the flipkart app.",
+    "expected_choice": [
+      "eb9e75b"
+    ],
+    "target": "SPECIFICATIONS",
+    "tap": [
+      648,
+      626
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/763_1.json",
+    "goal": "Click on the Three bar menu icon at the top left corner of the screen to view the settings option",
+    "episode_goal": "I want to change the event color peacock to sage becasue sage is look like my favorite color tale. When I view an event, it will always appear peacock, so I decided to change the color of the event in my calendar.",
+    "expected_choice": [
+      "ebd4612"
+    ],
+    "target": "Show Calendar List and Settings drawer",
+    "tap": [
+      84,
+      219
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/763_4.json",
+    "goal": "Click on the Events to change the color ",
+    "episode_goal": "I want to change the event color peacock to sage becasue sage is look like my favorite color tale. When I view an event, it will always appear peacock, so I decided to change the color of the event in my calendar.",
+    "expected_choice": [
+      "e327021"
+    ],
+    "target": "Events",
+    "tap": [
+      613,
+      802
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/763_5.json",
+    "goal": "Click on the color option to change the color of the event",
+    "episode_goal": "I want to change the event color peacock to sage becasue sage is look like my favorite color tale. When I view an event, it will always appear peacock, so I decided to change the color of the event in my calendar.",
+    "expected_choice": [
+      "ecd2a66"
+    ],
+    "target": "Color · Peacock",
+    "tap": [
+      613,
+      404
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/783_1.json",
+    "goal": "click on Allow",
+    "episode_goal": "I'm going hiking this weekend and don't have any tracking shoes, therefore use the ShopClues app to search for the hiking shoe.",
+    "expected_choice": [
+      "e029f43"
+    ],
+    "target": "Allow",
+    "tap": [
+      540,
+      1313
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/783_2.json",
+    "goal": "click on the search icon",
+    "episode_goal": "I'm going hiking this weekend and don't have any tracking shoes, therefore use the ShopClues app to search for the hiking shoe.",
+    "expected_choice": [
+      "e5a384e"
+    ],
+    "target": "Search",
+    "tap": [
+      882,
+      209
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/783_4.json",
+    "goal": "click on the search icon",
+    "episode_goal": "I'm going hiking this weekend and don't have any tracking shoes, therefore use the ShopClues app to search for the hiking shoe.",
+    "expected_choice": [
+      "e51f75e"
+    ],
+    "target": "Search",
+    "tap": [
+      994,
+      2158
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/803_0.json",
+    "goal": "Click on the three bar menu at the top left corner of the screen",
+    "episode_goal": "Restore the financial report file from trash in the Google Drive  because I need to review the file's details once more.",
+    "expected_choice": [
+      "e4153e5"
+    ],
+    "target": "More navigation options",
+    "tap": [
+      116,
+      219
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/803_1.json",
+    "goal": "Go to the thrash",
+    "episode_goal": "Restore the financial report file from trash in the Google Drive  because I need to review the file's details once more.",
+    "expected_choice": [
+      "ed23d2c"
+    ],
+    "target": "Trash",
+    "tap": [
+      206,
+      655
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/803_2.json",
+    "goal": "Click on the three-dot icon of Financial report",
+    "episode_goal": "Restore the financial report file from trash in the Google Drive  because I need to review the file's details once more.",
+    "expected_choice": [
+      "e844b8b"
+    ],
+    "target": "More actions for Financial report.xls",
+    "tap": [
+      988,
+      2080
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/803_3.json",
+    "goal": "Click on the restore option",
+    "episode_goal": "Restore the financial report file from trash in the Google Drive  because I need to review the file's details once more.",
+    "expected_choice": [
+      "e634c6c"
+    ],
+    "target": "Restore",
+    "tap": [
+      602,
+      1972
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/823_0.json",
+    "goal": "Tap on the menu icon at the top left corner of the screen",
+    "episode_goal": "I want to check my schedule to see if there are any future events that I must attend before travelling with my family this week.",
+    "expected_choice": [
+      "e295163"
+    ],
+    "target": "Show Calendar List and Settings drawer",
+    "tap": [
+      84,
+      219
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/823_1.json",
+    "goal": "Select the month option",
+    "episode_goal": "I want to check my schedule to see if there are any future events that I must attend before travelling with my family this week.",
+    "expected_choice": [
+      "efe8cd8"
+    ],
+    "target": "Month",
+    "tap": [
+      420,
+      896
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/843_1.json",
+    "goal": "Click on the search bar to look up the product.",
+    "episode_goal": " Launch the Amazon app, search for India gate basmati rice, and add 5 Kg of it to your shopping cart.",
+    "expected_choice": [
+      "e2e767b"
+    ],
+    "target": "Search",
+    "tap": [
+      548,
+      214
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/843_3.json",
+    "goal": "Select India gate basmati rice 5 kg from the suggestions.",
+    "episode_goal": " Launch the Amazon app, search for India gate basmati rice, and add 5 Kg of it to your shopping cart.",
+    "expected_choice": [
+      "e5a33db",
+      "e399957"
+    ],
+    "target": "india gate basmati rice 5kg",
+    "tap": [
+      479,
+      902
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/843_6.json",
+    "goal": "Select the first option from the search results.",
+    "episode_goal": " Launch the Amazon app, search for India gate basmati rice, and add 5 Kg of it to your shopping cart.",
+    "expected_choice": [
+      "e6ccf33"
+    ],
+    "target": "Amazon's Choice Sponsored Ad - India Gate Basmati Rice Bag, Super, 5kg Similar",
+    "tap": [
+      232,
+      541
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/843_9.json",
+    "goal": "Click on the Add to cart button at the bottom of the screen.",
+    "episode_goal": " Launch the Amazon app, search for India gate basmati rice, and add 5 Kg of it to your shopping cart.",
+    "expected_choice": [
+      "eec1b81"
+    ],
+    "target": "Add to Cart",
+    "tap": [
+      539,
+      2006
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/883_1.json",
+    "goal": "Go to the Book tab",
+    "episode_goal": "Open the MyTrip app, I am planning to create a Solo trip plan to Honolulu, Hawaii so I want to find flights from Detroit Departing on Jan. 29, 2024 To Arrive in Honolulu, Hawaii on Feb. 5, 2024 in Business class.",
+    "expected_choice": [
+      "ecd9fab"
+    ],
+    "target": "Book",
+    "tap": [
+      675,
+      2263
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/883_2.json",
+    "goal": "Click on the From text bar",
+    "episode_goal": "Open the MyTrip app, I am planning to create a Solo trip plan to Honolulu, Hawaii so I want to find flights from Detroit Departing on Jan. 29, 2024 To Arrive in Honolulu, Hawaii on Feb. 5, 2024 in Business class.",
+    "expected_choice": [
+      "e824d70"
+    ],
+    "target": "From",
+    "tap": [
+      540,
+      578
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/883_4.json",
+    "goal": "Click on the first search suggestion",
+    "episode_goal": "Open the MyTrip app, I am planning to create a Solo trip plan to Honolulu, Hawaii so I want to find flights from Detroit Departing on Jan. 29, 2024 To Arrive in Honolulu, Hawaii on Feb. 5, 2024 in Business class.",
+    "expected_choice": [
+      "e52b53b"
+    ],
+    "target": "Detroit, USA, Michigan · DTT",
+    "tap": [
+      459,
+      978
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/883_6.json",
+    "goal": "Click on the first search suggestion",
+    "episode_goal": "Open the MyTrip app, I am planning to create a Solo trip plan to Honolulu, Hawaii so I want to find flights from Detroit Departing on Jan. 29, 2024 To Arrive in Honolulu, Hawaii on Feb. 5, 2024 in Business class.",
+    "expected_choice": [
+      "e8d204e"
+    ],
+    "target": "Oahu Honolulu, USA, Hawaii · HNL",
+    "tap": [
+      456,
+      807
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/903_0.json",
+    "goal": "Tap on the three dots icon of Venice tour document",
+    "episode_goal": "I want to share the ´Venice Tour´ document with my buddy karin at karin.iversen@example.com using Gmail.",
+    "expected_choice": [
+      "e8cc76f"
+    ],
+    "target": "history record item more icon",
+    "tap": [
+      1010,
+      995
+    ],
+    "action": "click",
+    "review": "hand: kept; every row has an identical icon and positions cannot tell the rows apart"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/903_1.json",
+    "goal": "Select the gmail option",
+    "episode_goal": "I want to share the ´Venice Tour´ document with my buddy karin at karin.iversen@example.com using Gmail.",
+    "expected_choice": [
+      "efd1b2d"
+    ],
+    "target": "Gmail",
+    "tap": [
+      106,
+      1600
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/903_2.json",
+    "goal": "Tap on the share as file button",
+    "episode_goal": "I want to share the ´Venice Tour´ document with my buddy karin at karin.iversen@example.com using Gmail.",
+    "expected_choice": [
+      "e278742"
+    ],
+    "target": "Share as File",
+    "tap": [
+      539,
+      2035
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  }
+]
