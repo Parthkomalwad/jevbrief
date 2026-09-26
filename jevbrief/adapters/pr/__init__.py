@@ -175,7 +175,7 @@ def _from_api_files(items: list[dict]) -> list[dict]:
         path, old = it["filename"], it.get("previous_filename") or it["filename"]
         parsed = parse_diff(f"diff --git a/{old} b/{path}\n--- a/{old}\n+++ b/{path}\n{it.get('patch') or ''}")
         f = parsed[0] if parsed else {"path": path, "old_path": old, "hunks": []}
-        f.update(path=path, old_path=old, status=status.get(it.get("status"), "modified"),
+        f.update(path=path, old_path=old, status=status.get(str(it.get("status")), "modified"),
                  binary="patch" not in it and it.get("changes", 0) > 0,
                  similarity=100 if it.get("status") == "renamed" and not it.get("changes") else None)
         files.append(f)
@@ -279,7 +279,7 @@ class PrAdapter(Adapter):
         self._files = files
         tested = {_stem(f["path"]) for f in files if role(f["path"]) == "test"}
 
-        facts = []
+        facts: list[Fact] = []
         for f in files:
             path = f["path"]
             head = "\n".join(t for h in f["hunks"][:1] for _, t in h["lines"][:8])

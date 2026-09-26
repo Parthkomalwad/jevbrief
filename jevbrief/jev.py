@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import time
 from dataclasses import dataclass
+from typing import Protocol
 
 DEFAULT_MODEL = "jev-1.13.0"
 
@@ -14,6 +15,14 @@ class Answers:
     answers: dict[str, dict]  # question id -> {"type", "choice"/"noul"/"score", "confidence", "probabilities", ...}
     latency_ms: int
     input_tokens: int | None = None
+
+
+class JevClient(Protocol):
+    """What a Briefing needs from Jev: a model name and `ask`. `Jev` and `testing.FakeJev` both fit."""
+
+    model: str
+
+    def ask(self, state, questions: dict[str, dict]) -> Answers: ...
 
 
 class Jev:

@@ -8,7 +8,7 @@ from dataclasses import dataclass, field
 from . import budget, trace
 from .facts import BUDGET, REASONS, Fact
 from .fingerprint import fingerprint
-from .jev import DEFAULT_MODEL, Jev
+from .jev import DEFAULT_MODEL, Jev, JevClient
 from .questions import QuestionPack
 from .rules import RuleSet
 
@@ -36,7 +36,7 @@ class Briefing:
     def __init__(self, adapter, goal: str, *, pack: str | QuestionPack | None = None, rules: RuleSet | None = None,
                  budget_tokens: int = budget.DEFAULT_TOKENS, max_options: int = budget.DEFAULT_OPTIONS,
                  trace: str | None = "trace.jsonl", trace_level: str = "summary", min_confidence: float = 0.5,
-                 pins=(), model: str = DEFAULT_MODEL, jev: Jev | None = None, images: bool = True):
+                 pins=(), model: str = DEFAULT_MODEL, jev: JevClient | None = None, images: bool = True):
         if trace_level not in trace_levels():
             raise ValueError("trace_level must be off, summary, or full")
         self.adapter = adapter
@@ -51,7 +51,7 @@ class Briefing:
         self.trace_level = trace_level
         self.min_confidence = min_confidence
         self.pins = list(pins)
-        self.jev = jev or Jev(model)
+        self.jev: JevClient = jev or Jev(model)
         self.images = images
         self.run_id = "r_" + secrets.token_hex(2)
         self.tick = 0
@@ -140,7 +140,7 @@ class Briefing:
         level = self.trace_level
         facts = [f.to_dict(level) for f in self.facts]
         if level == "summary":  # labels, scores, and boxes help the viewer; still small
-            for d, f in zip(facts, self.facts):
+            for d, f in zip(facts, self.facts, strict=True):
                 d.update(kind=f.kind, label=f.label, score=f.score, box=f.box)
                 if "view" in f.meta:  # adapter-provided layout hints for the viewer, such as a timeline span
                     d["view"] = f.meta["view"]

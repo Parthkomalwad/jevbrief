@@ -62,7 +62,7 @@ class WebAdapter(Adapter):
         with sync_playwright() as pw:
             browser = pw.chromium.launch()
             try:
-                page = browser.new_page(viewport=VIEWPORT)
+                page = browser.new_page(viewport=VIEWPORT)  # type: ignore[arg-type]  # a plain dict is what Playwright accepts
                 page.goto(to_url(str(source)), wait_until="load")
                 return self.from_page_sync(page, screenshot)
             finally:

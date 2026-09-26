@@ -3,8 +3,22 @@ import re
 from pathlib import Path
 
 from jevbrief import Briefing
-from jevbrief.adapters.nes import (ACTIONS, OBJ_TYPE, OBJ_XH, OBJ_XL, OBJ_YH, OBJ_YL, PLAYER_X, PLAYER_Y,
-                                   SCROLL_X, NesAdapter, distance, health, height, load_snapshot)
+from jevbrief.adapters.nes import (
+    ACTIONS,
+    OBJ_TYPE,
+    OBJ_XH,
+    OBJ_XL,
+    OBJ_YH,
+    OBJ_YL,
+    PLAYER_X,
+    PLAYER_Y,
+    SCROLL_X,
+    NesAdapter,
+    distance,
+    health,
+    height,
+    load_snapshot,
+)
 from jevbrief.testing import FakeJev, check_adapter
 
 FIXTURES = Path(__file__).resolve().parent / "fixtures" / "nes"

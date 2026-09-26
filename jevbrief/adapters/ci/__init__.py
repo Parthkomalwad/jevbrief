@@ -149,7 +149,7 @@ def _files(source) -> list[Path]:
 
 def log_records(source) -> list[dict]:
     """Flat log lines: dicts with job, step, step_n, ts, line, level."""
-    recs = []
+    recs: list[dict] = []
     current: dict[str, tuple[int, str]] = {}  # job -> (step number, step name) for whole-job logs
     for path in _files(source):
         if path.suffix == ".xml":
@@ -245,7 +245,7 @@ class CiAdapter(Adapter):
                 text = MARKER.sub("", r["line"]).strip()
                 groups.setdefault((r["job"], r["step"], r["level"], template(text)), []).append({**r, "text": text})
 
-        facts = []
+        facts: list[Fact] = []
         first_in_step: set[tuple] = set()
         for (job, step, level, tmpl), rs in sorted(groups.items(), key=lambda kv: kv[1][0]["i"]):
             n, fail_n = rs[0]["step_n"], failing.get(job)

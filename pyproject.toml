@@ -4,16 +4,22 @@ build-backend = "hatchling.build"
 
 [project]
 name = "jevbrief"
-version = "0.7.0"
-description = "Clean, traceable state briefings for TypeSafe's Jev model, from any source: web pages, JSON, and more."
+dynamic = ["version"]
+description = "Clean, traceable state briefings for TypeSafe's Jev model: agent tools and steps, CI logs, pull requests, incidents, web pages, JSON, and more."
 readme = "README.md"
 requires-python = ">=3.10"
 license = "MIT"
 license-files = ["LICENSE"]
 authors = [{ name = "Parth Komalwad" }]
-keywords = ["jev", "typesafe", "ai-agents", "llm", "playwright"]
+keywords = ["jev", "typesafe", "ai-agents", "llm", "tool-selection", "observability", "ci", "code-review"]
 classifiers = [
   "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Typing :: Typed",
   "Operating System :: OS Independent",
   "Topic :: Software Development :: Libraries",
 ]
@@ -30,7 +36,7 @@ embed = ["fastembed>=0.5"]
 steps = []
 pr = []
 all = ["jevbrief[web,json,otel,nes,ci,tools,embed,steps,pr]"]
-dev = ["jevbrief[all]", "pytest>=8"]
+dev = ["jevbrief[all]", "pytest>=8", "ruff>=0.6", "mypy>=1.11", "coverage>=7"]
 
 [project.entry-points."jevbrief.adapters"]
 web = "jevbrief.adapters.web:WebAdapter"
@@ -56,6 +62,47 @@ exclude = ["tests/fixtures/nes", "tests/test_nes.py"]
 
 [tool.hatch.build.targets.wheel]
 packages = ["jevbrief"]
+
+[tool.hatch.version]
+path = "jevbrief/__init__.py"
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+extend-exclude = ["site", "dist", "traces", "fixtures"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "B", "UP", "SIM", "PERF", "RUF", "I"]
+ignore = [
+  "E731",    # small named lambdas are the house style for rules
+  "SIM108",  # ternaries are not always clearer
+  "RUF001", "RUF002", "RUF003",  # docs and labels use typographic dashes on purpose
+  "E501",    # long regular expressions and messages read better on one line; no formatter is used
+  "PERF401", "PERF203", "RUF005", "SIM905",  # style preferences, not defects
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/test_pr.py" = ["W291"]  # the "-- " signature line of a .patch file ends in a space
+
+[tool.mypy]
+python_version = "3.10"
+files = ["jevbrief"]
+ignore_missing_imports = true
+check_untyped_defs = true
+warn_unused_ignores = true
+
+[[tool.mypy.overrides]]
+module = ["numpy", "numpy.*", "fastembed", "fastembed.*"]  # optional extras; numpy's stubs need Python 3.12 syntax
+follow_imports = "skip"
+
+[tool.coverage.run]
+source = ["jevbrief"]
+omit = ["jevbrief/adapters/nes/game.py"]  # drives the real emulator; the adapter is tested on recorded snapshots
+
+[tool.coverage.report]
+fail_under = 90
+show_missing = true
+skip_covered = true
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

@@ -32,7 +32,7 @@ main{padding:24px;max-width:960px}
 
 
 def nav(brand: str, links: list[str]) -> str:
-    items = "".join(f'<a href="/{l.lower().replace(" ", "-")}">{l}</a>' for l in links)
+    items = "".join(f'<a href="/{link.lower().replace(" ", "-")}">{link}</a>' for link in links)
     mega = "".join(f'<a href="/c/{i}">Category {i}</a>' for i in range(1, 16))
     return f"""<header>
 <a href="/" aria-label="{brand} home"><svg width="80" height="20"></svg></a>

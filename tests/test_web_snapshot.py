@@ -7,7 +7,7 @@ import pytest
 
 pytest.importorskip("playwright.sync_api")
 
-from make_web_snapshot import SNAPSHOT, current, run  # noqa: E402
+from make_web_snapshot import SNAPSHOT, current, run
 
 
 def test_web_output_matches_snapshot():

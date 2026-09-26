@@ -13,8 +13,8 @@ from pathlib import Path
 
 from ...briefing import Extracted
 from ...facts import Fact, clean_label, fact_id, register_reasons
-from ...questions import FactChoice, OptionChoice
-from ...rules import CORE_RULES, Boost, Drop, Rule, RuleSet
+from ...questions import FactChoice, OptionChoice, QuestionPack
+from ...rules import CORE_RULES, Boost, Drop, GroupRule, Rule, RuleSet
 from .. import Adapter, need
 
 MISSING_FIELD = "json.missing_field"
@@ -102,7 +102,7 @@ def bucket(spec: dict, item, now: datetime) -> str | None:
         v = None if d is None else (now - d).total_seconds() / 86400
     if not isinstance(v, (int, float)):
         return None
-    for edge, name in zip(spec["edges"], spec["labels"]):
+    for edge, name in zip(spec["edges"], spec["labels"], strict=False):  # one more label than edges
         if v < edge:
             return name
     return spec["labels"][len(spec["edges"])]
@@ -142,6 +142,8 @@ class JsonAdapter(Adapter):
         if not isinstance(items, list):
             raise ValueError(f"`items` = {c.get('items')!r} does not point to a list in the data")
         now = _as_datetime(c["now"]) if c.get("now") else datetime.now(timezone.utc)
+        if now is None:
+            raise ValueError(f"`now` = {c['now']!r} is not a date. Use an ISO date such as 2026-09-24T00:00:00Z")
         facts = []
         for i, item in enumerate(items):
             attrs = {k: get(item, k) for k in c.get("send", []) if get(item, k) is not None}
@@ -161,24 +163,28 @@ class JsonAdapter(Adapter):
 
     def rules(self) -> RuleSet:
         c = self.config
-        hidden, disabled, unlabeled, goal_match, duplicate = CORE_RULES
+        _, _, unlabeled, goal_match, duplicate = CORE_RULES
         required = c.get("required", [])
         match_fields = c.get("match_fields", [])
 
         def now(ctx):
             return _as_datetime(ctx.source.get("now", "")) or datetime.now(timezone.utc)
 
-        rules = [unlabeled,
+        rules: list[Rule | GroupRule] = [unlabeled,
                  Rule(MISSING_FIELD, lambda f, ctx: Drop(MISSING_FIELD)
                       if any(get(f.meta["item"], k) is None for k in required) else None)]
+        def dropper(code: str, cond) -> Rule:
+            return Rule(code, lambda f, ctx: Drop(code) if check(cond, f.meta["item"], now(ctx)) else None)
+
+        def booster(code: str, cond, delta: float) -> Rule:
+            return Rule(code, lambda f, ctx: Boost(delta, code) if check(cond, f.meta["item"], now(ctx)) else None)
+
         for r in c.get("rules", []):
             code = f"json.{r['name']}"
             if "drop_if" in r:
-                rules.append(Rule(code, lambda f, ctx, r=r, code=code:
-                                  Drop(code) if check(r["drop_if"], f.meta["item"], now(ctx)) else None))
+                rules.append(dropper(code, r["drop_if"]))
             if "boost_if" in r:
-                rules.append(Rule(code, lambda f, ctx, r=r, code=code:
-                                  Boost(r.get("boost", 0.2), code) if check(r["boost_if"], f.meta["item"], now(ctx)) else None))
+                rules.append(booster(code, r["boost_if"], r.get("boost", 0.2)))
         rules.append(goal_match)
         if match_fields:
             rules.append(Rule("json.goal_match_fields", lambda f, ctx: Boost(GOAL_MATCH, "json.goal_match_fields")
@@ -191,6 +197,7 @@ class JsonAdapter(Adapter):
         q = self.config.get("question", {})
         instructions = q.get("instructions", "Goal: {goal}\nWhich one item from `items` best fits this goal?")
         extra = q.get("extra", {})
+        pack: QuestionPack
         if q.get("options"):
             pack = OptionChoice("choose_option", instructions, q["options"], extra=extra)
         else:

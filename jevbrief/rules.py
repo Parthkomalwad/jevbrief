@@ -110,9 +110,9 @@ class RuleSet:
             if f.kept:
                 f.score = round(f.score, 4)
                 f.reason = kept_by[0] if kept_by else "base"
-        for rule in self.rules:
-            if isinstance(rule, GroupRule):
-                rule.fn(facts, ctx)
+        for group_rule in self.rules:
+            if isinstance(group_rule, GroupRule):
+                group_rule.fn(facts, ctx)
         for f in facts:
             if f.kept and f.reason != "pinned" and f.score < self.threshold:
                 f.drop(LOW_SCORE)
@@ -139,4 +139,4 @@ def _duplicates(facts: list[Fact], ctx: Context) -> None:
 
 duplicate = GroupRule(DUPLICATE, _duplicates)
 
-CORE_RULES = [hidden, disabled, unlabeled, goal_match, duplicate]
+CORE_RULES: tuple[Rule, Rule, Rule, Rule, GroupRule] = (hidden, disabled, unlabeled, goal_match, duplicate)

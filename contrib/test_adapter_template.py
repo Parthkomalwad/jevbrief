@@ -2,8 +2,9 @@
 
 import json
 
-from jevbrief import Briefing
 from jevbrief.adapters.mysource import ARCHIVED, MySourceAdapter
+
+from jevbrief import Briefing
 from jevbrief.testing import FakeJev, check_adapter
 
 RECORDS = [
