@@ -23,7 +23,7 @@ from pathlib import Path
 from ...briefing import Extracted
 from ...facts import Fact, clean_label, fact_id
 from ...questions import FactChoice
-from ...rules import Boost, Drop, Rule, RuleSet, disabled, duplicate, goal_match, hidden, unlabeled
+from ...rules import Boost, Context, Drop, GroupRule, Rule, RuleSet, disabled, goal_match, hidden, unlabeled
 from .. import Adapter
 
 NOT_INTERACTIVE = "android.not_interactive"
@@ -44,6 +44,14 @@ BOUNDS = re.compile(r"\[(-?\d+),(-?\d+)\]\[(-?\d+),(-?\d+)\]")
 TRUE = {"true", "1", True}
 
 
+ICON_GLYPHS = re.compile(r"^[-\s]*$")  # icon fonts draw icons as private-use characters
+
+
+def _words(t: str) -> str:
+    """Readable text, or "" for text that is only icon-font glyphs (such as "", a share icon)."""
+    return "" if not t or ICON_GLYPHS.match(t) else t
+
+
 def _flag(v) -> bool:
     return v in TRUE or str(v).lower() == "true"
 
@@ -57,8 +65,8 @@ def _node(attrs: dict, cls: str, path: str, depth: int) -> dict:
     m = BOUNDS.match(attrs.get("bounds", "") or "")
     box = tuple(map(int, m.groups())) if m else None
     visible = attrs.get("visible-to-user", attrs.get("displayed", "true"))
-    return {"text": attrs.get("text", "") or "", "desc": attrs.get("content-desc", "") or "",
-            "hint": attrs.get("hint", "") or "", "id": attrs.get("resource-id", "") or "",
+    return {"text": _words(attrs.get("text", "")), "desc": _words(attrs.get("content-desc", "")),
+            "hint": _words(attrs.get("hint", "")), "id": attrs.get("resource-id", "") or "",
             "cls": cls or attrs.get("class", ""), "package": attrs.get("package", "") or "",
             "clickable": _flag(attrs.get("clickable")) or _flag(attrs.get("long-clickable")),
             "focusable": _flag(attrs.get("focusable")), "scrollable": _flag(attrs.get("scrollable")),
@@ -97,8 +105,9 @@ def parse_elements(items: list[dict]) -> list[dict]:
         elif isinstance(b, (list, tuple)) and len(b) == 4:
             box = (int(b[0]), int(b[1]), int(b[2]), int(b[3]))
         cls = e.get("class_name") or e.get("className") or ""
-        out.append({"text": e.get("text") or "", "desc": e.get("content_description") or e.get("contentDescription") or "",
-                    "hint": e.get("hint_text") or "", "id": e.get("resource_id") or e.get("resource_name") or "",
+        out.append({"text": _words(e.get("text") or ""),
+                    "desc": _words(e.get("content_description") or e.get("contentDescription") or ""),
+                    "hint": _words(e.get("hint_text") or ""), "id": e.get("resource_id") or e.get("resource_name") or "",
                     "cls": cls, "package": e.get("package_name") or "",
                     "clickable": bool(e.get("is_clickable") or e.get("is_long_clickable")),
                     "focusable": bool(e.get("is_focusable")), "scrollable": bool(e.get("is_scrollable")),
@@ -121,7 +130,11 @@ def read(source) -> list[dict]:
             return parse_xml(text)
         data = json.loads(text)
     if isinstance(data, dict):
-        data = data.get("ui_elements") or data.get("elements") or data.get("accessibility_tree") or []
+        screen = data.get("screen")
+        nodes = parse_elements(data.get("ui_elements") or data.get("elements") or data.get("accessibility_tree") or [])
+        if screen and nodes:
+            nodes[0]["screen"] = tuple(screen)  # a recorded screen size wins over the largest element
+        return nodes
     return parse_elements(data)
 
 
@@ -162,12 +175,27 @@ def _kind(n: dict) -> str:
     return "text"
 
 
-def _inner_text(nodes: list[dict], i: int, limit: int = 2) -> str:
-    """Text of the elements inside node i: how most list rows and cards are labeled."""
-    found, prefix = [], nodes[i]["path"] + "/"
-    for n in nodes[i + 1:]:
-        if not n["path"].startswith(prefix):
-            break
+def _inner_text(nodes: list[dict], i: int, flat: bool, limit: int = 2) -> str:
+    """Text of the elements inside node i: how most list rows and cards are labeled.
+
+    In a hierarchy, "inside" means a descendant. A flat element list (AndroidWorld, AndroidControl) has no
+    nesting, so there it means an element whose box lies within node i's box, read top to bottom."""
+    found: list[str] = []
+    if flat:
+        box = nodes[i]["box"]
+        if not box:
+            return ""
+        inside = [n for j, n in enumerate(nodes) if j != i and n["box"] and n["box"] != box
+                  and box[0] <= n["box"][0] and n["box"][2] <= box[2] and box[1] <= n["box"][1] and n["box"][3] <= box[3]]
+        candidates = sorted(inside, key=lambda n: (n["box"][1], n["box"][0]))
+    else:
+        prefix = nodes[i]["path"] + "/"
+        candidates = []
+        for n in nodes[i + 1:]:
+            if not n["path"].startswith(prefix):
+                break
+            candidates.append(n)
+    for n in candidates:
         t = n["text"] or n["desc"]
         if t and not n["editable"] and t not in found:
             found.append(t)
@@ -177,7 +205,25 @@ def _inner_text(nodes: list[dict], i: int, limit: int = 2) -> str:
 
 
 def _id_words(rid: str) -> str:
-    return rid.rsplit("/", 1)[-1].replace("_", " ") if rid else ""
+    """"com.app:id/btn_close" -> "btn close"; "tcp-share-button" -> "tcp share button"."""
+    return re.sub(r"[_\-.]+", " ", rid.rsplit("/", 1)[-1]).strip() if rid else ""
+
+
+def _same_place_duplicates(facts: list[Fact], ctx: Context) -> None:
+    """Like the core `duplicate` rule, but only for the same label in the same place (a button and its wrapper).
+    On a phone, the same label elsewhere is usually a different target: each row's "More options" button.
+    Of a button and its wrapper, the smaller one is kept: Android sends a tap to the innermost clickable element."""
+    seen: set[tuple] = set()
+    area = lambda f: f.meta["box"][2] * f.meta["box"][3] if f.meta.get("box") else 0
+    for f in sorted((f for f in facts if f.kept), key=lambda f: (-f.score, area(f))):
+        key = (f.kind, f.label.lower(), f.attrs.get("position"))
+        if key in seen and f.reason != "pinned":
+            f.drop("duplicate")
+        else:
+            seen.add(key)
+
+
+duplicate = GroupRule("duplicate", _same_place_duplicates)
 
 
 class AndroidAdapter(Adapter):
@@ -199,10 +245,11 @@ class AndroidAdapter(Adapter):
         if not nodes:
             raise ValueError("no UI elements found. Expected uiautomator XML, Appium page source, "
                              "or a JSON list of UI elements")
-        screen = tuple(options["screen"]) if options.get("screen") else screen_size(nodes)
+        screen = tuple(options.get("screen") or nodes[0].get("screen") or screen_size(nodes))
         app = Counter(n["package"] for n in nodes if n["package"] and n["package"] not in SYSTEM_PACKAGES)
         package = app.most_common(1)[0][0] if app else ""
 
+        flat = all(n["depth"] == 0 for n in nodes)
         facts: list[Fact] = []
         for i, n in enumerate(nodes):
             kind = _kind(n)
@@ -211,7 +258,8 @@ class AndroidAdapter(Adapter):
             if kind == "input":
                 label = n["hint"] or n["desc"] or _id_words(n["id"]) or (n["text"] if not n["password"] else "")
             else:
-                label = n["text"] or n["desc"] or _inner_text(nodes, i) or n["hint"]
+                label = (n["text"] or n["desc"] or (_inner_text(nodes, i, flat) if kind != "text" else "")
+                         or n["hint"] or (_id_words(n["id"]) if kind != "text" else ""))
             box = n["box"]
             attrs: dict = {}
             if box:
@@ -236,7 +284,7 @@ class AndroidAdapter(Adapter):
                 attrs=attrs,
                 meta={"box": [box[0], box[1], box[2] - box[0], box[3] - box[1]] if box else None,
                       "order": (box[1], box[0]) if box else (10**9, i), "cls": n["cls"], "package": n["package"],
-                      "rid": n["id"],
+                      "rid": n["id"], "index": i,
                       "offscreen": not box or not area or area <= 0 or box[2] <= 0 or box[3] <= 0
                       or box[0] >= screen[0] or box[1] >= screen[1],
                       "tiny": bool(box) and ((box[2] - box[0]) < screen[0] * 0.01 or (box[3] - box[1]) < screen[1] * 0.01),

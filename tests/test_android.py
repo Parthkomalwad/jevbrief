@@ -72,16 +72,44 @@ def test_id_match():
     assert f.kept and f.reason == "android.id_match"
 
 
-def test_unlabeled_icon_is_dropped():
+def test_icon_is_labeled_by_its_id_and_dropped_without_one():
     f = next(f for f in brief(DUMP).facts if f.meta["rid"].endswith("/icon"))
+    assert f.label == "icon" and f.kind == "button"
+    bare = DUMP.replace('resource-id="com.example.settings:id/icon"', 'resource-id=""')
+    f = next(f for f in brief(bare).facts if f.meta["cls"].endswith("ImageView"))
     assert f.label == "" and f.reason == "unlabeled"
+
+
+def test_flat_list_rows_are_labeled_by_the_text_inside_their_box():
+    elements = [
+        {"class_name": "android.widget.LinearLayout", "is_clickable": True,
+         "bbox_pixels": {"x_min": 0, "y_min": 300, "x_max": 1080, "y_max": 460}},
+        {"text": "Wi-Fi", "class_name": "android.widget.TextView",
+         "bbox_pixels": {"x_min": 40, "y_min": 320, "x_max": 600, "y_max": 380}},
+        {"text": "Connected to Home", "class_name": "android.widget.TextView",
+         "bbox_pixels": {"x_min": 40, "y_min": 390, "x_max": 600, "y_max": 450}},
+        {"text": "Bluetooth", "class_name": "android.widget.TextView",
+         "bbox_pixels": {"x_min": 40, "y_min": 500, "x_max": 600, "y_max": 560}},
+        {"class_name": "android.widget.FrameLayout", "bbox_pixels": {"x_min": 0, "y_min": 0, "x_max": 1080, "y_max": 2400}},
+    ]
+    row = next(f for f in brief(elements).facts if f.kind == "button")
+    assert row.label == "Wi-Fi · Connected to Home"  # not "Bluetooth", which is outside the row's box
 
 
 def test_core_rules():
     b = by_label(brief(DUMP))
     assert b["Airplane mode"].reason == "disabled"
     assert b["Hidden option"].reason == "hidden"
+    # Two "Display" buttons in the same part of the screen: one is dropped as a duplicate.
     assert [f.reason for f in brief(DUMP).facts if f.label == "Display"].count("duplicate") == 1
+
+
+def test_same_label_in_different_places_is_kept():
+    more = [{"content_description": "More options", "class_name": "android.widget.ImageButton", "is_clickable": True,
+             "bbox_pixels": {"x_min": 960, "y_min": y, "x_max": 1040, "y_max": y + 80}} for y in (200, 1200, 2200)]
+    more.append({"class_name": "android.widget.FrameLayout", "bbox_pixels": {"x_min": 0, "y_min": 0, "x_max": 1080, "y_max": 2400}})
+    kept = [f for f in brief(more, goal="open the menu of the second file").facts if f.label == "More options" and f.kept]
+    assert [f.attrs["position"] for f in kept] == ["top right", "middle right", "bottom right"]
 
 
 def test_facts_are_semantic_and_private():
@@ -149,3 +177,11 @@ def test_screenshot_for_the_viewer(tmp_path):
     ex = AndroidAdapter().extract(DUMP, screenshot=tmp_path / "shot.png")
     assert ex.image == b"\x89PNG fake" and ex.image_size == (1080, 2400)
     assert ex.source["app"] == "com.example.settings"
+
+
+def test_icon_font_glyphs_are_not_labels():
+    share = [{"content_description": "", "resource_name": "tcp-share-button", "class_name": "android.view.ViewGroup",
+              "is_clickable": True, "bbox_pixels": {"x_min": 980, "y_min": 200, "x_max": 1060, "y_max": 280}},
+             {"class_name": "android.widget.FrameLayout", "bbox_pixels": {"x_min": 0, "y_min": 0, "x_max": 1080, "y_max": 2400}}]
+    f = next(f for f in brief(share, goal="share this").facts if f.kind == "button")
+    assert f.label == "tcp share button" and f.kept

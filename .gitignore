@@ -40,3 +40,5 @@ bench/ci/runs/
 site/
 # pr benchmark diffs (real public PR diffs, not committed; recollect with bench/pr/fetch_prs.py)
 bench/pr/prs/
+# android benchmark screens (from AndroidControl, not committed; recollect with bench/android/fetch_androidcontrol.py)
+bench/android/screens/
