@@ -1,7 +1,7 @@
 # Python API
 
 ```python
-from jevbrief import Briefing, Decision, select_tools, pick_tool, check_progress, loop_signals, Brief
+from jevbrief import Briefing, Decision, select_tools, pick_tool, apick_tool, check_progress, acheck_progress, loop_signals, Brief
 ```
 
 ## `Briefing`
@@ -30,6 +30,7 @@ decision = brief.decide()
 | `min_confidence` | 0.5 | Below this, `outcome` is `low_confidence` |
 | `pins` | `()` | Fact IDs that are always kept |
 | `model` | `"jev-1.13.0"` | The Jev model |
+| `jev` | `Jev(model)` | The Jev client: a `Jev` with your own settings, or any object with `model` and `ask` (such as `testing.FakeJev`) |
 
 **Properties and methods:**
 - `extract(source)`: extract, filter, and budget in one call.
@@ -39,6 +40,30 @@ decision = brief.decide()
 - `state()`: exactly what Jev receives.
 
 Calling `decide()` again with unchanged facts reuses the last answer, with no API call.
+
+**Async:** `await brief.adecide()` gives the same result as `decide()` without blocking the event loop. It uses the client's `aask` when it has one (`Jev` does), and otherwise runs `ask` in a worker thread.
+
+**Errors:** a Jev or network failure (the SDK's `TypeSafeError`, which includes a missing API key, rate limits, and timeouts, or an `OSError`) gives `outcome="error"`, and the message is in `decision.record.jev["error"]`. Any other exception is a bug, in an adapter, a rule, or your own code, and is raised.
+
+## `Jev`
+
+The TypeSafe client for one model. Pass it as `Briefing(..., jev=Jev(...))`, or to `pick_tool` and `check_progress`.
+
+```python
+from jevbrief.jev import Jev
+
+jev = Jev("jev-1.13.0", timeout=10, retries=3)   # seconds per request; retries with backoff
+brief = Briefing(CiAdapter(), goal, jev=jev)
+```
+
+| Argument | Default | Meaning |
+|---|---|---|
+| `model` | `"jev-1.13.0"` | The Jev model |
+| `timeout` | the SDK's | Seconds per request |
+| `retries` | the SDK's (2) | Retries for connection errors, timeouts, rate limits, and server errors |
+| `client`, `async_client` | created on first use | Your own `TypeSafeClient` or `AsyncTypeSafeClient`, for example with a shared HTTP client |
+
+Close long-lived clients with `jev.close()` and `await jev.aclose()`.
 
 ## `Decision`
 
@@ -63,6 +88,8 @@ pick_tool(tools, goal, *, top_k=20, allow=None, deny=None, read_only=False, rank
           trace="traces/tools.jsonl", min_confidence=0.5, **briefing) -> Pick   # .tool, .tools, .confidence, .decision
 ```
 
+`apick_tool(...)` takes the same arguments and is awaited, for async agents.
+
 `select_tools` ranks locally, with no Jev call. `rank="hybrid"` adds embedding similarity to keywords (`pip install "jevbrief[embed]"`, or pass your own `embed` function). `pick_tool` also asks Jev, and `pick.tool` is `None` when Jev is unsure or no tool fits.
 
 ## `check_progress` and `loop_signals`
@@ -75,6 +102,8 @@ check_progress(history, goal, *, window=20, recent=6, trace="traces/progress.jso
                min_confidence=0.5, **briefing) -> Progress     # .stuck, .verdict, .advice, .probability, .signals
 ```
 
+`acheck_progress(...)` takes the same arguments and is awaited, for async agents.
+
 ## `Brief` (web)
 
 A shortcut for Playwright agents.
@@ -84,7 +113,7 @@ from jevbrief import Brief
 
 brief = Brief(goal="add this item to the cart", trace="traces/agent.jsonl")
 await brief.from_page(page)            # or brief.from_page_sync(page)
-decision = brief.next_click()
+decision = await brief.anext_click()   # or brief.next_click()
 if decision.fact:
     await page.locator(decision.fact.selector).click()
 ```

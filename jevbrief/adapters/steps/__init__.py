@@ -356,10 +356,26 @@ def check_progress(history, goal: str, *, window: int = WINDOW, recent: int = RE
 
     `history` is step dicts, chat messages with tool calls (OpenAI, Anthropic, LangChain), or a jevbrief trace.
     """
+    b = _progress_brief(history, goal, window, recent, trace, min_confidence, briefing)
+    return _progress(b.decide(), history, window)
+
+
+async def acheck_progress(history, goal: str, *, window: int = WINDOW, recent: int = RECENT,
+                          trace: str | None = "traces/progress.jsonl", min_confidence: float = 0.5,
+                          **briefing) -> Progress:
+    """`check_progress` for async agents: the same result, without blocking the event loop."""
+    b = _progress_brief(history, goal, window, recent, trace, min_confidence, briefing)
+    return _progress(await b.adecide(), history, window)
+
+
+def _progress_brief(history, goal, window, recent, trace, min_confidence, briefing) -> Briefing:
     b = Briefing(StepsAdapter({"window": window, "recent": recent}), goal, trace=trace,
                  min_confidence=min_confidence, **briefing)
     b.extract(history)
-    d = b.decide()
+    return b
+
+
+def _progress(d, history, window) -> Progress:
     p = (d.answers.get("stuck") or {}).get("noul")
     advice = (d.answers.get("advice") or {}).get("choice")
     verdict = d.choice if d.outcome in ("applied", "reused") else None

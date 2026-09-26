@@ -13,11 +13,11 @@ def __getattr__(name):
         from .adapters.web import Brief
 
         return Brief
-    if name in ("select_tools", "pick_tool"):  # the tools shortcuts, also lazy
+    if name in ("select_tools", "pick_tool", "apick_tool"):  # the tools shortcuts, also lazy
         from .adapters import tools
 
         return getattr(tools, name)
-    if name in ("check_progress", "loop_signals"):  # the steps shortcuts, also lazy
+    if name in ("check_progress", "acheck_progress", "loop_signals"):  # the steps shortcuts, also lazy
         from .adapters import steps
 
         return getattr(steps, name)
@@ -39,6 +39,8 @@ __all__ = [
     "QuestionPack",
     "Rule",
     "RuleSet",
+    "acheck_progress",
+    "apick_tool",
     "check_progress",
     "get_adapter",
     "loop_signals",

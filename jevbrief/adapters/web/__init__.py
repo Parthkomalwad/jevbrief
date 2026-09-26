@@ -85,7 +85,7 @@ class WebAdapter(Adapter):
 
 
 class Brief(Briefing):
-    """Web shortcut: `Brief(goal)`, then `from_page(page)` and `next_click()`."""
+    """Web shortcut: `Brief(goal)`, then `await from_page(page)` and `await anext_click()` (or the sync versions)."""
 
     def __init__(self, goal: str, *, screenshot: bool = True, **kw):
         super().__init__(WebAdapter(), goal, images=screenshot, **kw)
@@ -101,6 +101,10 @@ class Brief(Briefing):
     def next_click(self) -> Decision:
         """Ask Jev which element to click next."""
         return self.decide()
+
+    async def anext_click(self) -> Decision:
+        """`next_click` for async Playwright code, without blocking the event loop."""
+        return await self.adecide()
 
     @property
     def _want_image(self) -> bool:
