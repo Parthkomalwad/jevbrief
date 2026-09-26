@@ -20,7 +20,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - run: pip install -e ".[json,otel,ci,tools,steps,pr]" "ruff>=0.6" "mypy>=1.11"
+      # The same extras as the tests (no browser needed), so mypy sees the same types everywhere.
+      - run: pip install -e ".[web,json,otel,ci,tools,embed,steps,pr]" "ruff>=0.6" "mypy>=1.11"
       - run: ruff check .
       - run: mypy
 
