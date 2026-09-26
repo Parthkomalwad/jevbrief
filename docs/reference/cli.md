@@ -18,6 +18,7 @@ jevbrief inspect <source> --adapter <name> --goal "<goal>" [--config FILE] [--pa
 | `--config` | An adapter config file. Required by json |
 | `--pack` | The question pack (default: the adapter's first) |
 | `--budget` | The token budget for the state (default 2000) |
+| `--json` | Print JSON instead of text: every fact with its `kept`, `reason`, `score`, and `attrs`, plus the state Jev would receive. Useful in scripts and CI |
 
 ## `jevbrief ask`
 
@@ -30,6 +31,7 @@ Asks Jev the adapter's question and writes a trace. It takes every `inspect` arg
 | `--min-confidence` | Below this, the outcome is `low_confidence` and no action is taken (default 0.5) |
 | `--view` | Open the viewer when done |
 | `--no-screenshot` | Do not store an image in the trace (web) |
+| `--json` | Print the decision as JSON: `outcome`, `choice`, `confidence`, `fact`, `answers`, `error`, and `trace` |
 
 ## `jevbrief view`
 
@@ -46,8 +48,10 @@ With no file, it opens the newest trace in `traces/`. `--live` serves the viewer
 Runs a benchmark: the raw arm against jevbrief, on a tasks file.
 
 ```bash
-jevbrief bench bench/mcp/tasks.json [--repeats 3] [--out traces/bench]
+jevbrief bench bench/mcp/tasks.json [--repeats 3] [--out traces/bench] [--workers 4] [--write results.md]
 ```
+
+`--workers` sets how many Jev calls run at once (default 4). The results are the same with any number of workers, and the traces are written in task order. `--write` also saves the results tables to a Markdown file.
 
 Each task has an `adapter`, a `source` (relative to the tasks file), a `goal`, and one expected answer. The expected answer is one of:
 - `expected_label`: a label or a list of labels

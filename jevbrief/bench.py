@@ -10,9 +10,10 @@ from __future__ import annotations
 
 import copy
 import statistics
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
-from . import adapters, budget
+from . import adapters, budget, trace
 from .briefing import Briefing
 from .jev import Jev, JevClient
 from .rules import RuleSet
@@ -51,45 +52,60 @@ def _correct(task, d, b) -> bool:
     return bool(chosen and chosen.label.lower() in [w.lower() for w in ([want] if isinstance(want, str) else want)])
 
 
-def run(tasks_path: str, repeats: int = 3, out_dir: str = "traces/bench", jev: JevClient | None = None) -> str:
+def run(tasks_path: str, repeats: int = 3, out_dir: str = "traces/bench", jev: JevClient | None = None,
+        workers: int = 4) -> str:
+    """Run every labeled task `repeats` times per arm and return the results as Markdown tables.
+
+    Jev calls run on `workers` threads. Traces are written afterwards on this thread, in task order.
+    """
     import json
 
     tasks_file = Path(tasks_path)
-    tasks = json.loads(tasks_file.read_text(encoding="utf-8"))
+    tasks = [t for t in json.loads(tasks_file.read_text(encoding="utf-8"))
+             if any(k in t for k in LABELS)]  # tasks without a label are collected but not labeled yet
     Path(out_dir).mkdir(parents=True, exist_ok=True)
     jev = jev or Jev()
-    rows: dict[str, list[dict]] = {arm: [] for arm in ARMS}
-    per_task = []
 
+    prepared = []
     for t in tasks:
-        if not any(k in t for k in LABELS):  # collected but not labeled yet
-            continue
         adapter = adapters.get(t.get("adapter", "web"))
         src = tasks_file.parent / (t.get("source") or t["fixture"])
         if t.get("config"):
             adapter.configure(str(tasks_file.parent / t["config"]))
-        ex = adapter.extract(str(src))
         name = src.stem if t.get("adapter", "web") == "web" else f"{src.stem}: {t['goal'][:40]}"
-        line = {"task": name}
-        for arm in ARMS:
-            trace_path = str(Path(out_dir) / f"{arm}.jsonl")
-            hits = 0
-            for _ in range(repeats):
-                if arm == "raw":
-                    b = _raw(adapter, t["goal"], ex, trace_path, jev)
-                else:
-                    b = Briefing(adapter, t["goal"], trace=trace_path, jev=jev)
-                    b.load_extracted(copy.deepcopy(ex))
-                d = b.decide()
-                j = d.record.jev if d.record else {}
-                ok = _correct(t, d, b)
-                hits += ok
-                p = (d.answers.get("flaky") or {}).get("noul")
-                flaky_ok = None if "flaky" not in t or p is None else (p > 0.5) == t["flaky"]
-                rows[arm].append({"ok": ok, "flaky_ok": flaky_ok, "tokens": j.get("input_tokens") or b.used_tokens,
-                                  "latency": j.get("latency_ms"), "confidence": j.get("confidence"),
-                                  "options": len(b.kept), "error": d.outcome == "error"})
-            line[arm] = f"{hits}/{repeats}"
+        prepared.append((t, adapter, adapter.extract(str(src)), name))
+
+    def one(job):
+        (t, adapter, ex, _), arm = prepared[job[0]], job[1]
+        if arm == "raw":
+            b = _raw(adapter, t["goal"], ex, None, jev)
+        else:
+            b = Briefing(adapter, t["goal"], trace=None, jev=jev)
+            b.load_extracted(copy.deepcopy(ex))
+        return b, b.decide()
+
+    jobs = [(i, arm, k) for i in range(len(prepared)) for arm in ARMS for k in range(repeats)]
+    with ThreadPoolExecutor(max_workers=max(1, workers)) as pool:
+        results = list(pool.map(one, jobs))
+
+    rows: dict[str, list[dict]] = {arm: [] for arm in ARMS}
+    hits: dict[tuple[int, str], int] = {}
+    for (i, arm, _), (b, d) in zip(jobs, results, strict=True):
+        t = prepared[i][0]
+        if d.record:
+            trace.write(Path(out_dir) / f"{arm}.jsonl", d.record, image=b.image)
+        j = d.record.jev if d.record else {}
+        ok = _correct(t, d, b)
+        hits[(i, arm)] = hits.get((i, arm), 0) + ok
+        p = (d.answers.get("flaky") or {}).get("noul")
+        flaky_ok = None if "flaky" not in t or p is None else (p > 0.5) == t["flaky"]
+        rows[arm].append({"ok": ok, "flaky_ok": flaky_ok, "tokens": j.get("input_tokens") or b.used_tokens,
+                          "latency": j.get("latency_ms"), "confidence": j.get("confidence"),
+                          "options": len(b.kept), "error": d.outcome == "error"})
+
+    per_task = []
+    for i, (_, _, _, name) in enumerate(prepared):
+        line = {"task": name, **{arm: f"{hits[(i, arm)]}/{repeats}" for arm in ARMS}}
         per_task.append(line)
         print(f"  {line['task']:<16} raw {line['raw']}  jevbrief {line['jevbrief']}", flush=True)
     return _table(rows, per_task)

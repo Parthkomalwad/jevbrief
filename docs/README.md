@@ -55,6 +55,7 @@ Every adapter page has the same sections: at a glance, quick start, Python, inpu
 - [Build an adapter](../ADAPTERS.md): facts, rules, the question pack, the contract test, and a benchmark.
 - [Add another NES game](../skills/jevbrief-nes-game/SKILL.md): from a legal ROM to a tested adapter.
 - [Use jevbrief with a coding agent](../skills/jevbrief/SKILL.md): a skill file for Claude Code and similar agents.
+- [Stability and changes](stability.md): what is stable, and what changed in each release.
 
 ## Benchmarks
 
