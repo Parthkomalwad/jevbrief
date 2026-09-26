@@ -35,6 +35,9 @@ def sources():
     yield "steps", str(next((BENCH / "steps" / "histories").iterdir())), {}
     yield "pr", DIFF, {}
     yield "ci", ci_input, {}
+    from test_android import DUMP
+
+    yield "android", DUMP, {}
 
 
 def test_every_adapter_can_be_shared_by_many_threads(tmp_path):

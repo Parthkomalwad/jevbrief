@@ -35,7 +35,8 @@ tools = []
 embed = ["fastembed>=0.5"]
 steps = []
 pr = []
-all = ["jevbrief[web,json,otel,nes,ci,tools,embed,steps,pr]"]
+android = []
+all = ["jevbrief[web,json,otel,nes,ci,tools,embed,steps,pr,android]"]
 dev = ["jevbrief[all]", "pytest>=8", "ruff>=0.6", "mypy>=1.11", "coverage>=7"]
 
 [project.entry-points."jevbrief.adapters"]
@@ -47,6 +48,7 @@ ci = "jevbrief.adapters.ci:CiAdapter"
 tools = "jevbrief.adapters.tools:ToolsAdapter"
 steps = "jevbrief.adapters.steps:StepsAdapter"
 pr = "jevbrief.adapters.pr:PrAdapter"
+android = "jevbrief.adapters.android:AndroidAdapter"
 
 [project.scripts]
 jevbrief = "jevbrief.cli:main"
