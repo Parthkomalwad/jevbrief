@@ -23,9 +23,9 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 from ...briefing import Briefing, Decision, Extracted
-from ...facts import Fact, clean_label, fact_id, register_reasons
+from ...facts import Fact, clean_label, fact_id
 from ...questions import OptionChoice
-from ...rules import CORE_RULES, Boost, Drop, Rule, RuleSet
+from ...rules import Boost, Drop, Rule, RuleSet, disabled, hidden, unlabeled
 from .. import Adapter
 
 OLD = "steps.old"
@@ -261,15 +261,6 @@ class StepsAdapter(Adapter):
     extra = "steps"
     reasons = REASONS
 
-    def __init__(self, config=None):
-        register_reasons(REASONS)
-        self.config: dict = dict(config or {})
-
-    def configure(self, config) -> None:
-        if isinstance(config, (str, Path)):
-            config = json.loads(Path(config).read_text(encoding="utf-8"))
-        self.config = dict(config or {})
-
     def extract(self, source, **options) -> Extracted:
         steps = normalize(source)
         if not steps:
@@ -294,8 +285,7 @@ class StepsAdapter(Adapter):
         return Extracted(facts, {"name": Path(source).name if isinstance(source, (str, Path)) else "steps",
                                  "steps": len(steps)})
 
-    def rules(self) -> RuleSet:
-        hidden, disabled, unlabeled, _, _ = CORE_RULES
+    def rules(self, options: dict | None = None) -> RuleSet:
 
         def weak(f):
             """A call repeated or an error seen fewer than MIN_REPEAT times is normal: a retry, a second look."""

@@ -21,6 +21,7 @@ class Extracted:
     source: dict = field(default_factory=dict)  # small context for rules, state, and the trace (url, viewport_h, ...)
     image: bytes | None = None                  # optional snapshot for the spatial viewer
     image_size: tuple[int, int] | None = None   # (width, height) of the coordinate space of `Fact.box`
+    raw: list[Fact] | None = None               # the benchmark's raw arm, when it needs more than `facts`
 
 
 @dataclass
@@ -102,9 +103,11 @@ class Briefing:
         The adapter's rules are rebuilt after extracting, so config loaded by `extract` and per-call
         options (such as `min_severity`) apply. Rules passed to `Briefing(rules=...)` are kept as given.
         """
+        from .adapters import adapter_rules
+
         ex = self.adapter.extract(source, **options)
         if not self._own_rules:
-            self.rules = self.adapter.rules()
+            self.rules = adapter_rules(self.adapter, options)
         return self.load_extracted(ex)
 
     def load_extracted(self, ex: Extracted) -> list[Fact]:

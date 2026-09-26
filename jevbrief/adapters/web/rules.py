@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from ...facts import Fact
-from ...rules import CORE_RULES, Boost, Context, Drop, GroupRule, Rule, RuleSet
+from ...rules import Boost, Context, Drop, GroupRule, Rule, RuleSet, disabled, duplicate, goal_match, hidden, unlabeled
 
 IN_VIEWPORT = 0.10
 FAR_BELOW = -0.25
@@ -44,6 +44,5 @@ near_goal_input = GroupRule("web.near_goal_input", _near_goal_input)
 
 
 def web_rules() -> RuleSet:
-    hidden, disabled, unlabeled, goal_match, duplicate = CORE_RULES
     return RuleSet([hidden, disabled, unlabeled, not_interactive, goal_match, in_viewport, far_below,
                     near_goal_input, duplicate])

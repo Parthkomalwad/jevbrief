@@ -14,8 +14,9 @@ from pathlib import Path
 from ...briefing import Extracted
 from ...facts import Fact, clean_label, fact_id, register_reasons
 from ...questions import FactChoice, OptionChoice, QuestionPack
-from ...rules import CORE_RULES, Boost, Drop, GroupRule, Rule, RuleSet
-from .. import Adapter, need
+from ...rules import Boost, Drop, GroupRule, Rule, RuleSet, duplicate, goal_match, unlabeled
+from ...sources import load_config as _load_file
+from .. import Adapter
 
 MISSING_FIELD = "json.missing_field"
 REASONS = {
@@ -27,20 +28,9 @@ _TEMPLATE = re.compile(r"\{([^{}]+)\}")
 
 
 def load_config(config) -> dict:
-    if isinstance(config, dict):
-        return config
     if config is None:
         raise ValueError("the json adapter needs a config: --config mapping.toml (or a dict in Python)")
-    path = Path(config)
-    text = path.read_text(encoding="utf-8")
-    if path.suffix == ".json":
-        return json.loads(text)
-    try:
-        import tomllib
-    except ModuleNotFoundError:  # Python 3.10
-        need("json", "tomli")
-        import tomli as tomllib
-    return tomllib.loads(text)
+    return _load_file(config, "json")
 
 
 def get(obj, path: str):
@@ -115,12 +105,6 @@ class JsonAdapter(Adapter):
     extra = "json"
     reasons = REASONS
 
-    def __init__(self, config=None):
-        register_reasons(REASONS)
-        self.config: dict = {}
-        if config is not None:
-            self.configure(config)
-
     def configure(self, config) -> None:
         self.config = load_config(config)
         register_reasons({f"json.{r['name']}": r.get("description", f"Config rule `{r['name']}`")
@@ -161,9 +145,8 @@ class JsonAdapter(Adapter):
         name = Path(source).name if isinstance(source, (str, Path)) else "data"
         return Extracted(facts, {"name": name, "now": now.isoformat()})
 
-    def rules(self) -> RuleSet:
-        c = self.config
-        _, _, unlabeled, goal_match, duplicate = CORE_RULES
+    def rules(self, options: dict | None = None) -> RuleSet:
+        c = self.settings(options)
         required = c.get("required", [])
         match_fields = c.get("match_fields", [])
 

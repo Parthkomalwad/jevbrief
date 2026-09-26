@@ -5,7 +5,7 @@ from __future__ import annotations
 from pathlib import Path
 
 from ...briefing import Briefing, Decision, Extracted
-from ...facts import Fact, register_reasons
+from ...facts import Fact
 from ...questions import FactChoice
 from .. import Adapter, need
 from . import dom
@@ -38,11 +38,9 @@ class WebAdapter(Adapter):
     renderer = "spatial"
     extra = "web"
     reasons = REASONS
+    takes_config = False
 
-    def __init__(self):
-        register_reasons(REASONS)
-
-    def rules(self):
+    def rules(self, options: dict | None = None):
         return web_rules()
 
     def packs(self):

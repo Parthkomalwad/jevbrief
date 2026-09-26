@@ -114,7 +114,7 @@ def test_log_archive_zip(tmp_path):
 def test_raw_arm_is_last_lines(tmp_path):
     a = CiAdapter()
     ex = a.extract(write(tmp_path))
-    raw = a.raw(ex.facts)
+    raw = ex.raw  # set by extract: the raw lines are not in the facts
     assert len(raw) == 12 and raw[-1].label == "Post Run actions/checkout@v4: Cleaning up orphan processes"
 
 

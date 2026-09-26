@@ -22,9 +22,9 @@ import zlib
 from pathlib import Path
 
 from ...briefing import Extracted
-from ...facts import Fact, clean_label, fact_id, register_reasons
+from ...facts import Fact, clean_label, fact_id
 from ...questions import OptionChoice
-from ...rules import CORE_RULES, Boost, Drop, Rule, RuleSet
+from ...rules import Boost, Drop, Rule, RuleSet, disabled, duplicate, goal_match, hidden, unlabeled
 from .. import Adapter
 
 INACTIVE = "nes.inactive"
@@ -184,9 +184,7 @@ class NesAdapter(Adapter):
     renderer = "spatial"
     extra = "nes"
     reasons = REASONS
-
-    def __init__(self):
-        register_reasons(REASONS)
+    takes_config = False
 
     def extract(self, source, **options) -> Extracted:
         """Options: `last_action` (an action name) and `moved` (bool), so Jev knows when a move had no effect."""
@@ -263,8 +261,7 @@ class NesAdapter(Adapter):
         image = png(snap["frame"]) if snap.get("frame") is not None else None
         return Extracted(facts, source, image=image, image_size=(SCREEN_W, SCREEN_H) if image else None)
 
-    def rules(self) -> RuleSet:
-        hidden, disabled, unlabeled, goal_match, duplicate = CORE_RULES
+    def rules(self, options: dict | None = None) -> RuleSet:
 
         def threat(f, ctx):
             a = f.attrs

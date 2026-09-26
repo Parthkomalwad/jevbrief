@@ -29,9 +29,9 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 from ...briefing import Briefing, Decision, Extracted
-from ...facts import Fact, clean_label, fact_id, register_reasons
+from ...facts import Fact, clean_label, fact_id
 from ...questions import FactChoice
-from ...rules import CORE_RULES, STOPWORDS, Drop, GroupRule, Rule, RuleSet
+from ...rules import STOPWORDS, Drop, GroupRule, Rule, RuleSet, disabled, goal_match, hidden, unlabeled
 from .. import Adapter, need
 
 NOT_RELEVANT = "tools.not_relevant"
@@ -282,16 +282,6 @@ class ToolsAdapter(Adapter):
     extra = "tools"
     reasons = REASONS
 
-    def __init__(self, config=None):
-        register_reasons(REASONS)
-        self.config: dict = dict(config or {})
-
-    def configure(self, config) -> None:
-        """A dict, or a path to a JSON file of options."""
-        if isinstance(config, (str, Path)):
-            config = json.loads(Path(config).read_text(encoding="utf-8"))
-        self.config = dict(config or {})
-
     def extract(self, source, **options) -> Extracted:
         data = source
         if isinstance(source, (str, Path)):
@@ -322,9 +312,8 @@ class ToolsAdapter(Adapter):
         return Extracted(facts, {"name": Path(source).name if isinstance(source, (str, Path)) else "tools",
                                  "tools": len(facts), "servers": len({s["server"] for s, _ in pairs if s["server"]})})
 
-    def rules(self) -> RuleSet:
-        c = self.config
-        hidden, disabled, unlabeled, goal_match, _ = CORE_RULES
+    def rules(self, options: dict | None = None) -> RuleSet:
+        c = self.settings(options)
         top_k = int(c.get("top_k", TOP_K))
         mode = c.get("rank", "bm25")
         if mode not in RANKS:
