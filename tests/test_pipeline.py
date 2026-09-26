@@ -206,3 +206,40 @@ def test_load_env_does_not_override(tmp_path, monkeypatch):
     monkeypatch.delenv("JB_EMPTY", raising=False)
     load_env(env)
     assert os.environ["JB_A"] == "from_env" and os.environ["JB_B"] == "quoted" and "JB_EMPTY" not in os.environ
+
+
+def test_rules_see_config_and_options_given_at_extract_time():
+    """Regression: rules were built when the Briefing was created, so config or options passed to
+    `extract()` were silently ignored."""
+    from pathlib import Path
+
+    from jevbrief.adapters.json import JsonAdapter
+    from jevbrief.adapters.otel import OtelAdapter
+    from jevbrief.testing import FakeJev
+
+    bench = Path(__file__).resolve().parent.parent / "bench"
+    by_ctor = Briefing(JsonAdapter(bench / "json" / "tickets.toml"), "billed twice", trace=None, jev=FakeJev())
+    by_ctor.extract(bench / "json" / "tickets.json")
+    at_extract = Briefing(JsonAdapter(), "billed twice", trace=None, jev=FakeJev())
+    at_extract.extract(bench / "json" / "tickets.json", config=bench / "json" / "tickets.toml")
+    assert [(f.id, f.reason) for f in at_extract.facts] == [(f.id, f.reason) for f in by_ctor.facts]
+
+    logs = bench / "otel" / "checkout_500.json"
+    by_ctor = Briefing(OtelAdapter({"min_severity": "error"}), "checkout", trace=None, jev=FakeJev())
+    by_ctor.extract(logs)
+    by_option = Briefing(OtelAdapter(), "checkout", trace=None, jev=FakeJev())
+    by_option.extract(logs, min_severity="error")
+    assert [f.reason for f in by_option.facts] == [f.reason for f in by_ctor.facts]
+    default = Briefing(OtelAdapter(), "checkout", trace=None, jev=FakeJev())
+    default.extract(logs)
+    assert len(by_option.kept) < len(default.kept)  # the option really changed something
+
+
+def test_rules_passed_to_briefing_are_kept_after_extract():
+    from jevbrief.adapters.otel import OtelAdapter
+    from jevbrief.testing import FakeJev
+
+    own = RuleSet([])
+    b = Briefing(OtelAdapter(), "checkout", rules=own, trace=None, jev=FakeJev())
+    b.extract(__import__("pathlib").Path(__file__).resolve().parent.parent / "bench" / "otel" / "checkout_500.json")
+    assert b.rules is own and all(f.kept or f.reason == "budget" for f in b.facts)

@@ -43,6 +43,7 @@ class Briefing:
         self.goal = goal
         packs = adapter.packs()
         self.pack = pack if isinstance(pack, QuestionPack) else packs[pack or next(iter(packs))]
+        self._own_rules = rules is not None
         self.rules = rules or adapter.rules()
         self.budget_tokens = budget_tokens
         self.max_options = max_options
@@ -69,8 +70,15 @@ class Briefing:
         return self.adapter.state(self.goal, self.kept, self.source)
 
     def extract(self, source, **options) -> list[Fact]:
-        """Run the adapter's extractor on `source`, then filter and budget the facts."""
-        return self.load_extracted(self.adapter.extract(source, **options))
+        """Run the adapter's extractor on `source`, then filter and budget the facts.
+
+        The adapter's rules are rebuilt after extracting, so config loaded by `extract` and per-call
+        options (such as `min_severity`) apply. Rules passed to `Briefing(rules=...)` are kept as given.
+        """
+        ex = self.adapter.extract(source, **options)
+        if not self._own_rules:
+            self.rules = self.adapter.rules()
+        return self.load_extracted(ex)
 
     def load_extracted(self, ex: Extracted) -> list[Fact]:
         keep_image = self.images and self.trace_level != "off"
