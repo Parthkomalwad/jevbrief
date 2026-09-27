@@ -31,10 +31,27 @@ Per task: jevbrief was right more often than raw on 36 tasks, and raw more often
   - icon-font glyphs were read as labels
   - identical buttons in different places were dropped as duplicates
 
-  Treat the result as measured on the data the adapter was tuned on. A second file of the dataset (`--shard 1`) is the check.
+  So the result above is measured on the data the adapter was tuned on. The holdout below is the check.
 - **Small, one file.** 107 taps from 40 episodes. The screens are not committed: `fetch_androidcontrol.py` downloads them again. It streams the start of one 2.5 GB file and stops after the episodes it needs.
 
-## Per task
+## Holdout: fresh data, adapter unchanged
+
+To check that the fixes above did not simply fit this data, 40 more episodes were collected from a different file of the dataset (`--shard 1`, `tasks_shard1.json`), **with the adapter unchanged**. 105 taps were hand-reviewed, two mislabeled taps were dropped, and the labels were frozen (05bf02e) before the run.
+
+| Arm | Accuracy | Median input tokens | Median latency (ms) | Median confidence | Median options |
+|---|---|---|---|---|---|
+| raw | 61% (192/315), 24 errors | 18753 | 458 | 0.94 | 153 |
+| jevbrief | 84% (265/315) | 2049 | 341 | 0.97 | 22 |
+
+| Baseline (no model call) | Accuracy |
+|---|---|
+| the element jevbrief's rules score highest | 32% (34/105) |
+
+- **The result holds:** jevbrief scored 84% on fresh data, against 85% on the tuning data. Per task, it was right more often than raw on 29 tasks and less often on 4. Both were right every time on 59, and both wrong every time on 13.
+- **Raw:** 24 errors, from 8 screens over Jev's token limit. Counting only the calls that fit, raw scores 66% (192/291).
+- **Unlabeled taps on fresh data:** 9 of 116 taps (8%) were on elements with no text, no description, no ID, and no text inside, so they could not be labeled. The collector skipped them, but an agent on those screens would face them.
+
+## Per task (tuning data)
 
 | Task | raw | jevbrief |
 |---|---|---|
