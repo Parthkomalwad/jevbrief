@@ -160,6 +160,7 @@ def main():
     p.add_argument("--shard", type=int, default=0)
     p.add_argument("--episodes", type=int, default=30)
     p.add_argument("--max-steps", type=int, default=4, help="most tap steps kept per episode, for variety")
+    p.add_argument("--tasks", default="tasks.json", help="tasks file to write, in this folder (default tasks.json)")
     args = p.parse_args()
     out = HERE / "screens"
     out.mkdir(exist_ok=True)
@@ -191,7 +192,7 @@ def main():
         print(f"  episode {ep}: {kept} taps  {goal[:70]}", flush=True)
         if episodes >= args.episodes:
             break
-    (HERE / "tasks.json").write_text(json.dumps(tasks, indent=2) + "\n", encoding="utf-8")
+    (HERE / args.tasks).write_text(json.dumps(tasks, indent=2) + "\n", encoding="utf-8")
     print(f"{len(tasks)} tasks from {episodes} episodes; skipped: {skipped}")
 
 
