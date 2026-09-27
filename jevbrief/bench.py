@@ -3,6 +3,8 @@
 A tasks file is a JSON list. Paths are relative to the tasks file:
     {"source": "fixtures/cart.html", "goal": "...", "expected_label": "Proceed to checkout"}
     {"adapter": "json", "source": "q.json", "config": "q.toml", "goal": "...", "expected_choice": "t-102"}
+    {"adapter": "vulns", "source": "a.json", "options": {"source_dir": "repo"}, "goal": "...",
+     "expected_noul": {"exploitable": false}}
 `adapter` defaults to "web". The old key "fixture" is accepted for "source".
 """
 
@@ -33,10 +35,16 @@ def _raw(adapter, goal, ex, trace_path, jev) -> Briefing:
     return b
 
 
-LABELS = ("expected_choice", "expected_contains", "expected_label", "flaky")
+LABELS = ("expected_choice", "expected_contains", "expected_label", "expected_noul", "flaky")
 
 
 def _correct(task, d, b) -> bool:
+    if "expected_noul" in task:  # {"question": true or false}: each Noul answer above 0.5 means true
+        for qid, want in task["expected_noul"].items():
+            p = (d.answers.get(qid) or {}).get("noul")
+            if p is None or (p > 0.5) != want:
+                return False
+        return True
     if "flaky" in task and not any(k in task for k in LABELS[:3]):  # scored on the pack's `flaky` Noul
         p = (d.answers.get("flaky") or {}).get("noul")
         return p is not None and (p > 0.5) == task["flaky"]
@@ -73,7 +81,9 @@ def run(tasks_path: str, repeats: int = 3, out_dir: str = "traces/bench", jev: J
         if t.get("config"):
             adapter.configure(str(tasks_file.parent / t["config"]))
         name = src.stem if t.get("adapter", "web") == "web" else f"{src.stem}: {t['goal'][:40]}"
-        prepared.append((t, adapter, adapter.extract(str(src)), name))
+        options = {k: str(tasks_file.parent / v) if isinstance(v, str) and (tasks_file.parent / v).exists() else v
+                   for k, v in (t.get("options") or {}).items()}  # paths are relative to the tasks file
+        prepared.append((t, adapter, adapter.extract(str(src), **options), name))
 
     def one(job):
         (t, adapter, ex, _), arm = prepared[job[0]], job[1]

@@ -136,3 +136,21 @@ def test_bench_is_the_same_on_one_or_many_threads(tmp_path):
     b = run(str(tasks(tmp_path)), repeats=3, out_dir=str(tmp_path / "b"), jev=FakeJev(), workers=6)
     assert a == b
     assert len((tmp_path / "b" / "raw.jsonl").read_text(encoding="utf-8").splitlines()) == 3
+
+
+def test_bench_scores_noul_answers_and_passes_options(tmp_path):
+    from jevbrief.testing import FakeJev as Fake
+
+    src = tmp_path / "src"
+    src.mkdir()
+    (src / "app.py").write_text("import yaml\n", encoding="utf-8")
+    alert = [{"id": "GHSA-x", "aliases": ["CVE-2020-1"], "summary": "bad",
+              "affected": [{"package": {"name": "PyYAML", "ecosystem": "PyPI"}}]}]
+    (tmp_path / "a.json").write_text(json.dumps(alert), encoding="utf-8")
+    tasks = [{"adapter": "vulns", "source": "a.json", "options": {"source_dir": "src"}, "goal": "app",
+              "expected_noul": {"exploitable": False}}]  # FakeJev answers every Noul with 0.5: "false"
+    (tmp_path / "t.json").write_text(json.dumps(tasks), encoding="utf-8")
+    table = run(str(tmp_path / "t.json"), repeats=1, out_dir=str(tmp_path / "tr"), jev=Fake(), workers=1)
+    assert "| jevbrief | 100% (1/1)" in table
+    trace = json.loads((tmp_path / "tr" / "jevbrief.jsonl").read_text(encoding="utf-8").splitlines()[0])
+    assert trace["source"]["source_searched"] is True  # the option reached the adapter
