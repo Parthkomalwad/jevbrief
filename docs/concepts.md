@@ -53,7 +53,7 @@ Each adapter picks the view that fits its source:
 
 | View | Used by | Shows |
 |---|---|---|
-| Table | json, ci, pr, tools, steps | Every fact with its score and reason |
+| Table | json, ci, pr, tools, steps, vulns | Every fact with its score and reason |
 | Timeline | otel | One bar per log group, event group, or alert, with the incident start marked |
 | Snapshot | web, android | The page or screen with Jev's pick outlined (android: when a screenshot is given) |
 | Live | nes | Decisions as they are written, next to the running game (`jevbrief view --live`) |
@@ -80,8 +80,10 @@ Each adapter is measured the same way:
 | [json](../bench/json/results.md) | Synthetic | 9 queries | 89% | **100%** | 3,848 | **2,002** (−48%) |
 | [web](../bench/results.md) | Synthetic | 10 pages | 100% | 100% | 5,400 | **2,344** (−57%) |
 | [android](../bench/android/results.md) | Real (AndroidControl) | 105 taps, fresh data | 61% | **84%** | 18,753 | **2,049** (−89%) |
+| [vulns](../bench/vulns/results.md) | Real (VEX-Bench) | 72 expert-labeled cases | 63% | 59% | 876 | **633** (−28%) |
 | [nes](../bench/nes/results.md) | Real game | 100 moves on level 1-1 | block 8.6 | **block 56.4** | 2,829 | **713** (−75%) |
 
+- **vulns:** jevbrief scored below the raw alerts, and both scored below always answering "not exploitable" (71%). The code search rules out unimported packages well, but Jev reads "imported" as "exploitable".
 - **pr:** a tie on accuracy, and only 6 points above picking the largest chunk. jevbrief saved tokens but did not pick better.
 - **ci's flaky question:** jevbrief scored lower, 67% against 93%. The raw arm answered "flaky" every time, and 13 of the 16 labels are flaky.
 - **tools' ranking:** keyword ranking dropped the right tool for 3 of 36 goals, all synonyms. Hybrid ranking keeps it for 35 of 36 and reaches 94% accuracy.

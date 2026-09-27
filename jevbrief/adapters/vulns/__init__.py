@@ -11,6 +11,10 @@ With `source_dir`, the project's code is searched, so each alert also says wheth
 whether it is used only in tests, and, where the advisory names the vulnerable functions (mostly Go), whether
 the code calls them. With `kev`, a path to CISA's Known Exploited Vulnerabilities JSON, alerts under active
 exploitation are marked. Standard library only.
+
+The `exploitable` question is experimental. On VEX-Bench it scored below always answering "not exploitable"
+(see bench/vulns/results.md): an import search cannot tell whether the vulnerable code is reached. Use the
+answers to rank alerts, not to close them.
 """
 
 from __future__ import annotations

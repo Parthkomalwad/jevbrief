@@ -15,6 +15,7 @@ jevbrief turns a source into small, relevant state for Jev. An **adapter** reads
 | OpenTelemetry logs (OTLP JSON), `kubectl get events -o json`, Alertmanager or Prometheus alerts | `otel` | `pip install jevbrief` | Which log group, Kubernetes event, or alert shows an incident's cause |
 | CI logs (GitHub Actions) and JUnit XML | `ci` | `pip install jevbrief` | Which error broke the build, and whether it looks flaky |
 | Pull request diffs: `gh pr diff`, `.diff`/`.patch`, or `/pulls/{n}/files` JSON | `pr` | `pip install jevbrief` | Which chunk most needs a human reviewer, and whether it is safe to merge |
+| Security alerts: osv-scanner, grype, trivy, Dependabot, OSV JSON (plus `source_dir`) | `vulns` | `pip install jevbrief` | Which alert to fix first. Its exploitable-or-not answer is weak: rank with it, never close alerts on it |
 | Agent step history: dicts, chat messages, LangGraph, or a jevbrief trace | `steps` | `pip install jevbrief` | Is the agent stuck. In code: `loop_signals(history)` or `check_progress(history, goal)` |
 | Agent tools: functions, MCP, LangChain, CrewAI, OpenAI, Anthropic | `tools` | `pip install jevbrief` | Which tool the agent should call next. In code: `select_tools(tools, goal)` or `pick_tool(tools, goal)` |
 | NES games (Nova the Squirrel; the user supplies the free ROM) | `nes` | `pip install "jevbrief[nes]"` | Which move to make next |
