@@ -38,6 +38,9 @@ def sources():
     from test_android import DUMP
 
     yield "android", DUMP, {}
+    from test_vulns import OSV_SCANNER
+
+    yield "vulns", OSV_SCANNER, {}
 
 
 def test_every_adapter_can_be_shared_by_many_threads(tmp_path):

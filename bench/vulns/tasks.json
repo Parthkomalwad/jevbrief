@@ -1,0 +1,1400 @@
+[
+  {
+    "adapter": "vulns",
+    "source": "cases/prestodb-presto-8136f7c-CVE-2024-47535.json",
+    "goal": "prestodb/presto",
+    "options": {
+      "source_dir": "repos/prestodb__presto@8136f7cc23"
+    },
+    "expected_noul": {
+      "exploitable": false
+    },
+    "cve": "CVE-2024-47535",
+    "category": "requires_environment",
+    "language": "java",
+    "task_id": "prestodb-presto-8136f7c-CVE-2024-47535",
+    "packages": [
+      "io.netty:netty-common"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/apache-pulsar-137df29-CVE-2024-51504.json",
+    "goal": "apache/pulsar",
+    "options": {
+      "source_dir": "repos/apache__pulsar@137df29f85"
+    },
+    "expected_noul": {
+      "exploitable": true
+    },
+    "cve": "CVE-2024-51504",
+    "category": "vulnerable",
+    "language": "java",
+    "task_id": "apache-pulsar-137df29-CVE-2024-51504",
+    "packages": [
+      "org.apache.zookeeper:zookeeper"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/apache-dubbo-218aab1-CVE-2024-7254.json",
+    "goal": "apache/dubbo",
+    "options": {
+      "source_dir": "repos/apache__dubbo@218aab1e4a"
+    },
+    "expected_noul": {
+      "exploitable": false
+    },
+    "cve": "CVE-2024-7254",
+    "category": "code_not_present",
+    "language": "java",
+    "task_id": "apache-dubbo-218aab1-CVE-2024-7254",
+    "packages": [
+      "com.google.protobuf:protobuf-java",
+      "com.google.protobuf:protobuf-javalite",
+      "com.google.protobuf:protobuf-kotlin",
+      "com.google.protobuf:protobuf-kotlin-lite"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/prestodb-presto-368bcc7-CVE-2025-58457.json",
+    "goal": "prestodb/presto",
+    "options": {
+      "source_dir": "repos/prestodb__presto@368bcc7460"
+    },
+    "expected_noul": {
+      "exploitable": false
+    },
+    "cve": "CVE-2025-58457",
+    "category": "code_not_reachable",
+    "language": "java",
+    "task_id": "prestodb-presto-368bcc7-CVE-2025-58457",
+    "packages": [
+      "org.apache.zookeeper:zookeeper"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/quarkusio-quarkus-d392404-CVE-2017-18640.json",
+    "goal": "quarkusio/quarkus",
+    "options": {
+      "source_dir": "repos/quarkusio__quarkus@d392404a6f"
+    },
+    "expected_noul": {
+      "exploitable": false
+    },
+    "cve": "CVE-2017-18640",
+    "category": "code_not_present",
+    "language": "java",
+    "task_id": "quarkusio-quarkus-d392404-CVE-2017-18640",
+    "packages": [
+      "org.yaml:snakeyaml"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/quarkusio-quarkus-34accfc-CVE-2023-28867.json",
+    "goal": "quarkusio/quarkus",
+    "options": {
+      "source_dir": "repos/quarkusio__quarkus@34accfcd59"
+    },
+    "expected_noul": {
+      "exploitable": true
+    },
+    "cve": "CVE-2023-28867",
+    "category": "vulnerable",
+    "language": "java",
+    "task_id": "quarkusio-quarkus-34accfc-CVE-2023-28867",
+    "packages": [
+      "com.graphql-java:graphql-java"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/redisson-redisson-47f6a39-CVE-2020-25638.json",
+    "goal": "redisson/redisson",
+    "options": {
+      "source_dir": "repos/redisson__redisson@47f6a3926b"
+    },
+    "expected_noul": {
+      "exploitable": false
+    },
+    "cve": "CVE-2020-25638",
+    "category": "code_not_reachable",
+    "language": "java",
+    "task_id": "redisson-redisson-47f6a39-CVE-2020-25638",
+    "packages": [
+      "org.hibernate:hibernate-core"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/quarkusio-quarkus-f4a1bce-CVE-2021-20218.json",
+    "goal": "quarkusio/quarkus",
+    "options": {
+      "source_dir": "repos/quarkusio__quarkus@f4a1bce45b"
+    },
+    "expected_noul": {
+      "exploitable": false
+    },
+    "cve": "CVE-2021-20218",
+    "category": "code_not_reachable",
+    "language": "java",
+    "task_id": "quarkusio-quarkus-f4a1bce-CVE-2021-20218",
+    "packages": [
+      "io.fabric8:kubernetes-client"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/apache-flink-e4ea3d8-CVE-2025-48924.json",
+    "goal": "apache/flink",
+    "options": {
+      "source_dir": "repos/apache__flink@e4ea3d8194"
+    },
+    "expected_noul": {
+      "exploitable": false
+    },
+    "cve": "CVE-2025-48924",
+    "category": "code_not_reachable",
+    "language": "java",
+    "task_id": "apache-flink-e4ea3d8-CVE-2025-48924",
+    "packages": [
+      "commons-lang:commons-lang",
+      "org.apache.commons:commons-lang3"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/alibaba-nacos-20caf99-CVE-2025-55752.json",
+    "goal": "alibaba/nacos",
+    "options": {
+      "source_dir": "repos/alibaba__nacos@20caf99db3"
+    },
+    "expected_noul": {
+      "exploitable": false
+    },
+    "cve": "CVE-2025-55752",
+    "category": "code_not_reachable",
+    "language": "java",
+    "task_id": "alibaba-nacos-20caf99-CVE-2025-55752",
+    "packages": [
+      "org.apache.tomcat.embed:tomcat-embed-core",
+      "org.apache.tomcat:tomcat",
+      "org.apache.tomcat:tomcat-catalina"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/apache-airflow-3dbad4f-CVE-2023-47248.json",
+    "goal": "apache/airflow",
+    "options": {
+      "source_dir": "repos/apache__airflow@3dbad4f5ca"
+    },
+    "expected_noul": {
+      "exploitable": false
+    },
+    "cve": "CVE-2023-47248",
+    "category": "requires_configuration",
+    "language": "python",
+    "task_id": "apache-airflow-3dbad4f-CVE-2023-47248",
+    "packages": [
+      "pyarrow"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/fastapi-fastapi-febf6b6-CVE-2024-47874.json",
+    "goal": "fastapi/fastapi",
+    "options": {
+      "source_dir": "repos/fastapi__fastapi@febf6b6a52"
+    },
+    "expected_noul": {
+      "exploitable": true
+    },
+    "cve": "CVE-2024-47874",
+    "category": "vulnerable",
+    "language": "python",
+    "task_id": "fastapi-fastapi-febf6b6-CVE-2024-47874",
+    "packages": [
+      "starlette"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/infiniflow-ragflow-c68767a-CVE-2024-36039.json",
+    "goal": "infiniflow/ragflow",
+    "options": {
+      "source_dir": "repos/infiniflow__ragflow@c68767acdd"
+    },
+    "expected_noul": {
+      "exploitable": false
+    },
+    "cve": "CVE-2024-36039",
+    "category": "code_not_reachable",
+    "language": "python",
+    "task_id": "infiniflow-ragflow-c68767a-CVE-2024-36039",
+    "packages": [
+      "pymysql"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/langflow-ai-langflow-c46a3ee-CVE-2024-23342.json",
+    "goal": "langflow-ai/langflow",
+    "options": {
+      "source_dir": "repos/langflow-ai__langflow@c46a3eec9a"
+    },
+    "expected_noul": {
+      "exploitable": false
+    },
+    "cve": "CVE-2024-23342",
+    "category": "code_not_reachable",
+    "language": "python",
+    "task_id": "langflow-ai-langflow-c46a3ee-CVE-2024-23342",
+    "packages": [
+      "ecdsa"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/pallets-flask-708d62d-CVE-2023-46136.json",
+    "goal": "pallets/flask",
+    "options": {
+      "source_dir": "repos/pallets__flask@708d62d717"
+    },
+    "expected_noul": {
+      "exploitable": true
+    },
+    "cve": "CVE-2023-46136",
+    "category": "vulnerable",
+    "language": "python",
+    "task_id": "pallets-flask-708d62d-CVE-2023-46136",
+    "packages": [
+      "werkzeug"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/caddyserver-caddy-8dc7667-CVE-2025-29785.json",
+    "goal": "caddyserver/caddy",
+    "options": {
+      "source_dir": "repos/caddyserver__caddy@8dc76676fb"
+    },
+    "expected_noul": {
+      "exploitable": true
+    },
+    "cve": "CVE-2025-29785",
+    "category": "vulnerable",
+    "language": "go",
+    "task_id": "caddyserver-caddy-8dc7667-CVE-2025-29785",
+    "packages": [
+      "github.com/quic-go/quic-go"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/aquasecurity-trivy-37da98d-CVE-2024-32473.json",
+    "goal": "aquasecurity/trivy",
+    "options": {
+      "source_dir": "repos/aquasecurity__trivy@37da98df45"
+    },
+    "expected_noul": {
+      "exploitable": false
+    },
+    "cve": "CVE-2024-32473",
+    "category": "code_not_reachable",
+    "language": "go",
+    "task_id": "aquasecurity-trivy-37da98d-CVE-2024-32473",
+    "packages": [
+      "github.com/docker/docker"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/juanfont-headscale-e172c29-CVE-2024-45338.json",
+    "goal": "juanfont/headscale",
+    "options": {
+      "source_dir": "repos/juanfont__headscale@e172c29360"
+    },
+    "expected_noul": {
+      "exploitable": false
+    },
+    "cve": "CVE-2024-45338",
+    "category": "code_not_reachable",
+    "language": "go",
+    "task_id": "juanfont-headscale-e172c29-CVE-2024-45338",
+    "packages": [
+      "golang.org/x/net",
+      "golang.org/x/net/html"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/zeromicro-go-zero-bae061a-CVE-2022-32149.json",
+    "goal": "zeromicro/go-zero",
+    "options": {
+      "source_dir": "repos/zeromicro__go-zero@bae061a67e"
+    },
+    "expected_noul": {
+      "exploitable": false
+    },
+    "cve": "CVE-2022-32149",
+    "category": "code_not_reachable",
+    "language": "go",
+    "task_id": "zeromicro-go-zero-bae061a-CVE-2022-32149",
+    "packages": [
+      "golang.org/x/text"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/cilium-cilium-43bff35-CVE-2026-35469.json",
+    "goal": "cilium/cilium",
+    "options": {
+      "source_dir": "repos/cilium__cilium@43bff35359"
+    },
+    "expected_noul": {
+      "exploitable": false
+    },
+    "cve": "CVE-2026-35469",
+    "category": "requires_configuration",
+    "language": "go",
+    "task_id": "cilium-cilium-43bff35-CVE-2026-35469",
+    "packages": [
+      "github.com/moby/spdystream"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/containers-podman-6541fc4-CVE-2025-58181.json",
+    "goal": "containers/podman",
+    "options": {
+      "source_dir": "repos/containers__podman@6541fc4fb2"
+    },
+    "expected_noul": {
+      "exploitable": false
+    },
+    "cve": "CVE-2025-58181",
+    "category": "code_not_reachable",
+    "language": "go",
+    "task_id": "containers-podman-6541fc4-CVE-2025-58181",
+    "packages": [
+      "golang.org/x/crypto"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/rancher-rancher-4dc4f53-CVE-2025-47914.json",
+    "goal": "rancher/rancher",
+    "options": {
+      "source_dir": "repos/rancher__rancher@4dc4f534ee"
+    },
+    "expected_noul": {
+      "exploitable": true
+    },
+    "cve": "CVE-2025-47914",
+    "category": "vulnerable",
+    "language": "go",
+    "task_id": "rancher-rancher-4dc4f53-CVE-2025-47914",
+    "packages": [
+      "golang.org/x/crypto"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/rancher-rancher-4dc4f53-CVE-2025-58181.json",
+    "goal": "rancher/rancher",
+    "options": {
+      "source_dir": "repos/rancher__rancher@4dc4f534ee"
+    },
+    "expected_noul": {
+      "exploitable": false
+    },
+    "cve": "CVE-2025-58181",
+    "category": "code_not_reachable",
+    "language": "go",
+    "task_id": "rancher-rancher-4dc4f53-CVE-2025-58181",
+    "packages": [
+      "golang.org/x/crypto"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/cilium-cilium-3977f6a-CVE-2026-33186.json",
+    "goal": "cilium/cilium",
+    "options": {
+      "source_dir": "repos/cilium__cilium@3977f6a112"
+    },
+    "expected_noul": {
+      "exploitable": false
+    },
+    "cve": "CVE-2026-33186",
+    "category": "code_not_reachable",
+    "language": "go",
+    "task_id": "cilium-cilium-3977f6a-CVE-2026-33186",
+    "packages": [
+      "google.golang.org/grpc"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/moby-moby-3ede246-CVE-2026-39984.json",
+    "goal": "moby/moby",
+    "options": {
+      "source_dir": "repos/moby__moby@3ede246fb2"
+    },
+    "expected_noul": {
+      "exploitable": false
+    },
+    "cve": "CVE-2026-39984",
+    "category": "code_not_reachable",
+    "language": "go",
+    "task_id": "moby-moby-3ede246-CVE-2026-39984",
+    "packages": [
+      "github.com/sigstore/timestamp-authority",
+      "github.com/sigstore/timestamp-authority/v2"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/kubernetes-kubernetes-e196d24-CVE-2023-44487.json",
+    "goal": "kubernetes/kubernetes",
+    "options": {
+      "source_dir": "repos/kubernetes__kubernetes@e196d24910"
+    },
+    "expected_noul": {
+      "exploitable": true
+    },
+    "cve": "CVE-2023-44487",
+    "category": "vulnerable",
+    "language": "go",
+    "task_id": "kubernetes-kubernetes-e196d24-CVE-2023-44487",
+    "packages": [
+      "golang.org/x/net"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/kubernetes-kubernetes-1ee2acb-CVE-2024-24786.json",
+    "goal": "kubernetes/kubernetes",
+    "options": {
+      "source_dir": "repos/kubernetes__kubernetes@1ee2acbb2e"
+    },
+    "expected_noul": {
+      "exploitable": false
+    },
+    "cve": "CVE-2024-24786",
+    "category": "code_not_reachable",
+    "language": "go",
+    "task_id": "kubernetes-kubernetes-1ee2acb-CVE-2024-24786",
+    "packages": [
+      "google.golang.org/protobuf",
+      "google.golang.org/protobuf/encoding/protojson",
+      "google.golang.org/protobuf/internal/encoding/json"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/stretchr-testify-285adcc-CVE-2022-28948.json",
+    "goal": "stretchr/testify",
+    "options": {
+      "source_dir": "repos/stretchr__testify@285adcc5ce"
+    },
+    "expected_noul": {
+      "exploitable": true
+    },
+    "cve": "CVE-2022-28948",
+    "category": "vulnerable",
+    "language": "go",
+    "task_id": "stretchr-testify-285adcc-CVE-2022-28948",
+    "packages": [
+      "gopkg.in/yaml.v3"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/labstack-echo-fdacff0-CVE-2020-26160.json",
+    "goal": "labstack/echo",
+    "options": {
+      "source_dir": "repos/labstack__echo@fdacff0d93"
+    },
+    "expected_noul": {
+      "exploitable": false
+    },
+    "cve": "CVE-2020-26160",
+    "category": "code_not_reachable",
+    "language": "go",
+    "task_id": "labstack-echo-fdacff0-CVE-2020-26160",
+    "packages": [
+      "github.com/dgrijalva/jwt-go",
+      "github.com/dgrijalva/jwt-go/v4"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/aquasecurity-trivy-98e136e-CVE-2024-24791.json",
+    "goal": "aquasecurity/trivy",
+    "options": {
+      "source_dir": "repos/aquasecurity__trivy@98e136eb7b"
+    },
+    "expected_noul": {
+      "exploitable": false
+    },
+    "cve": "CVE-2024-24791",
+    "category": "code_not_reachable",
+    "language": "go",
+    "task_id": "aquasecurity-trivy-98e136e-CVE-2024-24791",
+    "packages": [
+      "stdlib"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/containers-podman-38ccfa2-CVE-2024-37298.json",
+    "goal": "containers/podman",
+    "options": {
+      "source_dir": "repos/containers__podman@38ccfa2b33"
+    },
+    "expected_noul": {
+      "exploitable": false
+    },
+    "cve": "CVE-2024-37298",
+    "category": "code_not_reachable",
+    "language": "go",
+    "task_id": "containers-podman-38ccfa2-CVE-2024-37298",
+    "packages": [
+      "github.com/gorilla/schema"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/containers-podman-6a65597-CVE-2023-48795.json",
+    "goal": "containers/podman",
+    "options": {
+      "source_dir": "repos/containers__podman@6a65597358"
+    },
+    "expected_noul": {
+      "exploitable": true
+    },
+    "cve": "CVE-2023-48795",
+    "category": "vulnerable",
+    "language": "go",
+    "task_id": "containers-podman-6a65597-CVE-2023-48795",
+    "packages": [
+      "golang.org/x/crypto"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/cilium-cilium-1228cbc-CVE-2026-35469.json",
+    "goal": "cilium/cilium",
+    "options": {
+      "source_dir": "repos/cilium__cilium@1228cbc922"
+    },
+    "expected_noul": {
+      "exploitable": true
+    },
+    "cve": "CVE-2026-35469",
+    "category": "vulnerable",
+    "language": "go",
+    "task_id": "cilium-cilium-1228cbc-CVE-2026-35469",
+    "packages": [
+      "github.com/moby/spdystream"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/helm-helm-b76a950-CVE-2024-25621.json",
+    "goal": "helm/helm",
+    "options": {
+      "source_dir": "repos/helm__helm@b76a950f68"
+    },
+    "expected_noul": {
+      "exploitable": false
+    },
+    "cve": "CVE-2024-25621",
+    "category": "code_not_reachable",
+    "language": "go",
+    "task_id": "helm-helm-b76a950-CVE-2024-25621",
+    "packages": [
+      "github.com/containerd/containerd",
+      "github.com/containerd/containerd/v2"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/rancher-rancher-8761419-CVE-2026-24051.json",
+    "goal": "rancher/rancher",
+    "options": {
+      "source_dir": "repos/rancher__rancher@876141989e"
+    },
+    "expected_noul": {
+      "exploitable": false
+    },
+    "cve": "CVE-2026-24051",
+    "category": "code_not_reachable",
+    "language": "go",
+    "task_id": "rancher-rancher-8761419-CVE-2026-24051",
+    "packages": [
+      "go.opentelemetry.io/otel/sdk"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/rancher-rancher-8761419-CVE-2026-39883.json",
+    "goal": "rancher/rancher",
+    "options": {
+      "source_dir": "repos/rancher__rancher@876141989e"
+    },
+    "expected_noul": {
+      "exploitable": false
+    },
+    "cve": "CVE-2026-39883",
+    "category": "code_not_reachable",
+    "language": "go",
+    "task_id": "rancher-rancher-8761419-CVE-2026-39883",
+    "packages": [
+      "go.opentelemetry.io/otel/sdk"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/istio-istio-042afc3-CVE-2023-48795.json",
+    "goal": "istio/istio",
+    "options": {
+      "source_dir": "repos/istio__istio@042afc3802"
+    },
+    "expected_noul": {
+      "exploitable": false
+    },
+    "cve": "CVE-2023-48795",
+    "category": "code_not_reachable",
+    "language": "go",
+    "task_id": "istio-istio-042afc3-CVE-2023-48795",
+    "packages": [
+      "golang.org/x/crypto"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/istio-istio-8903f65-CVE-2024-45338.json",
+    "goal": "istio/istio",
+    "options": {
+      "source_dir": "repos/istio__istio@8903f65dc2"
+    },
+    "expected_noul": {
+      "exploitable": false
+    },
+    "cve": "CVE-2024-45338",
+    "category": "code_not_reachable",
+    "language": "go",
+    "task_id": "istio-istio-8903f65-CVE-2024-45338",
+    "packages": [
+      "golang.org/x/net",
+      "golang.org/x/net/html"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/helm-helm-fbb24fe-CVE-2021-21334.json",
+    "goal": "helm/helm",
+    "options": {
+      "source_dir": "repos/helm__helm@fbb24fe545"
+    },
+    "expected_noul": {
+      "exploitable": false
+    },
+    "cve": "CVE-2021-21334",
+    "category": "code_not_reachable",
+    "language": "go",
+    "task_id": "helm-helm-fbb24fe-CVE-2021-21334",
+    "packages": [
+      "github.com/containerd/containerd"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/kubernetes-kubernetes-ec78c0f-CVE-2021-3121.json",
+    "goal": "kubernetes/kubernetes",
+    "options": {
+      "source_dir": "repos/kubernetes__kubernetes@ec78c0f487"
+    },
+    "expected_noul": {
+      "exploitable": true
+    },
+    "cve": "CVE-2021-3121",
+    "category": "vulnerable",
+    "language": "go",
+    "task_id": "kubernetes-kubernetes-ec78c0f-CVE-2021-3121",
+    "packages": [
+      "github.com/gogo/protobuf"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/mitmproxy-mitmproxy-ab470e5-CVE-2026-27448.json",
+    "goal": "mitmproxy/mitmproxy",
+    "options": {
+      "source_dir": "repos/mitmproxy__mitmproxy@ab470e5397"
+    },
+    "expected_noul": {
+      "exploitable": false
+    },
+    "cve": "CVE-2026-27448",
+    "category": "code_not_reachable",
+    "language": "python",
+    "task_id": "mitmproxy-mitmproxy-ab470e5-CVE-2026-27448",
+    "packages": [
+      "pyopenssl"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/containers-podman-5ae6347-CVE-2025-47914.json",
+    "goal": "containers/podman",
+    "options": {
+      "source_dir": "repos/containers__podman@5ae63471cf"
+    },
+    "expected_noul": {
+      "exploitable": false
+    },
+    "cve": "CVE-2025-47914",
+    "category": "code_not_present",
+    "language": "go",
+    "task_id": "containers-podman-5ae6347-CVE-2025-47914",
+    "packages": [
+      "golang.org/x/crypto"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/gitleaks-gitleaks-f487f85-CVE-2025-22871.json",
+    "goal": "gitleaks/gitleaks",
+    "options": {
+      "source_dir": "repos/gitleaks__gitleaks@f487f85378"
+    },
+    "expected_noul": {
+      "exploitable": false
+    },
+    "cve": "CVE-2025-22871",
+    "category": "requires_configuration",
+    "language": "go",
+    "task_id": "gitleaks-gitleaks-f487f85-CVE-2025-22871",
+    "packages": [
+      "stdlib"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/kubernetes-kubernetes-6d4b94f-CVE-2022-41717.json",
+    "goal": "kubernetes/kubernetes",
+    "options": {
+      "source_dir": "repos/kubernetes__kubernetes@6d4b94f0ab"
+    },
+    "expected_noul": {
+      "exploitable": false
+    },
+    "cve": "CVE-2022-41717",
+    "category": "code_not_present",
+    "language": "go",
+    "task_id": "kubernetes-kubernetes-6d4b94f-CVE-2022-41717",
+    "packages": [
+      "golang.org/x/net",
+      "golang.org/x/net/http2",
+      "stdlib"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/moby-moby-caea5f7-CVE-2026-39883.json",
+    "goal": "moby/moby",
+    "options": {
+      "source_dir": "repos/moby__moby@caea5f77ad"
+    },
+    "expected_noul": {
+      "exploitable": false
+    },
+    "cve": "CVE-2026-39883",
+    "category": "code_not_reachable",
+    "language": "go",
+    "task_id": "moby-moby-caea5f7-CVE-2026-39883",
+    "packages": [
+      "go.opentelemetry.io/otel/sdk"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/quarkusio-quarkus-8280c53-CVE-2022-21724.json",
+    "goal": "quarkusio/quarkus",
+    "options": {
+      "source_dir": "repos/quarkusio__quarkus@8280c5349e"
+    },
+    "expected_noul": {
+      "exploitable": true
+    },
+    "cve": "CVE-2022-21724",
+    "category": "vulnerable",
+    "language": "java",
+    "task_id": "quarkusio-quarkus-8280c53-CVE-2022-21724",
+    "packages": [
+      "org.postgresql:postgresql"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/apache-hadoop-3bf43b4-CVE-2024-47535.json",
+    "goal": "apache/hadoop",
+    "options": {
+      "source_dir": "repos/apache__hadoop@3bf43b4144"
+    },
+    "expected_noul": {
+      "exploitable": true
+    },
+    "cve": "CVE-2024-47535",
+    "category": "vulnerable",
+    "language": "java",
+    "task_id": "apache-hadoop-3bf43b4-CVE-2024-47535",
+    "packages": [
+      "io.netty:netty-common"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/apache-flink-46cbe8b-CVE-2025-12183.json",
+    "goal": "apache/flink",
+    "options": {
+      "source_dir": "repos/apache__flink@46cbe8bc9d"
+    },
+    "expected_noul": {
+      "exploitable": true
+    },
+    "cve": "CVE-2025-12183",
+    "category": "vulnerable",
+    "language": "java",
+    "task_id": "apache-flink-46cbe8b-CVE-2025-12183",
+    "packages": [
+      "at.yawk.lz4:lz4-java",
+      "net.jpountz.lz4:lz4",
+      "org.lz4:lz4-java",
+      "org.lz4:lz4-pure-java"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/apache-flink-46cbe8b-CVE-2025-66566.json",
+    "goal": "apache/flink",
+    "options": {
+      "source_dir": "repos/apache__flink@46cbe8bc9d"
+    },
+    "expected_noul": {
+      "exploitable": true
+    },
+    "cve": "CVE-2025-66566",
+    "category": "vulnerable",
+    "language": "java",
+    "task_id": "apache-flink-46cbe8b-CVE-2025-66566",
+    "packages": [
+      "at.yawk.lz4:lz4-java",
+      "net.jpountz.lz4:lz4",
+      "org.lz4:lz4-java",
+      "org.lz4:lz4-pure-java"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/keycloak-keycloak-9b01bf3-CVE-2022-3143.json",
+    "goal": "keycloak/keycloak",
+    "options": {
+      "source_dir": "repos/keycloak__keycloak@9b01bf382d"
+    },
+    "expected_noul": {
+      "exploitable": false
+    },
+    "cve": "CVE-2022-3143",
+    "category": "code_not_reachable",
+    "language": "java",
+    "task_id": "keycloak-keycloak-9b01bf3-CVE-2022-3143",
+    "packages": [
+      "org.wildfly.security:wildfly-elytron"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/apache-pulsar-5e6e6ce-CVE-2023-2976.json",
+    "goal": "apache/pulsar",
+    "options": {
+      "source_dir": "repos/apache__pulsar@5e6e6cebcd"
+    },
+    "expected_noul": {
+      "exploitable": false
+    },
+    "cve": "CVE-2023-2976",
+    "category": "code_not_reachable",
+    "language": "java",
+    "task_id": "apache-pulsar-5e6e6ce-CVE-2023-2976",
+    "packages": [
+      "com.google.guava:guava"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/apache-hadoop-ff451f5-CVE-2025-66566.json",
+    "goal": "apache/hadoop",
+    "options": {
+      "source_dir": "repos/apache__hadoop@ff451f53a6"
+    },
+    "expected_noul": {
+      "exploitable": true
+    },
+    "cve": "CVE-2025-66566",
+    "category": "vulnerable",
+    "language": "java",
+    "task_id": "apache-hadoop-ff451f5-CVE-2025-66566",
+    "packages": [
+      "at.yawk.lz4:lz4-java",
+      "net.jpountz.lz4:lz4",
+      "org.lz4:lz4-java",
+      "org.lz4:lz4-pure-java"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/apache-hadoop-c528566-CVE-2025-14763.json",
+    "goal": "apache/hadoop",
+    "options": {
+      "source_dir": "repos/apache__hadoop@c528566811"
+    },
+    "expected_noul": {
+      "exploitable": false
+    },
+    "cve": "CVE-2025-14763",
+    "category": "requires_configuration",
+    "language": "java",
+    "task_id": "apache-hadoop-c528566-CVE-2025-14763",
+    "packages": [
+      "software.amazon.encryption.s3:amazon-s3-encryption-client-java"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/apache-dubbo-1d1bb26-CVE-2023-6378.json",
+    "goal": "apache/dubbo",
+    "options": {
+      "source_dir": "repos/apache__dubbo@1d1bb26e79"
+    },
+    "expected_noul": {
+      "exploitable": false
+    },
+    "cve": "CVE-2023-6378",
+    "category": "code_not_reachable",
+    "language": "java",
+    "task_id": "apache-dubbo-1d1bb26-CVE-2023-6378",
+    "packages": [
+      "ch.qos.logback:logback-classic",
+      "ch.qos.logback:logback-core"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/home-assistant-core-44293a3-CVE-2021-21330.json",
+    "goal": "home-assistant/core",
+    "options": {
+      "source_dir": "repos/home-assistant__core@44293a3738"
+    },
+    "expected_noul": {
+      "exploitable": false
+    },
+    "cve": "CVE-2021-21330",
+    "category": "code_not_reachable",
+    "language": "python",
+    "task_id": "home-assistant-core-44293a3-CVE-2021-21330",
+    "packages": [
+      "aiohttp"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/home-assistant-core-cd0e983-CVE-2023-38325.json",
+    "goal": "home-assistant/core",
+    "options": {
+      "source_dir": "repos/home-assistant__core@cd0e9839a0"
+    },
+    "expected_noul": {
+      "exploitable": false
+    },
+    "cve": "CVE-2023-38325",
+    "category": "code_not_reachable",
+    "language": "python",
+    "task_id": "home-assistant-core-cd0e983-CVE-2023-38325",
+    "packages": [
+      "cryptography"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/infiniflow-ragflow-c68767a-CVE-2024-28219.json",
+    "goal": "infiniflow/ragflow",
+    "options": {
+      "source_dir": "repos/infiniflow__ragflow@c68767acdd"
+    },
+    "expected_noul": {
+      "exploitable": false
+    },
+    "cve": "CVE-2024-28219",
+    "category": "code_not_reachable",
+    "language": "python",
+    "task_id": "infiniflow-ragflow-c68767a-CVE-2024-28219",
+    "packages": [
+      "pillow"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/infiniflow-ragflow-c68767a-CVE-2024-34069.json",
+    "goal": "infiniflow/ragflow",
+    "options": {
+      "source_dir": "repos/infiniflow__ragflow@c68767acdd"
+    },
+    "expected_noul": {
+      "exploitable": false
+    },
+    "cve": "CVE-2024-34069",
+    "category": "requires_configuration",
+    "language": "python",
+    "task_id": "infiniflow-ragflow-c68767a-CVE-2024-34069",
+    "packages": [
+      "werkzeug"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/infiniflow-ragflow-5c955a3-CVE-2026-28804.json",
+    "goal": "infiniflow/ragflow",
+    "options": {
+      "source_dir": "repos/infiniflow__ragflow@5c955a31cc"
+    },
+    "expected_noul": {
+      "exploitable": false
+    },
+    "cve": "CVE-2026-28804",
+    "category": "code_not_present",
+    "language": "python",
+    "task_id": "infiniflow-ragflow-5c955a3-CVE-2026-28804",
+    "packages": [
+      "pypdf"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/infiniflow-ragflow-5c955a3-CVE-2026-31826.json",
+    "goal": "infiniflow/ragflow",
+    "options": {
+      "source_dir": "repos/infiniflow__ragflow@5c955a31cc"
+    },
+    "expected_noul": {
+      "exploitable": false
+    },
+    "cve": "CVE-2026-31826",
+    "category": "code_not_reachable",
+    "language": "python",
+    "task_id": "infiniflow-ragflow-5c955a3-CVE-2026-31826",
+    "packages": [
+      "pypdf"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/langchain-ai-langchain-fa6397d-CVE-2024-21503.json",
+    "goal": "langchain-ai/langchain",
+    "options": {
+      "source_dir": "repos/langchain-ai__langchain@fa6397d76a"
+    },
+    "expected_noul": {
+      "exploitable": false
+    },
+    "cve": "CVE-2024-21503",
+    "category": "code_not_reachable",
+    "language": "python",
+    "task_id": "langchain-ai-langchain-fa6397d-CVE-2024-21503",
+    "packages": [
+      "black"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/langflow-ai-langflow-374508c-CVE-2024-1135.json",
+    "goal": "langflow-ai/langflow",
+    "options": {
+      "source_dir": "repos/langflow-ai__langflow@374508cf18"
+    },
+    "expected_noul": {
+      "exploitable": false
+    },
+    "cve": "CVE-2024-1135",
+    "category": "requires_environment",
+    "language": "python",
+    "task_id": "langflow-ai-langflow-374508c-CVE-2024-1135",
+    "packages": [
+      "gunicorn"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/mitmproxy-mitmproxy-0ace627-CVE-2023-30861.json",
+    "goal": "mitmproxy/mitmproxy",
+    "options": {
+      "source_dir": "repos/mitmproxy__mitmproxy@0ace627f6e"
+    },
+    "expected_noul": {
+      "exploitable": false
+    },
+    "cve": "CVE-2023-30861",
+    "category": "code_not_reachable",
+    "language": "python",
+    "task_id": "mitmproxy-mitmproxy-0ace627-CVE-2023-30861",
+    "packages": [
+      "flask"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/mitmproxy-mitmproxy-3214581-CVE-2020-8927.json",
+    "goal": "mitmproxy/mitmproxy",
+    "options": {
+      "source_dir": "repos/mitmproxy__mitmproxy@3214581060"
+    },
+    "expected_noul": {
+      "exploitable": true
+    },
+    "cve": "CVE-2020-8927",
+    "category": "vulnerable",
+    "language": "python",
+    "task_id": "mitmproxy-mitmproxy-3214581-CVE-2020-8927",
+    "packages": [
+      "brotli"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/mitmproxy-mitmproxy-b089c5f-CVE-2025-43859.json",
+    "goal": "mitmproxy/mitmproxy",
+    "options": {
+      "source_dir": "repos/mitmproxy__mitmproxy@b089c5fb83"
+    },
+    "expected_noul": {
+      "exploitable": true
+    },
+    "cve": "CVE-2025-43859",
+    "category": "vulnerable",
+    "language": "python",
+    "task_id": "mitmproxy-mitmproxy-b089c5f-CVE-2025-43859",
+    "packages": [
+      "h11"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/roboflow-supervision-1bbe03c-CVE-2024-35195.json",
+    "goal": "roboflow/supervision",
+    "options": {
+      "source_dir": "repos/roboflow__supervision@1bbe03ca27"
+    },
+    "expected_noul": {
+      "exploitable": false
+    },
+    "cve": "CVE-2024-35195",
+    "category": "code_not_reachable",
+    "language": "python",
+    "task_id": "roboflow-supervision-1bbe03c-CVE-2024-35195",
+    "packages": [
+      "requests"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/run-llama-llama_index-f1124cf-CVE-2024-3651.json",
+    "goal": "run-llama/llama_index",
+    "options": {
+      "source_dir": "repos/run-llama__llama_index@f1124cffd4"
+    },
+    "expected_noul": {
+      "exploitable": true
+    },
+    "cve": "CVE-2024-3651",
+    "category": "vulnerable",
+    "language": "python",
+    "task_id": "run-llama-llama_index-f1124cf-CVE-2024-3651",
+    "packages": [
+      "idna"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/keycloak-keycloak-731414e-CVE-2019-17571.json",
+    "goal": "keycloak/keycloak",
+    "options": {
+      "source_dir": "repos/keycloak__keycloak@731414e44a"
+    },
+    "expected_noul": {
+      "exploitable": false
+    },
+    "cve": "CVE-2019-17571",
+    "category": "code_not_reachable",
+    "language": "java",
+    "task_id": "keycloak-keycloak-731414e-CVE-2019-17571",
+    "packages": [
+      "log4j:log4j",
+      "org.zenframework.z8.dependencies.commons:log4j-1.2.17"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/apache-hadoop-5b1346f-CVE-2024-23944.json",
+    "goal": "apache/hadoop",
+    "options": {
+      "source_dir": "repos/apache__hadoop@5b1346fb88"
+    },
+    "expected_noul": {
+      "exploitable": true
+    },
+    "cve": "CVE-2024-23944",
+    "category": "vulnerable",
+    "language": "java",
+    "task_id": "apache-hadoop-5b1346f-CVE-2024-23944",
+    "packages": [
+      "org.apache.zookeeper:zookeeper"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/apache-pulsar-7ab9c70-CVE-2023-34462.json",
+    "goal": "apache/pulsar",
+    "options": {
+      "source_dir": "repos/apache__pulsar@7ab9c700a5"
+    },
+    "expected_noul": {
+      "exploitable": false
+    },
+    "cve": "CVE-2023-34462",
+    "category": "code_not_reachable",
+    "language": "java",
+    "task_id": "apache-pulsar-7ab9c70-CVE-2023-34462",
+    "packages": [
+      "io.netty:netty-handler"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/apache-flink-0630952-CVE-2022-42003.json",
+    "goal": "apache/flink",
+    "options": {
+      "source_dir": "repos/apache__flink@0630952860"
+    },
+    "expected_noul": {
+      "exploitable": false
+    },
+    "cve": "CVE-2022-42003",
+    "category": "requires_configuration",
+    "language": "java",
+    "task_id": "apache-flink-0630952-CVE-2022-42003",
+    "packages": [
+      "com.fasterxml.jackson.core:jackson-databind"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  },
+  {
+    "adapter": "vulns",
+    "source": "cases/spring-projects-spring-boot-1fecd4b-CVE-2021-44228.json",
+    "goal": "spring-projects/spring-boot",
+    "options": {
+      "source_dir": "repos/spring-projects__spring-boot@1fecd4b38a"
+    },
+    "expected_noul": {
+      "exploitable": true
+    },
+    "cve": "CVE-2021-44228",
+    "category": "vulnerable",
+    "language": "java",
+    "task_id": "spring-projects-spring-boot-1fecd4b-CVE-2021-44228",
+    "packages": [
+      "com.guicedee.services:log4j-core",
+      "org.apache.logging.log4j:log4j-core",
+      "org.ops4j.pax.logging:pax-logging-log4j2",
+      "org.xbib.elasticsearch:log4j",
+      "uk.co.nichesolutions.logging.log4j:log4j-core"
+    ],
+    "review": "expert label from VEX-Bench, unchanged"
+  }
+]
