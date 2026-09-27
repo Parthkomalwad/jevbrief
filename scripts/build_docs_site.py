@@ -33,6 +33,7 @@ PAGES = [
     ("otel", "otel", "Adapters", "docs/adapters/otel.md", "Which signal shows an incident's cause"),
     ("json", "json", "Adapters", "docs/adapters/json.md", "Which item fits the goal"),
     ("web", "web", "Adapters", "docs/adapters/web.md", "Which element to click next"),
+    ("android", "android", "Adapters", "docs/adapters/android.md", "Which element to tap next"),
     ("nes", "nes", "Adapters", "docs/adapters/nes.md", "Which move to make next"),
     ("build", "Build an adapter", "Guides", "ADAPTERS.md", "Facts, rules, packs, the contract test"),
     ("concurrency", "Threads, processes, async", "Guides", "docs/concurrency.md", "Sharing adapters, Jev, and trace files safely"),

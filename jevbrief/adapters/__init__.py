@@ -28,7 +28,8 @@ BUILTIN = {"web": "jevbrief.adapters.web:WebAdapter", "json": "jevbrief.adapters
            "ci": "jevbrief.adapters.ci:CiAdapter",
            "tools": "jevbrief.adapters.tools:ToolsAdapter",
            "steps": "jevbrief.adapters.steps:StepsAdapter",
-           "pr": "jevbrief.adapters.pr:PrAdapter"}
+           "pr": "jevbrief.adapters.pr:PrAdapter",
+           "android": "jevbrief.adapters.android:AndroidAdapter"}
 
 
 class Adapter:

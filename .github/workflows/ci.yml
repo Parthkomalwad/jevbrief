@@ -21,7 +21,7 @@ jobs:
         with:
           python-version: "3.12"
       # The same extras as the tests (no browser needed), so mypy sees the same types everywhere.
-      - run: pip install -e ".[web,json,otel,ci,tools,embed,steps,pr]" "ruff>=0.6" "mypy>=1.11"
+      - run: pip install -e ".[web,json,otel,ci,tools,embed,steps,pr,android]" "ruff>=0.6" "mypy>=1.11"
       - run: ruff check .
       - run: mypy
 

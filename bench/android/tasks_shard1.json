@@ -1,0 +1,1683 @@
+[
+  {
+    "adapter": "android",
+    "source": "screens/21_0.json",
+    "goal": "Click on the menu icon at the top left of the screen",
+    "episode_goal": "In order to acquire the finest sound quality possible, I want to increase the recording quality to 256 kbps, 48 kHz.",
+    "expected_choice": [
+      "ecf6a94"
+    ],
+    "target": "left button container",
+    "tap": [
+      72,
+      381
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/21_1.json",
+    "goal": "Click on the settings option",
+    "episode_goal": "In order to acquire the finest sound quality possible, I want to increase the recording quality to 256 kbps, 48 kHz.",
+    "expected_choice": [
+      "e5e9024"
+    ],
+    "target": "Settings",
+    "tap": [
+      301,
+      781
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/21_2.json",
+    "goal": "Click on the Recording Quality option",
+    "episode_goal": "In order to acquire the finest sound quality possible, I want to increase the recording quality to 256 kbps, 48 kHz.",
+    "expected_choice": [
+      "ed245eb"
+    ],
+    "target": "Recording quality · 128 kbps, 44.1kHz (recommended)",
+    "tap": [
+      984,
+      1104
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/21_3.json",
+    "goal": "Select the 256 kbps, 48 kHz option",
+    "episode_goal": "In order to acquire the finest sound quality possible, I want to increase the recording quality to 256 kbps, 48 kHz.",
+    "expected_choice": [
+      "e743ed8"
+    ],
+    "target": "256 kbps, 48kHz",
+    "tap": [
+      539,
+      1104
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/41_2.json",
+    "goal": "Click on view details in the middle of the screen.",
+    "episode_goal": "View the details of Bella True digital printed yoga mats made of polyester material on Snapdeal.",
+    "expected_choice": [
+      "ea0a5d3"
+    ],
+    "target": "View Details",
+    "tap": [
+      518,
+      1616
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/121_4.json",
+    "goal": "Click on the filter below the search bar.",
+    "episode_goal": "Show me the shoes from the brand New Balance on the ASOS app.",
+    "expected_choice": [
+      "e05d9dc"
+    ],
+    "target": "FILTER",
+    "tap": [
+      979,
+      350
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/121_13.json",
+    "goal": "Select the New Balance brand.",
+    "episode_goal": "Show me the shoes from the brand New Balance on the ASOS app.",
+    "expected_choice": [
+      "eb7617a"
+    ],
+    "target": "New Balance (112)",
+    "tap": [
+      557,
+      607
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/121_14.json",
+    "goal": "Click on View Items at the bottom of the screen.",
+    "episode_goal": "Show me the shoes from the brand New Balance on the ASOS app.",
+    "expected_choice": [
+      "e2193fb"
+    ],
+    "target": "VIEW ITEMS",
+    "tap": [
+      799,
+      2224
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/141_4.json",
+    "goal": "Click on the Fifa Football 32P",
+    "episode_goal": "In the Hamleys Toys app , Browse for Fifa Football 32P Multicolor in the Sports & Outdoor categories.",
+    "expected_choice": [
+      "e1ed140"
+    ],
+    "target": "Fifa Football 32P Multicolour 12M+ · ₹999",
+    "tap": [
+      244,
+      1123
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/161_2.json",
+    "goal": "Click on the search box at the top.",
+    "episode_goal": "I am looking for a helmet for cycling, so browse for \"Bicycle Helmet For women\" on the Temu App.",
+    "expected_choice": [
+      "e5053d0"
+    ],
+    "target": "bicycle helmet",
+    "tap": [
+      423,
+      203
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/161_4.json",
+    "goal": "Click on the search icon at the bottom right corner of the keyboard.",
+    "episode_goal": "I am looking for a helmet for cycling, so browse for \"Bicycle Helmet For women\" on the Temu App.",
+    "expected_choice": [
+      "eb8e47e"
+    ],
+    "target": "Search",
+    "tap": [
+      994,
+      2169
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/201_0.json",
+    "goal": "Click on the \"Charts\" tab at the bottom.",
+    "episode_goal": "Track the currency exchange rate of the Canadian dollar today with the Japanese yen.",
+    "expected_choice": [
+      "e8aae0b"
+    ],
+    "target": "custom icon-xe-tab-charts Charts",
+    "tap": [
+      324,
+      2249
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/221_1.json",
+    "goal": "Go to the Shop tab",
+    "episode_goal": "In the PUMA app , Search for Palermo Leather Men's sneakers . ",
+    "expected_choice": [
+      "ece1b31"
+    ],
+    "target": "Shop, 3 of 5",
+    "tap": [
+      540,
+      2272
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/221_2.json",
+    "goal": "Select the Shoes Category",
+    "episode_goal": "In the PUMA app , Search for Palermo Leather Men's sneakers . ",
+    "expected_choice": [
+      "eae253b"
+    ],
+    "target": "Shoes",
+    "tap": [
+      621,
+      1239
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/221_3.json",
+    "goal": "Click on the ALL SHOES Category",
+    "episode_goal": "In the PUMA app , Search for Palermo Leather Men's sneakers . ",
+    "expected_choice": [
+      "e1f8cd7"
+    ],
+    "target": "All Shoes",
+    "tap": [
+      508,
+      890
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/221_5.json",
+    "goal": "Click on the search button at the top right corner of the screen",
+    "episode_goal": "In the PUMA app , Search for Palermo Leather Men's sneakers . ",
+    "expected_choice": [
+      "e3d8564"
+    ],
+    "target": "Search",
+    "tap": [
+      985,
+      201
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/241_3.json",
+    "goal": "click on the search bar",
+    "episode_goal": "I'm going trekking with a friend next weekend and want to look for the best hiking shoes on the Decathlon app.",
+    "expected_choice": [
+      "e0af239"
+    ],
+    "target": "Search for \"Runni",
+    "tap": [
+      375,
+      346
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/241_5.json",
+    "goal": "click on the search icon",
+    "episode_goal": "I'm going trekking with a friend next weekend and want to look for the best hiking shoes on the Decathlon app.",
+    "expected_choice": [
+      "e51f75e"
+    ],
+    "target": "Search",
+    "tap": [
+      994,
+      2158
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/261_0.json",
+    "goal": "Click on the subscribe button for Food Impromptu Channel",
+    "episode_goal": "The vegan Chickpea and vegetable casserole recipe was quite useful, and I want to subscribe to the Food Impromptu Channel to explore other recipes on the YouTube app.",
+    "expected_choice": [
+      "ed3e65d",
+      "eb7e1c4"
+    ],
+    "target": "Subscribe",
+    "tap": [
+      945,
+      1187
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/282_3.json",
+    "goal": "Click on the Profile section",
+    "episode_goal": "Faye is the best literature artist. I get inspiration from the literature artwork created by Faye on the Pinterest app.",
+    "expected_choice": [
+      "edc4640"
+    ],
+    "target": "Profiles",
+    "tap": [
+      273,
+      372
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/282_5.json",
+    "goal": "Click on the Faye artist",
+    "episode_goal": "Faye is the best literature artist. I get inspiration from the literature artwork created by Faye on the Pinterest app.",
+    "expected_choice": [
+      "e0e9ac3"
+    ],
+    "target": "Faye English Art & Literature",
+    "tap": [
+      527,
+      1864
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/302_2.json",
+    "goal": "Click on the \"While using the app\".",
+    "episode_goal": " Open the Daily weather app and set your current location to get current weather conditions and forecasts.",
+    "expected_choice": [
+      "eb9eb5f"
+    ],
+    "target": "While using the app",
+    "tap": [
+      540,
+      1504
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/322_0.json",
+    "goal": "Open Dolma Restaurant reminder",
+    "episode_goal": "Open Dolma Restaurant reminder and reschedule time from 9AM to 12PM",
+    "expected_choice": [
+      "ee15a8b"
+    ],
+    "target": "Dolma Restaurant · 06/25/2023 9:00 AM",
+    "tap": [
+      210,
+      912
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/322_1.json",
+    "goal": "Click on the Edit icon",
+    "episode_goal": "Open Dolma Restaurant reminder and reschedule time from 9AM to 12PM",
+    "expected_choice": [
+      "e33d970"
+    ],
+    "target": "Edit",
+    "tap": [
+      644,
+      1550
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/322_2.json",
+    "goal": "Go to the time option",
+    "episode_goal": "Open Dolma Restaurant reminder and reschedule time from 9AM to 12PM",
+    "expected_choice": [
+      "eb88491"
+    ],
+    "target": "Click here to select time",
+    "tap": [
+      454,
+      947
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/322_3.json",
+    "goal": "Set hours to 12",
+    "episode_goal": "Open Dolma Restaurant reminder and reschedule time from 9AM to 12PM",
+    "expected_choice": [
+      "eda99fb"
+    ],
+    "target": "12",
+    "tap": [
+      540,
+      1095
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/342_0.json",
+    "goal": "Click on the share icon at the top right of the screen",
+    "episode_goal": "I want to refer this restaurant to my best friend Naomi Rousseau on her Gmail ID naomi.rousseau@example.com ",
+    "expected_choice": [
+      "eb2a317"
+    ],
+    "target": "Share",
+    "tap": [
+      1016,
+      209
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/342_1.json",
+    "goal": "Click on the Gmail icon at the bottom left of the screen",
+    "episode_goal": "I want to refer this restaurant to my best friend Naomi Rousseau on her Gmail ID naomi.rousseau@example.com ",
+    "expected_choice": [
+      "e9b9c39"
+    ],
+    "target": "Gmail",
+    "tap": [
+      90,
+      2109
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/342_3.json",
+    "goal": "Click of the naomi.rousseau@example.com suggestion",
+    "episode_goal": "I want to refer this restaurant to my best friend Naomi Rousseau on her Gmail ID naomi.rousseau@example.com ",
+    "expected_choice": [
+      "e362755"
+    ],
+    "target": "naomi.rousseau@example.com",
+    "tap": [
+      418,
+      698
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/342_4.json",
+    "goal": "Click on the right arrow at the top of the screen",
+    "episode_goal": "I want to refer this restaurant to my best friend Naomi Rousseau on her Gmail ID naomi.rousseau@example.com ",
+    "expected_choice": [
+      "ef8a322"
+    ],
+    "target": "Send",
+    "tap": [
+      890,
+      218
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/362_1.json",
+    "goal": "Click on the from option",
+    "episode_goal": "In the Trainline app, Search for the Goteborg to Linkoping central Bus on September 1, 2023, at 4:00 AM in Sweden.",
+    "expected_choice": [
+      "e5fbb2c"
+    ],
+    "target": "Rijeka",
+    "tap": [
+      118,
+      346
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/362_3.json",
+    "goal": "click on the Goteborg central first result",
+    "episode_goal": "In the Trainline app, Search for the Goteborg to Linkoping central Bus on September 1, 2023, at 4:00 AM in Sweden.",
+    "expected_choice": [
+      "ec6f12d"
+    ],
+    "target": "Göteborg Central · SE",
+    "tap": [
+      497,
+      598
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/362_5.json",
+    "goal": "Click on the Linkoping central result",
+    "episode_goal": "In the Trainline app, Search for the Goteborg to Linkoping central Bus on September 1, 2023, at 4:00 AM in Sweden.",
+    "expected_choice": [
+      "ec6f12d"
+    ],
+    "target": "Linköping Central · SE",
+    "tap": [
+      497,
+      555
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/362_6.json",
+    "goal": "Click on the Outbound date to select the 1 September 2023 date",
+    "episode_goal": "In the Trainline app, Search for the Goteborg to Linkoping central Bus on September 1, 2023, at 4:00 AM in Sweden.",
+    "expected_choice": [
+      "e0ffbfc"
+    ],
+    "target": "Tue, Aug 15",
+    "tap": [
+      727,
+      798
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/382_0.json",
+    "goal": "Click on Three lines at the left top corner",
+    "episode_goal": "In the Reuters App ,show the news in the world category and Business category ",
+    "expected_choice": [
+      "e4efd83"
+    ],
+    "target": "Menu",
+    "tap": [
+      73,
+      209
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/382_1.json",
+    "goal": "Click on the world category",
+    "episode_goal": "In the Reuters App ,show the news in the world category and Business category ",
+    "expected_choice": [
+      "e90fd0b"
+    ],
+    "target": "World. This item has an expandable sublist. Sublist is collapsed",
+    "tap": [
+      367,
+      451
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/382_2.json",
+    "goal": "Click on the world ",
+    "episode_goal": "In the Reuters App ,show the news in the world category and Business category ",
+    "expected_choice": [
+      "e170a27"
+    ],
+    "target": "linearLayout",
+    "tap": [
+      367,
+      568
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/382_3.json",
+    "goal": "Click on the three lines at the top left corner",
+    "episode_goal": "In the Reuters App ,show the news in the world category and Business category ",
+    "expected_choice": [
+      "e4efd83"
+    ],
+    "target": "Menu",
+    "tap": [
+      73,
+      209
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/402_1.json",
+    "goal": "Tap on the drawer icon of 5 pm alarm",
+    "episode_goal": "I wish to remove the 5 pm alarm because it is no longer necessary.",
+    "expected_choice": [
+      "ec96113"
+    ],
+    "target": "Expand 5:00 PM alarm",
+    "tap": [
+      943,
+      1277
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/402_2.json",
+    "goal": "Tap on the delete option",
+    "episode_goal": "I wish to remove the 5 pm alarm because it is no longer necessary.",
+    "expected_choice": [
+      "e79f678"
+    ],
+    "target": "Delete",
+    "tap": [
+      217,
+      1452
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/422_1.json",
+    "goal": "click on three dots of Recording 3",
+    "episode_goal": "I'd want to change the title of My Recording 3 to Audio 1.",
+    "expected_choice": [
+      "ef6fca7"
+    ],
+    "target": "0:18 · Menu",
+    "tap": [
+      969,
+      789
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/422_2.json",
+    "goal": "click on rename option",
+    "episode_goal": "I'd want to change the title of My Recording 3 to Audio 1.",
+    "expected_choice": [
+      "eb4dd79"
+    ],
+    "target": "Rename",
+    "tap": [
+      540,
+      1168
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/422_3.json",
+    "goal": "click on the type section",
+    "episode_goal": "I'd want to change the title of My Recording 3 to Audio 1.",
+    "expected_choice": [
+      "e81395d"
+    ],
+    "target": "Enter new name",
+    "tap": [
+      540,
+      1212
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/422_5.json",
+    "goal": "click on Rename",
+    "episode_goal": "I'd want to change the title of My Recording 3 to Audio 1.",
+    "expected_choice": [
+      "ecef935"
+    ],
+    "target": "RENAME",
+    "tap": [
+      872,
+      988
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/443_0.json",
+    "goal": "Click on the search bar at the top of the screen",
+    "episode_goal": "Search for emails from the Google Community Team in the Gmail app.",
+    "expected_choice": [
+      "e3f8656"
+    ],
+    "target": "Search in mail",
+    "tap": [
+      310,
+      219
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/443_1.json",
+    "goal": "Click on the first recent mail searches",
+    "episode_goal": "Search for emails from the Google Community Team in the Gmail app.",
+    "expected_choice": [
+      "eb37d11"
+    ],
+    "target": "Google Community Team · ---------- Forwarded message --------- From: Kieran Sato",
+    "tap": [
+      571,
+      622
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/463_2.json",
+    "goal": "select MakeMyTrip email with subject today is your deadline",
+    "episode_goal": "Delete the MakeMyTrip email with subject Today is your deadline",
+    "expected_choice": [
+      "efa5c3d"
+    ],
+    "target": ", , , MakeMyTrip, , Today is Your Deadline.., Open now, don't miss this. Downloa",
+    "tap": [
+      563,
+      1343
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/463_3.json",
+    "goal": "click on delete icon ",
+    "episode_goal": "Delete the MakeMyTrip email with subject Today is your deadline",
+    "expected_choice": [
+      "e4eea60"
+    ],
+    "target": "Delete",
+    "tap": [
+      763,
+      218
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/483_0.json",
+    "goal": "Click on the search icon",
+    "episode_goal": "In the Insight Timer app, In order to improve my meditation, I would like to listen to the sounds of nature.",
+    "expected_choice": [
+      "e0c9661"
+    ],
+    "target": "Explore Tab 4 of 5",
+    "tap": [
+      756,
+      2252
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/483_1.json",
+    "goal": "Click on the search bar",
+    "episode_goal": "In the Insight Timer app, In order to improve my meditation, I would like to listen to the sounds of nature.",
+    "expected_choice": [
+      "ef3f648"
+    ],
+    "target": "Search 210,000 free tracks",
+    "tap": [
+      600,
+      506
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/483_4.json",
+    "goal": "Click on the tracks ",
+    "episode_goal": "In the Insight Timer app, In order to improve my meditation, I would like to listen to the sounds of nature.",
+    "expected_choice": [
+      "e633809"
+    ],
+    "target": "Tracks Tab 2 of 8",
+    "tap": [
+      226,
+      317
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/483_7.json",
+    "goal": "Click on Nature sounds : Rain & Thunder",
+    "episode_goal": "In the Insight Timer app, In order to improve my meditation, I would like to listen to the sounds of nature.",
+    "expected_choice": [
+      "e1cb992"
+    ],
+    "target": "60 min M​u​s​i​c Nature Sounds: Rain & Thunder 4.8 N​a​t​u​r​e​ ​S​o​u​n​d​ ​E​m",
+    "tap": [
+      540,
+      520
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/503_1.json",
+    "goal": "Click on the Rotary Hammer.",
+    "episode_goal": "I need to be sure of the product so I want to read the reviews of Rotary Hammer in the top-most hardware app.",
+    "expected_choice": [
+      "e25466a"
+    ],
+    "target": "Rotary Hammer ₱5,499.00",
+    "tap": [
+      540,
+      745
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/503_2.json",
+    "goal": "Click on the reviews button at the bottom.",
+    "episode_goal": "I need to be sure of the product so I want to read the reviews of Rotary Hammer in the top-most hardware app.",
+    "expected_choice": [
+      "e0b39a1"
+    ],
+    "target": "REVIEWS",
+    "tap": [
+      539,
+      2092
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/523_0.json",
+    "goal": "Click on the Toggle button of the tab Only show Recipes with Images.",
+    "episode_goal": "Turn on the Only show Recipes with images settings on the Yummly app.",
+    "expected_choice": [
+      "e3d4686"
+    ],
+    "target": "recipes with images toggle",
+    "tap": [
+      977,
+      1860
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/543_2.json",
+    "goal": "Click on the pause button of the meeting time timer",
+    "episode_goal": "In the ClockBuddy app Pause the current 14 timer.",
+    "expected_choice": [
+      "ed46e51"
+    ],
+    "target": "playIcon",
+    "tap": [
+      966,
+      671
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/583_1.json",
+    "goal": "click on the Alarm Icon at the bottom left corner of the screen.",
+    "episode_goal": "I have to reach the office at 9:00 AM after finishing all the household chores, so I will need to wake up early in the morning, so set an alarm for me at 7:00 AM on the Clock app.",
+    "expected_choice": [
+      "eb13e0d"
+    ],
+    "target": "Alarm",
+    "tap": [
+      108,
+      2232
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/583_2.json",
+    "goal": "click on the + icon on the screen.",
+    "episode_goal": "I have to reach the office at 9:00 AM after finishing all the household chores, so I will need to wake up early in the morning, so set an alarm for me at 7:00 AM on the Clock app.",
+    "expected_choice": [
+      "e8de8c5"
+    ],
+    "target": "Add alarm",
+    "tap": [
+      540,
+      1958
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/583_3.json",
+    "goal": "Set the time at 7:00 ",
+    "episode_goal": "I have to reach the office at 9:00 AM after finishing all the household chores, so I will need to wake up early in the morning, so set an alarm for me at 7:00 AM on the Clock app.",
+    "expected_choice": [
+      "e895e0e"
+    ],
+    "target": "7",
+    "tap": [
+      409,
+      1584
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/583_4.json",
+    "goal": "click on the AM.",
+    "episode_goal": "I have to reach the office at 9:00 AM after finishing all the household chores, so I will need to wake up early in the morning, so set an alarm for me at 7:00 AM on the Clock app.",
+    "expected_choice": [
+      "e8bc864"
+    ],
+    "target": "AM",
+    "tap": [
+      839,
+      758
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/603_0.json",
+    "goal": "Click on the Filter option at the top of screen",
+    "episode_goal": "Bosch is a well-known brand, so I'd like to select it more carefully. Use the Flipkart app to locate drill machines that have the Bosch brand filter applied.",
+    "expected_choice": [
+      "e9116e3"
+    ],
+    "target": "Filter",
+    "tap": [
+      362,
+      369
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/603_1.json",
+    "goal": "Click on the Brand ",
+    "episode_goal": "Bosch is a well-known brand, so I'd like to select it more carefully. Use the Flipkart app to locate drill machines that have the Bosch brand filter applied.",
+    "expected_choice": [
+      "e4430cc"
+    ],
+    "target": "Brand",
+    "tap": [
+      179,
+      797
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/603_3.json",
+    "goal": "Click on the Apply button at the bottom right corner of the screen",
+    "episode_goal": "Bosch is a well-known brand, so I'd like to select it more carefully. Use the Flipkart app to locate drill machines that have the Bosch brand filter applied.",
+    "expected_choice": [
+      "ec863b6"
+    ],
+    "target": "Apply",
+    "tap": [
+      838,
+      2262
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/623_0.json",
+    "goal": "Click on the Good Bye, Lenin! to add date and time",
+    "episode_goal": "I forgot to add a date and time to this reminder, so edit this reminder and set the time and date of the reminder to 6:00 p.m. on September 26.",
+    "expected_choice": [
+      "e4e72d8"
+    ],
+    "target": "Good Bye, Lenin!",
+    "tap": [
+      539,
+      497
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/623_1.json",
+    "goal": "Click on the Add date/time to add date and time in this reminder",
+    "episode_goal": "I forgot to add a date and time to this reminder, so edit this reminder and set the time and date of the reminder to 6:00 p.m. on September 26.",
+    "expected_choice": [
+      "e04e29a"
+    ],
+    "target": "Add date/time",
+    "tap": [
+      592,
+      749
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/623_2.json",
+    "goal": "Click on the Set time option to set the time of this reminder ",
+    "episode_goal": "I forgot to add a date and time to this reminder, so edit this reminder and set the time and date of the reminder to 6:00 p.m. on September 26.",
+    "expected_choice": [
+      "e07e628"
+    ],
+    "target": "Set time",
+    "tap": [
+      592,
+      1451
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/623_3.json",
+    "goal": "Click on the 6 to select the 6 in hours",
+    "episode_goal": "I forgot to add a date and time to this reminder, so edit this reminder and set the time and date of the reminder to 6:00 p.m. on September 26.",
+    "expected_choice": [
+      "eadaf41"
+    ],
+    "target": "6",
+    "tap": [
+      540,
+      1622
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/643_2.json",
+    "goal": "click on three dots",
+    "episode_goal": "Go to the ClevCalc app & find the value of log 99",
+    "expected_choice": [
+      "e6523a4"
+    ],
+    "target": "lay normal body more",
+    "tap": [
+      150,
+      979
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/643_3.json",
+    "goal": "select the log function",
+    "episode_goal": "Go to the ClevCalc app & find the value of log 99",
+    "expected_choice": [
+      "eb4ca70"
+    ],
+    "target": "log",
+    "tap": [
+      261,
+      922
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/643_4.json",
+    "goal": "enter the value 99",
+    "episode_goal": "Go to the ClevCalc app & find the value of log 99",
+    "expected_choice": [
+      "e9abdc5"
+    ],
+    "target": "9",
+    "tap": [
+      670,
+      1407
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/643_5.json",
+    "goal": "enter the value 99",
+    "episode_goal": "Go to the ClevCalc app & find the value of log 99",
+    "expected_choice": [
+      "e9abdc5"
+    ],
+    "target": "9",
+    "tap": [
+      664,
+      1403
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/663_2.json",
+    "goal": "go to the breakfast & diary option at the lower left side of the screen ",
+    "episode_goal": "i want to make brushetta today but due to bad timing i have run out of bread stock use Big BFS to find bread",
+    "expected_choice": [
+      "ec5b71f"
+    ],
+    "target": "breakfast&dairy500px · Breakfast & Dairy",
+    "tap": [
+      204,
+      1543
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/663_3.json",
+    "goal": "choose second option Bread And Eggs at the  top of the screen ",
+    "episode_goal": "i want to make brushetta today but due to bad timing i have run out of bread stock use Big BFS to find bread",
+    "expected_choice": [
+      "e5760e6"
+    ],
+    "target": "breakfast&dairybreadandeggs500px · Bread And Eggs",
+    "tap": [
+      538,
+      728
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/683_0.json",
+    "goal": "Click on the search icon at the bottom of the screen ",
+    "episode_goal": "In the PUMA app , Search for Palermo womens leather womens sneakers . ",
+    "expected_choice": [
+      "ec89fd2"
+    ],
+    "target": "Shop, 3 of 5",
+    "tap": [
+      540,
+      2272
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/683_1.json",
+    "goal": "Click on the search icon at the top of the screen ",
+    "episode_goal": "In the PUMA app , Search for Palermo womens leather womens sneakers . ",
+    "expected_choice": [
+      "e62df97"
+    ],
+    "target": "Search",
+    "tap": [
+      540,
+      199
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/683_3.json",
+    "goal": "Click on the search icon at the bottom right corner of the screen ",
+    "episode_goal": "In the PUMA app , Search for Palermo womens leather womens sneakers . ",
+    "expected_choice": [
+      "e26ab8a"
+    ],
+    "target": "Search",
+    "tap": [
+      994,
+      2158
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/703_0.json",
+    "goal": "Click on the first tab where the bus is departing at 10:45 AM.",
+    "episode_goal": "I will depart from Hamilton bus station at 10:55 AM, so view the details of the bus, such as departure and arrival timing, bus stops, etc., on the Greyhound app.",
+    "expected_choice": [
+      "ebd5f12"
+    ],
+    "target": "Trip details",
+    "tap": [
+      622,
+      626
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/703_2.json",
+    "goal": "Click  on the Down-side arrow in the first tab.",
+    "episode_goal": "I will depart from Hamilton bus station at 10:55 AM, so view the details of the bus, such as departure and arrival timing, bus stops, etc., on the Greyhound app.",
+    "expected_choice": [
+      "ed3dfcb"
+    ],
+    "target": "7 stops",
+    "tap": [
+      539,
+      638
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/703_4.json",
+    "goal": "Click on the text \"5 stops\".",
+    "episode_goal": "I will depart from Hamilton bus station at 10:55 AM, so view the details of the bus, such as departure and arrival timing, bus stops, etc., on the Greyhound app.",
+    "expected_choice": [
+      "eb01ece"
+    ],
+    "target": "5 stops",
+    "tap": [
+      416,
+      1479
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/723_2.json",
+    "goal": "Click on the Search icon at the top of the screen.",
+    "episode_goal": "Search for news articles about the US military on The Hindu news app.",
+    "expected_choice": [
+      "ed8a45e"
+    ],
+    "target": "action search",
+    "tap": [
+      731,
+      209
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/723_4.json",
+    "goal": "Click on the search icon at the bottom-right corner of the screen.",
+    "episode_goal": "Search for news articles about the US military on The Hindu news app.",
+    "expected_choice": [
+      "eb1dc95"
+    ],
+    "target": "Search",
+    "tap": [
+      994,
+      2169
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/744_0.json",
+    "goal": "Click on the Auto brightness checkbox at the bottom of the screen.",
+    "episode_goal": "Set the brightness to Auto brightness for the book in the Kindle app.",
+    "expected_choice": [
+      "e9f809e"
+    ],
+    "target": "Auto",
+    "tap": [
+      1005,
+      2216
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/764_1.json",
+    "goal": "Click on the Levi's 511 Mens Denim Jeans Dark Wash Blue Slim Fit Bottoms Designer Pants",
+    "episode_goal": "Read the review of Levis mens denim jeans",
+    "expected_choice": [
+      "ebda3b2"
+    ],
+    "target": "watch Levis® 511 Mens Denim Jeans Dark Wash Blue Slim Fit Bottoms Designer Pants",
+    "tap": [
+      739,
+      590
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/784_1.json",
+    "goal": "Click on the Filter icon at the top of the screen.",
+    "episode_goal": "On the ShopClues app, filter the search of Sofa Sets according to the Leather material.",
+    "expected_choice": [
+      "e978924"
+    ],
+    "target": "Filter",
+    "tap": [
+      500,
+      336
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/784_3.json",
+    "goal": "Select the leather material.",
+    "episode_goal": "On the ShopClues app, filter the search of Sofa Sets according to the Leather material.",
+    "expected_choice": [
+      "e188e9f"
+    ],
+    "target": "Leather · (185)",
+    "tap": [
+      755,
+      1355
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/784_4.json",
+    "goal": "Click on APPLY FILTER at the bottom of the screen.",
+    "episode_goal": "On the ShopClues app, filter the search of Sofa Sets according to the Leather material.",
+    "expected_choice": [
+      "e6bce84"
+    ],
+    "target": "APPLY FILTER",
+    "tap": [
+      756,
+      2265
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/804_0.json",
+    "goal": "Click on the Close icon",
+    "episode_goal": "In the Meditopia app, In order to improve my meditation, I would like to listen to the Thunder and Rain sounds.",
+    "expected_choice": [
+      "e8e23a8"
+    ],
+    "target": "Navigate up",
+    "tap": [
+      73,
+      209
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/804_2.json",
+    "goal": "Go to the Music tab",
+    "episode_goal": "In the Meditopia app, In order to improve my meditation, I would like to listen to the Thunder and Rain sounds.",
+    "expected_choice": [
+      "ef4f313"
+    ],
+    "target": "Music",
+    "tap": [
+      764,
+      2236
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/804_3.json",
+    "goal": "Click on the Thunder and Rain option",
+    "episode_goal": "In the Meditopia app, In order to improve my meditation, I would like to listen to the Thunder and Rain sounds.",
+    "expected_choice": [
+      "e0bd0d2"
+    ],
+    "target": "Thunder and Rain",
+    "tap": [
+      475,
+      755
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/804_4.json",
+    "goal": "Click on the start session button",
+    "episode_goal": "In the Meditopia app, In order to improve my meditation, I would like to listen to the Thunder and Rain sounds.",
+    "expected_choice": [
+      "e314a94"
+    ],
+    "target": "Start Session",
+    "tap": [
+      540,
+      2090
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/824_1.json",
+    "goal": "Go to the search bar",
+    "episode_goal": "i have to go to a colleague's birthday party so i need eyeliner for me so search for Pencil eyeliner on the Nykaa app.",
+    "expected_choice": [
+      "ebe7133"
+    ],
+    "target": "Search on Nykaa",
+    "tap": [
+      477,
+      334
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/824_3.json",
+    "goal": "Click on the search icon at the bottom right corner of the screen",
+    "episode_goal": "i have to go to a colleague's birthday party so i need eyeliner for me so search for Pencil eyeliner on the Nykaa app.",
+    "expected_choice": [
+      "e5a1bd2"
+    ],
+    "target": "Search",
+    "tap": [
+      994,
+      2158
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/864_2.json",
+    "goal": "click on research tab",
+    "episode_goal": "I've chosen to buy a used car on a budget, so I'd want to use the Edmunds app to seek for a Honda Civic type R in decent condition.",
+    "expected_choice": [
+      "e9c9966"
+    ],
+    "target": "Research",
+    "tap": [
+      405,
+      2263
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/864_5.json",
+    "goal": "click on Honda option",
+    "episode_goal": "I've chosen to buy a used car on a budget, so I'd want to use the Edmunds app to seek for a Honda Civic type R in decent condition.",
+    "expected_choice": [
+      "e634c6c"
+    ],
+    "target": "Honda",
+    "tap": [
+      655,
+      1806
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/864_6.json",
+    "goal": "click on Civic option",
+    "episode_goal": "I've chosen to buy a used car on a budget, so I'd want to use the Edmunds app to seek for a Honda Civic type R in decent condition.",
+    "expected_choice": [
+      "e323287"
+    ],
+    "target": "Civic",
+    "tap": [
+      540,
+      645
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/864_7.json",
+    "goal": "select the Type R option",
+    "episode_goal": "I've chosen to buy a used car on a budget, so I'd want to use the Edmunds app to seek for a Honda Civic type R in decent condition.",
+    "expected_choice": [
+      "e8be572"
+    ],
+    "target": "Type R",
+    "tap": [
+      561,
+      790
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/884_1.json",
+    "goal": "Click on profile icon at the top right corner of the screen.",
+    "episode_goal": "Review the greet people and say goodbye lesson progress in the Babbel app.",
+    "expected_choice": [
+      "ed8a110"
+    ],
+    "target": "toolbar icon",
+    "tap": [
+      1005,
+      200
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/904_1.json",
+    "goal": "Click on the Departure location option.",
+    "episode_goal": "I want to search for a flight to Oxford, United Kingdom from Rotterdam for a vacation on the Omio app for the 13th of December. ",
+    "expected_choice": [
+      "e558ef4"
+    ],
+    "target": ", Rotterdam Netherlands",
+    "tap": [
+      519,
+      832
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/904_3.json",
+    "goal": "Click on the first suggestion.",
+    "episode_goal": "I want to search for a flight to Oxford, United Kingdom from Rotterdam for a vacation on the Omio app for the 13th of December. ",
+    "expected_choice": [
+      "eb5a0b1"
+    ],
+    "target": "Rotterdam Netherlands",
+    "tap": [
+      571,
+      525
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/904_4.json",
+    "goal": "Click on the arrival city option.",
+    "episode_goal": "I want to search for a flight to Oxford, United Kingdom from Rotterdam for a vacation on the Omio app for the 13th of December. ",
+    "expected_choice": [
+      "e30954c"
+    ],
+    "target": ", Oxford United Kingdom",
+    "tap": [
+      581,
+      984
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/904_6.json",
+    "goal": "Click on the first suggestion.",
+    "episode_goal": "I want to search for a flight to Oxford, United Kingdom from Rotterdam for a vacation on the Omio app for the 13th of December. ",
+    "expected_choice": [
+      "e01ae58"
+    ],
+    "target": "Oxford United Kingdom",
+    "tap": [
+      571,
+      525
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/924_0.json",
+    "goal": "Click on the three dots of the PXL_20230614_075718185.MP.jpg ",
+    "episode_goal": "Make a copy of the PXL_20230614_075718185.MP.jpg to palm folder ",
+    "expected_choice": [
+      "e60f7ba"
+    ],
+    "target": "More actions for PXL_20230614_075718185.MP.jpg",
+    "tap": [
+      1016,
+      1419
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/924_1.json",
+    "goal": "Click on the Make a copy icon",
+    "episode_goal": "Make a copy of the PXL_20230614_075718185.MP.jpg to palm folder ",
+    "expected_choice": [
+      "ebbc327"
+    ],
+    "target": "Make a copy",
+    "tap": [
+      584,
+      1541
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/924_2.json",
+    "goal": "Click on My drive option ",
+    "episode_goal": "Make a copy of the PXL_20230614_075718185.MP.jpg to palm folder ",
+    "expected_choice": [
+      "e8df15f"
+    ],
+    "target": "My Drive",
+    "tap": [
+      563,
+      409
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  },
+  {
+    "adapter": "android",
+    "source": "screens/924_3.json",
+    "goal": "Click on the Palm folder",
+    "episode_goal": "Make a copy of the PXL_20230614_075718185.MP.jpg to palm folder ",
+    "expected_choice": [
+      "eb0fdbd"
+    ],
+    "target": "Palm · Modified 10:37 AM",
+    "tap": [
+      563,
+      935
+    ],
+    "action": "click",
+    "review": "hand: checked"
+  }
+]

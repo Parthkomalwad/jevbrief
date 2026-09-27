@@ -5,7 +5,7 @@ jevbrief sits between a source and TypeSafe's Jev. It keeps what matters, drops 
 ## Quick start
 
 ```bash
-pip install jevbrief                  # tools, ci, pr, otel, and json; add [web] or [nes], or [all] for everything
+pip install jevbrief                  # tools, ci, pr, otel, json, and android; add [web] or [nes], or [all] for everything
 ```
 
 Get an API key at [console.typesafe.ai](https://console.typesafe.ai), and set `TYPESAFE_API_KEY` in your environment or in a `.env` file.
@@ -47,6 +47,7 @@ Every adapter page has the same sections: at a glance, quick start, Python, inpu
 | [otel](adapters/otel.md) | OpenTelemetry logs, Kubernetes events, and Prometheus alerts | Which signal shows an incident's cause | `jevbrief` |
 | [json](adapters/json.md) | Any JSON or JSON Lines, with a config file | Which item fits, or which action to take | `jevbrief` |
 | [web](adapters/web.md) | Web pages, through Playwright | Which element to click next | `jevbrief[web]` |
+| [android](adapters/android.md) | Android screens: `uiautomator dump`, Appium, AndroidWorld, AndroidControl | Which element to tap next | `jevbrief` |
 | [nes](adapters/nes.md) | An NES game's memory | Which move to make next | `jevbrief[nes]` |
 
 ## Guides
@@ -65,6 +66,7 @@ The full table and method are in [How it works](concepts.md#benchmarks). Results
 - [steps](../bench/steps/results.md)
 - [ci](../bench/ci/results.md)
 - [pr](../bench/pr/results.md)
+- [android](../bench/android/results.md)
 - [otel](../bench/otel/results.md), and [with events and alerts](../bench/incident/results.md)
 - [json](../bench/json/results.md)
 - [web](../bench/results.md)

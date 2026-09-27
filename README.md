@@ -31,7 +31,7 @@ jevbrief sits between your source and Jev. It keeps what matters, drops the rest
 ## Quick start
 
 ```bash
-pip install jevbrief          # tools, ci, pr, otel, and json; add [web] or [nes], or [all] for everything
+pip install jevbrief          # tools, ci, pr, otel, json, and android; add [web] or [nes], or [all] for everything
 ```
 
 Set `TYPESAFE_API_KEY` (get one at [console.typesafe.ai](https://console.typesafe.ai)) in your environment or a `.env` file. `inspect` needs no key and costs nothing. `ask` calls Jev and `--view` replays the decision:
@@ -69,6 +69,7 @@ check_progress(history, goal).stuck          # is the agent going in circles?
 | [otel](https://claude.ai/artifact/MpQRvn5d5bohrNVWwLVp31#otel) | OpenTelemetry logs, Kubernetes events, and Prometheus alerts | Which signal shows an incident's cause | `jevbrief` |
 | [json](https://claude.ai/artifact/MpQRvn5d5bohrNVWwLVp31#json) | Any JSON or JSON Lines, with a config file | Which item fits, or which action to take | `jevbrief` |
 | [web](https://claude.ai/artifact/MpQRvn5d5bohrNVWwLVp31#web) | Web pages, through Playwright | Which element to click next | `jevbrief[web]` |
+| [android](https://claude.ai/artifact/MpQRvn5d5bohrNVWwLVp31#android) | Android screens: `uiautomator dump`, Appium, AndroidWorld, AndroidControl | Which element to tap next | `jevbrief` |
 | [nes](https://claude.ai/artifact/MpQRvn5d5bohrNVWwLVp31#nes) | An NES game's memory | Which move to make next | `jevbrief[nes]` |
 
 Each adapter's page covers its quick start, input, reason codes, options, and limits. Want another source? [Suggest it](https://github.com/parthkomalwad/jevbrief/issues/new?template=adapter_request.yml) or [build it](https://claude.ai/artifact/MpQRvn5d5bohrNVWwLVp31#build).
@@ -87,6 +88,7 @@ Both arms use the same Jev and the same question, with three runs per task and m
 | otel with events and alerts | 8 synthetic incidents | 71% → **100%** | 29,912 → **1,830** |
 | json | 9 synthetic queries | 89% → **100%** | 3,848 → **2,002** |
 | web | 10 synthetic pages | 100% → 100% | 5,400 → **2,344** |
+| android | 105 real taps (AndroidControl, fresh data) | 61% → **84%** | 18,753 → **2,049** |
 | nes | 100 moves on a real level | block 8.6 → **block 56.4** | 2,829 → **713** |
 
 Not every result favors jevbrief:
