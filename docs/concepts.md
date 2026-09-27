@@ -55,7 +55,7 @@ Each adapter picks the view that fits its source:
 |---|---|---|
 | Table | json, ci, pr, tools, steps | Every fact with its score and reason |
 | Timeline | otel | One bar per log group, event group, or alert, with the incident start marked |
-| Snapshot | web | The page with Jev's pick outlined |
+| Snapshot | web, android | The page or screen with Jev's pick outlined (android: when a screenshot is given) |
 | Live | nes | Decisions as they are written, next to the running game (`jevbrief view --live`) |
 
 The viewer is a single HTML file with the trace and images embedded. It needs no server and no network, so you can attach it to a bug report.
@@ -79,6 +79,7 @@ Each adapter is measured the same way:
 | [otel, events and alerts](../bench/incident/results.md) | Synthetic | 8 incidents | 71% | **100%** | 29,912 | **1,830** (−94%) |
 | [json](../bench/json/results.md) | Synthetic | 9 queries | 89% | **100%** | 3,848 | **2,002** (−48%) |
 | [web](../bench/results.md) | Synthetic | 10 pages | 100% | 100% | 5,400 | **2,344** (−57%) |
+| [android](../bench/android/results.md) | Real (AndroidControl) | 105 taps, fresh data | 61% | **84%** | 18,753 | **2,049** (−89%) |
 | [nes](../bench/nes/results.md) | Real game | 100 moves on level 1-1 | block 8.6 | **block 56.4** | 2,829 | **713** (−75%) |
 
 - **pr:** a tie on accuracy, and only 6 points above picking the largest chunk. jevbrief saved tokens but did not pick better.

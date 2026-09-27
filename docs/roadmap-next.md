@@ -10,7 +10,8 @@ Written 2026-09-25, after v0.5.0, and updated 2026-09-26. It is for picking up t
   - tools: `select_tools` and `pick_tool`, with hybrid ranking
   - steps: `check_progress` and `loop_signals`
   - pr: review priority for a pull request (released in v0.6.0)
-- **Done, not yet released:** the incident pack. otel also reads Kubernetes events and Alertmanager or Prometheus alerts (`bench/incident/`).
+- **Released since:** the incident pack (v0.7.0); an engineering release (v0.8.0); concurrency fixes (v0.8.1).
+- **Done, not yet released:** the `android` adapter, with a real AndroidControl benchmark and a fresh-data holdout (`bench/android/`).
 - **Docs site:** https://claude.ai/artifact/MpQRvn5d5bohrNVWwLVp31, built by `scripts/build_docs_site.py`.
 
 ## Priority list
@@ -19,7 +20,7 @@ Written 2026-09-25, after v0.5.0, and updated 2026-09-26. It is for picking up t
 |---|---|---|---|---|---|
 | 1 ✓ | `pr` (v0.6.0) | Which parts of this pull request need a human reviewer, and is it safe to merge? | Over 1 in 5 GitHub reviews now involve an agent. Agent PRs carry more duplication and debt. | **Real:** public PRs. Truth is which diff chunks got review comments or were reverted. | Medium |
 | 2 ✓ | Incident pack (extend `otel`) | Which signal shows the root cause: a log group, a Kubernetes event, or an alert? | AI SRE is the hot category. Teams report 40–70% faster recovery, and evidence is scattered across logs, events, and alerts. | **Hard:** use the datasets behind the ARGUS and TriFleetRCA papers, or synthetic data | Medium |
-| 3 | `android` | Which element to tap next | Mobile agents are growing. A screen has about 200 elements, and screenshots cost 5–10 times more tokens than the element list. | **Real:** AndroidWorld, Android in the Wild | Small to medium, since it reuses the web pattern |
+| 3 ✓ | `android` | Which element to tap next | Mobile agents are growing. A screen has about 200 elements, and screenshots cost 5–10 times more tokens than the element list. | **Real:** AndroidWorld, Android in the Wild | Small to medium, since it reuses the web pattern |
 | 4 | `vulns` | Which security alert to fix first, and which are noise | Teams get thousands of CVE alerts that match only on package name and version, and the real ones are buried. | **Real:** VEX-Bench (2026) | Medium |
 | — | Skipped: RAG chunk selection | | Dedicated rerankers already do this well. jevbrief would be a weaker reranker. | | |
 

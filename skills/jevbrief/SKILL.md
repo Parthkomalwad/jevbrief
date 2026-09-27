@@ -9,6 +9,7 @@ jevbrief turns a source into small, relevant state for Jev. An **adapter** reads
 
 | Source | Adapter | Install | Jev answers |
 |---|---|---|---|
+| Android screens: `uiautomator dump` XML, Appium page source, AndroidWorld or AndroidControl UI elements | `android` | `pip install jevbrief` | Which element to tap next |
 | Web pages (Playwright) | `web` | `pip install "jevbrief[web]"` then `playwright install chromium` | Which element to click next |
 | JSON / JSON Lines with a config | `json` | `pip install jevbrief` | Which item fits, or which fixed action to take |
 | OpenTelemetry logs (OTLP JSON), `kubectl get events -o json`, Alertmanager or Prometheus alerts | `otel` | `pip install jevbrief` | Which log group, Kubernetes event, or alert shows an incident's cause |
@@ -29,6 +30,7 @@ Set `TYPESAFE_API_KEY` in the environment or in a `.env` file where the CLI runs
 ```bash
 jevbrief inspect <url-or-file> --goal "<goal>"                                         # web
 jevbrief inspect data.json --adapter json --config map.toml --goal "<goal>"            # json
+jevbrief inspect window_dump.xml --adapter android --goal "<the step>"               # android: adb shell uiautomator dump
 jevbrief inspect incident/ --adapter otel --goal "<what users see failing>"            # otel: logs, events.json, alerts.json
 jevbrief inspect run.log   --adapter ci   --goal "CI is red on main"                     # ci: gh run view --log-failed, a log zip, or JUnit XML
 jevbrief inspect pr.diff   --adapter pr   --goal "<the PR's title>"                      # pr: gh pr diff <n> > pr.diff
