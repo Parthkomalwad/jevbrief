@@ -15,6 +15,11 @@ These are used by applications and are kept compatible:
 
 The adapter interface (`Adapter`, `Extracted`, `Rule`, `RuleSet`, and question packs) can still change in a minor release. When it does, adapters written for the previous release keep working.
 
+## 0.9.0
+
+- **New adapter: `android`.** It chooses which element to tap next on an Android screen, from `uiautomator dump` XML, Appium page source, or AndroidWorld and AndroidControl UI element lists. On real taps from Google's AndroidControl dataset, with fresh data and the adapter unchanged, it scored 84% against 61% for sending the whole screen, with 89% fewer tokens. See [the android adapter](adapters/android.md).
+- No API changes. Every other adapter gives the same output as in 0.8.1.
+
 ## 0.8.1
 
 Fixes for running jevbrief from many threads or processes. See [Threads, processes, and async](concurrency.md).
