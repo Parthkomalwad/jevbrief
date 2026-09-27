@@ -15,6 +15,13 @@ These are used by applications and are kept compatible:
 
 The adapter interface (`Adapter`, `Extracted`, `Rule`, `RuleSet`, and question packs) can still change in a minor release. When it does, adapters written for the previous release keep working.
 
+## 0.10.0
+
+- **New adapter: `vulns`**, triage for security alerts from osv-scanner, grype, trivy, Dependabot, or OSV. With your source code, it drops alerts for packages you never import or only use in tests, and it flags vulnerabilities exploited in the wild. See [the vulns adapter](adapters/vulns.md).
+- **Its `exploitable` question is experimental.** On 72 expert-labeled VEX-Bench cases, it scored below always answering "not exploitable" (59% against 71%). It found 76% of the exploitable cases, against 32% for the raw alerts, with twice the false alarms. Use it to rank alerts, not to close them.
+- **`jevbrief bench`** can now score yes-or-no answers (`expected_noul`) and pass per-task options to the adapter (`options`).
+- No API changes. Every other adapter gives the same output as in 0.9.0.
+
 ## 0.9.0
 
 - **New adapter: `android`.** It chooses which element to tap next on an Android screen, from `uiautomator dump` XML, Appium page source, or AndroidWorld and AndroidControl UI element lists. On real taps from Google's AndroidControl dataset, with fresh data and the adapter unchanged, it scored 84% against 61% for sending the whole screen, with 89% fewer tokens. See [the android adapter](adapters/android.md).
