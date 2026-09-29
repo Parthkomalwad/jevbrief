@@ -10,9 +10,9 @@ Other tools show what Jev decided. jevbrief shows what Jev was told, what it was
 [![PyPI](https://img.shields.io/pypi/v/jevbrief?color=ff3fd2&label=pypi)](https://pypi.org/project/jevbrief)
 [![Python](https://img.shields.io/pypi/pyversions/jevbrief?color=111)](https://pypi.org/project/jevbrief)
 [![License: MIT](https://img.shields.io/badge/license-MIT-111)](https://github.com/parthkomalwad/jevbrief/blob/main/LICENSE)
-[![Docs](https://img.shields.io/badge/docs-read-ff3fd2)](https://claude.ai/artifact/MpQRvn5d5bohrNVWwLVp31)
+[![Docs](https://img.shields.io/badge/docs-read-ff3fd2)](https://parthkomalwad.dev/projects/jevbrief/)
 
-[**Documentation**](https://claude.ai/artifact/MpQRvn5d5bohrNVWwLVp31) &nbsp;·&nbsp; [Quick start](#quick-start) &nbsp;·&nbsp; [Adapters](#adapters) &nbsp;·&nbsp; [Benchmarks](#benchmarks) &nbsp;·&nbsp; [Contributing](#contributing)
+[**Documentation**](https://parthkomalwad.dev/projects/jevbrief/) &nbsp;·&nbsp; [Quick start](#quick-start) &nbsp;·&nbsp; [Adapters](#adapters) &nbsp;·&nbsp; [Benchmarks](#benchmarks) &nbsp;·&nbsp; [Contributing](#contributing)
 
 <br>
 
@@ -62,18 +62,18 @@ check_progress(history, goal).stuck          # is the agent going in circles?
 
 | Adapter | Reads | Jev answers | Install |
 |---|---|---|---|
-| [tools](https://claude.ai/artifact/MpQRvn5d5bohrNVWwLVp31#tools) | Your functions, MCP servers, LangChain, CrewAI, OpenAI, and Anthropic tools | Which tool the agent should call next | `jevbrief` |
-| [steps](https://claude.ai/artifact/MpQRvn5d5bohrNVWwLVp31#steps) | An agent's step history, from any framework or a jevbrief trace | Is the agent stuck, making progress, or done | `jevbrief` |
-| [ci](https://claude.ai/artifact/MpQRvn5d5bohrNVWwLVp31#ci) | GitHub Actions logs and JUnit XML | Which error broke the build, and whether it looks flaky | `jevbrief` |
-| [pr](https://claude.ai/artifact/MpQRvn5d5bohrNVWwLVp31#pr) | A pull request's diff: `gh pr diff`, `.patch`, or the GitHub API | Which chunk most needs a human reviewer, and whether it is safe to merge | `jevbrief` |
-| [otel](https://claude.ai/artifact/MpQRvn5d5bohrNVWwLVp31#otel) | OpenTelemetry logs, Kubernetes events, and Prometheus alerts | Which signal shows an incident's cause | `jevbrief` |
-| [json](https://claude.ai/artifact/MpQRvn5d5bohrNVWwLVp31#json) | Any JSON or JSON Lines, with a config file | Which item fits, or which action to take | `jevbrief` |
-| [web](https://claude.ai/artifact/MpQRvn5d5bohrNVWwLVp31#web) | Web pages, through Playwright | Which element to click next | `jevbrief[web]` |
-| [android](https://claude.ai/artifact/MpQRvn5d5bohrNVWwLVp31#android) | Android screens: `uiautomator dump`, Appium, AndroidWorld, AndroidControl | Which element to tap next | `jevbrief` |
-| [vulns](https://claude.ai/artifact/MpQRvn5d5bohrNVWwLVp31#vulns) | osv-scanner, grype, trivy, Dependabot, or OSV alerts, plus your code | Which security alert to fix first (and, experimentally, whether it is exploitable) | `jevbrief` |
-| [nes](https://claude.ai/artifact/MpQRvn5d5bohrNVWwLVp31#nes) | An NES game's memory | Which move to make next | `jevbrief[nes]` |
+| [tools](https://parthkomalwad.dev/projects/jevbrief/#tools) | Your functions, MCP servers, LangChain, CrewAI, OpenAI, and Anthropic tools | Which tool the agent should call next | `jevbrief` |
+| [steps](https://parthkomalwad.dev/projects/jevbrief/#steps) | An agent's step history, from any framework or a jevbrief trace | Is the agent stuck, making progress, or done | `jevbrief` |
+| [ci](https://parthkomalwad.dev/projects/jevbrief/#ci) | GitHub Actions logs and JUnit XML | Which error broke the build, and whether it looks flaky | `jevbrief` |
+| [pr](https://parthkomalwad.dev/projects/jevbrief/#pr) | A pull request's diff: `gh pr diff`, `.patch`, or the GitHub API | Which chunk most needs a human reviewer, and whether it is safe to merge | `jevbrief` |
+| [otel](https://parthkomalwad.dev/projects/jevbrief/#otel) | OpenTelemetry logs, Kubernetes events, and Prometheus alerts | Which signal shows an incident's cause | `jevbrief` |
+| [json](https://parthkomalwad.dev/projects/jevbrief/#json) | Any JSON or JSON Lines, with a config file | Which item fits, or which action to take | `jevbrief` |
+| [web](https://parthkomalwad.dev/projects/jevbrief/#web) | Web pages, through Playwright | Which element to click next | `jevbrief[web]` |
+| [android](https://parthkomalwad.dev/projects/jevbrief/#android) | Android screens: `uiautomator dump`, Appium, AndroidWorld, AndroidControl | Which element to tap next | `jevbrief` |
+| [vulns](https://parthkomalwad.dev/projects/jevbrief/#vulns) | osv-scanner, grype, trivy, Dependabot, or OSV alerts, plus your code | Which security alert to fix first (and, experimentally, whether it is exploitable) | `jevbrief` |
+| [nes](https://parthkomalwad.dev/projects/jevbrief/#nes) | An NES game's memory | Which move to make next | `jevbrief[nes]` |
 
-Each adapter's page covers its quick start, input, reason codes, options, and limits. Want another source? [Suggest it](https://github.com/parthkomalwad/jevbrief/issues/new?template=adapter_request.yml) or [build it](https://claude.ai/artifact/MpQRvn5d5bohrNVWwLVp31#build).
+Each adapter's page covers its quick start, input, reason codes, options, and limits. Want another source? [Suggest it](https://github.com/parthkomalwad/jevbrief/issues/new?template=adapter_request.yml) or [build it](https://parthkomalwad.dev/projects/jevbrief/#build).
 
 ## Benchmarks
 
@@ -99,12 +99,12 @@ Not every result favors jevbrief:
 - On vulns, jevbrief scored below the raw alerts and below always answering "not exploitable". It found 76% of the exploitable cases, against 32%, but with twice the false alarms.
 - The synthetic sets were built alongside the adapters.
 
-See [how the benchmarks work](https://claude.ai/artifact/MpQRvn5d5bohrNVWwLVp31#concepts.benchmarks) for the method and caveats.
+See [how the benchmarks work](https://parthkomalwad.dev/projects/jevbrief/#concepts.benchmarks) for the method and caveats.
 
 ## Contributing
 
 - **Suggest a source:** [open an adapter request](https://github.com/parthkomalwad/jevbrief/issues/new?template=adapter_request.yml).
-- **Build an adapter:** follow [the guide](https://claude.ai/artifact/MpQRvn5d5bohrNVWwLVp31#build).
+- **Build an adapter:** follow [the guide](https://parthkomalwad.dev/projects/jevbrief/#build).
 - **Report a wrong decision:** [open a bug report](https://github.com/parthkomalwad/jevbrief/issues/new?template=bug_report.yml), and attach the trace.
 
 ```bash

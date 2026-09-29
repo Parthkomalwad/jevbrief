@@ -13,7 +13,7 @@ Written 2026-09-25, after v0.5.0, and updated 2026-09-26. It is for picking up t
 - **Released since:** the incident pack (v0.7.0); an engineering release (v0.8.0); concurrency fixes (v0.8.1).
 - **Released since:** the `android` adapter (v0.9.0).
 - **Done, not yet released:** the `vulns` adapter. On VEX-Bench it scored below the always-"no" baseline; it ships as a triage aid, with its exploitable answer marked experimental.
-- **Docs site:** https://claude.ai/artifact/MpQRvn5d5bohrNVWwLVp31, built by `scripts/build_docs_site.py`.
+- **Docs site:** https://parthkomalwad.dev/projects/jevbrief/, built by `scripts/build_docs_site.py`.
 
 ## Priority list
 
